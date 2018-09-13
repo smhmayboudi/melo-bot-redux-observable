@@ -1,0 +1,9 @@
+.git
+.github
+.vscode
+coverage
+dist
+node_modules
+Dockerfile
+Dockerfile.in-polling
+docker-compose.yaml

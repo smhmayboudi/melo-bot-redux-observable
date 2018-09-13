@@ -1,0 +1,30 @@
+{
+  "message": {
+    "message_id": 1164,
+    "from": {
+      "id": 52953379,
+      "is_bot": false,
+      "first_name": "Hossein",
+      "last_name": "Mayboudi",
+      "username": "smhmayboudi",
+      "language_code": "en-CA"
+    },
+    "chat": {
+      "id": 52953379,
+      "first_name": "Hossein",
+      "last_name": "Mayboudi",
+      "username": "smhmayboudi",
+      "type": "private"
+    },
+    "date": 1537627954,
+    "text": "/getChatMember",
+    "entities": [
+      {
+        "offset": 0,
+        "length": 9,
+        "type": "bot_command"
+      }
+    ]
+  },
+  "update_id": 0
+}

@@ -1,0 +1,21 @@
+{
+  "collectCoverage": true,
+  "globalSetup": "./setup.js",
+  "globalTeardown": "./teardown.js",
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx",
+    "json",
+    "node"
+  ],
+  "roots": [
+    "<rootDir>/src"
+  ],
+  "testEnvironment": "./mongo-environment.js",
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  }
+}

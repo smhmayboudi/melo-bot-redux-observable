@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "tslint:all"
+  ],
+  "rules": {
+    "no-any": false,
+    "no-inferrable-types": false,
+    "no-submodule-imports": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "./src/lib/lib/*"
+    ]
+  }
+}
