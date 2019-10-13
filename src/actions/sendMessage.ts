@@ -1,7 +1,7 @@
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
 
-const initalState: IStateSendMessage = {};
+const initialState: IStateSendMessage = {};
 
 const SEND_MESSAGE_ERROR: string = "SEND_MESSAGE_ERROR";
 const SEND_MESSAGE_QUERY: string = "SEND_MESSAGE_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   SEND_MESSAGE_ERROR,
   SEND_MESSAGE_QUERY,
   SEND_MESSAGE_RESULT,

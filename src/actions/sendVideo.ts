@@ -1,7 +1,7 @@
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IStateSendVideo } from "../../types/iStateSendVideo";
 
-const initalState: IStateSendVideo = {};
+const initialState: IStateSendVideo = {};
 
 const SEND_VIDEO_ERROR: string = "SEND_VIDEO_ERROR";
 const SEND_VIDEO_QUERY: string = "SEND_VIDEO_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   SEND_VIDEO_ERROR,
   SEND_VIDEO_QUERY,
   SEND_VIDEO_RESULT,

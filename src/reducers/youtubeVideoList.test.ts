@@ -13,21 +13,21 @@ describe("youtubeVideoList reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(reducer.youtubeVideoList(undefined, { youtubeVideoList: {}, type: "" }))
-      .toEqual(action.initalState);
+      .toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
-    expect(reducer.youtubeVideoList({ ...action.initalState, query }, action.error({ error })))
+    expect(reducer.youtubeVideoList({ ...action.initialState, query }, action.error({ error })))
       .toEqual({ error, query });
   });
 
   test("should handle query", (): void => {
-    expect(reducer.youtubeVideoList(action.initalState, action.query({ query })))
+    expect(reducer.youtubeVideoList(action.initialState, action.query({ query })))
       .toEqual({ query });
   });
 
   test("should handle result", (): void => {
-    expect(reducer.youtubeVideoList({ ...action.initalState, query }, action.result({ result })))
+    expect(reducer.youtubeVideoList({ ...action.initialState, query }, action.result({ result })))
       .toEqual({ query, result });
   });
 

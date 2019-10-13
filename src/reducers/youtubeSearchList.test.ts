@@ -13,21 +13,21 @@ describe("youtubeSearchList reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(reducer.youtubeSearchList(undefined, { youtubeSearchList: {}, type: "" }))
-      .toEqual(action.initalState);
+      .toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
-    expect(reducer.youtubeSearchList({ ...action.initalState, query }, action.error({ error })))
+    expect(reducer.youtubeSearchList({ ...action.initialState, query }, action.error({ error })))
       .toEqual({ error, query });
   });
 
   test("should handle query", (): void => {
-    expect(reducer.youtubeSearchList(action.initalState, action.query({ query })))
+    expect(reducer.youtubeSearchList(action.initialState, action.query({ query })))
       .toEqual({ query });
   });
 
   test("should handle result", (): void => {
-    expect(reducer.youtubeSearchList({ ...action.initalState, query }, action.result({ result })))
+    expect(reducer.youtubeSearchList({ ...action.initialState, query }, action.result({ result })))
       .toEqual({ query, result });
   });
 

@@ -21,21 +21,21 @@ describe("sendMessage reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(reducer.sendMessage(undefined, { sendMessage: {}, type: "" }))
-      .toEqual(action.initalState);
+      .toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
-    expect(reducer.sendMessage({ ...action.initalState, query }, action.error({ error })))
+    expect(reducer.sendMessage({ ...action.initialState, query }, action.error({ error })))
       .toEqual({ error, query });
   });
 
   test("should handle query", (): void => {
-    expect(reducer.sendMessage(action.initalState, action.query({ query })))
+    expect(reducer.sendMessage(action.initialState, action.query({ query })))
       .toEqual({ query });
   });
 
   test("should handle result", (): void => {
-    expect(reducer.sendMessage({ ...action.initalState, query }, action.result({ result })))
+    expect(reducer.sendMessage({ ...action.initialState, query }, action.result({ result })))
       .toEqual({ query, result });
   });
 

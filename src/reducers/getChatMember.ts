@@ -9,7 +9,7 @@ const getChatMember:
   ) =>
     IStateGetChatMember =
   (
-    state: IStateGetChatMember | undefined = actions.getChatMember.initalState,
+    state: IStateGetChatMember | undefined = actions.getChatMember.initialState,
     action: IActionGetChatMember,
   ):
     IStateGetChatMember => {

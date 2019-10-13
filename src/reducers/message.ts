@@ -9,7 +9,7 @@ const message:
   ) =>
     IStateMessage =
   (
-    state: IStateMessage | undefined = actions.message.initalState,
+    state: IStateMessage | undefined = actions.message.initialState,
     action: IActionMessage,
   ):
     IStateMessage => {

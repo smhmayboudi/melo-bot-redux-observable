@@ -9,7 +9,7 @@ const literate:
   ) =>
     IStateLiterate =
   (
-    state: IStateLiterate | undefined = actions.literate.initalState,
+    state: IStateLiterate | undefined = actions.literate.initialState,
     action: IActionLiterate,
   ):
     IStateLiterate => {

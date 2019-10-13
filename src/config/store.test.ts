@@ -8,16 +8,16 @@ import { configureStore } from "./store";
 
 describe("store config", (): void => {
 
-  const initalStateh: IState = {
-    getChatMember: actions.getChatMember.initalState,
-    literate: actions.literate.initalState,
-    message: actions.message.initalState,
-    sendAudio: actions.sendAudio.initalState,
-    sendMessage: actions.sendMessage.initalState,
-    sendVideo: actions.sendVideo.initalState,
-    youtubeDownload: actions.youtubeDownload.initalState,
-    youtubeSearchList: actions.youtubeSearchList.initalState,
-    youtubeVideoList: actions.youtubeVideoList.initalState,
+  const initialStateh: IState = {
+    getChatMember: actions.getChatMember.initialState,
+    literate: actions.literate.initialState,
+    message: actions.message.initialState,
+    sendAudio: actions.sendAudio.initialState,
+    sendMessage: actions.sendMessage.initialState,
+    sendVideo: actions.sendVideo.initialState,
+    youtubeDownload: actions.youtubeDownload.initialState,
+    youtubeSearchList: actions.youtubeSearchList.initialState,
+    youtubeVideoList: actions.youtubeVideoList.initialState,
   };
   let message: IStateMessage = {
     query: {
@@ -69,7 +69,7 @@ describe("store config", (): void => {
     store.dispatch(actions.message.query(message));
     expect(store.getState())
       .toEqual({
-        ...initalStateh,
+        ...initialStateh,
         message,
       });
   });
@@ -90,7 +90,7 @@ describe("store config", (): void => {
     store.dispatch(actions.literate.query({ query: literateQuery }));
     expect(store.getState())
       .toEqual({
-        ...initalStateh,
+        ...initialStateh,
         literate: { query: literateQuery, result: literateResult },
         message,
       });

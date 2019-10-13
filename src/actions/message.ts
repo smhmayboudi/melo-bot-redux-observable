@@ -1,7 +1,7 @@
 import { IActionMessage } from "../../types/iActionMessage";
 import { IStateMessage } from "../../types/iStateMessage";
 
-const initalState: IStateMessage = {};
+const initialState: IStateMessage = {};
 
 const MESSAGE_QUERY: string = "MESSAGE_QUERY";
 
@@ -17,7 +17,7 @@ const query:
   ;
 
 export {
-  initalState,
+  initialState,
   MESSAGE_QUERY,
   query,
 };

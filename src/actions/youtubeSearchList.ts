@@ -1,7 +1,7 @@
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
 
-const initalState: IStateYoutubeSearchList = {};
+const initialState: IStateYoutubeSearchList = {};
 
 const YOUTUBE_SEARCH_LIST_ERROR: string = "YOUTUBE_SEARCH_LIST_ERROR";
 const YOUTUBE_SEARCH_LIST_QUERY: string = "YOUTUBE_SEARCH_LIST_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   YOUTUBE_SEARCH_LIST_ERROR,
   YOUTUBE_SEARCH_LIST_QUERY,
   YOUTUBE_SEARCH_LIST_RESULT,

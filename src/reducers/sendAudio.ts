@@ -9,7 +9,7 @@ const sendAudio:
   ) =>
     IStateSendAudio =
   (
-    state: IStateSendAudio | undefined = actions.sendAudio.initalState,
+    state: IStateSendAudio | undefined = actions.sendAudio.initialState,
     action: IActionSendAudio,
   ):
     IStateSendAudio => {

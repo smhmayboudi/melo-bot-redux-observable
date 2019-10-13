@@ -23,21 +23,21 @@ describe("youtubeDownload reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(reducer.youtubeDownload(undefined, { youtubeDownload: {}, type: "" }))
-      .toEqual(action.initalState);
+      .toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
-    expect(reducer.youtubeDownload({ ...action.initalState, query }, action.error({ error })))
+    expect(reducer.youtubeDownload({ ...action.initialState, query }, action.error({ error })))
       .toEqual({ error, query });
   });
 
   test("should handle query", (): void => {
-    expect(reducer.youtubeDownload(action.initalState, action.query({ query })))
+    expect(reducer.youtubeDownload(action.initialState, action.query({ query })))
       .toEqual({ query });
   });
 
   test("should handle result", (): void => {
-    expect(reducer.youtubeDownload({ ...action.initalState, query }, action.result({ result })))
+    expect(reducer.youtubeDownload({ ...action.initialState, query }, action.result({ result })))
       .toEqual({ query, result });
   });
 

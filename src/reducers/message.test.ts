@@ -10,11 +10,11 @@ describe("message reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(reducer.message(undefined, { message: {}, type: "" }))
-      .toEqual(action.initalState);
+      .toEqual(action.initialState);
   });
 
   test("should handle query", (): void => {
-    expect(reducer.message(action.initalState, action.query({ query })))
+    expect(reducer.message(action.initialState, action.query({ query })))
       .toEqual({ query });
   });
 

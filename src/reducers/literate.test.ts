@@ -9,21 +9,21 @@ describe("literate reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(reducer.literate(undefined, { literate: {}, type: "" }))
-      .toEqual(action.initalState);
+      .toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
-    expect(reducer.literate({ ...action.initalState, query }, action.error({ error })))
+    expect(reducer.literate({ ...action.initialState, query }, action.error({ error })))
       .toEqual({ error, query });
   });
 
   test("should handle query", (): void => {
-    expect(reducer.literate(action.initalState, action.query({ query })))
+    expect(reducer.literate(action.initialState, action.query({ query })))
       .toEqual({ query });
   });
 
   test("should handle result", (): void => {
-    expect(reducer.literate({ ...action.initalState, query }, action.result({ result })))
+    expect(reducer.literate({ ...action.initialState, query }, action.result({ result })))
       .toEqual({ query, result });
   });
 

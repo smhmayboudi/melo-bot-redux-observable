@@ -1,7 +1,7 @@
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 
-const initalState: IStateYoutubeDownload = {};
+const initialState: IStateYoutubeDownload = {};
 
 const YOUTUBE_DOWNLOAD_ERROR: string = "YOUTUBE_DOWNLOAD_ERROR";
 const YOUTUBE_DOWNLOAD_QUERY: string = "YOUTUBE_DOWNLOAD_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   YOUTUBE_DOWNLOAD_ERROR,
   YOUTUBE_DOWNLOAD_QUERY,
   YOUTUBE_DOWNLOAD_RESULT,

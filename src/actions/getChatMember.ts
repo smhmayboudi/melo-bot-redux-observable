@@ -1,7 +1,7 @@
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 
-const initalState: IStateGetChatMember = {};
+const initialState: IStateGetChatMember = {};
 
 const GET_CHAT_MEMBER_ERROR: string = "GET_CHAT_MEMBER_ERROR";
 const GET_CHAT_MEMBER_QUERY: string = "GET_CHAT_MEMBER_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   GET_CHAT_MEMBER_ERROR,
   GET_CHAT_MEMBER_QUERY,
   GET_CHAT_MEMBER_RESULT,

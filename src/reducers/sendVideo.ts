@@ -9,7 +9,7 @@ const sendVideo:
   ) =>
     IStateSendVideo =
   (
-    state: IStateSendVideo | undefined = actions.sendVideo.initalState,
+    state: IStateSendVideo | undefined = actions.sendVideo.initialState,
     action: IActionSendVideo,
   ):
     IStateSendVideo => {

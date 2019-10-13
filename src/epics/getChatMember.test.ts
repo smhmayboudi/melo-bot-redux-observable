@@ -18,25 +18,25 @@ import * as epic from "../epics/getChatMember";
 describe("getChatMember epic", (): void => {
 
   const error: Error = new Error("");
-  const initalState: IState = {
-    getChatMember: actions.getChatMember.initalState,
-    literate: actions.literate.initalState,
-    message: actions.message.initalState,
-    sendAudio: actions.sendAudio.initalState,
-    sendMessage: actions.sendMessage.initalState,
-    sendVideo: actions.sendVideo.initalState,
-    youtubeDownload: actions.youtubeDownload.initalState,
-    youtubeSearchList: actions.youtubeSearchList.initalState,
-    youtubeVideoList: actions.youtubeVideoList.initalState,
+  const initialState: IState = {
+    getChatMember: actions.getChatMember.initialState,
+    literate: actions.literate.initialState,
+    message: actions.message.initialState,
+    sendAudio: actions.sendAudio.initialState,
+    sendMessage: actions.sendMessage.initialState,
+    sendVideo: actions.sendVideo.initialState,
+    youtubeDownload: actions.youtubeDownload.initialState,
+    youtubeSearchList: actions.youtubeSearchList.initialState,
+    youtubeVideoList: actions.youtubeVideoList.initialState,
   };
   const state$ValueMessageQueryUndefined: IState = {
-    ...initalState,
+    ...initialState,
     message: {
       query: undefined,
     },
   };
   const state$ValueMessageQueryMessageUndefined: IState = {
-    ...initalState,
+    ...initialState,
     message: {
       query: {
         message: undefined,
@@ -58,7 +58,7 @@ describe("getChatMember epic", (): void => {
     },
   };
   const resultState: IState = {
-    ...initalState,
+    ...initialState,
     message,
   };
   const query: IStateGetChatMemberQuery = {

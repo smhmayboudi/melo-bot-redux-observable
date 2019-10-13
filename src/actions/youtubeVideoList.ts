@@ -1,7 +1,7 @@
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
 
-const initalState: IStateYoutubeVideoList = {};
+const initialState: IStateYoutubeVideoList = {};
 
 const YOUTUBE_VIDEO_LIST_ERROR: string = "YOUTUBE_VIDEO_LIST_ERROR";
 const YOUTUBE_VIDEO_LIST_QUERY: string = "YOUTUBE_VIDEO_LIST_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   YOUTUBE_VIDEO_LIST_ERROR,
   YOUTUBE_VIDEO_LIST_QUERY,
   YOUTUBE_VIDEO_LIST_RESULT,

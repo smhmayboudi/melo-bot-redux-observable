@@ -9,7 +9,7 @@ const youtubeSearchList:
   ) =>
     IStateYoutubeSearchList =
   (
-    state: IStateYoutubeSearchList | undefined = actions.youtubeSearchList.initalState,
+    state: IStateYoutubeSearchList | undefined = actions.youtubeSearchList.initialState,
     action: IActionYoutubeSearchList,
   ):
     IStateYoutubeSearchList => {

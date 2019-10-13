@@ -1,7 +1,7 @@
 import { IActionLiterate } from "../../types/iActionLiterate";
 import { IStateLiterate } from "../../types/iStateLiterate";
 
-const initalState: IStateLiterate = {};
+const initialState: IStateLiterate = {};
 
 const LITERATE_ERROR: string = "LITERATE_ERROR";
 const LITERATE_QUERY: string = "LITERATE_QUERY";
@@ -39,7 +39,7 @@ const result:
   ;
 
 export {
-  initalState,
+  initialState,
   LITERATE_ERROR,
   LITERATE_QUERY,
   LITERATE_RESULT,

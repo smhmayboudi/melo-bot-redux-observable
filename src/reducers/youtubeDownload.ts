@@ -9,7 +9,7 @@ const youtubeDownload:
   ) =>
     IStateYoutubeDownload =
   (
-    state: IStateYoutubeDownload | undefined = actions.youtubeDownload.initalState,
+    state: IStateYoutubeDownload | undefined = actions.youtubeDownload.initialState,
     action: IActionYoutubeDownload,
   ):
     IStateYoutubeDownload => {
