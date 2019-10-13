@@ -1,4 +1,5 @@
 import { combineReducers, Reducer } from "redux";
+
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateLiterate } from "../../types/iStateLiterate";
 import { IStateMessage } from "../../types/iStateMessage";
@@ -8,6 +9,7 @@ import { IStateSendVideo } from "../../types/iStateSendVideo";
 import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
 import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
+
 import { getChatMember } from "./getChatMember";
 import { literate } from "./literate";
 import { message } from "./message";

@@ -2,6 +2,7 @@ import * as FormData from "form-data";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
+
 import { IActionSendAudio } from "../../types/iActionSendAudio";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
@@ -51,7 +52,7 @@ const sendAudio:
           formData.append("reply_to_message_id", query.reply_to_message_id);
         }
         if (query.thumb !== undefined) {
-          formData.append("thumb", `${query.thumb}`);
+          formData.append("thumb", `${String(query.thumb)}`);
         }
         if (query.title !== undefined) {
           formData.append("title", query.title);

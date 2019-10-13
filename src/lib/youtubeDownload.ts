@@ -2,6 +2,7 @@ import * as debug from "debug";
 import * as fs from "fs";
 import * as http from "http";
 import * as https from "https";
+
 import { IFmtList } from "../../types/lib/iFmtList";
 import { IVideoInfo } from "../../types/lib/iVideoInfo";
 import { pathThumb, pathVideo } from "../utils/string";

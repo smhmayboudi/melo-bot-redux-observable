@@ -1,10 +1,12 @@
 import * as debug from "debug";
 import * as http from "http";
 import * as TelegramBot from "node-telegram-bot-api";
+
 import { IStateMessageQuery } from "../types/iStateMessageQuery";
 import { IInlineQuery } from "../types/telegramBot/inlineMode/iInlineQuery";
 import { ICallbackQuery } from "../types/telegramBot/types/iCallbackQuery";
 import { IMessage } from "../types/telegramBot/types/iMessage";
+
 import * as env from "./config/env";
 
 const appDebug: debug.IDebugger = debug("app:polling");

@@ -2,6 +2,7 @@ import { Action } from "redux";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { filter, switchMap } from "rxjs/operators";
+
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";

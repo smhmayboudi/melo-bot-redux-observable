@@ -1,5 +1,6 @@
 import { Action, applyMiddleware, compose, createStore, Store } from "redux";
 import { createEpicMiddleware, EpicMiddleware } from "redux-observable";
+
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { index as enhancers } from "../enhancers";

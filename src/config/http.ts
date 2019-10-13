@@ -1,7 +1,9 @@
 import * as debug from "debug";
 import * as http from "http";
 import * as url from "url";
+
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+
 import * as env from "./env";
 import { readiness } from "./kubernetesProbs";
 import { Prometheus } from "./prometheus";

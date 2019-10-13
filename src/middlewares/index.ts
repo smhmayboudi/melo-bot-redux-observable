@@ -1,4 +1,5 @@
 import { applyMiddleware, StoreEnhancer } from "redux";
+
 import { crashReporter } from "./crashReporter";
 import { logger } from "./logger";
 

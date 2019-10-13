@@ -1,7 +1,9 @@
 import { Action } from "redux";
 import { combineEpics, Epic } from "redux-observable";
+
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+
 import { appError } from "./appError";
 import { getChatMember } from "./getChatMember";
 import { literate } from "./literate";
