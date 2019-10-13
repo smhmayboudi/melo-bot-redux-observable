@@ -1,4 +1,4 @@
-import { IInlineQueryResult } from "../inlineMode/iInlineQueryResult";
+import { IInlineQueryResult } from "./iInlineQueryResult";
 
 export interface answerInlineQuery {
   (

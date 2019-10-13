@@ -1,5 +1,5 @@
-import { IInlineQueryResult } from "../inlineMode/iInlineQueryResult";
-import { IInputMessageContent } from "../inlineMode/iInputMessageContent";
+import { IInlineQueryResult } from "./iInlineQueryResult";
+import { IInputMessageContent } from "./iInputMessageContent";
 
 export interface IInlineQueryResultAudio extends IInlineQueryResult {
   audio_duration?: number;

@@ -1,4 +1,4 @@
-import { IInputMessageContent } from "../inlineMode/iInputMessageContent";
+import { IInputMessageContent } from "./iInputMessageContent";
 
 export interface IInputTextMessageContent extends IInputMessageContent {
   disable_web_page_preview?: boolean;

@@ -1,4 +1,4 @@
-import { IInputMessageContent } from "../inlineMode/iInputMessageContent";
+import { IInputMessageContent } from "./iInputMessageContent";
 
 export interface IInputLocationMessageContent extends IInputMessageContent {
   latitude: number;

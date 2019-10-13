@@ -1,4 +1,4 @@
-import { IInputMessageContent } from "../inlineMode/iInputMessageContent";
+import { IInputMessageContent } from "./iInputMessageContent";
 
 export interface IInputVenueMessageContent extends IInputMessageContent {
   address: string;

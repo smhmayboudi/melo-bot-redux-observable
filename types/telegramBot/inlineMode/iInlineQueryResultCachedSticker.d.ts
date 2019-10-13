@@ -1,5 +1,5 @@
-import { IInlineQueryResult } from "../inlineMode/iInlineQueryResult";
-import { IInputMessageContent } from "../inlineMode/iInputMessageContent";
+import { IInlineQueryResult } from "./iInlineQueryResult";
+import { IInputMessageContent } from "./iInputMessageContent";
 
 export interface IInlineQueryResultCachedSticker extends IInlineQueryResult {
   input_message_content?: IInputMessageContent;

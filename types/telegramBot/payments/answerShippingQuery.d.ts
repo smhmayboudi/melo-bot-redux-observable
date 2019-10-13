@@ -1,4 +1,4 @@
-import { IShippingOption } from "../payments/iShippingOption"
+import { IShippingOption } from "./iShippingOption"
 
 export interface answerShippingQuery {
   (
