@@ -1,13 +1,10 @@
 import { IInputFile } from "./iInputFile";
+import { IInputMedia } from "./iInputMedia";
 
-export interface IInputMediaVideo {
-  caption?: string;
+export interface IInputMediaVideo extends IInputMedia {
   duration?: number;
   height?: number;
-  media: string;
-  parse_mode?: string;
   supports_streaming?: boolean;
   thumb?: IInputFile | string;
-  type: string;
   width?: number;
 }

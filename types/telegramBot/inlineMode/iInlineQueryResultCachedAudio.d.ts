@@ -1,5 +1,5 @@
-import { IInlineQueryResult } from "../inlineMode/iInlineQueryResult";
-import { IInputMessageContent } from "../inlineMode/iInputMessageContent";
+import { IInlineQueryResult } from "./iInlineQueryResult";
+import { IInputMessageContent } from "./iInputMessageContent";
 
 export interface IInlineQueryResultCachedAudio extends IInlineQueryResult {
   audio_file_id: string;

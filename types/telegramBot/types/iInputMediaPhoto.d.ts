@@ -1,6 +1,4 @@
-export interface IInputMediaPhoto {
-  caption?: string;
-  media: string;
-  parse_mode?: string;
-  type: string;
+import { IInputMedia } from "./iInputMedia";
+
+export interface IInputMediaPhoto extends IInputMedia {
 }

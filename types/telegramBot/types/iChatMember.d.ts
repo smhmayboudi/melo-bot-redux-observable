@@ -14,6 +14,8 @@ export interface IChatMember {
   can_send_media_messages?: boolean;
   can_send_messages?: boolean;
   can_send_other_messages?: boolean;
+  can_send_polls?: boolean;
+  is_member?: boolean;
   status: string;
   until_date?: number;
   user: IUser;

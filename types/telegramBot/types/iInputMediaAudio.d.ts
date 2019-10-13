@@ -1,12 +1,9 @@
 import { IInputFile } from "./iInputFile";
+import { IInputMedia } from "./iInputMedia";
 
-export interface IInputMediaAudio {
-  caption?: string;
+export interface IInputMediaAudio extends IInputMedia {
   duration?: number;
-  media: string;
-  parse_mode?: string;
   performer?: string;
   thumb?: IInputFile | string;
   title?: string;
-  type: string;
 }

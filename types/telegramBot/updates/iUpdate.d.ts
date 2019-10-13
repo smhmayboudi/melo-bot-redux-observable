@@ -4,6 +4,7 @@ import { IPreCheckoutQuery } from "../payments/iPreCheckoutQuery";
 import { IShippingQuery } from "../payments/iShippingQuery";
 import { ICallbackQuery } from "../types/iCallbackQuery";
 import { IMessage } from "../types/iMessage";
+import { IPoll } from "../types/iPoll";
 
 export interface IUpdate {
   callback_query?: ICallbackQuery;
@@ -14,6 +15,7 @@ export interface IUpdate {
   inline_query?: IInlineQuery;
   message?: IMessage;
   pre_checkout_query?: IPreCheckoutQuery;
+  poll?: IPoll;
   shipping_query?: IShippingQuery;
   update_id: number;
 }

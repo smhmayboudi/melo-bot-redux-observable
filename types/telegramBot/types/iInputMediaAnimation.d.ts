@@ -1,12 +1,9 @@
 import { IInputFile } from "./iInputFile";
+import { IInputMedia } from "./iInputMedia";
 
-export interface IInputMediaAnimation {
-  caption?: string;
+export interface IInputMediaAnimation extends IInputMedia {
   duration?: number;
   height?: number;
-  media: string;
-  parse_mode?: string;
   thumb?: IInputFile | string,
-  type: string;
   width?: number;
 }

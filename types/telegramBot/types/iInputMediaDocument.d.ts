@@ -1,9 +1,6 @@
 import { IInputFile } from "./iInputFile";
+import { IInputMedia } from "./iInputMedia";
 
-export interface IInputMediaDocument {
-  caption?: string;
-  media: string;
-  parse_mode?: string;
+export interface IInputMediaDocument extends IInputMedia {
   thumb?: IInputFile | string;
-  type: string;
 }
