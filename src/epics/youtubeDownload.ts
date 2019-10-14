@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import { Db, MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
-import { NEVER, Observable, ObservableInput, of } from "rxjs";
-import { catchError, filter, map, race, startWith, switchMap, switchMapTo, take } from "rxjs/operators";
+import { NEVER, Observable, ObservableInput, of, race } from "rxjs";
+import { catchError, filter, map, startWith, switchMap, switchMapTo, take } from "rxjs/operators";
 
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
@@ -248,9 +248,7 @@ const youtubeDownload:
             ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
             take(1),
             filter(actionGetChatMemberResultStatus),
-            switchMapTo(cache(actionQuery)
-              .pipe(race(actionObservable(actionQuery))),
-            ),
+            switchMapTo(race(actionObservable(actionQuery), cache(actionQuery))),
             switchMap(transformObservable),
             startWith(startAction()),
           ),
