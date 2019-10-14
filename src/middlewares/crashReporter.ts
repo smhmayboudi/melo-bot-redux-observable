@@ -4,7 +4,6 @@ import { Action, Dispatch, Middleware, MiddlewareAPI } from "redux";
 const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
 
 const crashReporter: Middleware =
-  // @ts-ignore
   (middlewareAPI: MiddlewareAPI):
     ((next: Dispatch) => ((action: Action<string>) => Action<string>)) =>
     (next: Dispatch): ((action: Action<string>) => Action<string>) =>

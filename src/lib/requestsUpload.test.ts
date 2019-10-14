@@ -1,5 +1,7 @@
 import * as FormData from "form-data";
+
 import { IStateLiterate } from "../../types/iStateLiterate";
+
 import { requestsUpload } from "./requestsUpload";
 
 jest.mock("./requestsUpload");
@@ -22,7 +24,6 @@ describe("requestsUpload lib", (): void => {
           .toEqual(literate);
         done();
       })
-      // @ts-ignore
       .catch((reason: any): void => {
         done();
       })

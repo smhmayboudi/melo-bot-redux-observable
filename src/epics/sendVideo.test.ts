@@ -245,13 +245,11 @@ describe("sendVideo epic", (): void => {
   let connection: MongoClient;
 
   beforeAll(async (): Promise<any> => {
-    // @ts-ignore
     connection = await MongoClient.connect(global.__MONGO_URI__, { useNewUrlParser: true });
   });
 
   beforeEach(async (): Promise<any> => {
     await connection
-      // @ts-ignore
       .db(global.__MONGO_DB_NAME__)
       .collection("cache")
       .deleteOne({ id: "small" });

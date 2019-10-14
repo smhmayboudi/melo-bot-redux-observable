@@ -18,12 +18,10 @@ const appError:
   (
     action$: Observable<Action<string>>,
     state$: StateObservable<IState> | undefined,
-    // @ts-ignore
     dependencies: IDependencies,
   ): Observable<IActionSendMessage> => {
     const actionObservable:
       (action: Action<string>) => Observable<IActionSendMessage> =
-      // @ts-ignore
       (action: Action<string>): Observable<IActionSendMessage> => {
         if (state$ === undefined) {
           return of(actions.sendMessage.error({

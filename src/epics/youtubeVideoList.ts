@@ -20,7 +20,6 @@ const youtubeVideoList:
   ) => Observable<IActionSendMessage> =
   (
     action$: Observable<IActionYoutubeVideoList>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionSendMessage> => {

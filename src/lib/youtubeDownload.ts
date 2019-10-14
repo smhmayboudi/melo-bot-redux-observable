@@ -17,7 +17,7 @@ const youtubeDownload:
       const map:
         (a: RegExpMatchArray, f: (str: string) => string) => RegExpMatchArray =
         (a: RegExpMatchArray, f: (str: string) => string): RegExpMatchArray => {
-          for (let i: number = 0; i < a.length; i++) {
+          for (let i: number = 0; i < a.length; i = i + 1) {
             a[i] = f(a[i]);
           }
 
@@ -76,7 +76,7 @@ const youtubeDownload:
           urls = map(urls, unescape);
 
           const videoInfos: IVideoInfo[] = [];
-          for (let index: number = 0; index < durs.length; index++) {
+          for (let index: number = 0; index < durs.length; index = index + 1) {
             videoInfos.push({
               dur: parseFloat(durs[index]),
               fmtList: fmtList[index],
@@ -108,7 +108,7 @@ const youtubeDownload:
               new Promise((res: (value?: any | PromiseLike<any>) => void, rej: (reason?: any) => void): void => {
                 const thumbPath: string = pathThumb(vi.id);
                 fs.stat(thumbPath, (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
-                  if (err === null && stats.size > 0) {
+                  if (stats.size > 0) {
                     appDebug("thumbnail serve cache ", thumbPath);
                     res();
                   } else {
@@ -146,7 +146,7 @@ const youtubeDownload:
               new Promise((res: (value?: any | PromiseLike<any>) => void, rej: (reason?: any) => void): void => {
                 const videoPath: string = pathVideo(vi.id);
                 fs.stat(videoPath, (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
-                  if (err === null && stats.size > 0) {
+                  if (stats.size > 0) {
                     appDebug("video serve cache ", videoPath);
                     res();
                   } else {

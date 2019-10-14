@@ -18,7 +18,6 @@ const sendMessage:
   ) => Observable<IActionSendMessage> =
   (
     action$: Observable<IActionSendMessage>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionSendMessage> => {

@@ -24,7 +24,6 @@ const youtubeDownload:
   ) => Observable<IActionGetChatMember | IActionSendVideo> =
   (
     action$: Observable<IActionYoutubeDownload>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionGetChatMember | IActionSendVideo> => {

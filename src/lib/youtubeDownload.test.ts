@@ -16,7 +16,6 @@ describe("youtubeDownload lib", (): void => {
           .toEqual(literate);
         done();
       })
-      // @ts-ignore
       .catch((reason: any): void => {
         done();
       })

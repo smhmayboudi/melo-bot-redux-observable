@@ -20,7 +20,6 @@ const getChatMember:
   ) => Observable<IActionGetChatMember | IActionSendMessage> =
   (
     action$: Observable<IActionGetChatMember>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionGetChatMember | IActionSendMessage> => {

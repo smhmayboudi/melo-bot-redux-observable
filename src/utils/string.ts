@@ -7,7 +7,7 @@ import * as texts from "../config/texts";
 const caption:
   (title?: string) => string =
   (title?: string): string =>
-    `${title || ""}\n\n🆔 @melodio`.trim();
+    `${title !== undefined ? title : ""}\n\n🆔 @melodio`.trim();
 
 const decode:
   (id: string) => string =
@@ -39,13 +39,12 @@ const pathVideo:
 
 const transformSearchList:
   (items: youtube_v3.Schema$SearchResult[], q: string) => string =
-  // @ts-ignore
   (items: youtube_v3.Schema$SearchResult[], q: string): string => {
     if (items.length === 0) {
       return texts.messageNoResult;
     }
     const res: string[] = [];
-    for (let index: number = items.length; index > 0; index--) {
+    for (let index: number = items.length; index > 0; index = index - 1) {
       const value: youtube_v3.Schema$SearchResult = items[index - 1];
       const msg: string[] = [];
       if (value.snippet !== undefined && value.snippet.title !== undefined) {
@@ -72,7 +71,7 @@ const transformVideoList:
       return texts.messageNoResult;
     }
     const res: string[] = [];
-    for (let index: number = items.length; index > 0; index--) {
+    for (let index: number = items.length; index > 0; index = index - 1) {
       const value: youtube_v3.Schema$Video = items[index - 1];
       const msg: string[] = [];
       if (value.snippet !== undefined && value.snippet.title !== undefined) {

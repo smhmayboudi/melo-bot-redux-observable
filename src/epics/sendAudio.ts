@@ -20,7 +20,6 @@ const sendAudio:
   ) => Observable<IActionSendAudio> =
   (
     action$: Observable<IActionSendAudio>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionSendAudio> => {

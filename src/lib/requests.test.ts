@@ -1,4 +1,5 @@
 import { IStateLiterate } from "../../types/iStateLiterate";
+
 import { requests } from "./requests";
 
 jest.mock("./requests");
@@ -18,7 +19,6 @@ describe("requests lib", (): void => {
           .toEqual(literate);
         done();
       })
-      // @ts-ignore
       .catch((reason: any): void => {
         done();
       })

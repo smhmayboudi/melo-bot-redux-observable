@@ -20,7 +20,6 @@ const youtubeSearchList:
   ) => Observable<IActionSendMessage> =
   (
     action$: Observable<IActionYoutubeSearchList>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionSendMessage> => {

@@ -17,7 +17,6 @@ const literate:
   ) => Observable<IActionLiterate> =
   (
     action$: Observable<IActionLiterate>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionLiterate> => {

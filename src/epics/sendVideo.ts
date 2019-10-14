@@ -22,7 +22,6 @@ const sendVideo:
   ) => Observable<IActionSendVideo> =
   (
     action$: Observable<IActionSendVideo>,
-    // @ts-ignore
     state$: StateObservable<IState> | undefined,
     dependencies: IDependencies,
   ): Observable<IActionSendVideo> => {
