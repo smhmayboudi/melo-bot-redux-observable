@@ -1,6 +1,10 @@
 {
   "*.ts": [
+<<<<<<< HEAD
     "tslint --config tslint.json --fix --project tsconfig.json",
+=======
+    "tslint --config tslint.json --project tsconfig.json --fix",
+>>>>>>> ab8a0db3e13a5c5bf74a92cbdd7ab593f1fd5525
     "git add"
   ]
 }
