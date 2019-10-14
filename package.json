@@ -39,7 +39,7 @@
     "@types/form-data": "^2.5.0",
     "@types/jest": "^24.0.18",
     "@types/mongodb": "^3.3.6",
-    "@types/mongodb-memory-server": "^5.2.8",
+    "@types/mongodb-memory-server": "^1.8.0",
     "@types/node-telegram-bot-api": "^0.31.1",
     "@types/redux": "^3.6.0",
     "@types/source-map-support": "^0.5.0",
