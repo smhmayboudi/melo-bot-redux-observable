@@ -9,7 +9,7 @@
     "no-submodule-imports": false,
     "no-unsafe-any": false,
     "no-use-before-declare": false,
-    "variable-name": {"options": ["allow-leading-underscore"]}
+    "variable-name": [true, "allow-leading-underscore"]
   },
   "linterOptions": {
     "exclude": [
