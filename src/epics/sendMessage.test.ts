@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
+
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
@@ -14,39 +15,37 @@ import * as texts from "../config/texts";
 import * as epic from "../epics/sendMessage";
 
 describe("sendMessage epic", (): void => {
-
   const error: Error = new Error("");
   const query: IStateSendMessageQuery = {
     chat_id: 0,
-    text: "",
+    text: ""
   };
   const result: IMessage = {
     chat: {
       id: 0,
-      type: "private",
+      type: "private"
     },
     date: 0,
-    message_id: 0,
+    message_id: 0
   };
   const resultOKF: IResponse = {
     description: "",
     error_code: 400,
-    ok: false,
+    ok: false
   };
   const resultOKT: IResponse = {
     ok: true,
-    result,
+    result
   };
 
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
-    testScheduler = new TestScheduler(
-      (actual: IState, expected: IState): boolean | void => {
-        expect(actual)
-          .toEqual(expected);
-      },
-    );
+    testScheduler = new TestScheduler((actual: IState, expected: IState):
+      | boolean
+      | void => {
+      expect(actual).toEqual(expected);
+    });
   });
 
   test("should handle dependency botToken undefined", (): void => {
@@ -54,24 +53,27 @@ describe("sendMessage epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendMessage> = cold("-a", {
         a: action.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKT,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKT
+          })
       };
-      const output$: Observable<IActionSendMessage> =
-        epic.sendMessage(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-a", {
-          a: action.error({
-            error: new Error(texts.epicDependencyBotTokenUndefined),
-          }),
-        });
+      const output$: Observable<IActionSendMessage> = epic.sendMessage(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: action.error({
+          error: new Error(texts.epicDependencyBotTokenUndefined)
+        })
+      });
     });
   });
 
@@ -80,22 +82,24 @@ describe("sendMessage epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendMessage> = cold("-a", {
         a: action.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: undefined,
+        requestsObservable: undefined
       };
-      const output$: Observable<IActionSendMessage> =
-        epic.sendMessage(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-a", {
-          a: action.error({
-            error: new Error(texts.epicDependencyRequestsObservableUndefined),
-          }),
-        });
+      const output$: Observable<IActionSendMessage> = epic.sendMessage(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: action.error({
+          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+        })
+      });
     });
   });
 
@@ -104,22 +108,24 @@ describe("sendMessage epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendMessage> = cold("-a", {
         a: action.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<IActionSendMessage> =
-        epic.sendMessage(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---a", {
-          a: action.error({
-            error,
-          }),
-        });
+      const output$: Observable<IActionSendMessage> = epic.sendMessage(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: action.error({
+          error
+        })
+      });
     });
   });
 
@@ -127,23 +133,26 @@ describe("sendMessage epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendMessage> = cold("-a", {
-        a: action.query({}),
+        a: action.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKT,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKT
+          })
       };
-      const output$: Observable<IActionSendMessage> =
-        epic.sendMessage(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-a", {
-          a: action.error({
-            error: new Error(texts.actionSendMessageQueryUndefined),
-          }),
-        });
+      const output$: Observable<IActionSendMessage> = epic.sendMessage(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: action.error({
+          error: new Error(texts.actionSendMessageQueryUndefined)
+        })
+      });
     });
   });
 
@@ -152,24 +161,27 @@ describe("sendMessage epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendMessage> = cold("-a", {
         a: action.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKF,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKF
+          })
       };
-      const output$: Observable<IActionSendMessage> =
-        epic.sendMessage(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---a", {
-          a: action.error({
-            error: resultOKF,
-          }),
-        });
+      const output$: Observable<IActionSendMessage> = epic.sendMessage(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: action.error({
+          error: resultOKF
+        })
+      });
     });
   });
 
@@ -178,25 +190,27 @@ describe("sendMessage epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendMessage> = cold("-a", {
         a: action.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKT,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKT
+          })
       };
-      const output$: Observable<IActionSendMessage> =
-        epic.sendMessage(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---a", {
-          a: action.result({
-            result,
-          }),
-        });
+      const output$: Observable<IActionSendMessage> = epic.sendMessage(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: action.result({
+          result
+        })
+      });
     });
   });
-
 });

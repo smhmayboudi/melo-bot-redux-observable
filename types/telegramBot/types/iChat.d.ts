@@ -1,3 +1,4 @@
+import { IChatPermissions } from "./iChatPermissions";
 import { IChatPhoto } from "../types/iChatPhoto";
 import { IMessage } from "../types/iMessage";
 

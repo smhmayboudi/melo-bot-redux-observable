@@ -3,6 +3,7 @@ import { Observable, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
+
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
@@ -16,7 +17,6 @@ import * as texts from "../config/texts";
 import * as epic from "../epics/getChatMember";
 
 describe("getChatMember epic", (): void => {
-
   const error: Error = new Error("");
   const initialState: IState = {
     getChatMember: actions.getChatMember.initialState,
@@ -27,83 +27,82 @@ describe("getChatMember epic", (): void => {
     sendVideo: actions.sendVideo.initialState,
     youtubeDownload: actions.youtubeDownload.initialState,
     youtubeSearchList: actions.youtubeSearchList.initialState,
-    youtubeVideoList: actions.youtubeVideoList.initialState,
+    youtubeVideoList: actions.youtubeVideoList.initialState
   };
   const state$ValueMessageQueryUndefined: IState = {
     ...initialState,
     message: {
-      query: undefined,
-    },
+      query: undefined
+    }
   };
   const state$ValueMessageQueryMessageUndefined: IState = {
     ...initialState,
     message: {
       query: {
         message: undefined,
-        update_id: 0,
-      },
-    },
+        update_id: 0
+      }
+    }
   };
   const message: IStateMessage = {
     query: {
       message: {
         chat: {
           id: 0,
-          type: "",
+          type: ""
         },
         date: 0,
-        message_id: 0,
+        message_id: 0
       },
-      update_id: 0,
-    },
+      update_id: 0
+    }
   };
   const resultState: IState = {
     ...initialState,
-    message,
+    message
   };
   const query: IStateGetChatMemberQuery = {
     chat_id: 0,
-    user_id: 0,
+    user_id: 0
   };
   const resultLeft: IChatMember = {
     status: "left",
     user: {
       first_name: "",
       id: 0,
-      is_bot: false,
-    },
+      is_bot: false
+    }
   };
   const resultMember: IChatMember = {
     status: "member",
     user: {
       first_name: "",
       id: 0,
-      is_bot: false,
-    },
+      is_bot: false
+    }
   };
   const resultOKF: IResponse = {
     description: "Bad Request: CHAT_ADMIN_REQUIRED",
     error_code: 400,
-    ok: false,
+    ok: false
   };
   const resultOKTLeft: IResponse = {
     ok: true,
-    result: resultLeft,
+    result: resultLeft
   };
   const resultOKTMember: IResponse = {
     ok: true,
-    result: resultMember,
+    result: resultMember
   };
 
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
-    testScheduler = new TestScheduler(
-      (actual: IState, expected: IState): boolean | void => {
-        expect(actual)
-          .toEqual(expected);
-      },
-    );
+    testScheduler = new TestScheduler((actual: IState, expected: IState):
+      | boolean
+      | void => {
+      expect(actual).toEqual(expected);
+    });
   });
 
   test("should handle dependency botToken undefined", (): void => {
@@ -111,26 +110,28 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a"),
+        requestsObservable: (): ColdObservable<any> => cold("--a")
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-(ab)", {
-          a: actions.sendMessage.error({
-            error: new Error(texts.epicDependencyBotTokenUndefined),
-          }),
-          b: actions.getChatMember.error({
-            error: new Error(texts.epicDependencyBotTokenUndefined),
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("-(ab)", {
+        a: actions.sendMessage.error({
+          error: new Error(texts.epicDependencyBotTokenUndefined)
+        }),
+        b: actions.getChatMember.error({
+          error: new Error(texts.epicDependencyBotTokenUndefined)
+        })
+      });
     });
   });
 
@@ -139,26 +140,28 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: undefined,
+        requestsObservable: undefined
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-(ab)", {
-          a: actions.sendMessage.error({
-            error: new Error(texts.epicDependencyRequestsObservableUndefined),
-          }),
-          b: actions.getChatMember.error({
-            error: new Error(texts.epicDependencyRequestsObservableUndefined),
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("-(ab)", {
+        a: actions.sendMessage.error({
+          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+        }),
+        b: actions.getChatMember.error({
+          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+        })
+      });
     });
   });
 
@@ -167,26 +170,28 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---(ab)", {
-          a: actions.sendMessage.error({
-            error,
-          }),
-          b: actions.getChatMember.error({
-            error,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---(ab)", {
+        a: actions.sendMessage.error({
+          error
+        }),
+        b: actions.getChatMember.error({
+          error
+        })
+      });
     });
   });
 
@@ -194,25 +199,27 @@ describe("getChatMember epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionGetChatMember> = cold("-a", {
-        a: actions.getChatMember.query({}),
+        a: actions.getChatMember.query({})
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a"),
+        requestsObservable: (): ColdObservable<any> => cold("--a")
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-(ab)", {
-          a: actions.sendMessage.error({
-            error: new Error(texts.actionGetChatMemberQueryUndefined),
-          }),
-          b: actions.getChatMember.error({
-            error: new Error(texts.actionGetChatMemberQueryUndefined),
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("-(ab)", {
+        a: actions.sendMessage.error({
+          error: new Error(texts.actionGetChatMemberQueryUndefined)
+        }),
+        b: actions.getChatMember.error({
+          error: new Error(texts.actionGetChatMemberQueryUndefined)
+        })
+      });
     });
   });
 
@@ -221,27 +228,28 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKTMember,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKTMember
+          })
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---(ab)", {
-          a: actions.sendMessage.error({
-            error: new Error(texts.state$Undefined),
-          }),
-          b: actions.getChatMember.result({
-            result: resultMember,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---(ab)", {
+        a: actions.sendMessage.error({
+          error: new Error(texts.state$Undefined)
+        }),
+        b: actions.getChatMember.result({
+          result: resultMember
+        })
+      });
     });
   });
 
@@ -250,28 +258,31 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), state$ValueMessageQueryUndefined);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        state$ValueMessageQueryUndefined
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKTMember,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKTMember
+          })
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---(ab)", {
-          a: actions.sendMessage.error({
-            error: new Error(texts.state$ValueMessageQueryUndefined),
-          }),
-          b: actions.getChatMember.result({
-            result: resultMember,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---(ab)", {
+        a: actions.sendMessage.error({
+          error: new Error(texts.state$ValueMessageQueryUndefined)
+        }),
+        b: actions.getChatMember.result({
+          result: resultMember
+        })
+      });
     });
   });
 
@@ -280,28 +291,31 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), state$ValueMessageQueryMessageUndefined);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        state$ValueMessageQueryMessageUndefined
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKTMember,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKTMember
+          })
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---(ab)", {
-          a: actions.sendMessage.error({
-            error: new Error(texts.state$ValueMessageQueryMessageUndefined),
-          }),
-          b: actions.getChatMember.result({
-            result: resultMember,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---(ab)", {
+        a: actions.sendMessage.error({
+          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+        }),
+        b: actions.getChatMember.result({
+          result: resultMember
+        })
+      });
     });
   });
 
@@ -310,28 +324,31 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKF,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKF
+          })
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---(ab)", {
-          a: actions.sendMessage.error({
-            error: resultOKF,
-          }),
-          b: actions.getChatMember.error({
-            error: resultOKF,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---(ab)", {
+        a: actions.sendMessage.error({
+          error: resultOKF
+        }),
+        b: actions.getChatMember.error({
+          error: resultOKF
+        })
+      });
     });
   });
 
@@ -340,36 +357,39 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKTLeft,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKTLeft
+          })
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---(ab)", {
-          a: actions.sendMessage.query({
-            query: {
-              chat_id: 0,
-              disable_notification: true,
-              disable_web_page_preview: true,
-              parse_mode: "HTML",
-              reply_markup: { remove_keyboard: true },
-              reply_to_message_id: 0,
-              text: texts.messageJoin,
-            },
-          }),
-          b: actions.getChatMember.result({
-            result: resultLeft,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---(ab)", {
+        a: actions.sendMessage.query({
+          query: {
+            chat_id: 0,
+            disable_notification: true,
+            disable_web_page_preview: true,
+            parse_mode: "HTML",
+            reply_markup: { remove_keyboard: true },
+            reply_to_message_id: 0,
+            text: texts.messageJoin
+          }
+        }),
+        b: actions.getChatMember.result({
+          result: resultLeft
+        })
+      });
     });
   });
 
@@ -378,26 +398,28 @@ describe("getChatMember epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionGetChatMember> = cold("-a", {
         a: actions.getChatMember.query({
-          query,
-        }),
+          query
+        })
       });
-      const state$: StateObservable<IState> | undefined =
-        new StateObservable(new Subject(), resultState);
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        resultState
+      );
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a", {
-          a: resultOKTMember,
-        }),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: resultOKTMember
+          })
       };
-      const output$: Observable<IActionGetChatMember | IActionSendMessage> =
-        epic.getChatMember(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---a", {
-          a: actions.getChatMember.result({
-            result: resultMember,
-          }),
-        });
+      const output$: Observable<
+        IActionGetChatMember | IActionSendMessage
+      > = epic.getChatMember(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.getChatMember.result({
+          result: resultMember
+        })
+      });
     });
   });
-
 });

@@ -4,19 +4,27 @@ import * as http from "http";
 
 const appDebug: debug.IDebugger = debug("app:lib:requestUpload");
 
-const requestUpload:
-  (options: http.RequestOptions, formData: FormData) => Promise<any> =
-  async (options: http.RequestOptions, formData: FormData): Promise<any> =>
-    new Promise((resolve: (value?: any | PromiseLike<any>) => void, reject: (reason?: any) => void): void => {
+const requestUpload: (
+  options: http.RequestOptions,
+  formData: FormData
+) => Promise<any> = async (
+  options: http.RequestOptions,
+  formData: FormData
+): Promise<any> =>
+  new Promise(
+    (
+      resolve: (value?: any | PromiseLike<any>) => void,
+      reject: (reason?: any) => void
+    ): void => {
       const httpClientRequest: http.ClientRequest = http
         .request(
           {
             method: "POST",
             ...options,
             headers: {
-              ...formData.getHeaders() as http.OutgoingHttpHeaders,
-              ...options.headers,
-            },
+              ...(formData.getHeaders() as http.OutgoingHttpHeaders),
+              ...options.headers
+            }
           },
           (response: http.IncomingMessage): void => {
             appDebug("response.statusCode", response.statusCode);
@@ -36,16 +44,15 @@ const requestUpload:
                   appDebug("error", error);
                   reject(error);
                 }
-              })
-              ;
-          },
+              });
+          }
         )
         .on("error", (error: Error): void => {
           appDebug("error", error);
           reject(error);
-        })
-        ;
+        });
       formData.pipe(httpClientRequest);
-    });
+    }
+  );
 
 export { requestUpload };

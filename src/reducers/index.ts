@@ -39,7 +39,7 @@ const index: Reducer<{
   sendVideo,
   youtubeDownload,
   youtubeSearchList,
-  youtubeVideoList,
+  youtubeVideoList
 });
 
 export { index };

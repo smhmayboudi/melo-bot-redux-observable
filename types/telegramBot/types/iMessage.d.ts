@@ -16,6 +16,7 @@ import { IInlineKeyboardMarkup } from "./iInlineKeyboardMarkup";
 import { IInvoice } from "../payments/iInvoice";
 import { ISuccessfulPayment } from "../payments/iSuccessfulPayment";
 import { IPassportData } from "../passport/iPassportData";
+import { IPoll } from "./iPoll";
 import { ISticker } from "../stickers/iSticker";
 
 export interface IMessage {

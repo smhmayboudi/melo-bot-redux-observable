@@ -5,19 +5,27 @@ import * as https from "https";
 
 const appDebug: debug.IDebugger = debug("app:lib:requestsUpload");
 
-const requestsUpload:
-  (options: https.RequestOptions, formData: FormData) => Promise<any> =
-  async (options: https.RequestOptions, formData: FormData): Promise<any> =>
-    new Promise((resolve: (value?: any | PromiseLike<any>) => void, reject: (reason?: any) => void): void => {
+const requestsUpload: (
+  options: https.RequestOptions,
+  formData: FormData
+) => Promise<any> = async (
+  options: https.RequestOptions,
+  formData: FormData
+): Promise<any> =>
+  new Promise(
+    (
+      resolve: (value?: any | PromiseLike<any>) => void,
+      reject: (reason?: any) => void
+    ): void => {
       const httpClientRequest: http.ClientRequest = https
         .request(
           {
             method: "POST",
             ...options,
             headers: {
-              ...formData.getHeaders() as http.OutgoingHttpHeaders,
-              ...options.headers,
-            },
+              ...(formData.getHeaders() as http.OutgoingHttpHeaders),
+              ...options.headers
+            }
           },
           (response: http.IncomingMessage): void => {
             appDebug("response.statusCode", response.statusCode);
@@ -37,16 +45,15 @@ const requestsUpload:
                   appDebug("error", error);
                   reject(error);
                 }
-              })
-              ;
-          },
+              });
+          }
         )
         .on("error", (error: Error): void => {
           appDebug("error", error);
           reject(error);
-        })
-        ;
+        });
       formData.pipe(httpClientRequest);
-    });
+    }
+  );
 
 export { requestsUpload };

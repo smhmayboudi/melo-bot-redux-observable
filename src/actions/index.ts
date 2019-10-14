@@ -17,5 +17,5 @@ export {
   sendVideo,
   youtubeDownload,
   youtubeSearchList,
-  youtubeVideoList,
+  youtubeVideoList
 };

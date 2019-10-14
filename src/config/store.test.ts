@@ -1,13 +1,14 @@
 import { Store } from "redux";
 import { Observable, of } from "rxjs";
+
 import { IState } from "../../types/iState";
 import { IStateLiterate } from "../../types/iStateLiterate";
 import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
+
 import { configureStore } from "./store";
 
 describe("store config", (): void => {
-
   const initialStateh: IState = {
     getChatMember: actions.getChatMember.initialState,
     literate: actions.literate.initialState,
@@ -17,7 +18,7 @@ describe("store config", (): void => {
     sendVideo: actions.sendVideo.initialState,
     youtubeDownload: actions.youtubeDownload.initialState,
     youtubeSearchList: actions.youtubeSearchList.initialState,
-    youtubeVideoList: actions.youtubeVideoList.initialState,
+    youtubeVideoList: actions.youtubeVideoList.initialState
   };
   let message: IStateMessage = {
     query: {
@@ -27,15 +28,15 @@ describe("store config", (): void => {
           id: 52953379,
           last_name: "Mayboudi",
           type: "private",
-          username: "smhmayboudi",
+          username: "smhmayboudi"
         },
         date: 1537627954,
         entities: [
           {
             length: 9,
             offset: 0,
-            type: "bot_command",
-          },
+            type: "bot_command"
+          }
         ],
         from: {
           first_name: "Hossein",
@@ -43,13 +44,13 @@ describe("store config", (): void => {
           is_bot: false,
           language_code: "en-CA",
           last_name: "Mayboudi",
-          username: "smhmayboudi",
+          username: "smhmayboudi"
         },
         message_id: 1164,
-        text: "",
+        text: ""
       },
-      update_id: 0,
-    },
+      update_id: 0
+    }
   };
 
   // Const literateError: Error = new Error("");
@@ -61,17 +62,16 @@ describe("store config", (): void => {
       message = {
         query: {
           ...message.query,
-          message: { ...message.query.message, text: "/start" },
-        },
+          message: { ...message.query.message, text: "/start" }
+        }
       };
     }
-    const store: (Store<IState> & { dispatch: {} }) = configureStore();
+    const store: Store<IState> & { dispatch: {} } = configureStore();
     store.dispatch(actions.message.query(message));
-    expect(store.getState())
-      .toEqual({
-        ...initialStateh,
-        message,
-      });
+    expect(store.getState()).toEqual({
+      ...initialStateh,
+      message
+    });
   });
 
   test("should handle literate message", (): void => {
@@ -79,21 +79,20 @@ describe("store config", (): void => {
       message = {
         query: {
           ...message.query,
-          message: { ...message.query.message, text: "/literate" },
-        },
+          message: { ...message.query.message, text: "/literate" }
+        }
       };
     }
-    const store: (Store<IState> & { dispatch: {} }) = configureStore({
-      requestObservable: (): Observable<IStateLiterate> => of({ query: literateQuery, result: literateResult }),
+    const store: Store<IState> & { dispatch: {} } = configureStore({
+      requestObservable: (): Observable<IStateLiterate> =>
+        of({ query: literateQuery, result: literateResult })
     });
     store.dispatch(actions.message.query(message));
     store.dispatch(actions.literate.query({ query: literateQuery }));
-    expect(store.getState())
-      .toEqual({
-        ...initialStateh,
-        literate: { query: literateQuery, result: literateResult },
-        message,
-      });
+    expect(store.getState()).toEqual({
+      ...initialStateh,
+      literate: { query: literateQuery, result: literateResult },
+      message
+    });
   });
-
 });
