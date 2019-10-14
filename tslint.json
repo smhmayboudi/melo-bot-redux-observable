@@ -7,9 +7,9 @@
     "no-any": false,
     "no-inferrable-types": false,
     "no-submodule-imports": false,
-    "no-unused-variable": [true, {"ignore-pattern": "(action|dependencies|err|middlewareAPI|request|state\\$)"}],
     "no-unsafe-any": false,
-    "no-use-before-declare": false
+    "no-use-before-declare": false,
+    "variable-name": {"options": ["allow-leading-underscore"]}
   },
   "linterOptions": {
     "exclude": [

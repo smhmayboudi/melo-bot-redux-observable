@@ -12,8 +12,8 @@ import { operate } from "./telegramBot";
 const appDebug: debug.IDebugger = debug("app:config:http");
 
 const answer200:
-  (request: http.IncomingMessage, response: http.ServerResponse) => void =
-  (request: http.IncomingMessage, response: http.ServerResponse): void => {
+  (_request: http.IncomingMessage, response: http.ServerResponse) => void =
+  (_request: http.IncomingMessage, response: http.ServerResponse): void => {
     const statusCode: number = 200;
     response.writeHead(statusCode, { "Content-Type": "text/plain; version=0.0.4; charset=utf-8" });
     response.end((): void => {
@@ -22,8 +22,8 @@ const answer200:
   };
 
 const answer500:
-  (request: http.IncomingMessage, response: http.ServerResponse) => void =
-  (request: http.IncomingMessage, response: http.ServerResponse): void => {
+  (_request: http.IncomingMessage, response: http.ServerResponse) => void =
+  (_request: http.IncomingMessage, response: http.ServerResponse): void => {
     const statusCode: number = 500;
     response.writeHead(statusCode, { "Content-Type": "text/plain; version=0.0.4; charset=utf-8" });
     response.end((): void => {
@@ -68,8 +68,8 @@ const answerBotToken:
   };
 
 const answerMetrics:
-  (request: http.IncomingMessage, response: http.ServerResponse) => void =
-  (request: http.IncomingMessage, response: http.ServerResponse): void => {
+  (_request: http.IncomingMessage, response: http.ServerResponse) => void =
+  (_request: http.IncomingMessage, response: http.ServerResponse): void => {
     const statusCode: number = 200;
     response.writeHead(statusCode, { "Content-Type": Prometheus.register.contentType });
     response.end(Prometheus.register.metrics());

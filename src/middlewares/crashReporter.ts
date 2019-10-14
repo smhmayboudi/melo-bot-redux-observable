@@ -4,7 +4,7 @@ import { Action, Dispatch, Middleware, MiddlewareAPI } from "redux";
 const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
 
 const crashReporter: Middleware =
-  (middlewareAPI: MiddlewareAPI):
+  (_middlewareAPI: MiddlewareAPI):
     ((next: Dispatch) => ((action: Action<string>) => Action<string>)) =>
     (next: Dispatch): ((action: Action<string>) => Action<string>) =>
       (action: Action<string>): Action<string> => {
