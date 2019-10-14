@@ -29,6 +29,7 @@
     "mongodb-memory-server": "^5.2.8",
     "node-telegram-bot-api": "^0.30.0",
     "prom-client": "^11.5.3",
+    "query-string": "^6.8.3",
     "redux": "^4.0.4",
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.3",

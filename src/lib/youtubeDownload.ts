@@ -64,11 +64,19 @@ const youtubeDownload:
           mimes = map(mimes, (s: string): string => (s.match(rxMime) as RegExpMatchArray)[1]);
           mimes = map(mimes, unescape);
 
-          const rxThumbnailUrl: RegExp = /thumbnail_url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
-          const thumbnailUrl: string = unescape((videoInfo.match(rxThumbnailUrl) as RegExpMatchArray)[1]);
+          // TODO: const rxThumbnailUrl: RegExp = /thumbnail_url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+          // TODO: const thumbnailUrl: string = unescape((videoInfo.match(rxThumbnailUrl) as RegExpMatchArray)[1]);
 
-          const rxTitle: RegExp = /title=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
-          const title: string = (videoInfo.match(rxTitle) as RegExpMatchArray)[1];
+          const rxThumbnailUrl: RegExp = /\=(\{.*\})\&/gm;
+          const res: RegExpMatchArray | null = rxThumbnailUrl.exec(unescape(videoInfo));
+          const playerResponse: string = res !== null ? res[1] : "";
+          const playerResponseJSON: any = JSON.parse(playerResponse);
+          const thumbnailUrl: string = playerResponseJSON.videoDetails.thumbnail.thumbnails[0].url;
+
+          // const rxTitle: RegExp = /title=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+          // const title: string = (videoInfo.match(rxTitle) as RegExpMatchArray)[1];
+
+          const title: string = playerResponseJSON.videoDetails.title;
 
           const rxUrl: RegExp = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
           let urls: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
@@ -108,7 +116,7 @@ const youtubeDownload:
               new Promise((res: (value?: any | PromiseLike<any>) => void, rej: (reason?: any) => void): void => {
                 const thumbPath: string = pathThumb(vi.id);
                 fs.stat(thumbPath, (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
-                  if (stats.size > 0) {
+                  if (err === null && stats.size > 0) {
                     appDebug("thumbnail serve cache ", thumbPath);
                     res();
                   } else {
@@ -146,7 +154,7 @@ const youtubeDownload:
               new Promise((res: (value?: any | PromiseLike<any>) => void, rej: (reason?: any) => void): void => {
                 const videoPath: string = pathVideo(vi.id);
                 fs.stat(videoPath, (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
-                  if (stats.size > 0) {
+                  if (err === null && stats.size > 0) {
                     appDebug("video serve cache ", videoPath);
                     res();
                   } else {
