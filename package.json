@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "build": "rm -fr dist && tsc --project tsconfig.json; exit 0",
+=======
+    "build": "rm -fr dist && tsc --project tsconfig.json",
+>>>>>>> b60a49d9506fbe3c7d1d931c02520c2751505bbb
     "lint": "tslint --config tslint.json --project tsconfig.json; exit 0",
     "start:app": "./start.app.sh",
     "start:polling": "./start.polling.sh",
