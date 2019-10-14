@@ -6,14 +6,14 @@
   "scripts": {
     "build": "rm -fr dist && tsc --project tsconfig.json; exit 0",
     "lint": "tslint --config tslint.json --project tsconfig.json; exit 0",
+    "lint:check": "tslint-config-prettier-check ./tslint.json",
     "lint:fix": "tslint --config tslint.json --fix --project tsconfig.json; exit 0",
     "start:app": "./start.app.sh",
     "start:polling": "./start.polling.sh",
     "test": "./test.sh",
     "test:watch": "./test.watch.sh",
     "type-check": "tsc --noEmit --project tsconfig.json; exit 0",
-    "type-check:watch": "tsc --noEmit --project tsconfig.json --watch; exit 0",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json"
+    "type-check:watch": "tsc --noEmit --project tsconfig.json --watch; exit 0"
   },
   "keywords": [
     "reactive",
