@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
+
 import { IActionLiterate } from "../../types/iActionLiterate";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
@@ -11,7 +12,6 @@ import * as texts from "../config/texts";
 import * as epic from "../epics/literate";
 
 describe("literate epic", (): void => {
-
   const error: Error = new Error("");
   const query: string = "HI";
   const result: string = "های";
@@ -19,12 +19,11 @@ describe("literate epic", (): void => {
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
-    testScheduler = new TestScheduler(
-      (actual: IState, expected: IState): boolean | void => {
-        expect(actual)
-          .toEqual(expected);
-      },
-    );
+    testScheduler = new TestScheduler((actual: IState, expected: IState):
+      | boolean
+      | void => {
+      expect(actual).toEqual(expected);
+    });
   });
 
   test("should handle dependency requestObservable undefined", (): void => {
@@ -32,21 +31,23 @@ describe("literate epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionLiterate> = cold("-a", {
         a: actions.literate.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        requestObservable: undefined,
+        requestObservable: undefined
       };
-      const output$: Observable<IActionLiterate> =
-        epic.literate(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-a", {
-          a: actions.literate.error({
-            error: new Error(texts.epicDependencyRequestObservableUndefined),
-          }),
-        });
+      const output$: Observable<IActionLiterate> = epic.literate(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: actions.literate.error({
+          error: new Error(texts.epicDependencyRequestObservableUndefined)
+        })
+      });
     });
   });
 
@@ -55,21 +56,23 @@ describe("literate epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionLiterate> = cold("-a", {
         a: actions.literate.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        requestObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        requestObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<IActionLiterate> =
-        epic.literate(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---a", {
-          a: actions.literate.error({
-            error,
-          }),
-        });
+      const output$: Observable<IActionLiterate> = epic.literate(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: actions.literate.error({
+          error
+        })
+      });
     });
   });
 
@@ -77,21 +80,23 @@ describe("literate epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionLiterate> = cold("-a", {
-        a: actions.literate.query({}),
+        a: actions.literate.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestObservable: (): ColdObservable<any> => cold("--a"),
+        requestObservable: (): ColdObservable<any> => cold("--a")
       };
-      const output$: Observable<IActionLiterate> =
-        epic.literate(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("-a", {
-          a: actions.literate.error({
-            error: new Error(texts.actionLiterateQueryUndefined),
-          }),
-        });
+      const output$: Observable<IActionLiterate> = epic.literate(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: actions.literate.error({
+          error: new Error(texts.actionLiterateQueryUndefined)
+        })
+      });
     });
   });
 
@@ -100,24 +105,26 @@ describe("literate epic", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionLiterate> = cold("-a", {
         a: actions.literate.query({
-          query,
-        }),
+          query
+        })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        requestObservable: (): ColdObservable<any> => cold("--a", {
-          a: { result },
-        }),
+        requestObservable: (): ColdObservable<any> =>
+          cold("--a", {
+            a: { result }
+          })
       };
-      const output$: Observable<IActionLiterate> =
-        epic.literate(action$, state$, dependencies);
-      expectObservable(output$)
-        .toBe("---a", {
-          a: actions.literate.result({
-            result,
-          }),
-        });
+      const output$: Observable<IActionLiterate> = epic.literate(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: actions.literate.result({
+          result
+        })
+      });
     });
   });
-
 });

@@ -19,5 +19,5 @@ export {
   identificationSign,
   inboxTray,
   leftPointingMagnifyingGlass,
-  rightPointingMagnifyingGlass,
+  rightPointingMagnifyingGlass
 };

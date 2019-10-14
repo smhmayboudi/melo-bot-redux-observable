@@ -1,5 +1,5 @@
 import { ICallbackGame } from "../games/iCallbackGame";
-import { ILoginUrl } from "../iLoginUrl";
+import { ILoginUrl } from "./iLoginUrl";
 
 export interface IInlineKeyboardButton {
   callback_data?: string;

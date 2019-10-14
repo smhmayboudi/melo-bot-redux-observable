@@ -14,7 +14,12 @@ import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
 
-const index: Epic<Action<string>, Action<string>, IState, IDependencies> = combineEpics(
+const index: Epic<
+  Action<string>,
+  Action<string>,
+  IState,
+  IDependencies
+> = combineEpics(
   appError,
   getChatMember,
   literate,
@@ -23,7 +28,7 @@ const index: Epic<Action<string>, Action<string>, IState, IDependencies> = combi
   sendVideo,
   youtubeDownload,
   youtubeSearchList,
-  youtubeVideoList,
+  youtubeVideoList
 ) as Epic<Action<string>, Action<string>, IState, IDependencies>;
 
 export { index };

@@ -11,8 +11,12 @@ import * as env from "./config/env";
 
 const appDebug: debug.IDebugger = debug("app:polling");
 
-const telegramBot: TelegramBot = new TelegramBot(env.BOT_TOKEN, { polling: true });
-const createHttpClientRequest: (data: IStateMessageQuery) => void = (data: IStateMessageQuery): void => {
+const telegramBot: TelegramBot = new TelegramBot(env.BOT_TOKEN, {
+  polling: true
+});
+const createHttpClientRequest: (data: IStateMessageQuery) => void = (
+  data: IStateMessageQuery
+): void => {
   const httpClientRequest: http.ClientRequest = http
     .request(
       {
@@ -20,7 +24,7 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (data: IStat
         host: env.HOST,
         method: "POST",
         path: `/${env.BOT_TOKEN}`,
-        port: env.PORT,
+        port: env.PORT
       },
       (response: http.IncomingMessage): void => {
         appDebug("response.statusCode", response.statusCode);
@@ -38,14 +42,12 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (data: IStat
             } catch (error) {
               appDebug("error", error);
             }
-          })
-          ;
-      },
+          });
+      }
     )
     .on("error", (error: Error): void => {
       appDebug("error", error);
-    })
-    ;
+    });
   httpClientRequest.write(JSON.stringify(data));
   httpClientRequest.end((): void => {
     appDebug("end");
@@ -56,24 +58,18 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (data: IStat
   });
 };
 
-telegramBot
-  .on("contact", (message: IMessage): void => {
-    createHttpClientRequest({ message, update_id: 0 });
-  });
-telegramBot
-  .on("inline_query", (inlineQuery: IInlineQuery): void => {
-    createHttpClientRequest({ inline_query: inlineQuery, update_id: 0 });
-  });
-telegramBot
-  .on("callback_query", (callbackQuery: ICallbackQuery): void => {
-    createHttpClientRequest({ callback_query: callbackQuery, update_id: 0 });
-  });
-telegramBot
-  .on("text", (message: IMessage): void => {
-    createHttpClientRequest({ message, update_id: 0 });
-  });
-telegramBot
-  .on("voice", (message: IMessage): void => {
-    createHttpClientRequest({ message, update_id: 0 });
-  })
-  ;
+telegramBot.on("contact", (message: IMessage): void => {
+  createHttpClientRequest({ message, update_id: 0 });
+});
+telegramBot.on("inline_query", (inlineQuery: IInlineQuery): void => {
+  createHttpClientRequest({ inline_query: inlineQuery, update_id: 0 });
+});
+telegramBot.on("callback_query", (callbackQuery: ICallbackQuery): void => {
+  createHttpClientRequest({ callback_query: callbackQuery, update_id: 0 });
+});
+telegramBot.on("text", (message: IMessage): void => {
+  createHttpClientRequest({ message, update_id: 0 });
+});
+telegramBot.on("voice", (message: IMessage): void => {
+  createHttpClientRequest({ message, update_id: 0 });
+});

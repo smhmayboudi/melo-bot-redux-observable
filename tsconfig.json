@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "forceConsistentCasingInFileNames": true,
     "inlineSourceMap": true,
     "inlineSources": true,
@@ -9,20 +10,23 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",
+    "plugins": [
+      { "name": "typescript-tslint-plugin" }
+    ],
     "preserveConstEnums": true,
     "removeComments": true,
     "target": "es6",
     "strict": true
   },
   "exclude": [
-    "**/__mocks__",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "dist",
-    "node_modules"
+    "./dist/*",
+    "./node_modules/*",
+    "./src/**/__mocks__",
+    "./src/**/*.spec.ts",
+    "./src/**/*.test.ts"
   ],
   "include": [
-    "src/**/*.ts",
-    "types/**/*"
+    "./src/**/*.ts",
+    "./types/**/*"
   ]
 }

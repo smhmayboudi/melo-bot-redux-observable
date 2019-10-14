@@ -1,10 +1,10 @@
 import { IStateLiterate } from "../../types/iStateLiterate";
+
 import { youtubeDownload } from "./youtubeDownload";
 
 jest.mock("./youtubeDownload");
 
 describe("youtubeDownload lib", (): void => {
-
   const literate: IStateLiterate = { query: "HI", result: "های" };
 
   test("test youtubeDownload", (done: jest.DoneCallback): void => {
@@ -12,14 +12,11 @@ describe("youtubeDownload lib", (): void => {
 
     youtubeDownload("")
       .then((value: any): void => {
-        expect(value)
-          .toEqual(literate);
+        expect(value).toEqual(literate);
         done();
       })
       .catch((reason: any): void => {
         done();
-      })
-      ;
+      });
   });
-
 });

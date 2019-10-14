@@ -1,42 +1,51 @@
 import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as action from "../actions/getChatMember";
+
 import * as reducer from "./getChatMember";
 
 describe("getChatMember reducer", (): void => {
-
   const error: Error = new Error("");
   const query: IStateGetChatMemberQuery = {
     chat_id: 0,
-    user_id: 0,
+    user_id: 0
   };
   const result: IChatMember = {
     status: "member",
     user: {
       first_name: "",
       id: 0,
-      is_bot: false,
-    },
+      is_bot: false
+    }
   };
 
   test("should handle initialState", (): void => {
-    expect(reducer.getChatMember(undefined, { getChatMember: {}, type: "" }))
-      .toEqual(action.initialState);
+    expect(
+      reducer.getChatMember(undefined, { getChatMember: {}, type: "" })
+    ).toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
-    expect(reducer.getChatMember({ ...action.initialState, query }, action.error({ error })))
-      .toEqual({ error, query });
+    expect(
+      reducer.getChatMember(
+        { ...action.initialState, query },
+        action.error({ error })
+      )
+    ).toEqual({ error, query });
   });
 
   test("should handle query", (): void => {
-    expect(reducer.getChatMember(action.initialState, action.query({ query })))
-      .toEqual({ query });
+    expect(
+      reducer.getChatMember(action.initialState, action.query({ query }))
+    ).toEqual({ query });
   });
 
   test("should handle result", (): void => {
-    expect(reducer.getChatMember({ ...action.initialState, query }, action.result({ result })))
-      .toEqual({ query, result });
+    expect(
+      reducer.getChatMember(
+        { ...action.initialState, query },
+        action.result({ result })
+      )
+    ).toEqual({ query, result });
   });
-
 });

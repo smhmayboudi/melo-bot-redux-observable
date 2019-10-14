@@ -7,7 +7,6 @@ import { requestsUpload } from "./requestsUpload";
 jest.mock("./requestsUpload");
 
 describe("requestsUpload lib", (): void => {
-
   const literate: IStateLiterate = { query: "HI", result: "های" };
 
   test("test requestsUpload", (done: jest.DoneCallback): void => {
@@ -15,19 +14,16 @@ describe("requestsUpload lib", (): void => {
 
     requestsUpload(
       {
-        path: "/litrate/HI",
+        path: "/litrate/HI"
       },
-      new FormData(),
+      new FormData()
     )
       .then((value: any): void => {
-        expect(value)
-          .toEqual(literate);
+        expect(value).toEqual(literate);
         done();
       })
       .catch((reason: any): void => {
         done();
-      })
-      ;
+      });
   });
-
 });

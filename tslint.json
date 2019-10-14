@@ -1,6 +1,7 @@
 {
   "extends": [
-    "tslint:all"
+    "tslint:all",
+    "tslint-config-prettier"
   ],
   "rules": {
     "completed-docs": false,
@@ -9,8 +10,12 @@
     "no-submodule-imports": false,
     "no-unsafe-any": false,
     "no-use-before-declare": false,
+    "prettier": true,
     "variable-name": [true, "allow-leading-underscore"]
   },
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
   "linterOptions": {
     "exclude": [
       "./src/lib/lib/*"

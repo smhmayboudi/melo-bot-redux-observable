@@ -7,36 +7,36 @@ const YOUTUBE_SEARCH_LIST_ERROR: string = "YOUTUBE_SEARCH_LIST_ERROR";
 const YOUTUBE_SEARCH_LIST_QUERY: string = "YOUTUBE_SEARCH_LIST_QUERY";
 const YOUTUBE_SEARCH_LIST_RESULT: string = "YOUTUBE_SEARCH_LIST_RESULT";
 
-const error:
-  (youtubeSearchList: IStateYoutubeSearchList) => IActionYoutubeSearchList =
-  (youtubeSearchList: IStateYoutubeSearchList): IActionYoutubeSearchList =>
-    ({
-      type: YOUTUBE_SEARCH_LIST_ERROR,
-      youtubeSearchList: {
-        error: youtubeSearchList.error,
-      },
-    })
-  ;
-const query:
-  (youtubeSearchList: IStateYoutubeSearchList) => IActionYoutubeSearchList =
-  (youtubeSearchList: IStateYoutubeSearchList): IActionYoutubeSearchList =>
-    ({
-      type: YOUTUBE_SEARCH_LIST_QUERY,
-      youtubeSearchList: {
-        query: youtubeSearchList.query,
-      },
-    })
-  ;
-const result:
-  (youtubeSearchList: IStateYoutubeSearchList) => IActionYoutubeSearchList =
-  (youtubeSearchList: IStateYoutubeSearchList): IActionYoutubeSearchList =>
-    ({
-      type: YOUTUBE_SEARCH_LIST_RESULT,
-      youtubeSearchList: {
-        result: youtubeSearchList.result,
-      },
-    })
-  ;
+const error: (
+  youtubeSearchList: IStateYoutubeSearchList
+) => IActionYoutubeSearchList = (
+  youtubeSearchList: IStateYoutubeSearchList
+): IActionYoutubeSearchList => ({
+  type: YOUTUBE_SEARCH_LIST_ERROR,
+  youtubeSearchList: {
+    error: youtubeSearchList.error
+  }
+});
+const query: (
+  youtubeSearchList: IStateYoutubeSearchList
+) => IActionYoutubeSearchList = (
+  youtubeSearchList: IStateYoutubeSearchList
+): IActionYoutubeSearchList => ({
+  type: YOUTUBE_SEARCH_LIST_QUERY,
+  youtubeSearchList: {
+    query: youtubeSearchList.query
+  }
+});
+const result: (
+  youtubeSearchList: IStateYoutubeSearchList
+) => IActionYoutubeSearchList = (
+  youtubeSearchList: IStateYoutubeSearchList
+): IActionYoutubeSearchList => ({
+  type: YOUTUBE_SEARCH_LIST_RESULT,
+  youtubeSearchList: {
+    result: youtubeSearchList.result
+  }
+});
 
 export {
   initialState,
@@ -45,5 +45,5 @@ export {
   YOUTUBE_SEARCH_LIST_RESULT,
   error,
   query,
-  result,
+  result
 };

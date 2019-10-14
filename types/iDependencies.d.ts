@@ -18,7 +18,7 @@ export interface IDependencies {
   botToken?: string;
   collectionObservable?: (db: Db, name: string, options: DbCollectionOptions) => Observable<Collection<any>>
   findOneObservable?: (collection: Collection, query: FilterQuery<any>, options?: FindOneOptions) => Observable<any>,
-  insertOneObservable?: (collection: Collection, docs: any, options: CollectionInsertOneOptions) => Observable<InsertOneWriteOpResult>
+  insertOneObservable?: (collection: Collection, docs: any, options: CollectionInsertOneOptions) => Observable<InsertOneWriteOpResult<any>>
   mongoClientObservable?: () => Observable<MongoClient>;
   requestObservable?: (options: http.RequestOptions, data?: any) => Observable<any>;
   requestUploadObservable?: (options: http.RequestOptions, formData: FormData) => Observable<any>;
