@@ -1,7 +1,7 @@
 const NodeEnvironment = require("jest-environment-node");
 const path = require("path");
 const fs = require("fs");
-const configPath = path.join(__dirname, "config.json");
+const configPath = path.join(__dirname, "globalConfig.json");
 
 module.exports = class MongoEnvironment extends NodeEnvironment {
   constructor(config) {

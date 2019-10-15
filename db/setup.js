@@ -1,14 +1,15 @@
 const path = require("path");
 const fs = require("fs");
 const MongodbMemoryServer = require("mongodb-memory-server");
-const configPath = path.join(__dirname, "config.json");
+const configPath = path.join(__dirname, "globalConfig.json");
 
 const mongodb = new MongodbMemoryServer.default({
+  autoStart: false,
+  binary: {
+    skipMD5: true
+  },
   instance: {
     dbName: "melodio"
-  },
-  binary: {
-    version: "4.0.3"
   }
 });
 
@@ -23,6 +24,6 @@ module.exports = async function() {
   console.log("Config is written");
 
   // Set reference to mongodb in order to close the server during teardown.
-  global.__MONGODB__ = mongodb;
+  global.__MONGOD__ = mongodb;
   process.env.MONGO_URL = mongoConfig.mongoUri;
 };
