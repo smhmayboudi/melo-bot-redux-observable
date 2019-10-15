@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const MongodbMemoryServer = require("mongodb-memory-server");
-const configPath = path.join(__dirname, "db", "config.json");
+const configPath = path.join(__dirname, "config.json");
 
 const mongodb = new MongodbMemoryServer.default({
   instance: {
