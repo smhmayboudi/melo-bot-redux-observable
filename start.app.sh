@@ -5,4 +5,4 @@ export KEY=AIzaSyDw1FO0PiK1CUxpxMaTIrDGaEJRco4FBXg
 export NODE_ENV=development
 export PORT=8081
 
-node --require source-map-support/register --inspect=0.0.0.0:9229 dist/app.js
+node --require source-map-support/register --inspect=0.0.0.0:9229 ./dist/app.js

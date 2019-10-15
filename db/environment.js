@@ -1,7 +1,7 @@
 const NodeEnvironment = require("jest-environment-node");
 const path = require("path");
 const fs = require("fs");
-const globalConfigPath = path.join(__dirname, "globalConfig.json");
+const configPath = path.join(__dirname, "db", "config.json");
 
 module.exports = class MongoEnvironment extends NodeEnvironment {
   constructor(config) {
@@ -11,10 +11,10 @@ module.exports = class MongoEnvironment extends NodeEnvironment {
   async setup() {
     console.log("Setup MongoDB Test Environment");
 
-    const globalConfig = JSON.parse(fs.readFileSync(globalConfigPath, "utf-8"));
+    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
 
-    this.global.__MONGO_URI__ = globalConfig.mongoUri;
-    this.global.__MONGO_DB_NAME__ = globalConfig.mongoDBName;
+    this.global.__MONGO_URI__ = config.mongoUri;
+    this.global.__MONGO_DB_NAME__ = config.mongoDBName;
 
     await super.setup();
   }
