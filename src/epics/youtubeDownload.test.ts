@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -472,6 +472,7 @@ describe("youtubeDownload epic", (): void => {
   });
 
   describe("youtubeDownload epic cache", (): void => {
+    let db: Db;
     let connection: MongoClient;
 
     beforeAll(
@@ -479,30 +480,28 @@ describe("youtubeDownload epic", (): void => {
         connection = await MongoClient.connect(global.__MONGO_URI__, {
           useNewUrlParser: true
         });
+        db = connection.db(global.__MONGO_DB_NAME__);
       }
     );
 
     beforeEach(
       async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
+        await db.collection("cache").insertOne({
+          duration: 0,
+          file_id: "small",
+          file_size: 0,
+          height: 0,
+          id: "small",
+          mime_type: "video/mp4",
+          thumb: {
             file_id: "small",
             file_size: 0,
             height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
             width: 0
-          });
+          },
+          title: "",
+          width: 0
+        });
       }
     );
 
@@ -514,10 +513,7 @@ describe("youtubeDownload epic", (): void => {
 
     afterEach(
       async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
+        await db.collection("cache").deleteOne({ id: "small" });
       }
     );
 
@@ -558,57 +554,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle dependency mongoClientObservable error", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -648,57 +593,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle dependency collectionObservable undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -737,57 +631,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle dependency collectionObservable error", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -827,57 +670,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle dependency findOneObservable undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -916,57 +708,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle dependency findOneObservable error", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -1005,33 +746,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle error value undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -1070,56 +784,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle error mime_type undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -1158,51 +822,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle error thumb undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
@@ -1241,57 +860,6 @@ describe("youtubeDownload epic", (): void => {
         });
       });
     });
-  });
-
-  describe("youtubeDownload epic cache", (): void => {
-    let connection: MongoClient;
-
-    beforeAll(
-      async (): Promise<any> => {
-        connection = await MongoClient.connect(global.__MONGO_URI__, {
-          useNewUrlParser: true
-        });
-      }
-    );
-
-    beforeEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .insertOne({
-            duration: 0,
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            id: "small",
-            mime_type: "video/mp4",
-            thumb: {
-              file_id: "small",
-              file_size: 0,
-              height: 0,
-              width: 0
-            },
-            title: "",
-            width: 0
-          });
-      }
-    );
-
-    afterAll(
-      async (): Promise<any> => {
-        await connection.close();
-      }
-    );
-
-    afterEach(
-      async (): Promise<any> => {
-        await connection
-          .db(global.__MONGO_DB_NAME__)
-          .collection("cache")
-          .deleteOne({ id: "small" });
-      }
-    );
 
     test("should handle result with cache", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {

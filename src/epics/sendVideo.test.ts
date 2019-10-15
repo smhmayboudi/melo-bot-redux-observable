@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -244,6 +244,7 @@ describe("sendVideo epic", (): void => {
     });
   });
 
+  let db: Db;
   let connection: MongoClient;
 
   beforeAll(
@@ -251,15 +252,13 @@ describe("sendVideo epic", (): void => {
       connection = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true
       });
+      db = connection.db(global.__MONGO_DB_NAME__);
     }
   );
 
   beforeEach(
     async (): Promise<any> => {
-      await connection
-        .db(global.__MONGO_DB_NAME__)
-        .collection("cache")
-        .deleteOne({ id: "small" });
+      db.collection("cache").deleteOne({ id: "small" });
     }
   );
 
