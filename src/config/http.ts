@@ -126,6 +126,6 @@ http
       }
     }
   )
-  .listen(env.PORT, env.HOST, (): void => {
-    appDebug(`Server running at http://${env.HOST}:${env.PORT}`);
+  .listen(env.PORT, env.HOSTNAME, (): void => {
+    appDebug(`Server running at http://${env.HOSTNAME}:${env.PORT}`);
   });

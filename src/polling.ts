@@ -21,7 +21,7 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (
     .request(
       {
         headers: { "Content-Type": "application/json", "User-Agent": "node" },
-        host: env.HOST,
+        host: env.HOSTNAME,
         method: "POST",
         path: `/${env.BOT_TOKEN}`,
         port: env.PORT

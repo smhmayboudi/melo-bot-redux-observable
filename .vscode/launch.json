@@ -9,7 +9,7 @@
             "type": "node",
             "request": "attach",
             "name": "Attach to Remote Polling",
-            "address": "127.0.0.1",
+            "address": "localhost",
             "port": 9229,
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/melo-bot-redux-observable"
@@ -18,7 +18,7 @@
             "type": "node",
             "request": "attach",
             "name": "Attach to Remote App",
-            "address": "127.0.0.1",
+            "address": "localhost",
             "port": 9230,
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/melo-bot-redux-observable"

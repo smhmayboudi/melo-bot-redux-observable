@@ -22,9 +22,22 @@ const getter: (key: string, type: string) => string = (
 };
 
 const BOT_TOKEN: string = getter("BOT_TOKEN", "string");
-const HOST: string = getter("HOST", "string");
+const HOSTNAME: string = getter("HOSTNAME", "string");
 const KEY: string = getter("KEY", "string");
 const NODE_ENV: string = getter("NODE_ENV", "string");
+const REMOTEDEV_HOSTNAME: string = getter("REMOTEDEV_HOSTNAME", "string");
+const REMOTEDEV_REALTIME: boolean =
+  getter("REMOTEDEV_REALTIME", "string") === "true";
+const REMOTEDEV_PORT: string = getter("REMOTEDEV_PORT", "string");
 const PORT: number = parseInt(getter("PORT", "number"), 10);
 
-export { BOT_TOKEN, HOST, KEY, NODE_ENV, PORT };
+export {
+  BOT_TOKEN,
+  HOSTNAME,
+  KEY,
+  NODE_ENV,
+  REMOTEDEV_HOSTNAME,
+  REMOTEDEV_PORT,
+  REMOTEDEV_REALTIME,
+  PORT
+};
