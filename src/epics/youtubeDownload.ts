@@ -28,11 +28,15 @@ const youtubeDownload: (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionGetChatMember | IActionSendVideo> = (
+) => Observable<
+  IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
+> = (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionGetChatMember | IActionSendVideo> => {
+): Observable<
+  IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
+> => {
   const {
     collectionObservable,
     findOneObservable,
@@ -209,40 +213,40 @@ const youtubeDownload: (
 
   const transformObservable: (
     action: IActionYoutubeDownload
-  ) => Observable<IActionSendVideo> = (
+  ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
     action: IActionYoutubeDownload
-  ): Observable<IActionSendVideo> => {
+  ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
     if (action.type === actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR) {
       return of(
-        actions.sendVideo.error({
+        actions.youtubeDownload.error({
           error: action.youtubeDownload.error
         })
       );
     }
     if (action.youtubeDownload.result === undefined) {
       return of(
-        actions.sendVideo.error({
+        actions.youtubeDownload.error({
           error: new Error(texts.actionYoutubeDownloadResultUndefined)
         })
       );
     }
     if (state$ === undefined) {
       return of(
-        actions.sendVideo.error({
+        actions.youtubeDownload.error({
           error: new Error(texts.state$Undefined)
         })
       );
     }
     if (state$.value.message.query === undefined) {
       return of(
-        actions.sendVideo.error({
+        actions.youtubeDownload.error({
           error: new Error(texts.state$ValueMessageQueryUndefined)
         })
       );
     }
     if (state$.value.message.query.message === undefined) {
       return of(
-        actions.sendVideo.error({
+        actions.youtubeDownload.error({
           error: new Error(texts.state$ValueMessageQueryMessageUndefined)
         })
       );
@@ -312,7 +316,9 @@ const youtubeDownload: (
     switchMap(
       (
         actionQuery: IActionYoutubeDownload
-      ): ObservableInput<IActionGetChatMember | IActionSendVideo> =>
+      ): ObservableInput<
+        IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
+      > =>
         ((): Observable<any> =>
           testAction$ === undefined ? action$ : testAction$())().pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
