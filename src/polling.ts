@@ -1,6 +1,6 @@
 import debug from "debug";
 import * as http from "http";
-import * as TelegramBot from "node-telegram-bot-api";
+import TelegramBot from "node-telegram-bot-api";
 
 import { IStateMessageQuery } from "../types/iStateMessageQuery";
 import { IInlineQuery } from "../types/telegramBot/inlineMode/iInlineQuery";
