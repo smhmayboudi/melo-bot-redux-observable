@@ -1,7 +1,7 @@
-import * as FormData from "form-data";
+import FormData from "form-data";
 import { Db, MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
-import { NEVER, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, switchMapTo } from "rxjs/operators";
 
 import { IActionSendVideo } from "../../types/iActionSendVideo";
@@ -217,7 +217,7 @@ const sendVideo: (
                   switchMap(
                     (value: any): Observable<IActionSendVideo> => {
                       if (value !== null) {
-                        return NEVER;
+                        return of(action);
                       }
                       if (insertOneObservable === undefined) {
                         return of(

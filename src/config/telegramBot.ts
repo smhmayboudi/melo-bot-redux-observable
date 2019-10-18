@@ -1,4 +1,4 @@
-import * as debug from "debug";
+import debug from "debug";
 import * as fs from "fs";
 import { MongoClient } from "mongodb";
 import { Store } from "redux";

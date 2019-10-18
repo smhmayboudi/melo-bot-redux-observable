@@ -1,4 +1,4 @@
-import * as debug from "debug";
+import debug from "debug";
 import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 const appDebug: debug.IDebugger = debug("app:middleware:logger");

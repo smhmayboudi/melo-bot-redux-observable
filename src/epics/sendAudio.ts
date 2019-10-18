@@ -1,4 +1,4 @@
-import * as FormData from "form-data";
+import FormData from "form-data";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";

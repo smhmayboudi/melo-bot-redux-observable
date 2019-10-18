@@ -1,4 +1,4 @@
-import * as FormData from "form-data";
+import FormData from "form-data";
 import * as http from "http";
 
 import { IStateLiterate } from "../../../types/iStateLiterate";

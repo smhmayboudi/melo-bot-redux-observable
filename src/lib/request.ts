@@ -1,4 +1,4 @@
-import * as debug from "debug";
+import debug from "debug";
 import * as http from "http";
 
 const appDebug: debug.IDebugger = debug("app:lib:request");

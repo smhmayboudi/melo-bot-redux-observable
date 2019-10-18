@@ -1,4 +1,4 @@
-import * as debug from "debug";
+import debug from "debug";
 import { performance } from "perf_hooks";
 import {
   Action,

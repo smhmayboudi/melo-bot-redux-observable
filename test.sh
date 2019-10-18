@@ -10,10 +10,10 @@ export READINESS_STOP_TIMEOUT=2000
 export REMOTEDEV_HOSTNAME=localhost
 export REMOTEDEV_NAME=melo-bot-redux-observable
 export REMOTEDEV_PORT=8000
-export REMOTEDEV_REALTIME=true
+export REMOTEDEV_REALTIME=false
 export PORT=8081
 export SENTRY_DSN=
 export SENTRY_SERVERNAME=
 
 rm -fr coverage
-./node_modules/.bin/jest --detectOpenHandles --config ./jest.config.json --verbose
+./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose

@@ -1,5 +1,5 @@
-import * as debug from "debug";
-import * as FormData from "form-data";
+import debug from "debug";
+import FormData from "form-data";
 import * as http from "http";
 import * as https from "https";
 

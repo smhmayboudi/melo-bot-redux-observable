@@ -584,7 +584,8 @@ describe("sendVideo epic", (): void => {
 
   test("should handle dependency insertOneObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query
@@ -605,17 +606,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.error({
-          error: new Error(texts.epicDependencyInsertOneObservableUndefined)
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.error({
+      //     Error: new Error(texts.epicDependencyInsertOneObservableUndefined)
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.error({
+            error: new Error(texts.epicDependencyInsertOneObservableUndefined)
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle dependency insertOneObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query
@@ -636,10 +647,19 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.error({
-          error
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.error({
+      //     Error
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.error({
+            error
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
@@ -741,7 +761,8 @@ describe("sendVideo epic", (): void => {
 
   test("should handle result ok true", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query
@@ -762,17 +783,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no caption", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoCaption
@@ -793,17 +824,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no disable_notification", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoDisableNotification
@@ -824,17 +865,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no duration", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoDuration
@@ -855,17 +906,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no parse_mode", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoParseMode
@@ -886,17 +947,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no heigh", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoHeight
@@ -917,17 +988,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no reply_markup", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoReplyMarkup
@@ -948,17 +1029,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no reply_to_message_id", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoReplyToMessageId
@@ -979,17 +1070,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no supports_streaming", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoSupportsStreaming
@@ -1010,17 +1111,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no thumb", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoThumb
@@ -1041,17 +1152,27 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
 
   test("should handle result ok true no width", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query: queryNoWidth
@@ -1072,10 +1193,19 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.result({
+      //     Result
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.result({
+            result
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });

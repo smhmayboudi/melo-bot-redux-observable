@@ -79,7 +79,7 @@ const createCollectionObservable: (
 ): Observable<Collection<{}>> =>
   bindNodeCallback(createCollectionObs)(db, name, options);
 
-const fondOneCollectionObs: (
+const findOneCollectionObs: (
   collection: Collection,
   filter: FilterQuery<any>,
   callback: MongoCallback<any>
@@ -97,7 +97,7 @@ const findOneObservable: (
   collection: Collection,
   filter: FilterQuery<any>
 ): Observable<any> =>
-  bindNodeCallback(fondOneCollectionObs)(collection, filter);
+  bindNodeCallback(findOneCollectionObs)(collection, filter);
 
 const insertOneObs: (
   collection: Collection,

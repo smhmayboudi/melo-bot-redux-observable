@@ -1,5 +1,5 @@
 import { captureException, configureScope, init, Scope } from "@sentry/node";
-import * as debug from "debug";
+import debug from "debug";
 import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 import { IState } from "../../types/iState";

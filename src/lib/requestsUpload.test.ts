@@ -1,29 +1,29 @@
-import * as FormData from "form-data";
+// Import FormData from "form-data";
 
-import { IStateLiterate } from "../../types/iStateLiterate";
+// Import { IStateLiterate } from "../../types/iStateLiterate";
 
-import { requestsUpload } from "./requestsUpload";
+// Import { requestsUpload } from "./requestsUpload";
 
-jest.mock("./requestsUpload");
+// // jest.mock("./requestsUpload");
 
-describe("requestsUpload lib", (): void => {
-  const literate: IStateLiterate = { query: "HI", result: "های" };
+// Describe("requestsUpload lib", (): void => {
+//   Const literate: IStateLiterate = { query: "HI", result: "های" };
 
-  test("test requestsUpload", (done: jest.DoneCallback): void => {
-    expect.assertions(1);
+//   Test("test requestsUpload", (done: jest.DoneCallback): void => {
+//     Expect.assertions(1);
 
-    requestsUpload(
-      {
-        path: "/litrate/HI"
-      },
-      new FormData()
-    )
-      .then((value: any): void => {
-        expect(value).toEqual(literate);
-        done();
-      })
-      .catch((_reason: any): void => {
-        done();
-      });
-  });
-});
+//     RequestsUpload(
+//       {
+//         Path: "/litrate/HI"
+//       },
+//       New FormData()
+//     )
+//       .then((value: any): void => {
+//         Expect(value).toEqual(literate);
+//         Done();
+//       })
+//       .catch((_reason: any): void => {
+//         Done();
+//       });
+//   });
+// });

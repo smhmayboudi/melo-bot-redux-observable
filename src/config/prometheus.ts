@@ -1,5 +1,5 @@
-import * as Prometheus from "prom-client";
-import * as PrometheusGCState from "prometheus-gc-stats";
+import Prometheus from "prom-client";
+import gcStats from "prometheus-gc-stats";
 
 import * as env from "./env";
 
@@ -8,7 +8,7 @@ Prometheus.collectDefaultMetrics({
   timeout: env.METRICS_COLLECTOR_TIMEOUT
 });
 
-PrometheusGCState(Prometheus.register, {
+gcStats(Prometheus.register, {
   prefix: env.METRICS_COLLECTOR_PREFIX
 })();
 

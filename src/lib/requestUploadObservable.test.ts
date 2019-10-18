@@ -1,4 +1,4 @@
-import * as FormData from "form-data";
+import FormData from "form-data";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";

@@ -1,22 +1,22 @@
-import { IStateLiterate } from "../../types/iStateLiterate";
+// Import { IStateLiterate } from "../../types/iStateLiterate";
 
-import { request } from "./request";
+// Import { request } from "./request";
 
-jest.mock("./request");
+// // jest.mock("./request");
 
-describe("request lib", (): void => {
-  const literate: IStateLiterate = { query: "HI", result: "های" };
+// Describe("request lib", (): void => {
+//   Const literate: IStateLiterate = { query: "HI", result: "های" };
 
-  test("test request", (done: jest.DoneCallback): Promise<any> => {
-    expect.assertions(1);
+//   Test("test request", (done: jest.DoneCallback): Promise<any> => {
+//     Expect.assertions(1);
 
-    return request({ path: "" })
-      .then((value: any): void => {
-        expect(value).toEqual(literate);
-        done();
-      })
-      .catch((_reason: any): void => {
-        done();
-      });
-  });
-});
+//     Return request({ path: "" })
+//       .then((value: any): void => {
+//         Expect(value).toEqual(literate);
+//         Done();
+//       })
+//       .catch((_reason: any): void => {
+//         Done();
+//       });
+//   });
+// });

@@ -1,5 +1,5 @@
-import * as debug from "debug";
-import * as FormData from "form-data";
+import debug from "debug";
+import FormData from "form-data";
 import * as http from "http";
 
 const appDebug: debug.IDebugger = debug("app:lib:requestUpload");

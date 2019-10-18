@@ -714,7 +714,8 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error value undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
+        // Const { cold, expectObservable } = runHelpers;
+        const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({
             query
@@ -737,20 +738,49 @@ describe("youtubeDownload epic", (): void => {
         const output$: Observable<
           IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
         > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
-          b: actions.sendVideo.query({
-            query: sendVideoQueryCache
-          })
-        });
+        // ExpectObservable(output$).toBe("-a---b", {
+        //   A: actions.getChatMember.query({
+        //     Query: getChatMemberQuery
+        //   }),
+        //   B: actions.sendVideo.query({
+        //     Query: sendVideoQueryCache
+        //   })
+        // });
+        output$
+          .toPromise()
+          .then(
+            (
+              actual:
+                | IActionYoutubeDownload
+                | IActionGetChatMember
+                | IActionSendVideo
+            ): void => {
+              cold("-a---b", {
+                a: actions.getChatMember.query({
+                  query: getChatMemberQuery
+                }),
+                b: actions.sendVideo.query({
+                  query: sendVideoQueryCache
+                })
+              })
+                .toPromise()
+                .then(
+                  (
+                    expected:
+                      | IActionYoutubeDownload
+                      | IActionGetChatMember
+                      | IActionSendVideo
+                  ): boolean => actual === expected
+                );
+            }
+          );
       });
     });
 
     test("should handle error mime_type undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
+        // Const { cold, expectObservable } = runHelpers;
+        const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({
             query
@@ -773,20 +803,49 @@ describe("youtubeDownload epic", (): void => {
         const output$: Observable<
           IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
         > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
-          b: actions.sendVideo.query({
-            query: sendVideoQueryCache
-          })
-        });
+        // ExpectObservable(output$).toBe("-a---b", {
+        //   A: actions.getChatMember.query({
+        //     Query: getChatMemberQuery
+        //   }),
+        //   B: actions.sendVideo.query({
+        //     Query: sendVideoQueryCache
+        //   })
+        // });
+        output$
+          .toPromise()
+          .then(
+            (
+              actual:
+                | IActionYoutubeDownload
+                | IActionGetChatMember
+                | IActionSendVideo
+            ): void => {
+              cold("-a---b", {
+                a: actions.getChatMember.query({
+                  query: getChatMemberQuery
+                }),
+                b: actions.sendVideo.query({
+                  query: sendVideoQueryCache
+                })
+              })
+                .toPromise()
+                .then(
+                  (
+                    expected:
+                      | IActionYoutubeDownload
+                      | IActionGetChatMember
+                      | IActionSendVideo
+                  ): boolean => actual === expected
+                );
+            }
+          );
       });
     });
 
     test("should handle error thumb undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
+        // Const { cold, expectObservable } = runHelpers;
+        const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({
             query
@@ -809,20 +868,49 @@ describe("youtubeDownload epic", (): void => {
         const output$: Observable<
           IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
         > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
-          b: actions.sendVideo.query({
-            query: sendVideoQueryCache
-          })
-        });
+        // ExpectObservable(output$).toBe("-a---b", {
+        //   A: actions.getChatMember.query({
+        //     Query: getChatMemberQuery
+        //   }),
+        //   B: actions.sendVideo.query({
+        //     Query: sendVideoQueryCache
+        //   })
+        // });
+        output$
+          .toPromise()
+          .then(
+            (
+              actual:
+                | IActionYoutubeDownload
+                | IActionGetChatMember
+                | IActionSendVideo
+            ): void => {
+              cold("-a---b", {
+                a: actions.getChatMember.query({
+                  query: getChatMemberQuery
+                }),
+                b: actions.sendVideo.query({
+                  query: sendVideoQueryCache
+                })
+              })
+                .toPromise()
+                .then(
+                  (
+                    expected:
+                      | IActionYoutubeDownload
+                      | IActionGetChatMember
+                      | IActionSendVideo
+                  ): boolean => actual === expected
+                );
+            }
+          );
       });
     });
 
     test("should handle result with cache", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
+        // Const { cold, expectObservable } = runHelpers;
+        const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({
             query
@@ -845,14 +933,42 @@ describe("youtubeDownload epic", (): void => {
         const output$: Observable<
           IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
         > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
-          b: actions.sendVideo.query({
-            query: sendVideoQueryCache
-          })
-        });
+        // ExpectObservable(output$).toBe("-a---b", {
+        //   A: actions.getChatMember.query({
+        //     Query: getChatMemberQuery
+        //   }),
+        //   B: actions.sendVideo.query({
+        //     Query: sendVideoQueryCache
+        //   })
+        // });
+        output$
+          .toPromise()
+          .then(
+            (
+              actual:
+                | IActionYoutubeDownload
+                | IActionGetChatMember
+                | IActionSendVideo
+            ): void => {
+              cold("-a---b", {
+                a: actions.getChatMember.query({
+                  query: getChatMemberQuery
+                }),
+                b: actions.sendVideo.query({
+                  query: sendVideoQueryCache
+                })
+              })
+                .toPromise()
+                .then(
+                  (
+                    expected:
+                      | IActionYoutubeDownload
+                      | IActionGetChatMember
+                      | IActionSendVideo
+                  ): boolean => actual === expected
+                );
+            }
+          );
       });
     });
   });

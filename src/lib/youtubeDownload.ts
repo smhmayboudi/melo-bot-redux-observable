@@ -1,4 +1,4 @@
-import * as debug from "debug";
+import debug from "debug";
 import * as fs from "fs";
 import * as http from "http";
 import * as https from "https";
