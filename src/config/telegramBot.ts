@@ -33,10 +33,11 @@ const operate: (message: IStateMessageQuery) => void = (
     MongoClient
   > =>
     connectObservable("mongodb://localhost:27017", {
-      appname: "telegramBot",
+      appname: "melo-bot-redux-observable",
       logger: appDebug,
-      loggerLevel: "info",
-      useNewUrlParser: true
+      loggerLevel: "debug",
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
   if (message.message !== undefined) {
     const store: Store<IState> & { dispatch: {} } = configureStore({
@@ -142,10 +143,11 @@ const operate: (message: IStateMessageQuery) => void = (
         store.dispatch(
           actions.youtubeSearchList.query({
             query: {
-              key: env.KEY,
+              key: env.GOOGLE_API_KEY,
               maxResults: 10,
               part: "id,snippet",
-              q: "HI"
+              q: "HI",
+              type: "video"
             }
           })
         );
@@ -156,7 +158,7 @@ const operate: (message: IStateMessageQuery) => void = (
           actions.youtubeVideoList.query({
             query: {
               chart: "mostPopular",
-              key: env.KEY,
+              key: env.GOOGLE_API_KEY,
               maxResults: 10,
               part: "id,snippet"
             }
@@ -187,7 +189,7 @@ const operate: (message: IStateMessageQuery) => void = (
               actions.youtubeVideoList.query({
                 query: {
                   chart: "mostPopular",
-                  key: env.KEY,
+                  key: env.GOOGLE_API_KEY,
                   maxResults: 10,
                   part: "id,snippet"
                 }
@@ -216,7 +218,7 @@ const operate: (message: IStateMessageQuery) => void = (
             store.dispatch(
               actions.youtubeSearchList.query({
                 query: {
-                  key: env.KEY,
+                  key: env.GOOGLE_API_KEY,
                   relatedToVideoId: message.message.text
                     .replace(
                       `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`,
@@ -230,16 +232,11 @@ const operate: (message: IStateMessageQuery) => void = (
             store.dispatch(
               actions.youtubeSearchList.query({
                 query: {
-                  key: env.KEY,
-                  // Location: "32.4279,53.6880",
-                  // LocationRadius: "1000km",
+                  key: env.GOOGLE_API_KEY,
                   maxResults: 10,
                   part: "id,snippet",
                   q: message.message.text.trim(),
-                  // RegionCode: "US",
-                  // RelevanceLanguage: "fa",
                   type: "video"
-                  // VideoCategoryId: "10",
                 }
               })
             );

@@ -111,9 +111,7 @@ describe("literate epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         requestObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: { result }
-          })
+          cold("--a", { a: { result } })
       };
       const output$: Observable<IActionLiterate> = epic.literate(
         action$,

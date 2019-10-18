@@ -5,6 +5,7 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "module": "commonjs",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,

@@ -16,11 +16,11 @@ const youtubeSearchList: (
   action$: Observable<IActionYoutubeSearchList>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionSendMessage> = (
+) => Observable<IActionYoutubeSearchList | IActionSendMessage> = (
   action$: Observable<IActionYoutubeSearchList>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionSendMessage> => {
+): Observable<IActionYoutubeSearchList | IActionSendMessage> => {
   const { requestsObservable } = dependencies;
 
   const actionObservable: (
@@ -69,61 +69,57 @@ const youtubeSearchList: (
 
   const transformObservable: (
     action: IActionYoutubeSearchList
-  ) => Observable<IActionSendMessage> = (
+  ) => Observable<IActionYoutubeSearchList | IActionSendMessage> = (
     action: IActionYoutubeSearchList
-  ): Observable<IActionSendMessage> => {
+  ): Observable<IActionYoutubeSearchList | IActionSendMessage> => {
     if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
-      return of(
-        actions.sendMessage.error({
-          error: action.youtubeSearchList.error
-        })
-      );
+      return of(action);
     }
     if (action.youtubeSearchList.result === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.actionYoutubeSearchListResultUndefined)
         })
       );
     }
     if (action.youtubeSearchList.result.items === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
         })
       );
     }
     if (state$ === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.state$Undefined)
         })
       );
     }
     if (state$.value.message.query === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueMessageQueryUndefined)
         })
       );
     }
     if (state$.value.message.query.message === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueMessageQueryMessageUndefined)
         })
       );
     }
     if (state$.value.youtubeSearchList.query === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
         })
       );
     }
     if (state$.value.youtubeSearchList.query.q === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
         })
       );

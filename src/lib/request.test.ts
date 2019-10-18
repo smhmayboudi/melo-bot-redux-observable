@@ -7,17 +7,15 @@ jest.mock("./request");
 describe("request lib", (): void => {
   const literate: IStateLiterate = { query: "HI", result: "های" };
 
-  test("test request", (done: jest.DoneCallback): void => {
+  test("test request", (done: jest.DoneCallback): Promise<any> => {
     expect.assertions(1);
 
-    request({
-      path: "/litrate/HI"
-    })
+    return request({ path: "" })
       .then((value: any): void => {
         expect(value).toEqual(literate);
         done();
       })
-      .catch((reason: any): void => {
+      .catch((_reason: any): void => {
         done();
       });
   });

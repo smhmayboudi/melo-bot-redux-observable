@@ -14,11 +14,11 @@ import * as texts from "../config/texts";
 
 const sendAudio: (
   action$: Observable<IActionSendAudio>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionSendAudio> = (
   action$: Observable<IActionSendAudio>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendAudio> => {
   const transform: (query: IStateSendAudioQuery) => FormData = (

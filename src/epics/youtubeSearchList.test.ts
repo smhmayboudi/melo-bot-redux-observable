@@ -158,13 +158,11 @@ describe("youtubeSearchList epic", (): void => {
       const dependencies: IDependencies = {
         requestsObservable: undefined
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       });
@@ -186,13 +184,11 @@ describe("youtubeSearchList epic", (): void => {
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error
         })
       });
@@ -211,17 +207,13 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actionYoutubeSearchListResultItems
-          })
+          cold("--a", { a: actionYoutubeSearchListResultItems })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.actionYoutubeSearchListQueryUndefined)
         })
       });
@@ -239,17 +231,13 @@ describe("youtubeSearchList epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: undefined
-          })
+          cold("--a", { a: undefined })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.actionYoutubeSearchListResultUndefined)
         })
       });
@@ -270,17 +258,13 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actionYoutubeSearchListResultItems
-          })
+          cold("--a", { a: actionYoutubeSearchListResultItems })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
         })
       });
@@ -298,17 +282,13 @@ describe("youtubeSearchList epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: result
-          })
+          cold("--a", { a: result })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.state$Undefined)
         })
       });
@@ -329,17 +309,13 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: result
-          })
+          cold("--a", { a: result })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueMessageQueryUndefined)
         })
       });
@@ -360,17 +336,13 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: result
-          })
+          cold("--a", { a: result })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueMessageQueryMessageUndefined)
         })
       });
@@ -391,17 +363,13 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: result
-          })
+          cold("--a", { a: result })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
         })
       });
@@ -422,17 +390,13 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: result
-          })
+          cold("--a", { a: result })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendMessage.error({
+        a: actions.youtubeSearchList.error({
           error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
         })
       });
@@ -453,15 +417,11 @@ describe("youtubeSearchList epic", (): void => {
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: result
-          })
+          cold("--a", { a: result })
       };
-      const output$: Observable<IActionSendMessage> = epic.youtubeSearchList(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage
+      > = epic.youtubeSearchList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.sendMessage.query({
           query: sendMessageQuery

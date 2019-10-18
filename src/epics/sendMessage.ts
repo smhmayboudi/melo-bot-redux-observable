@@ -12,11 +12,11 @@ import * as texts from "../config/texts";
 
 const sendMessage: (
   action$: Observable<IActionSendMessage>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionSendMessage> = (
   action$: Observable<IActionSendMessage>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMessage> => {
   const { botToken, requestsObservable } = dependencies;

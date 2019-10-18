@@ -249,16 +249,19 @@ describe("sendVideo epic", (): void => {
 
   beforeAll(
     async (): Promise<any> => {
+      // @ts-ignore
       connection = await MongoClient.connect(global.__MONGO_URI__, {
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useUnifiedTopology: true
       });
+      // @ts-ignore
       db = connection.db(global.__MONGO_DB_NAME__);
     }
   );
 
   beforeEach(
     async (): Promise<any> => {
-      db.collection("cache").deleteOne({ id: "small" });
+      await db.collection("cache").deleteOne({ id: "small" });
     }
   );
 
@@ -375,9 +378,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -408,9 +409,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: undefined,
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -418,8 +417,10 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error: new Error(
+            texts.epicDependencyMongoClientObservableObservableUndefined
+          )
         })
       });
     });
@@ -442,18 +443,16 @@ describe("sendVideo epic", (): void => {
         mongoClientObservable: (): ColdObservable<any> =>
           cold("--#", {}, error),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      expectObservable(output$).toBe("-----a", {
+        a: actions.sendVideo.error({
+          error
         })
       });
     });
@@ -475,9 +474,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -485,8 +482,8 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error: new Error(texts.epicDependencyCollectionObservableUndefined)
         })
       });
     });
@@ -508,18 +505,16 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      expectObservable(output$).toBe("-----a", {
+        a: actions.sendVideo.error({
+          error
         })
       });
     });
@@ -541,9 +536,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -551,8 +544,8 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error: new Error(texts.epicDependencyFindOneObservableUndefined)
         })
       });
     });
@@ -574,18 +567,16 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+      expectObservable(output$).toBe("-----a", {
+        a: actions.sendVideo.error({
+          error
         })
       });
     });
@@ -607,9 +598,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable: undefined,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -617,8 +606,8 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error: new Error(texts.epicDependencyInsertOneObservableUndefined)
         })
       });
     });
@@ -640,9 +629,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -650,8 +637,8 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error
         })
       });
     });
@@ -673,9 +660,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKTReplyToMessage
-          })
+          cold("--a", { a: resultOKTReplyToMessage })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -683,8 +668,8 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error: new Error(texts.actionSendVideoResultReplyToMessageUndefined)
         })
       });
     });
@@ -706,9 +691,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKTReplyToMessageText
-          })
+          cold("--a", { a: resultOKTReplyToMessageText })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -716,8 +699,10 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({
-          result
+        a: actions.sendVideo.error({
+          error: new Error(
+            texts.actionSendVideoResultReplyToMessageTextUndefined
+          )
         })
       });
     });
@@ -739,9 +724,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKF
-          })
+          cold("--a", { a: resultOKF })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -772,9 +755,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -805,9 +786,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -838,9 +817,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -871,9 +848,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -904,9 +879,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -937,9 +910,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -970,9 +941,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -1003,9 +972,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -1036,9 +1003,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -1069,9 +1034,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -1102,9 +1065,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,

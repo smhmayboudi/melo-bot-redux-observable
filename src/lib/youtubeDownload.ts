@@ -148,11 +148,12 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
               fs.stat(
                 thumbPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
+                  // tslint:disable-next-line: strict-type-predicates
                   if (err === null && stats.size > 0) {
-                    appDebug("thumbnail serve cache ", thumbPath);
+                    appDebug("thumbnail serve cache", thumbPath);
                     res();
                   } else {
-                    appDebug("thumbnail start download ", thumbPath);
+                    appDebug("thumbnail start download", thumbPath);
                     https
                       .request(
                         vi.thumbnailUrl,
@@ -166,7 +167,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
                           );
                           response
                             .on("end", (): void => {
-                              appDebug("thumbnail finish download ", thumbPath);
+                              appDebug("thumbnail finish download", thumbPath);
                               res();
                             })
                             .pipe(stream);
@@ -197,11 +198,12 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
               fs.stat(
                 videoPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
+                  // tslint:disable-next-line: strict-type-predicates
                   if (err === null && stats.size > 0) {
-                    appDebug("video serve cache ", videoPath);
+                    appDebug("video serve cache", videoPath);
                     res();
                   } else {
-                    appDebug("video start download ", videoPath);
+                    appDebug("video start download", videoPath);
                     https
                       .request(
                         vi.url,
@@ -215,7 +217,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
                           );
                           response
                             .on("end", (): void => {
-                              appDebug("video finish download ", videoPath);
+                              appDebug("video finish download", videoPath);
                               res();
                             })
                             .pipe(stream);

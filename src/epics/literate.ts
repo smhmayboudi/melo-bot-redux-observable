@@ -11,11 +11,11 @@ import * as texts from "../config/texts";
 
 const literate: (
   action$: Observable<IActionLiterate>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionLiterate> = (
   action$: Observable<IActionLiterate>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionLiterate> => {
   const { requestObservable } = dependencies;

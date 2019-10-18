@@ -42,7 +42,7 @@ describe("store config", (): void => {
           first_name: "Hossein",
           id: 52953379,
           is_bot: false,
-          language_code: "en-CA",
+          language_code: "fa",
           last_name: "Mayboudi",
           username: "smhmayboudi"
         },

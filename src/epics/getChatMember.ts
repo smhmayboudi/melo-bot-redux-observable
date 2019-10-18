@@ -83,33 +83,29 @@ const getChatMember: (
 
   const transformObservable: (
     action: IActionGetChatMember
-  ) => Observable<IActionSendMessage> = (
+  ) => Observable<IActionGetChatMember | IActionSendMessage> = (
     action: IActionGetChatMember
-  ): Observable<IActionSendMessage> => {
+  ): Observable<IActionGetChatMember | IActionSendMessage> => {
     if (action.type === actions.getChatMember.GET_CHAT_MEMBER_ERROR) {
-      return of(
-        actions.sendMessage.error({
-          error: action.getChatMember.error
-        })
-      );
+      return of(action);
     }
     if (state$ === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.getChatMember.error({
           error: new Error(texts.state$Undefined)
         })
       );
     }
     if (state$.value.message.query === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.getChatMember.error({
           error: new Error(texts.state$ValueMessageQueryUndefined)
         })
       );
     }
     if (state$.value.message.query.message === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.getChatMember.error({
           error: new Error(texts.state$ValueMessageQueryMessageUndefined)
         })
       );

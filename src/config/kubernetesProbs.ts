@@ -1,20 +1,23 @@
 import * as debug from "debug";
 
+import * as env from "./env";
+
 const appDebug: debug.IDebugger = debug("app:config:kubernetesProbs");
 
+const liveness: boolean = true;
 let readiness: boolean = false;
-const readinessTimeout: number = 2000;
+
 setTimeout((): void => {
+  appDebug("READINESS_START");
   readiness = true;
-}, readinessTimeout);
+}, env.READINESS_START_TIMEOUT);
 
 process.on("SIGTERM", (): void => {
-  appDebug("SIGTERM");
+  appDebug("READINESS_STOP");
   readiness = false;
-  const sigtermTimeout: number = 2000;
   setTimeout((): void => {
     process.exit();
-  }, sigtermTimeout);
+  }, env.READINESS_STOP_TIMEOUT);
 });
 
-export { readiness };
+export { liveness, readiness };

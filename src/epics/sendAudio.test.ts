@@ -178,9 +178,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -260,9 +258,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -289,9 +285,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKF
-          })
+          cold("--a", { a: resultOKF })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -318,9 +312,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -347,9 +339,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -376,9 +366,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -405,9 +393,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -434,9 +420,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -463,9 +447,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -492,9 +474,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -521,9 +501,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -550,9 +528,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -579,9 +555,7 @@ describe("sendAudio epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,

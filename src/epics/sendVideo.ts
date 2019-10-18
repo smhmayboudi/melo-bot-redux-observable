@@ -16,11 +16,11 @@ import { caption, decode } from "../utils/string";
 
 const sendVideo: (
   action$: Observable<IActionSendVideo>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionSendVideo> = (
   action$: Observable<IActionSendVideo>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendVideo> => {
   const transform: (query: IStateSendVideoQuery) => FormData = (
@@ -135,11 +135,7 @@ const sendVideo: (
     action: IActionSendVideo
   ): Observable<IActionSendVideo> => {
     if (action.type === actions.sendVideo.SEND_VIDEO_ERROR) {
-      return of(
-        actions.sendVideo.error({
-          error: action.sendVideo.error
-        })
-      );
+      return of(action);
     }
     if (mongoClientObservable === undefined) {
       return of(

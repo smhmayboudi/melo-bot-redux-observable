@@ -60,9 +60,7 @@ describe("sendMessage epic", (): void => {
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendMessage> = epic.sendMessage(
         action$,
@@ -139,9 +137,7 @@ describe("sendMessage epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendMessage> = epic.sendMessage(
         action$,
@@ -168,9 +164,7 @@ describe("sendMessage epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKF
-          })
+          cold("--a", { a: resultOKF })
       };
       const output$: Observable<IActionSendMessage> = epic.sendMessage(
         action$,
@@ -197,9 +191,7 @@ describe("sendMessage epic", (): void => {
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", {
-            a: resultOKT
-          })
+          cold("--a", { a: resultOKT })
       };
       const output$: Observable<IActionSendMessage> = epic.sendMessage(
         action$,

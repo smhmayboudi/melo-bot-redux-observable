@@ -14,7 +14,7 @@ import * as actions from "../actions";
 import * as texts from "../config/texts";
 import * as epic from "../epics/appError";
 
-describe("getChatMember epic", (): void => {
+describe("appError epic", (): void => {
   const initialState: IState = {
     getChatMember: actions.getChatMember.initialState,
     literate: actions.literate.initialState,

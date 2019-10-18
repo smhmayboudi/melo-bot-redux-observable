@@ -103,12 +103,12 @@ const insertOneObs: (
   collection: Collection,
   docs: any,
   options: CollectionInsertOneOptions,
-  callback: MongoCallback<InsertOneWriteOpResult>
+  callback: MongoCallback<InsertOneWriteOpResult<any>>
 ) => void = (
   collection: Collection,
   docs: any,
   options: CollectionInsertOneOptions,
-  callback: MongoCallback<InsertOneWriteOpResult>
+  callback: MongoCallback<InsertOneWriteOpResult<any>>
 ): void => {
   collection.insertOne(docs, options, callback);
 };
@@ -116,11 +116,11 @@ const insertOneObservable: (
   collection: Collection,
   docs: any,
   options: CollectionInsertOneOptions
-) => Observable<InsertOneWriteOpResult> = (
+) => Observable<InsertOneWriteOpResult<any>> = (
   collection: Collection,
   docs: any,
   options: CollectionInsertOneOptions
-): Observable<InsertOneWriteOpResult> =>
+): Observable<InsertOneWriteOpResult<any>> =>
   bindNodeCallback(insertOneObs)(collection, docs, options);
 
 export {

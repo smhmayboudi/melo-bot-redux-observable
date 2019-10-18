@@ -22,7 +22,7 @@ describe("requestUpload lib", (): void => {
         expect(value).toEqual(literate);
         done();
       })
-      .catch((reason: any): void => {
+      .catch((_reason: any): void => {
         done();
       });
   });

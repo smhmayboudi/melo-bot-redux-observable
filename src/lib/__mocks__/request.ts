@@ -5,18 +5,18 @@ import { IStateLiterate } from "../../../types/iStateLiterate";
 const literate: IStateLiterate = { query: "HI", result: "های" };
 
 const request: (
-  options: http.RequestOptions,
-  data?: any
+  _options: http.RequestOptions,
+  _data?: any
 ) => Promise<any> = async (
-  options: http.RequestOptions,
-  data?: any
+  _options: http.RequestOptions,
+  _data?: any
 ): Promise<any> =>
   new Promise(
     (
       resolve: (value?: any | PromiseLike<any>) => void,
-      reject: (reason?: any) => void
+      _reject: (reason?: any) => void
     ): void => {
-      resolve(literate);
+      process.nextTick(() => resolve(literate));
     }
   );
 

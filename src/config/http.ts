@@ -5,7 +5,7 @@ import * as url from "url";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 
 import * as env from "./env";
-import { readiness } from "./kubernetesProbs";
+import { liveness, readiness } from "./kubernetesProbs";
 import { Prometheus } from "./prometheus";
 import { operate } from "./telegramBot";
 
@@ -107,7 +107,11 @@ http
               answerBotToken(request, response);
               break;
             case "/liveness":
-              answer200(request, response);
+              if (liveness) {
+                answer200(request, response);
+              } else {
+                answer500(request, response);
+              }
               break;
             case "/metrics":
               answerMetrics(request, response);

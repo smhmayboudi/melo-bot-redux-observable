@@ -217,11 +217,7 @@ const youtubeDownload: (
     action: IActionYoutubeDownload
   ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
     if (action.type === actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR) {
-      return of(
-        actions.youtubeDownload.error({
-          error: action.youtubeDownload.error
-        })
-      );
+      return of(action);
     }
     if (action.youtubeDownload.result === undefined) {
       return of(
@@ -284,19 +280,21 @@ const youtubeDownload: (
     );
   };
 
-  const startAction: () => IActionGetChatMember = (): IActionGetChatMember => {
+  const startAction: () => IActionYoutubeDownload | IActionGetChatMember = ():
+    | IActionYoutubeDownload
+    | IActionGetChatMember => {
     if (state$ === undefined) {
-      return actions.getChatMember.error({
+      return actions.youtubeDownload.error({
         error: new Error(texts.state$Undefined)
       });
     }
     if (state$.value.message.query === undefined) {
-      return actions.getChatMember.error({
+      return actions.youtubeDownload.error({
         error: new Error(texts.state$ValueMessageQueryUndefined)
       });
     }
     if (state$.value.message.query.message === undefined) {
-      return actions.getChatMember.error({
+      return actions.youtubeDownload.error({
         error: new Error(texts.state$ValueMessageQueryMessageUndefined)
       });
     }

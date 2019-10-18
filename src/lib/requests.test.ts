@@ -10,14 +10,12 @@ describe("requests lib", (): void => {
   test("test requests", (done: jest.DoneCallback): void => {
     expect.assertions(1);
 
-    requests({
-      path: "/litrate/HI"
-    })
+    requests({ path: "" })
       .then((value: any): void => {
         expect(value).toEqual(literate);
         done();
       })
-      .catch((reason: any): void => {
+      .catch((_reason: any): void => {
         done();
       });
   });

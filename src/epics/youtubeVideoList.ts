@@ -16,11 +16,11 @@ const youtubeVideoList: (
   action$: Observable<IActionYoutubeVideoList>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionSendMessage> = (
+) => Observable<IActionYoutubeVideoList | IActionSendMessage> = (
   action$: Observable<IActionYoutubeVideoList>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionSendMessage> => {
+): Observable<IActionYoutubeVideoList | IActionSendMessage> => {
   const { requestsObservable } = dependencies;
 
   const actionObservable: (
@@ -69,54 +69,50 @@ const youtubeVideoList: (
 
   const transformObservable: (
     action: IActionYoutubeVideoList
-  ) => Observable<IActionSendMessage> = (
+  ) => Observable<IActionYoutubeVideoList | IActionSendMessage> = (
     action: IActionYoutubeVideoList
-  ): Observable<IActionSendMessage> => {
+  ): Observable<IActionYoutubeVideoList | IActionSendMessage> => {
     if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
-      return of(
-        actions.sendMessage.error({
-          error: action.youtubeVideoList.error
-        })
-      );
+      return of(action);
     }
     if (action.youtubeVideoList.result === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeVideoList.error({
           error: new Error(texts.actionYoutubeVideoListResultUndefined)
         })
       );
     }
     if (action.youtubeVideoList.result.items === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeVideoList.error({
           error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
         })
       );
     }
     if (state$ === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeVideoList.error({
           error: new Error(texts.state$Undefined)
         })
       );
     }
     if (state$.value.message.query === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeVideoList.error({
           error: new Error(texts.state$ValueMessageQueryUndefined)
         })
       );
     }
     if (state$.value.message.query.message === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeVideoList.error({
           error: new Error(texts.state$ValueMessageQueryMessageUndefined)
         })
       );
     }
     if (state$.value.youtubeVideoList.query === undefined) {
       return of(
-        actions.sendMessage.error({
+        actions.youtubeVideoList.error({
           error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
         })
       );
