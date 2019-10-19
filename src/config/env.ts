@@ -23,6 +23,14 @@ const getter: (key: string, type: string) => string = (
 
 const BOT_TOKEN: string = getter("BOT_TOKEN", "string");
 const GOOGLE_API_KEY: string = getter("GOOGLE_API_KEY", "string");
+const GOOGLE_API_LIST_MAX_RESULTS: number = parseInt(
+  getter("GOOGLE_API_LIST_MAX_RESULTS", "number"),
+  10
+);
+const GOOGLE_API_SEARCH_LIST_TYPE: string = getter(
+  "GOOGLE_API_SEARCH_LIST_TYPE",
+  "string"
+);
 const HOSTNAME: string = getter("HOSTNAME", "string");
 const METRICS_COLLECTOR_PREFIX: string = getter(
   "METRICS_COLLECTOR_PREFIX",
@@ -59,6 +67,8 @@ const SENTRY_SERVERNAME: string = getter("SENTRY_SERVERNAME", "string");
 export {
   BOT_TOKEN,
   GOOGLE_API_KEY,
+  GOOGLE_API_LIST_MAX_RESULTS,
+  GOOGLE_API_SEARCH_LIST_TYPE,
   HOSTNAME,
   METRICS_COLLECTOR_PREFIX,
   METRICS_COLLECTOR_TIMEOUT,

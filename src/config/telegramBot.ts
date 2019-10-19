@@ -144,10 +144,10 @@ const operate: (message: IStateMessageQuery) => void = (
           actions.youtubeSearchList.query({
             query: {
               key: env.GOOGLE_API_KEY,
-              maxResults: 10,
+              maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
               part: "id,snippet",
               q: "HI",
-              type: "video"
+              type: env.GOOGLE_API_SEARCH_LIST_TYPE
             }
           })
         );
@@ -159,7 +159,7 @@ const operate: (message: IStateMessageQuery) => void = (
             query: {
               chart: "mostPopular",
               key: env.GOOGLE_API_KEY,
-              maxResults: 10,
+              maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
               part: "id,snippet"
             }
           })
@@ -190,7 +190,7 @@ const operate: (message: IStateMessageQuery) => void = (
                 query: {
                   chart: "mostPopular",
                   key: env.GOOGLE_API_KEY,
-                  maxResults: 10,
+                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                   part: "id,snippet"
                 }
               })
@@ -233,10 +233,10 @@ const operate: (message: IStateMessageQuery) => void = (
               actions.youtubeSearchList.query({
                 query: {
                   key: env.GOOGLE_API_KEY,
-                  maxResults: 10,
+                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                   part: "id,snippet",
                   q: message.message.text.trim(),
-                  type: "video"
+                  type: env.GOOGLE_API_SEARCH_LIST_TYPE
                 }
               })
             );
