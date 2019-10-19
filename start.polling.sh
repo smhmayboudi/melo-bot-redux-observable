@@ -19,5 +19,7 @@ export REMOTEDEV_REALTIME=true
 export PORT=8081
 export SENTRY_DSN=
 export SENTRY_SERVERNAME=
+export SERVICE_LITERATE_HOSTNAME=195.201.122.194
+export SERVICE_LITERATE_PORT=1231
 
 node --require source-map-support/register --inspect=0.0.0.0:9230 ./dist/polling.js

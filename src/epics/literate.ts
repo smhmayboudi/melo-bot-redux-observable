@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateLiterate } from "../../types/iStateLiterate";
 import * as actions from "../actions";
+import * as env from "../config/env";
 import * as texts from "../config/texts";
 
 const literate: (
@@ -41,9 +42,9 @@ const literate: (
     }
 
     return requestObservable({
-      host: "195.201.122.194",
+      host: env.SERVICE_LITERATE_HOSTNAME,
       path: `/litrate/${action.literate.query}`,
-      port: "1231"
+      port: env.SERVICE_LITERATE_PORT
     }).pipe(
       map(
         (result: IStateLiterate): IActionLiterate =>
