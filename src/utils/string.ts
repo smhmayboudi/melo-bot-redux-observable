@@ -35,10 +35,12 @@ const transformSearchList: (
     if (value.snippet !== undefined && value.snippet.title !== undefined) {
       msg.push(`${index}. ${value.snippet.title}`);
     }
-    if (value.id !== undefined && value.id.videoId !== undefined) {
-      const videoId: string = encode(
-        value.id.videoId !== null ? value.id.videoId : ""
-      );
+    if (
+      value.id !== undefined &&
+      value.id.videoId !== undefined &&
+      value.id.videoId !== null
+    ) {
+      const videoId: string = encode(value.id.videoId);
       msg.push(
         `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}${videoId}`
       );
@@ -68,8 +70,8 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
     if (value.snippet !== undefined && value.snippet.title !== undefined) {
       msg.push(`${index}. ${value.snippet.title}`);
     }
-    if (value.id !== undefined) {
-      const videoId: string = encode(value.id !== null ? value.id : "");
+    if (value.id !== undefined && value.id !== null) {
+      const videoId: string = encode(value.id);
       msg.push(
         `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}${videoId}`
       );
