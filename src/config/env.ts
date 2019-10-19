@@ -32,6 +32,12 @@ const METRICS_COLLECTOR_TIMEOUT: number = parseInt(
   getter("METRICS_COLLECTOR_TIMEOUT", "number"),
   10
 );
+const MONGO_CLIENT_APPNAME: string = getter("MONGO_CLIENT_APPNAME", "string");
+const MONGO_CLIENT_LOGGER_LEVEL: string = getter(
+  "MONGO_CLIENT_LOGGER_LEVEL",
+  "string"
+);
+const MONGO_CLIENT_URI: string = getter("MONGO_CLIENT_URI", "string");
 const NODE_ENV: string = getter("NODE_ENV", "string");
 const READINESS_START_TIMEOUT: number = parseInt(
   getter("READINESS_START_TIMEOUT", "number"),
@@ -56,6 +62,9 @@ export {
   HOSTNAME,
   METRICS_COLLECTOR_PREFIX,
   METRICS_COLLECTOR_TIMEOUT,
+  MONGO_CLIENT_APPNAME,
+  MONGO_CLIENT_LOGGER_LEVEL,
+  MONGO_CLIENT_URI,
   NODE_ENV,
   READINESS_START_TIMEOUT,
   READINESS_STOP_TIMEOUT,

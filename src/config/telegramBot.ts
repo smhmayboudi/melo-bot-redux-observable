@@ -32,10 +32,10 @@ const operate: (message: IStateMessageQuery) => void = (
   const mongoClientObservable: () => Observable<MongoClient> = (): Observable<
     MongoClient
   > =>
-    connectObservable("mongodb://127.0.0.1:27017", {
-      appname: "melo-bot-redux-observable",
+    connectObservable(env.MONGO_CLIENT_URI, {
+      appname: env.MONGO_CLIENT_APPNAME,
       logger: appDebug,
-      loggerLevel: "debug",
+      loggerLevel: env.MONGO_CLIENT_LOGGER_LEVEL,
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
