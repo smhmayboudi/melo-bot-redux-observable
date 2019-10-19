@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { Db, MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
-import { NEVER, Observable, ObservableInput, of, race } from "rxjs";
+import { Observable, ObservableInput, of, race } from "rxjs";
 import {
   catchError,
   filter,
@@ -148,13 +148,31 @@ const youtubeDownload: (
                       value: IVideo & { id: string; title: string } | null
                     ): Observable<IActionYoutubeDownload> => {
                       if (value === null) {
-                        return NEVER;
+                        return of(
+                          actions.youtubeDownload.error({
+                            error: new Error(
+                              texts.epicYoutubeFindOneObservableDownloadValueUndefined
+                            )
+                          })
+                        );
                       }
                       if (value.mime_type === undefined) {
-                        return NEVER;
+                        return of(
+                          actions.youtubeDownload.error({
+                            error: new Error(
+                              texts.epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined
+                            )
+                          })
+                        );
                       }
                       if (value.thumb === undefined) {
-                        return NEVER;
+                        return of(
+                          actions.youtubeDownload.error({
+                            error: new Error(
+                              texts.epicYoutubeFindOneObservableDownloadValueThumbUndefined
+                            )
+                          })
+                        );
                       }
 
                       const videoInfo: IVideoInfo = {

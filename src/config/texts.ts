@@ -56,6 +56,12 @@ const epicDependencyRequestsUploadObservableUndefined: string =
   "epicDependencyRequestsUploadObservable undefined.";
 const epicDependencyYoutubeDownloadObservableUndefined: string =
   "epicDependencyYoutubeDownloadObservable undefined.";
+const epicYoutubeFindOneObservableDownloadValueUndefined: string =
+  "epicYoutubeFindOneObservableDownloadValue undefined.";
+const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined: string =
+  "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
+const epicYoutubeFindOneObservableDownloadValueThumbUndefined: string =
+  "epicYoutubeFindOneObservableDownloadValueThumb undefined.";
 const messageAdvertisementChannel: string = `${icons.identificationSign} melobit`;
 const messageAdvertisementChannelJoinLink: string =
   "https://t.me/joinchat/AAAAADu2QGw8mAt1RjY3nw";
@@ -119,6 +125,9 @@ export {
   epicDependencyRequestsObservableUndefined,
   epicDependencyRequestsUploadObservableUndefined,
   epicDependencyYoutubeDownloadObservableUndefined,
+  epicYoutubeFindOneObservableDownloadValueUndefined,
+  epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined,
+  epicYoutubeFindOneObservableDownloadValueThumbUndefined,
   messageAdvertisementChannel,
   messageAdvertisementChannelJoinLink,
   messageChannel,
