@@ -245,9 +245,9 @@ describe("sendVideo epic", (): void => {
     ok: true,
     result
   };
-  // const resultOKTUndefined: IResponse = {
-  //   ok: true,
-  //   result: undefined
+  // Const resultOKTUndefined: IResponse = {
+  //   Ok: true,
+  //   Result: undefined
   // };
   const resultOKTCaption: IResponse = {
     ok: true,
@@ -692,32 +692,32 @@ describe("sendVideo epic", (): void => {
     });
   });
 
-  // test("should handle error actionSendVideoResult undefined", (): void => {
-  //   testScheduler.run((runHelpers: RunHelpers): void => {
-  //     const { cold, expectObservable } = runHelpers;
-  //     const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-  //       a: actions.sendVideo.query({
-  //         query
+  // Test("should handle error actionSendVideoResult undefined", (): void => {
+  //   TestScheduler.run((runHelpers: RunHelpers): void => {
+  //     Const { cold, expectObservable } = runHelpers;
+  //     Const action$: ColdObservable<IActionSendVideo> = cold("-a", {
+  //       A: actions.sendVideo.query({
+  //         Query
   //       })
   //     });
-  //     const state$: StateObservable<IState> | undefined = undefined;
-  //     const dependencies: IDependencies = {
-  //       botToken: "",
-  //       collectionObservable,
-  //       findOneObservable,
-  //       insertOneObservable,
-  //       mongoClientObservable: (): Observable<MongoClient> => of(connection),
-  //       requestsUploadObservable: (): ColdObservable<any> =>
-  //         cold("--a", { a: resultOKTUndefined })
+  //     Const state$: StateObservable<IState> | undefined = undefined;
+  //     Const dependencies: IDependencies = {
+  //       BotToken: "",
+  //       CollectionObservable,
+  //       FindOneObservable,
+  //       InsertOneObservable,
+  //       MongoClientObservable: (): Observable<MongoClient> => of(connection),
+  //       RequestsUploadObservable: (): ColdObservable<any> =>
+  //         Cold("--a", { a: resultOKTUndefined })
   //     };
-  //     const output$: Observable<IActionSendVideo> = epic.sendVideo(
-  //       action$,
-  //       state$,
-  //       dependencies
+  //     Const output$: Observable<IActionSendVideo> = epic.sendVideo(
+  //       Action$,
+  //       State$,
+  //       Dependencies
   //     );
-  //     expectObservable(output$).toBe("---a", {
-  //       a: actions.sendVideo.error({
-  //         error: new Error(texts.actionSendVideoResultUndefined)
+  //     ExpectObservable(output$).toBe("---a", {
+  //       A: actions.sendVideo.error({
+  //         Error: new Error(texts.actionSendVideoResultUndefined)
   //       })
   //     });
   //   });
@@ -789,7 +789,8 @@ describe("sendVideo epic", (): void => {
 
   test("should handle error actionSendVideoResultCaption undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
         a: actions.sendVideo.query({
           query
@@ -810,14 +811,23 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.error({
-          error: new Error(texts.actionSendVideoResultCaptionUndefined)
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.error({
+      //     Error: new Error(texts.actionSendVideoResultCaptionUndefined)
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.error({
+            error: new Error(texts.actionSendVideoResultCaptionUndefined)
+          })
         })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
       });
     });
   });
-  
+
   test("should handle result ok false", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;

@@ -16,6 +16,7 @@ import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IVideoInfo } from "../../types/lib/iVideoInfo";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
+import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../config/texts";
 import {
@@ -91,6 +92,49 @@ describe("youtubeDownload epic", (): void => {
     thumbnailUrl: "",
     title: "",
     url: ""
+  };
+  const resultCache: IVideo & { id: string; title: string } = {
+    duration: 0,
+    file_id: "small",
+    file_size: 0,
+    height: 0,
+    id: "small",
+    mime_type: "video/mp4",
+    thumb: {
+      file_id: "small",
+      file_size: 0,
+      height: 0,
+      width: 0
+    },
+    title: "",
+    width: 0
+  };
+  const resultCacheMimeType: IVideo & { id: string; title: string } = {
+    duration: 0,
+    file_id: "small",
+    file_size: 0,
+    height: 0,
+    id: "small",
+    mime_type: undefined,
+    thumb: {
+      file_id: "small",
+      file_size: 0,
+      height: 0,
+      width: 0
+    },
+    title: "",
+    width: 0
+  };
+  const resultCacheThumb: IVideo & { id: string; title: string } = {
+    duration: 0,
+    file_id: "small",
+    file_size: 0,
+    height: 0,
+    id: "small",
+    mime_type: "video/mp4",
+    thumb: undefined,
+    title: "",
+    width: 0
   };
   const resultState: IState = {
     ...initialState,
@@ -461,22 +505,7 @@ describe("youtubeDownload epic", (): void => {
 
     beforeEach(
       async (): Promise<any> => {
-        await db.collection("cache").insertOne({
-          duration: 0,
-          file_id: "small",
-          file_size: 0,
-          height: 0,
-          id: "small",
-          mime_type: "video/mp4",
-          thumb: {
-            file_id: "small",
-            file_size: 0,
-            height: 0,
-            width: 0
-          },
-          title: "",
-          width: 0
-        });
+        await db.collection("cache").insertOne(resultCache);
       }
     );
 
@@ -727,7 +756,7 @@ describe("youtubeDownload epic", (): void => {
         );
         const dependencies: IDependencies = {
           collectionObservable,
-          findOneObservable,
+          findOneObservable: (): Observable<any> => cold("-a", { a: null }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
           testAction$: (): ColdObservable<any> =>
             cold("--a", {
@@ -792,7 +821,10 @@ describe("youtubeDownload epic", (): void => {
         );
         const dependencies: IDependencies = {
           collectionObservable,
-          findOneObservable,
+          findOneObservable: (): Observable<any> =>
+            cold("-a", {
+              a: resultCacheMimeType
+            }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
           testAction$: (): ColdObservable<any> =>
             cold("--a", {
@@ -857,7 +889,10 @@ describe("youtubeDownload epic", (): void => {
         );
         const dependencies: IDependencies = {
           collectionObservable,
-          findOneObservable,
+          findOneObservable: (): Observable<any> =>
+            cold("-a", {
+              a: resultCacheThumb
+            }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
           testAction$: (): ColdObservable<any> =>
             cold("--a", {

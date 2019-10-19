@@ -1,6 +1,6 @@
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
-import { catchError, filter, map, switchMap } from "rxjs/operators";
+import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionLiterate } from "../../types/iActionLiterate";
 import { IDependencies } from "../../types/iDependencies";
