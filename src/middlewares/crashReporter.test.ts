@@ -1,11 +1,23 @@
 import { Action } from "redux";
 
+import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
 
-import * as middleware from "./crashReporter";
+import { crashReporter } from "./crashReporter";
 
 describe("crashReporter middleware", (): void => {
+  const initialStateh: IState = {
+    getChatMember: actions.getChatMember.initialState,
+    literate: actions.literate.initialState,
+    message: actions.message.initialState,
+    sendAudio: actions.sendAudio.initialState,
+    sendMessage: actions.sendMessage.initialState,
+    sendVideo: actions.sendVideo.initialState,
+    youtubeDownload: actions.youtubeDownload.initialState,
+    youtubeSearchList: actions.youtubeSearchList.initialState,
+    youtubeVideoList: actions.youtubeVideoList.initialState
+  };
   const query: IStateMessageQuery = {
     message: {
       chat: {
@@ -91,13 +103,13 @@ describe("crashReporter middleware", (): void => {
     const next: jest.Mock = jest.fn(error);
     const invoke: (action: Action<string>) => Action<string> = (
       action: Action<string>
-    ): Action<string> => middleware.crashReporter(store)(next)(action);
+    ): Action<string> => crashReporter(store)(next)(action);
 
     return { invoke, next, store };
   };
 
   test("should handle", (): void => {
-    const { invoke, next } = create(jest.fn(() => ({})));
+    const { invoke, next } = create(jest.fn(() => initialStateh));
     const action: Action<string> = { type: "" };
     invoke(action);
     expect(next).toHaveBeenCalledWith(action);
@@ -105,7 +117,7 @@ describe("crashReporter middleware", (): void => {
 
   test("should handle exception action", (): void => {
     const error: Error = new Error("");
-    const { next, invoke } = create(jest.fn(() => ({})), (): void => {
+    const { next, invoke } = create(jest.fn(() => initialStateh), (): void => {
       throw error;
     });
     const action: Action<string> = actions.message.query({ query });
@@ -119,7 +131,7 @@ describe("crashReporter middleware", (): void => {
   test("should handle exception state from undefined", (): void => {
     const error: Error = new Error("");
     const { next, invoke } = create(
-      jest.fn(() => ({ message: { queryFrom } })),
+      jest.fn(() => ({ ...initialStateh, message: { queryFrom } })),
       (): void => {
         throw error;
       }

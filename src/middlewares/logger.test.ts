@@ -1,6 +1,6 @@
 import { Action } from "redux";
 
-import * as middleware from "./logger";
+import { logger } from "./logger";
 
 describe("logger middleware", (): void => {
   const create: () => {
@@ -28,7 +28,7 @@ describe("logger middleware", (): void => {
     const next: jest.Mock = jest.fn();
     const invoke: (action: Action<string>) => Action<string> = (
       action: Action<string>
-    ): Action<string> => middleware.logger(store)(next)(action);
+    ): Action<string> => logger(store)(next)(action);
 
     return { invoke, next, store };
   };
