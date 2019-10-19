@@ -58,7 +58,7 @@ const epicDependencyYoutubeDownloadObservableUndefined: string =
   "epicDependencyYoutubeDownloadObservable undefined.";
 const messageAdvertisementChannel: string = `${icons.identificationSign} melobit`;
 const messageAdvertisementChannelJoinLink: string =
-  "https://t.me/joinchat/BhgX0Du2QGxHNSxaWG0Xhw";
+  "https://t.me/joinchat/AAAAADu2QGw8mAt1RjY3nw";
 const messageChannel: string = `${icons.identificationSign} melodio`;
 const messageChannelJoinLink: string =
   "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
