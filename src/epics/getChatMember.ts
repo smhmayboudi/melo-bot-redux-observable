@@ -138,9 +138,9 @@ const getChatMember: (
     switchMap(actionObservable),
     switchMap(
       (
-        actionResult: IActionGetChatMember
+        action: IActionGetChatMember
       ): ObservableInput<IActionGetChatMember | IActionSendMessage> =>
-        concat(transformObservable(actionResult), of(actionResult))
+        concat(transformObservable(action), of(action))
     )
   );
 };

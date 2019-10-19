@@ -313,7 +313,7 @@ const youtubeDownload: (
     ofType(actions.youtubeDownload.YOUTUBE_DOWNLOAD_QUERY),
     switchMap(
       (
-        actionQuery: IActionYoutubeDownload
+        action: IActionYoutubeDownload
       ): ObservableInput<
         IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
       > =>
@@ -322,7 +322,7 @@ const youtubeDownload: (
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take(1),
           filter(actionGetChatMemberResultStatus),
-          switchMapTo(race(actionObservable(actionQuery), cache(actionQuery))),
+          switchMapTo(race(actionObservable(action), cache(action))),
           switchMap(transformObservable),
           startWith(startAction())
         )

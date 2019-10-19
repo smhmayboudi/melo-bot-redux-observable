@@ -62,7 +62,6 @@ const literate: (
 
   return action$.pipe(
     ofType(actions.literate.LITERATE_QUERY),
-    filter((action: IActionLiterate): boolean => action.literate.query !== ""),
     switchMap(actionObservable)
   );
 };
