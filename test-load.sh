@@ -1,2 +1,2 @@
-# curl -d "@test-load.json" -H "Content-Type: application/json" -X POST http://localhost:8081/520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc
-ab -n 1 -p test-load.json -T "application/json" http://localhost:8081/520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc
+# curl -d "@test-load.json" -H "Content-Type: application/json" -X POST http://127.0.0.1:8081/520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc
+ab -n 1 -p test-load.json -T "application/json" http://127.0.0.1:8081/520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc

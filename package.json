@@ -8,7 +8,7 @@
     "lint": "tslint --config tslint.json --project tsconfig.json; exit 0",
     "lint:check": "tslint-config-prettier-check ./tslint.json",
     "lint:fix": "tslint --config tslint.json --fix --project tsconfig.json; exit 0",
-    "remotedev": "remotedev --hostname=localhost --port=8000",
+    "remotedev": "remotedev --hostname=127.0.0.1 --port=8000",
     "start:app": "./start.app.sh",
     "start:polling": "./start.polling.sh",
     "test": "./test.sh",
