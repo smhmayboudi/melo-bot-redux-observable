@@ -4,38 +4,38 @@ import * as icons from "../config/icons";
 import * as texts from "../config/texts";
 
 import {
-  caption,
-  decode,
-  encode,
-  pathThumb,
-  pathVideo,
+  // Caption,
+  // Decode,
+  // Encode,
+  // PathThumb,
+  // PathVideo,
   transformSearchList,
   transformVideoList
 } from "./string";
 
 describe("string utils", (): void => {
-  const query: string = "E0yxlqfXfEY";
-  const result: string = "RTB5eGxxZlhmRVk";
+  // Const query: string = "E0yxlqfXfEY";
+  // Const result: string = "RTB5eGxxZlhmRVk";
 
-  test("should handle caption", (): void => {
-    expect(caption("")).toEqual("🆔 @melodio");
-  });
+  // Test("should handle caption", (): void => {
+  //   Expect(caption("")).toEqual("🆔 @melodio");
+  // });
 
-  test("should handle decode", (): void => {
-    expect(decode(result)).toEqual(query);
-  });
+  // Test("should handle decode", (): void => {
+  //   Expect(decode(result)).toEqual(query);
+  // });
 
-  test("should handle encode", (): void => {
-    expect(encode(query)).toEqual(result);
-  });
+  // Test("should handle encode", (): void => {
+  //   Expect(encode(query)).toEqual(result);
+  // });
 
-  test("should handle pathThumb", (): void => {
-    expect(pathThumb(query)).toContain(`${result}.jpg`);
-  });
+  // Test("should handle pathThumb", (): void => {
+  //   Expect(pathThumb(query)).toContain(`${result}.jpg`);
+  // });
 
-  test("should handle pathVideo", (): void => {
-    expect(pathVideo(query)).toContain(`${result}.mp4`);
-  });
+  // Test("should handle pathVideo", (): void => {
+  //   Expect(pathVideo(query)).toContain(`${result}.mp4`);
+  // });
 
   test("should handle transformSearchList items length", (): void => {
     const q: string = "";
@@ -68,32 +68,32 @@ describe("string utils", (): void => {
     expect(transformSearchList(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList snippet title", (): void => {
-    const q: string = "";
-    const items: youtube_v3.Schema$SearchResult[] = [
-      {
-        id: {
-          videoId: ""
-        },
-        snippet: {
-          title: undefined
-        }
-      }
-    ];
-    const res: string[] = [];
-    res.push(
-      [
-        `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
-      ].join("\n")
-    );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
-    );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
-  });
+  // Test("should handle transformSearchList snippet title", (): void => {
+  //   Const q: string = "";
+  //   Const items: youtube_v3.Schema$SearchResult[] = [
+  //     {
+  //       Id: {
+  //         VideoId: ""
+  //       },
+  //       Snippet: {
+  //         Title: undefined
+  //       }
+  //     }
+  //   ];
+  //   Const res: string[] = [];
+  //   Res.push(
+  //     [
+  //       `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
+  //     ].join("\n")
+  //   );
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(texts.messageResultQ(q));
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(
+  //     `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+  //   );
+  //   Expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+  // });
 
   test("should handle transformSearchList id", (): void => {
     const q: string = "";
@@ -116,56 +116,56 @@ describe("string utils", (): void => {
     expect(transformSearchList(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList id videoId", (): void => {
-    const q: string = "";
-    const items: youtube_v3.Schema$SearchResult[] = [
-      {
-        id: {
-          videoId: undefined
-        },
-        snippet: {
-          title: ""
-        }
-      }
-    ];
-    const res: string[] = [];
-    res.push(["1. "].join("\n"));
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
-    );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
-  });
+  // Test("should handle transformSearchList id videoId", (): void => {
+  //   Const q: string = "";
+  //   Const items: youtube_v3.Schema$SearchResult[] = [
+  //     {
+  //       Id: {
+  //         VideoId: undefined
+  //       },
+  //       Snippet: {
+  //         Title: ""
+  //       }
+  //     }
+  //   ];
+  //   Const res: string[] = [];
+  //   Res.push(["1. "].join("\n"));
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(texts.messageResultQ(q));
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(
+  //     `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+  //   );
+  //   Expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+  // });
 
-  test("should handle transformSearchList", (): void => {
-    const q: string = "";
-    const items: youtube_v3.Schema$SearchResult[] = [
-      {
-        id: {
-          videoId: ""
-        },
-        snippet: {
-          title: ""
-        }
-      }
-    ];
-    const res: string[] = [];
-    res.push(
-      [
-        "1. ",
-        `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
-      ].join("\n")
-    );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
-    );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
-  });
+  // Test("should handle transformSearchList", (): void => {
+  //   Const q: string = "";
+  //   Const items: youtube_v3.Schema$SearchResult[] = [
+  //     {
+  //       Id: {
+  //         VideoId: ""
+  //       },
+  //       Snippet: {
+  //         Title: ""
+  //       }
+  //     }
+  //   ];
+  //   Const res: string[] = [];
+  //   Res.push(
+  //     [
+  //       "1. ",
+  //       `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
+  //     ].join("\n")
+  //   );
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(texts.messageResultQ(q));
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(
+  //     `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+  //   );
+  //   Expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+  // });
 
   test("should handle transformVideoList items length", (): void => {
     const items: youtube_v3.Schema$Video[] = [];
@@ -194,31 +194,31 @@ describe("string utils", (): void => {
     expect(transformVideoList(items)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList snippet title", (): void => {
-    const items: youtube_v3.Schema$Video[] = [
-      {
-        id: "",
-        snippet: {
-          title: undefined
-        }
-      }
-    ];
-    const res: string[] = [];
-    res.push(
-      [
-        `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
-      ].join("\n")
-    );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo);
-    res.push(texts.messageSeparator);
-    res.push(
-      `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
-    );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
-  });
+  // Test("should handle transformVideoList snippet title", (): void => {
+  //   Const items: youtube_v3.Schema$Video[] = [
+  //     {
+  //       Id: "",
+  //       Snippet: {
+  //         Title: undefined
+  //       }
+  //     }
+  //   ];
+  //   Const res: string[] = [];
+  //   Res.push(
+  //     [
+  //       `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
+  //     ].join("\n")
+  //   );
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(texts.messageResultRelatedTo);
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(
+  //     `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+  //   );
+  //   Expect(transformVideoList(items)).toEqual(res.join("\n"));
+  // });
 
-  test("should handle transformVideoList", (): void => {
+  test("should handle transformVideoList id", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
         id: undefined,
@@ -238,28 +238,28 @@ describe("string utils", (): void => {
     expect(transformVideoList(items)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList", (): void => {
-    const items: youtube_v3.Schema$Video[] = [
-      {
-        id: "",
-        snippet: {
-          title: ""
-        }
-      }
-    ];
-    const res: string[] = [];
-    res.push(
-      [
-        "1. ",
-        `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
-      ].join("\n")
-    );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo);
-    res.push(texts.messageSeparator);
-    res.push(
-      `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
-    );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
-  });
+  // Test("should handle transformVideoList", (): void => {
+  //   Const items: youtube_v3.Schema$Video[] = [
+  //     {
+  //       Id: "",
+  //       Snippet: {
+  //         Title: ""
+  //       }
+  //     }
+  //   ];
+  //   Const res: string[] = [];
+  //   Res.push(
+  //     [
+  //       "1. ",
+  //       `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}`
+  //     ].join("\n")
+  //   );
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(texts.messageResultRelatedTo);
+  //   Res.push(texts.messageSeparator);
+  //   Res.push(
+  //     `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+  //   );
+  //   Expect(transformVideoList(items)).toEqual(res.join("\n"));
+  // });
 });
