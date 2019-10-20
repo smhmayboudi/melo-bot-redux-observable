@@ -2,7 +2,7 @@ import { IStateSendVideoQuery } from "./iStateSendVideoQuery";
 import { IMessage } from "./telegramBot/types/iMessage";
 
 export interface IStateSendVideo {
-  error?: Error;
+  error?: any;
   query?: IStateSendVideoQuery;
   result?: IMessage;
 }
