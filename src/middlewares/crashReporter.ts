@@ -27,6 +27,7 @@ init({
   onFatalError: (error: Error): void => {
     appDebug(error);
   },
+  release: env.SENTRY_RELEASE,
   serverName: env.SENTRY_SERVERNAME
 });
 
@@ -66,37 +67,19 @@ const crashReporter: Middleware = (
   ) {
     message = state.message.query.message;
   }
-  let firstName: string | undefined;
   let id: number;
-  let isBot: boolean;
-  let languageCode: string | undefined;
-  let lastName: string | undefined;
   let userName: string | undefined;
   if (message.from !== undefined) {
-    firstName = message.from.first_name;
     id = message.from.id;
-    isBot = message.from.is_bot;
-    languageCode = message.from.language_code;
-    lastName = message.from.last_name;
     userName = message.from.username;
   }
-
   configureScope((scope: Scope) => {
     scope.setExtras({
-      first_name: firstName,
-      is_bot: isBot,
-      language_code: languageCode,
-      last_name: lastName,
       state
-    });
-    scope.setTags({
-      is_bot: `${isBot}`,
-      language_code: `${languageCode}`
     });
     scope.setUser({
       email: `${id}@${userName}`,
       id: `${id}`,
-      ip_address: undefined,
       username: userName
     });
   });
