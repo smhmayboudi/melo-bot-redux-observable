@@ -30,7 +30,7 @@ const requests: (
               Accept: "application/json",
               "Content-Type": "application/json",
               "User-Agent": "node",
-              ...(): any =>
+              ...(): http.OutgoingHttpHeaders =>
                 isMethodPost
                   ? { "Content-Length": Buffer.byteLength(dataStringify) }
                   : {},

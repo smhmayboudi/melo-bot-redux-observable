@@ -1,7 +1,7 @@
 import { IVideoInfo } from "./lib/iVideoInfo";
 
 export interface IStateYoutubeDownload {
-  error?: any;
+  error?: Error;
   query?: string;
   result?: IVideoInfo;
 }

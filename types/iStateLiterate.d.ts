@@ -1,5 +1,5 @@
 export interface IStateLiterate {
-  error?: any;
+  error?: Error;
   query?: string;
   result?: string;
 }
