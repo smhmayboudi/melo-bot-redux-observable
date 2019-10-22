@@ -28,18 +28,18 @@
             "request": "attach",
             "name": "Attach to Remote Polling",
             "address": "127.0.0.1",
-            "port": 9229,
+            "port": 9230,
             "localRoot": "${workspaceFolder}",
-            "remoteRoot": "/melo-bot-redux-observable"
+            "remoteRoot": "${workspaceFolder}/dist"
         },
         {
             "type": "node",
             "request": "attach",
             "name": "Attach to Remote App",
             "address": "127.0.0.1",
-            "port": 9230,
+            "port": 9229,
             "localRoot": "${workspaceFolder}",
-            "remoteRoot": "/melo-bot-redux-observable"
+            "remoteRoot": "${workspaceFolder}/dist"
         },
         {
             "type": "node",
