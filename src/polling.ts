@@ -127,35 +127,43 @@ telegramBot.on(
   }
 );
 
-telegramBot
-  .on("channel_post", (message: TelegramBot.Message): void => {
-    appDebug("channel_post:message", message);
-    createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  })
-  .on("edited_message", (message: TelegramBot.Message): void => {
-    appDebug("edited_message:message", message);
-    createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  })
-  .on("edited_message_text", (message: TelegramBot.Message): void => {
-    appDebug("edited_message_text:message", message);
-    createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  })
-  .on("edited_message_caption", (message: TelegramBot.Message): void => {
+telegramBot.on("channel_post", (message: TelegramBot.Message): void => {
+  appDebug("channel_post:message", message);
+  createHttpClientRequest({ message: message as IMessage, update_id: 0 });
+});
+telegramBot.on("edited_message", (message: TelegramBot.Message): void => {
+  appDebug("edited_message:message", message);
+  createHttpClientRequest({ message: message as IMessage, update_id: 0 });
+});
+telegramBot.on("edited_message_text", (message: TelegramBot.Message): void => {
+  appDebug("edited_message_text:message", message);
+  createHttpClientRequest({ message: message as IMessage, update_id: 0 });
+});
+telegramBot.on(
+  "edited_message_caption",
+  (message: TelegramBot.Message): void => {
     appDebug("edited_message_caption:message", message);
     createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  })
-  .on("edited_channel_post", (message: TelegramBot.Message): void => {
-    appDebug("edited_channel_post:message", message);
-    createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  })
-  .on("edited_channel_post_text", (message: TelegramBot.Message): void => {
+  }
+);
+telegramBot.on("edited_channel_post", (message: TelegramBot.Message): void => {
+  appDebug("edited_channel_post:message", message);
+  createHttpClientRequest({ message: message as IMessage, update_id: 0 });
+});
+telegramBot.on(
+  "edited_channel_post_text",
+  (message: TelegramBot.Message): void => {
     appDebug("edited_channel_post_text:message", message);
     createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  })
-  .on("edited_channel_post_caption", (message: TelegramBot.Message): void => {
+  }
+);
+telegramBot.on(
+  "edited_channel_post_caption",
+  (message: TelegramBot.Message): void => {
     appDebug("edited_channel_post_caption:message", message);
     createHttpClientRequest({ message: message as IMessage, update_id: 0 });
-  });
+  }
+);
 
 telegramBot.on("shipping_query", (query: TelegramBot.ShippingQuery): void => {
   appDebug("shipping_query:query", query);
@@ -176,16 +184,15 @@ telegramBot.on(
   }
 );
 
-telegramBot
-  .on("polling_error", (error: Error): void => {
-    appDebug("polling_error:error", error);
-    createHttpClientRequest({ error, update_id: 0 });
-  })
-  .on("webhook_error", (error: Error): void => {
-    appDebug("webhook_error:error", error);
-    createHttpClientRequest({ error, update_id: 0 });
-  })
-  .on("error", (error: Error): void => {
-    appDebug("error:error", error);
-    createHttpClientRequest({ error, update_id: 0 });
-  });
+telegramBot.on("polling_error", (error: Error): void => {
+  appDebug("polling_error:error", error);
+  createHttpClientRequest({ error, update_id: 0 });
+});
+telegramBot.on("webhook_error", (error: Error): void => {
+  appDebug("webhook_error:error", error);
+  createHttpClientRequest({ error, update_id: 0 });
+});
+telegramBot.on("error", (error: Error): void => {
+  appDebug("error:error", error);
+  createHttpClientRequest({ error, update_id: 0 });
+});
