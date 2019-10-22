@@ -8,7 +8,9 @@ import { crashReporter } from "./crashReporter";
 
 describe("crashReporter middleware", (): void => {
   const initialStateh: IState = {
+    answerInlineQuery: actions.answerInlineQuery.initialState,
     getChatMember: actions.getChatMember.initialState,
+    inlineQuery: actions.inlineQuery.initialState,
     literate: actions.literate.initialState,
     message: actions.message.initialState,
     sendAudio: actions.sendAudio.initialState,

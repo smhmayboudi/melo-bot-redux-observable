@@ -10,7 +10,9 @@ import { configureStore } from "./store";
 
 describe("store config", (): void => {
   const initialStateh: IState = {
+    answerInlineQuery: actions.answerInlineQuery.initialState,
     getChatMember: actions.getChatMember.initialState,
+    inlineQuery: actions.inlineQuery.initialState,
     literate: actions.literate.initialState,
     message: actions.message.initialState,
     sendAudio: actions.sendAudio.initialState,

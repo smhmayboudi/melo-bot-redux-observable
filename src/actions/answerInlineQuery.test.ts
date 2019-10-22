@@ -2,7 +2,7 @@ import { IStateAnswerInlineQueryQuery } from "../../types/iStateAnswerInlineQuer
 
 import * as action from "./answerInlineQuery";
 
-describe("getChatMember actions", (): void => {
+describe("answerInlineQuery actions", (): void => {
   const error: Error = new Error("");
   const query: IStateAnswerInlineQueryQuery = {
     cache_time: 0,
@@ -13,21 +13,21 @@ describe("getChatMember actions", (): void => {
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({
-      getChatMember: { error },
+      answerInlineQuery: { error },
       type: action.ANSWER_INLINE_QUERY_ERROR
     });
   });
 
   test("should handle query", (): void => {
     expect(action.query({ query })).toEqual({
-      getChatMember: { query },
+      answerInlineQuery: { query },
       type: action.ANSWER_INLINE_QUERY_QUERY
     });
   });
 
   test("should handle result", (): void => {
     expect(action.result({ result })).toEqual({
-      getChatMember: { result },
+      answerInlineQuery: { result },
       type: action.ANSWER_INLINE_QUERY_RESULT
     });
   });

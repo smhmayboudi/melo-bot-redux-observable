@@ -1,5 +1,4 @@
 import { IStateAnswerInlineQueryQuery } from "../../types/iStateAnswerInlineQueryQuery";
-import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as action from "../actions/answerInlineQuery";
 
 import * as reducer from "./answerInlineQuery";

@@ -19,7 +19,7 @@ const inlineQuery: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionInlineQuery | IActionAnswerInlineQuery> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken } = dependencies;
 
   const actionObservable: (
     action: IActionInlineQuery
@@ -30,13 +30,6 @@ const inlineQuery: (
       return of(
         actions.inlineQuery.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.inlineQuery.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       );
     }

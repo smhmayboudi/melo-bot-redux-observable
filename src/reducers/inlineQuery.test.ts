@@ -6,9 +6,14 @@ import * as reducer from "./inlineQuery";
 describe("inlineQuery reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateInlineQueryQuery = {
-    cache_time: 0,
-    inline_query_id: "",
-    results: []
+    from: {
+      first_name: "",
+      id: 0,
+      is_bot: false
+    },
+    id: "",
+    offset: "",
+    query: ""
   };
   const result: boolean = true;
 
