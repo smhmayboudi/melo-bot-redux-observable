@@ -1,5 +1,4 @@
 import debug from "debug";
-import * as fs from "fs";
 import { MongoClient } from "mongodb";
 import { Store } from "redux";
 import { Observable } from "rxjs";
@@ -18,11 +17,19 @@ import { requestsObservable } from "../lib/requestsObservable";
 import { requestsUploadObservable } from "../lib/requestsUploadObservable";
 import { requestUploadObservable } from "../lib/requestUploadObservable";
 import { youtubeDownloadObservable } from "../lib/youtubeDownloadObservable";
-import { caption } from "../utils/string";
 
 import * as env from "./env";
 import { configureStore } from "./store";
-import * as texts from "./texts";
+import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
+import { handleChanelPost } from "./telegramBotHandleChanelPost";
+import { handleChosenInlineResult } from "./telegramBotHandleChosenInlineResult";
+import { handleEditedChannelPost } from "./telegramBotHandleEditedChannelPost";
+import { handleEditedMessage } from "./telegramBotHandleEditedMessage";
+import { handleError } from "./telegramBotHandleError";
+import { handleInlineQuery } from "./telegramBotHandleInlineQuery";
+import { handleMessage } from "./telegramBotHandleMessage";
+import { handlePreCheckoutQuery } from "./telegramBotHandlePreCheckoutQuery";
+import { handleShippingQuery } from "./telegramBotHandleShippingQuery";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot");
 
@@ -39,210 +46,51 @@ const operate: (message: IStateMessageQuery) => void = (
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-  if (message.message !== undefined) {
-    const store: Store<IState> & { dispatch: {} } = configureStore({
-      botToken: env.BOT_TOKEN,
-      collectionObservable,
-      findOneObservable,
-      insertOneObservable,
-      mongoClientObservable,
-      requestObservable,
-      requestUploadObservable,
-      requestsObservable,
-      requestsUploadObservable,
-      youtubeDownloadObservable
-    });
-    store.dispatch(actions.message.query({ query: message }));
-    switch (message.message.text) {
-      // TODO: TEST
-      case "/getChatMember":
-        store.dispatch(
-          actions.getChatMember.query({
-            query: {
-              chat_id: "@melodio",
-              user_id: message.message.chat.id
-            }
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/literate":
-        store.dispatch(
-          actions.literate.query({
-            query: "HI"
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/sendAudio":
-        store.dispatch(
-          actions.sendAudio.query({
-            query: {
-              audio: fs.createReadStream("./asset/small.mp3"),
-              caption: caption(),
-              chat_id: message.message.chat.id,
-              disable_notification: true,
-              duration: 6,
-              parse_mode: "HTML",
-              performer: "small",
-              reply_markup: { remove_keyboard: true },
-              reply_to_message_id: message.message.message_id,
-              thumb: fs.createReadStream("./asset/small.jpg"),
-              title: "small"
-            }
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/sendMessage":
-        store.dispatch(
-          actions.sendMessage.query({
-            query: {
-              chat_id: message.message.chat.id,
-              disable_notification: true,
-              disable_web_page_preview: true,
-              parse_mode: "HTML",
-              reply_markup: { remove_keyboard: true },
-              reply_to_message_id: message.message.message_id,
-              text: texts.messageStart
-            }
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/sendVideo":
-        store.dispatch(
-          actions.sendVideo.query({
-            query: {
-              caption: caption("small"),
-              chat_id: message.message.chat.id,
-              disable_notification: true,
-              duration: 6,
-              height: 320,
-              parse_mode: "HTML",
-              reply_markup: { remove_keyboard: true },
-              reply_to_message_id: message.message.message_id,
-              supports_streaming: true,
-              thumb: fs.createReadStream("./asset/small.jpg"),
-              video: fs.createReadStream("./asset/small.mp4"),
-              width: 560
-            }
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/youtubeDownload":
-        store.dispatch(
-          actions.youtubeDownload.query({
-            query: "/dl_RTB5eGxxZlhmRVk".replace("/dl_", "").trim()
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/youtubeSearchList":
-        store.dispatch(
-          actions.youtubeSearchList.query({
-            query: {
-              key: env.GOOGLE_API_KEY,
-              maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-              part: "id,snippet",
-              q: "HI",
-              type: env.GOOGLE_API_SEARCH_LIST_TYPE
-            }
-          })
-        );
-        break;
-      // TODO: TEST
-      case "/youtubeVideoList":
-        store.dispatch(
-          actions.youtubeVideoList.query({
-            query: {
-              chart: "mostPopular",
-              key: env.GOOGLE_API_KEY,
-              maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-              part: "id,snippet"
-            }
-          })
-        );
-        break;
-      // TODO: APP
-      default:
-        if (message.message.text !== undefined) {
-          if (message.message.text.includes(`/${texts.commandStart}`)) {
-            store.dispatch(
-              actions.sendMessage.query({
-                query: {
-                  chat_id: message.message.chat.id,
-                  disable_notification: true,
-                  disable_web_page_preview: true,
-                  parse_mode: "HTML",
-                  reply_markup: { remove_keyboard: true },
-                  reply_to_message_id: message.message.message_id,
-                  text: texts.messageStart
-                }
-              })
-            );
-          } else if (
-            message.message.text.includes(`/${texts.commandMostPopular}`)
-          ) {
-            store.dispatch(
-              actions.youtubeVideoList.query({
-                query: {
-                  chart: "mostPopular",
-                  key: env.GOOGLE_API_KEY,
-                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-                  part: "id,snippet"
-                }
-              })
-            );
-          } else if (
-            message.message.text.includes(
-              `/${texts.commandDownload}${texts.commandSeparator}`
-            )
-          ) {
-            store.dispatch(
-              actions.youtubeDownload.query({
-                query: message.message.text
-                  .replace(
-                    `/${texts.commandDownload}${texts.commandSeparator}`,
-                    ""
-                  )
-                  .trim()
-              })
-            );
-          } else if (
-            message.message.text.includes(
-              `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`
-            )
-          ) {
-            store.dispatch(
-              actions.youtubeSearchList.query({
-                query: {
-                  key: env.GOOGLE_API_KEY,
-                  relatedToVideoId: message.message.text
-                    .replace(
-                      `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`,
-                      ""
-                    )
-                    .trim()
-                }
-              })
-            );
-          } else {
-            store.dispatch(
-              actions.youtubeSearchList.query({
-                query: {
-                  key: env.GOOGLE_API_KEY,
-                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-                  part: "id,snippet",
-                  q: message.message.text.trim(),
-                  type: env.GOOGLE_API_SEARCH_LIST_TYPE
-                }
-              })
-            );
-          }
-        }
-    }
+  const store: Store<IState> & { dispatch: {} } = configureStore({
+    botToken: env.BOT_TOKEN,
+    collectionObservable,
+    findOneObservable,
+    insertOneObservable,
+    mongoClientObservable,
+    requestObservable,
+    requestUploadObservable,
+    requestsObservable,
+    requestsUploadObservable,
+    youtubeDownloadObservable
+  });
+  store.dispatch(actions.message.query({ query: message }));
+  if (message.callback_query !== undefined) {
+    handleCallbackQuery(store, message.callback_query);
+  } else if (message.channel_post !== undefined) {
+    handleChanelPost(store, message.channel_post);
+  } else if (message.chosen_inline_result !== undefined) {
+    handleChosenInlineResult(store, message.chosen_inline_result);
+  } else if (message.edited_channel_post !== undefined) {
+    handleEditedChannelPost(store, message.edited_channel_post);
+    // } else if (message.edited_channel_post_text !== undefined) {
+    //   HandleEditedChannelPostText(store, message.edited_channel_post_text);
+    // } else if (message.edited_channel_post_caption !== undefined) {
+    //   HandleEditedChannelPostCaption(store, message.edited_channel_post_caption);
+  } else if (message.edited_message !== undefined) {
+    handleEditedMessage(store, message.edited_message);
+    // } else if (message.edited_message_text !== undefined) {
+    //   HandleEditedMessageText(store, message.edited_message_text);
+    // } else if (message.edited_message_caption !== undefined) {
+    //   HandleEditedMessageCaption(store, message.edited_message_caption);
+  } else if (message.error !== undefined) {
+    handleError(store, message.error);
+    // } else if (message.polling_error !== undefined) {
+    //   HandleError(store, message.polling_error);
+    // } else if (message.webhook_error !== undefined) {
+    //   HandleError(store, message.webhook_error);
+  } else if (message.inline_query !== undefined) {
+    handleInlineQuery(store, message.inline_query);
+  } else if (message.message !== undefined) {
+    handleMessage(store, message.message);
+  } else if (message.pre_checkout_query !== undefined) {
+    handlePreCheckoutQuery(store, message.pre_checkout_query);
+  } else if (message.shipping_query !== undefined) {
+    handleShippingQuery(store, message.shipping_query);
   }
 };
 
