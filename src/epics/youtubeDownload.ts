@@ -67,7 +67,7 @@ const youtubeDownload: (
       );
     }
 
-    const id: string = decode(action.youtubeDownload.query);
+    const id: string = decode(action.youtubeDownload.query as string);
 
     return youtubeDownloadObservable(id).pipe(
       map(
@@ -138,7 +138,8 @@ const youtubeDownload: (
                   );
                 }
 
-                const id: string = decode(action.youtubeDownload.query);
+                const id: string = decode(action.youtubeDownload
+                  .query as string);
 
                 return findOneObservable(collection, {
                   id
