@@ -1,7 +1,7 @@
 import { IInlineQueryResult } from "./iInlineQueryResult";
 import { IInputMessageContent } from "./iInputMessageContent";
 
-export interface IInlineQueryResult extends IInlineQueryResult {
+export interface IInlineQueryResultVoice extends IInlineQueryResult {
   caption?: string;
   input_message_content?: IInputMessageContent;
   parse_mode?: string;
