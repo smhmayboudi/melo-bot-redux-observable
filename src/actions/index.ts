@@ -1,4 +1,6 @@
+import * as answerInlineQuery from "./answerInlineQuery";
 import * as getChatMember from "./getChatMember";
+import * as inlineQuery from "./inlineQuery";
 import * as literate from "./literate";
 import * as message from "./message";
 import * as sendAudio from "./sendAudio";
@@ -9,7 +11,9 @@ import * as youtubeSearchList from "./youtubeSearchList";
 import * as youtubeVideoList from "./youtubeVideoList";
 
 export {
+  answerInlineQuery,
   getChatMember,
+  inlineQuery,
   literate,
   message,
   sendAudio,

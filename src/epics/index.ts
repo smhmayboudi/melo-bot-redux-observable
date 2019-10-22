@@ -4,8 +4,10 @@ import { combineEpics, Epic } from "redux-observable";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 
+import { answerInlineQuery } from "./answerInlineQuery";
 import { appError } from "./appError";
 import { getChatMember } from "./getChatMember";
+import { inlineQuery } from "./inlineQuery";
 import { literate } from "./literate";
 import { sendAudio } from "./sendAudio";
 import { sendMessage } from "./sendMessage";
@@ -21,7 +23,9 @@ const index: Epic<
   IDependencies
 > = combineEpics(
   appError,
+  answerInlineQuery,
   getChatMember,
+  inlineQuery,
   literate,
   sendAudio,
   sendMessage,

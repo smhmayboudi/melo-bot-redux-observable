@@ -1,7 +1,11 @@
 import * as icons from "./icons";
 
+const actionAnswerInlineQueryQueryUndefined: string =
+  "actionAnswerInlineQueryQuery undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
+const actionInlineQueryQueryUndefined: string =
+  "actionInlineQueryQuery undefined.";
 const actionLiterateQueryUndefined: string = "actionLiterateQuery undefined.";
 const actionSendAudioQueryUndefined: string = "actionSendAudioQuery undefined.";
 const actionSendMessageQueryUndefined: string =
@@ -56,6 +60,8 @@ const epicDependencyRequestsUploadObservableUndefined: string =
   "epicDependencyRequestsUploadObservable undefined.";
 const epicDependencyYoutubeDownloadObservableUndefined: string =
   "epicDependencyYoutubeDownloadObservable undefined.";
+const epicInlineQueryConnectGoogleAccount: string =
+  "Connect your Google account";
 const epicYoutubeFindOneObservableDownloadValueUndefined: string =
   "epicYoutubeFindOneObservableDownloadValue undefined.";
 const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined: string =
@@ -93,7 +99,9 @@ const state$ValueYoutubeVideoListQueryUndefined: string =
   "state$ValueYoutubeVideoListQuery undefined.";
 
 export {
+  actionAnswerInlineQueryQueryUndefined,
   actionGetChatMemberQueryUndefined,
+  actionInlineQueryQueryUndefined,
   actionLiterateQueryUndefined,
   actionSendAudioQueryUndefined,
   actionSendMessageQueryUndefined,
@@ -125,6 +133,7 @@ export {
   epicDependencyRequestsObservableUndefined,
   epicDependencyRequestsUploadObservableUndefined,
   epicDependencyYoutubeDownloadObservableUndefined,
+  epicInlineQueryConnectGoogleAccount,
   epicYoutubeFindOneObservableDownloadValueUndefined,
   epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined,
   epicYoutubeFindOneObservableDownloadValueThumbUndefined,

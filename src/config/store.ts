@@ -10,7 +10,9 @@ import { composeWithDevTools } from "remote-redux-devtools";
 
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
+import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateLiterate } from "../../types/iStateLiterate";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
@@ -32,7 +34,9 @@ const configureStore: (
   dependencies?: IDependencies
 ): Store<IState> & { dispatch: {} } => {
   const preloadedState: DeepPartial<{
+    answerInlineQuery: IStateAnswerInlineQuery;
     getChatMember: IStateGetChatMember;
+    inlineQuery: IStateInlineQuery;
     literate: IStateLiterate;
     message: IStateMessage;
     sendAudio: IStateSendAudio;
