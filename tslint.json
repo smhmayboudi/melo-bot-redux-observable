@@ -7,6 +7,7 @@
   "rules": {
     "completed-docs": false,
     "no-any": false,
+    "no-empty-interface": false,
     "no-inferrable-types": false,
     "no-submodule-imports": false,
     "no-unsafe-any": false,
