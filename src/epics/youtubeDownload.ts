@@ -29,13 +29,13 @@ const youtubeDownload: (
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<
-  IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
+  IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
 > = (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<
-  IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
+  IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
 > => {
   const {
     collectionObservable,
@@ -299,9 +299,9 @@ const youtubeDownload: (
     );
   };
 
-  const startAction: () => IActionYoutubeDownload | IActionGetChatMember = ():
-    | IActionYoutubeDownload
-    | IActionGetChatMember => {
+  const startAction: () => IActionGetChatMember | IActionYoutubeDownload = ():
+    | IActionGetChatMember
+    | IActionYoutubeDownload => {
     if (state$ === undefined) {
       return actions.youtubeDownload.error({
         error: new Error(texts.state$Undefined)
@@ -334,7 +334,7 @@ const youtubeDownload: (
       (
         action: IActionYoutubeDownload
       ): ObservableInput<
-        IActionYoutubeDownload | IActionGetChatMember | IActionSendVideo
+        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > =>
         ((): Observable<any> =>
           testAction$ === undefined ? action$ : testAction$())().pipe(

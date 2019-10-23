@@ -111,9 +111,6 @@ const getChatMember: (
       );
     }
 
-    const chatId: number = state$.value.message.query.message.chat.id;
-    const messageId: number = state$.value.message.query.message.message_id;
-
     if (actionGetChatMemberResultStatus(action)) {
       return EMPTY;
     }
@@ -121,12 +118,12 @@ const getChatMember: (
     return of(
       actions.sendMessage.query({
         query: {
-          chat_id: chatId,
+          chat_id: state$.value.message.query.message.chat.id,
           disable_notification: true,
           disable_web_page_preview: true,
           parse_mode: "HTML",
           reply_markup: { remove_keyboard: true },
-          reply_to_message_id: messageId,
+          reply_to_message_id: state$.value.message.query.message.message_id,
           text: texts.messageJoin
         }
       })
