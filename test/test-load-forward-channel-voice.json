@@ -1,0 +1,36 @@
+{
+   "update_id":285327671,
+   "message":{
+      "message_id":2419,
+      "from":{
+         "id":52953379,
+         "is_bot":false,
+         "first_name":"Hossein",
+         "last_name":"Mayboudi",
+         "username":"smhmayboudi",
+         "language_code":"fa"
+      },
+      "chat":{
+         "id":52953379,
+         "first_name":"Hossein",
+         "last_name":"Mayboudi",
+         "username":"smhmayboudi",
+         "type":"private"
+      },
+      "date":1571827513,
+      "forward_from_chat":{
+         "id":-1001001799788,
+         "title":"melobit",
+         "username":"melobit",
+         "type":"channel"
+      },
+      "forward_from_message_id":38366,
+      "forward_date":1571826641,
+      "voice":{
+         "duration":30,
+         "mime_type":"audio/ogg",
+         "file_id":"AwADBAADfgcAAvMBgFEEggoULefQsBYE",
+         "file_size":130378
+      }
+   }
+}

@@ -1,0 +1,27 @@
+{
+   "message_id":2437,
+   "from":{
+      "id":52953379,
+      "is_bot":false,
+      "first_name":"Hossein",
+      "last_name":"Mayboudi",
+      "username":"smhmayboudi",
+      "language_code":"fa"
+   },
+   "chat":{
+      "id":52953379,
+      "first_name":"Hossein",
+      "last_name":"Mayboudi",
+      "username":"smhmayboudi",
+      "type":"private"
+   },
+   "date":1571829656,
+   "audio":{
+      "duration":190,
+      "mime_type":"audio/mpeg3",
+      "title":"Delhoreh (Ft Soheil Vahedi)",
+      "performer":"Pouria Parto",
+      "file_id":"CQADAgADCgUAAl4DiEmArLTqq5kEoBYE",
+      "file_size":7770420
+   }
+}

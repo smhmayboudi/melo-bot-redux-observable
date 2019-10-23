@@ -1,0 +1,16 @@
+{
+   "update_id":285327689,
+   "inline_query":{
+      "id":"227433035284253783",
+      "from":{
+         "id":52953379,
+         "is_bot":false,
+         "first_name":"Hossein",
+         "last_name":"Mayboudi",
+         "username":"smhmayboudi",
+         "language_code":"fa"
+      },
+      "query":"inline query",
+      "offset":""
+   }
+}

@@ -1,0 +1,30 @@
+{
+   "update_id":285327678,
+   "message":{
+      "message_id":2429,
+      "from":{
+         "id":52953379,
+         "is_bot":false,
+         "first_name":"Hossein",
+         "last_name":"Mayboudi",
+         "username":"smhmayboudi",
+         "language_code":"fa"
+      },
+      "chat":{
+         "id":52953379,
+         "first_name":"Hossein",
+         "last_name":"Mayboudi",
+         "username":"smhmayboudi",
+         "type":"private"
+      },
+      "date":1571828467,
+      "forward_from":{
+         "id":520526310,
+         "is_bot":true,
+         "first_name":"melo_bit_bot",
+         "username":"melo_bit_bot"
+      },
+      "forward_date":1571828440,
+      "text":"WELCOME 🤗"
+   }
+}

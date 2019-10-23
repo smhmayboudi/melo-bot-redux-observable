@@ -1,0 +1,30 @@
+{
+  "update_id":285327673,
+  "message":{
+     "message_id":2421,
+     "from":{
+        "id":52953379,
+        "is_bot":false,
+        "first_name":"Hossein",
+        "last_name":"Mayboudi",
+        "username":"smhmayboudi",
+        "language_code":"fa"
+     },
+     "chat":{
+        "id":52953379,
+        "first_name":"Hossein",
+        "last_name":"Mayboudi",
+        "username":"smhmayboudi",
+        "type":"private"
+     },
+     "date":1571827765,
+     "text":"/start",
+     "entities":[
+        {
+           "offset":0,
+           "length":6,
+           "type":"bot_command"
+        }
+     ]
+  }
+}

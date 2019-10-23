@@ -1,0 +1,25 @@
+{
+   "message_id":2435,
+   "from":{
+      "id":52953379,
+      "is_bot":false,
+      "first_name":"Hossein",
+      "last_name":"Mayboudi",
+      "username":"smhmayboudi",
+      "language_code":"fa"
+   },
+   "chat":{
+      "id":52953379,
+      "first_name":"Hossein",
+      "last_name":"Mayboudi",
+      "username":"smhmayboudi",
+      "type":"private"
+   },
+   "date":1571829504,
+   "voice":{
+      "duration":1,
+      "mime_type":"audio/ogg",
+      "file_id":"AwADAgADoAQAAhTfgEkIYmtetqFZSRYE",
+      "file_size":4879
+   }
+}
