@@ -29,18 +29,18 @@ const transformSearchList: (
     return texts.messageNoResult;
   }
   const res: string[] = [];
-  for (let index: number = items.length; index > 0; index = index - 1) {
-    const value: youtube_v3.Schema$SearchResult = items[index - 1];
+  for (let index: number = items.length - 1; index >= 0; index = index - 1) {
+    const value: youtube_v3.Schema$SearchResult = items[index];
     const msg: string[] = [];
-    if (value.snippet !== undefined && value.snippet.title !== undefined) {
-      msg.push(`${index}. ${value.snippet.title}`);
-    }
     if (
       value.id !== undefined &&
       value.id.videoId !== undefined &&
-      value.id.videoId !== null
+      value.id.videoId !== null &&
+      value.snippet !== undefined &&
+      value.snippet.title !== undefined
     ) {
       const videoId: string = encode(value.id.videoId);
+      msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
         `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}${videoId}`
       );

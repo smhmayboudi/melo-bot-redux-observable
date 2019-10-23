@@ -85,6 +85,8 @@ const messageStart: string = `WELCOME ${icons.happyFaceWithHuggingHands}`;
 const state$Undefined: string = "state$ undefined.";
 const state$ValueGetChatMemberQueryUndefined: string =
   "state$ValueGetChatMemberQuery undefined.";
+const state$ValueInlineQueryQueryUndefined: string =
+  "state$ValueInlineQueryQuery undefined.";
 const state$ValueMessageQueryMessageUndefined: string =
   "state$ValueMessageQueryMessage undefined.";
 const state$ValueMessageQueryUndefined: string =
@@ -150,6 +152,7 @@ export {
   messageStart,
   state$Undefined,
   state$ValueGetChatMemberQueryUndefined,
+  state$ValueInlineQueryQueryUndefined,
   state$ValueMessageQueryMessageUndefined,
   state$ValueMessageQueryUndefined,
   state$ValueYoutubeSearchListQueryQUndefined,
