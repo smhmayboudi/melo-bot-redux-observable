@@ -1,15 +1,16 @@
 {
-    "update_id":10000,
-    "chosen_inline_result":{
-       "result_id":"12",
-       "from":{
-          "last_name":"Test Lastname",
-          "type":"private",
-          "id":1111111,
-          "first_name":"Test Firstname",
-          "username":"Testusername"
-       },
-       "query":"inline query",
-       "inline_message_id":"1234csdbsk4839"
-    }
- }
+   "update_id":285327702,
+   "chosen_inline_result":{
+      "from":{
+         "id":52953379,
+         "is_bot":false,
+         "first_name":"Hossein",
+         "last_name":"Mayboudi",
+         "username":"smhmayboudi",
+         "language_code":"fa"
+      },
+      "inline_message_id":"AgAAAJKXCAAjASgD0yyJb2hjTKs",
+      "query":"123",
+      "result_id":"cDAzVElHcUVjOG8"
+   }
+}
