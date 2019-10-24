@@ -46,20 +46,8 @@ const monitorReducer: (
     const diff: number = round(end - start);
     appDebug(`reducer process time ${diff}ms`);
     const dateNow: number = Date.now();
-    counter.inc(
-      {
-        action_type: action.type
-      },
-      1,
-      dateNow
-    );
-    gauge.set(
-      {
-        action_type: action.type
-      },
-      diff,
-      dateNow
-    );
+    counter.inc({ action_type: action.type }, 1, dateNow);
+    gauge.set({ action_type: action.type }, diff, dateNow);
 
     return newState;
   };
