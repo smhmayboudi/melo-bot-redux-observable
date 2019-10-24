@@ -21,7 +21,6 @@ const handleMessage: (
 ): void => {
   appDebug("telegramBot:handleMessage");
   switch (message.text) {
-    // TODO: TEST
     case "/getChatMember":
       store.dispatch(
         actions.getChatMember.query({
@@ -32,7 +31,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/literate":
       store.dispatch(
         actions.literate.query({
@@ -40,7 +38,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/sendAudio":
       store.dispatch(
         actions.sendAudio.query({
@@ -60,7 +57,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/sendMessage":
       store.dispatch(
         actions.sendMessage.query({
@@ -76,7 +72,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/sendVideo":
       store.dispatch(
         actions.sendVideo.query({
@@ -97,7 +92,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/youtubeDownload":
       store.dispatch(
         actions.youtubeDownload.query({
@@ -105,7 +99,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/youtubeSearchList":
       store.dispatch(
         actions.youtubeSearchList.query({
@@ -119,7 +112,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: TEST
     case "/youtubeVideoList":
       store.dispatch(
         actions.youtubeVideoList.query({
@@ -132,7 +124,6 @@ const handleMessage: (
         })
       );
       break;
-    // TODO: APP
     default:
       if (message.text !== undefined) {
         if (message.text.includes(`/${texts.commandStart}`)) {

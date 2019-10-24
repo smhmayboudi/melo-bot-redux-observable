@@ -24,12 +24,18 @@ import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
 import { handleChanelPost } from "./telegramBotHandleChanelPost";
 import { handleChosenInlineResult } from "./telegramBotHandleChosenInlineResult";
 import { handleEditedChannelPost } from "./telegramBotHandleEditedChannelPost";
+import { handleEditedChannelPostCaption } from "./telegramBotHandleEditedChannelPostCaption";
+import { handleEditedChannelPostText } from "./telegramBotHandleEditedChannelPostText";
 import { handleEditedMessage } from "./telegramBotHandleEditedMessage";
+import { handleEditedMessageCaption } from "./telegramBotHandleEditedMessageCaption";
+import { handleEditedMessageText } from "./telegramBotHandleEditedMessageText";
 import { handleError } from "./telegramBotHandleError";
 import { handleInlineQuery } from "./telegramBotHandleInlineQuery";
 import { handleMessage } from "./telegramBotHandleMessage";
+import { handlePollingError } from "./telegramBotHandlePollingError";
 import { handlePreCheckoutQuery } from "./telegramBotHandlePreCheckoutQuery";
 import { handleShippingQuery } from "./telegramBotHandleShippingQuery";
+import { handleWebhookError } from "./telegramBotHandleWebhookError";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot");
 
@@ -67,30 +73,30 @@ const operate: (message: IStateMessageQuery) => void = (
     handleChosenInlineResult(store, message.chosen_inline_result);
   } else if (message.edited_channel_post !== undefined) {
     handleEditedChannelPost(store, message.edited_channel_post);
-    // } else if (message.edited_channel_post_text !== undefined) {
-    //   HandleEditedChannelPostText(store, message.edited_channel_post_text);
-    // } else if (message.edited_channel_post_caption !== undefined) {
-    //   HandleEditedChannelPostCaption(store, message.edited_channel_post_caption);
+  } else if (message.edited_channel_post_text !== undefined) {
+    handleEditedChannelPostText(store, message.edited_channel_post_text);
+  } else if (message.edited_channel_post_caption !== undefined) {
+    handleEditedChannelPostCaption(store, message.edited_channel_post_caption);
   } else if (message.edited_message !== undefined) {
     handleEditedMessage(store, message.edited_message);
-    // } else if (message.edited_message_text !== undefined) {
-    //   HandleEditedMessageText(store, message.edited_message_text);
-    // } else if (message.edited_message_caption !== undefined) {
-    //   HandleEditedMessageCaption(store, message.edited_message_caption);
+  } else if (message.edited_message_text !== undefined) {
+    handleEditedMessageText(store, message.edited_message_text);
+  } else if (message.edited_message_caption !== undefined) {
+    handleEditedMessageCaption(store, message.edited_message_caption);
   } else if (message.error !== undefined) {
     handleError(store, message.error);
-    // } else if (message.polling_error !== undefined) {
-    //   HandleError(store, message.polling_error);
-    // } else if (message.webhook_error !== undefined) {
-    //   HandleError(store, message.webhook_error);
   } else if (message.inline_query !== undefined) {
     handleInlineQuery(store, message.inline_query);
   } else if (message.message !== undefined) {
     handleMessage(store, message.message);
+  } else if (message.polling_error !== undefined) {
+    handlePollingError(store, message.polling_error);
   } else if (message.pre_checkout_query !== undefined) {
     handlePreCheckoutQuery(store, message.pre_checkout_query);
   } else if (message.shipping_query !== undefined) {
     handleShippingQuery(store, message.shipping_query);
+  } else if (message.webhook_error !== undefined) {
+    handleWebhookError(store, message.webhook_error);
   }
 };
 
