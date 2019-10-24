@@ -12,4 +12,4 @@ global.__MONGO_DB_NAME__ = "";
 global.__MONGO_URI__ = "";
 
 /* tslint:disable:no-import-side-effect */
-import "./config/http";
+import "./configs/http";

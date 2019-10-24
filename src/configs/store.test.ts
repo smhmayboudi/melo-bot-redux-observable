@@ -8,9 +8,10 @@ import * as actions from "../actions";
 
 import { configureStore } from "./store";
 
-describe("store config", (): void => {
+describe("store configs", (): void => {
   const initialStateh: IState = {
     answerInlineQuery: actions.answerInlineQuery.initialState,
+    chosenInlineResult: actions.chosenInlineResult.initialState,
     getChatMember: actions.getChatMember.initialState,
     inlineQuery: actions.inlineQuery.initialState,
     literate: actions.literate.initialState,

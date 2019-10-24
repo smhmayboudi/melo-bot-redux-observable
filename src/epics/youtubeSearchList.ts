@@ -11,7 +11,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IInlineQueryResultArticle } from "../../types/telegramBot/inlineMode/iInlineQueryResultArticle";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import { transformSearchList as transformSearchList2 } from "../utils/inlineQueryResultArticle";
 import { transformSearchList } from "../utils/string";
 

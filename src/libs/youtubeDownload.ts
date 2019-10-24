@@ -3,8 +3,8 @@ import * as fs from "fs";
 import * as http from "http";
 import * as https from "https";
 
-import { IFmtList } from "../../types/lib/iFmtList";
-import { IVideoInfo } from "../../types/lib/iVideoInfo";
+import { IFmtList } from "../../types/libs/iFmtList";
+import { IVideoInfo } from "../../types/libs/iVideoInfo";
 import { pathThumb, pathVideo } from "../utils/string";
 
 const appDebug: debug.IDebugger = debug("app:lib:youtubeDownload");

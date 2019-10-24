@@ -9,7 +9,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
 
 const getChatMember: (

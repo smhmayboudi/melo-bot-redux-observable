@@ -11,7 +11,7 @@ import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import * as epic from "../epics/appError";
 
 describe("appError epic", (): void => {

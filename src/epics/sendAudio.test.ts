@@ -11,7 +11,7 @@ import { IState } from "../../types/iState";
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendAudio";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 
 import * as epic from "./sendAudio";
 

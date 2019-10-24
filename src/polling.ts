@@ -10,7 +10,7 @@ import { IShippingQuery } from "../types/telegramBot/payments/iShippingQuery";
 import { ICallbackQuery } from "../types/telegramBot/types/iCallbackQuery";
 import { IMessage } from "../types/telegramBot/types/iMessage";
 
-import * as env from "./config/env";
+import * as env from "./configs/env";
 
 const appDebug: debug.IDebugger = debug("app:polling");
 

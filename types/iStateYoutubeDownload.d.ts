@@ -1,5 +1,5 @@
 import { IStateYoutubeDownloadQuery } from "./iStateYoutubeDownloadQuery";
-import { IVideoInfo } from "./lib/iVideoInfo";
+import { IVideoInfo } from "./libs/iVideoInfo";
 
 export interface IStateYoutubeDownload {
   error?: any;

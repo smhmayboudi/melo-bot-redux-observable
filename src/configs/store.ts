@@ -11,6 +11,7 @@ import { composeWithDevTools } from "remote-redux-devtools";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
+import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateLiterate } from "../../types/iStateLiterate";
@@ -35,6 +36,7 @@ const configureStore: (
 ): Store<IState> & { dispatch: {} } => {
   const preloadedState: DeepPartial<{
     answerInlineQuery: IStateAnswerInlineQuery;
+    chosenInlineResult: IStateChosenInlineResult;
     getChatMember: IStateGetChatMember;
     inlineQuery: IStateInlineQuery;
     literate: IStateLiterate;
@@ -52,7 +54,6 @@ const configureStore: (
     IState,
     IDependencies
   > = createEpicMiddleware({ dependencies: { ...dependencies } });
-  // TODO: "any" should change to "(...funcs: StoreEnhancer[]) => StoreEnhancer"
   const composeEnhancers: any = composeWithDevTools({
     hostname: env.REMOTEDEV_HOSTNAME,
     name: env.REMOTEDEV_NAME,

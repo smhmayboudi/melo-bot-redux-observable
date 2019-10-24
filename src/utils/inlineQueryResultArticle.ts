@@ -1,7 +1,7 @@
 import { youtube_v3 } from "googleapis";
 
 import { IInlineQueryResultArticle } from "../../types/telegramBot/inlineMode/iInlineQueryResultArticle";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 
 import { encode } from "./string";
 

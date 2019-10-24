@@ -8,8 +8,8 @@ import {
   StoreEnhancer
 } from "redux";
 
-import * as env from "../config/env";
-import { Prometheus } from "../config/prometheus";
+import * as env from "../configs/env";
+import { Prometheus } from "../configs/prometheus";
 
 const appDebug: debug.IDebugger = debug("app:enhancers:monitorReducer");
 

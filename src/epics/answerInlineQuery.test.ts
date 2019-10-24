@@ -11,7 +11,7 @@ import { IState } from "../../types/iState";
 import { IStateAnswerInlineQueryQuery } from "../../types/iStateAnswerInlineQueryQuery";
 import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import * as epic from "../epics/answerInlineQuery";
 
 describe("answerInlineQuery epic", (): void => {

@@ -11,12 +11,12 @@ import {
   connectObservable,
   findOneObservable,
   insertOneObservable
-} from "../lib/mongodbObservable";
-import { requestObservable } from "../lib/requestObservable";
-import { requestsObservable } from "../lib/requestsObservable";
-import { requestsUploadObservable } from "../lib/requestsUploadObservable";
-import { requestUploadObservable } from "../lib/requestUploadObservable";
-import { youtubeDownloadObservable } from "../lib/youtubeDownloadObservable";
+} from "../libs/mongodbObservable";
+import { requestObservable } from "../libs/requestObservable";
+import { requestsObservable } from "../libs/requestsObservable";
+import { requestsUploadObservable } from "../libs/requestsUploadObservable";
+import { requestUploadObservable } from "../libs/requestUploadObservable";
+import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
 
 import * as env from "./env";
 import { configureStore } from "./store";

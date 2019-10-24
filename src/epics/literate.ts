@@ -7,8 +7,8 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateLiterate } from "../../types/iStateLiterate";
 import * as actions from "../actions";
-import * as env from "../config/env";
-import * as texts from "../config/texts";
+import * as env from "../configs/env";
+import * as texts from "../configs/texts";
 
 const literate: (
   action$: Observable<IActionLiterate>,

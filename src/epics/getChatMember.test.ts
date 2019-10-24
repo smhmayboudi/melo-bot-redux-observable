@@ -13,7 +13,7 @@ import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import * as epic from "../epics/getChatMember";
 
 describe("getChatMember epic", (): void => {

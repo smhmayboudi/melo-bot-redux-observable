@@ -1,8 +1,8 @@
 import { youtube_v3 } from "googleapis";
 import * as path from "path";
 
-import * as icons from "../config/icons";
-import * as texts from "../config/texts";
+import * as icons from "../configs/icons";
+import * as texts from "../configs/texts";
 
 const caption: (title: string) => string = (title?: string): string =>
   `${title}\n\n🆔 @melodio`.trim();

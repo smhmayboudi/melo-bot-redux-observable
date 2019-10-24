@@ -1,4 +1,5 @@
 import * as answerInlineQuery from "./answerInlineQuery";
+import * as chosenInlineResult from "./chosenInlineResult";
 import * as getChatMember from "./getChatMember";
 import * as inlineQuery from "./inlineQuery";
 import * as literate from "./literate";
@@ -12,6 +13,7 @@ import * as youtubeVideoList from "./youtubeVideoList";
 
 export {
   answerInlineQuery,
+  chosenInlineResult,
   getChatMember,
   inlineQuery,
   literate,

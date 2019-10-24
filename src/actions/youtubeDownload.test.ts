@@ -1,4 +1,4 @@
-import { IVideoInfo } from "../../types/lib/iVideoInfo";
+import { IVideoInfo } from "../../types/libs/iVideoInfo";
 
 import * as action from "./youtubeDownload";
 

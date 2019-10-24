@@ -6,6 +6,7 @@ import { IState } from "../../types/iState";
 
 import { answerInlineQuery } from "./answerInlineQuery";
 import { appError } from "./appError";
+import { chosenInlineResult } from "./chosenInlineResult";
 import { getChatMember } from "./getChatMember";
 import { inlineQuery } from "./inlineQuery";
 import { literate } from "./literate";
@@ -22,8 +23,9 @@ const index: Epic<
   IState,
   IDependencies
 > = combineEpics(
-  appError,
   answerInlineQuery,
+  appError,
+  chosenInlineResult,
   getChatMember,
   inlineQuery,
   literate,

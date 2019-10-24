@@ -17,10 +17,10 @@ import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IVideoInfo } from "../../types/lib/iVideoInfo";
+import { IVideoInfo } from "../../types/libs/iVideoInfo";
 import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
 import { caption, decode, pathThumb, pathVideo } from "../utils/string";
 

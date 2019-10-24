@@ -1,3 +1,13 @@
+declare global {
+  namespace NodeJS {
+    // tslint:disable-next-line: interface-name
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
 import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
@@ -12,12 +22,12 @@ import { IState } from "../../types/iState";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import {
   collectionObservable,
   findOneObservable,
   insertOneObservable
-} from "../lib/mongodbObservable";
+} from "../libs/mongodbObservable";
 import { encode } from "../utils/string";
 
 import * as epic from "./sendVideo";
@@ -277,12 +287,10 @@ describe("sendVideo epic", (): void => {
 
   beforeAll(
     async (): Promise<any> => {
-      // @ts-ignore
       connection = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       });
-      // @ts-ignore
       db = connection.db(global.__MONGO_DB_NAME__);
     }
   );

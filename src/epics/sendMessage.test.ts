@@ -11,7 +11,7 @@ import { IState } from "../../types/iState";
 import { IStateSendMessageQuery } from "../../types/iStateSendMessageQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendMessage";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import * as epic from "../epics/sendMessage";
 
 describe("sendMessage epic", (): void => {

@@ -2,6 +2,8 @@ import * as icons from "./icons";
 
 const actionAnswerInlineQueryQueryUndefined: string =
   "actionAnswerInlineQueryQuery undefined.";
+const actionChosenInlineResultQueryUndefined: string =
+  "actionChosenInlineResultQuery undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
 const actionInlineQueryQueryUndefined: string =
@@ -102,6 +104,7 @@ const state$ValueYoutubeVideoListQueryUndefined: string =
 
 export {
   actionAnswerInlineQueryQueryUndefined,
+  actionChosenInlineResultQueryUndefined,
   actionGetChatMemberQueryUndefined,
   actionInlineQueryQueryUndefined,
   actionLiterateQueryUndefined,
@@ -131,14 +134,14 @@ export {
   epicDependencyInsertOneObservableUndefined,
   epicDependencyMongoClientObservableObservableUndefined,
   epicDependencyRequestObservableUndefined,
-  epicDependencyRequestUploadObservableUndefined,
   epicDependencyRequestsObservableUndefined,
   epicDependencyRequestsUploadObservableUndefined,
+  epicDependencyRequestUploadObservableUndefined,
   epicDependencyYoutubeDownloadObservableUndefined,
   epicInlineQueryConnectGoogleAccount,
-  epicYoutubeFindOneObservableDownloadValueUndefined,
   epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined,
   epicYoutubeFindOneObservableDownloadValueThumbUndefined,
+  epicYoutubeFindOneObservableDownloadValueUndefined,
   messageAdvertisementChannel,
   messageAdvertisementChannelJoinLink,
   messageChannel,

@@ -1,7 +1,7 @@
 import { youtube_v3 } from "googleapis";
 
-import * as icons from "../config/icons";
-import * as texts from "../config/texts";
+import * as icons from "../configs/icons";
+import * as texts from "../configs/texts";
 
 import {
   caption,

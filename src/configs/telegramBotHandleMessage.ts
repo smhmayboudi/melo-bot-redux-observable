@@ -43,7 +43,7 @@ const handleMessage: (
         actions.sendAudio.query({
           query: {
             audio: fs.createReadStream("./asset/small.mp3"),
-            caption: caption(),
+            caption: caption(""),
             chat_id: message.chat.id,
             disable_notification: true,
             duration: 6,

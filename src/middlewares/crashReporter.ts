@@ -14,7 +14,7 @@ import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as env from "../config/env";
+import * as env from "../configs/env";
 
 const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
 

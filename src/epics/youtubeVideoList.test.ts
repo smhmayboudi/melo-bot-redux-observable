@@ -13,7 +13,7 @@ import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendMessageQuery } from "../../types/iStateSendMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import { transformVideoList } from "../utils/string";
 
 import * as epic from "./youtubeVideoList";

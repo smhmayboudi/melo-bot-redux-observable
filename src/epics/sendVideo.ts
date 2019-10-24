@@ -11,7 +11,7 @@ import { IState } from "../../types/iState";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../config/texts";
+import * as texts from "../configs/texts";
 import { caption, decode } from "../utils/string";
 
 const sendVideo: (
@@ -248,7 +248,7 @@ const sendVideo: (
                       }
 
                       const title: string = action.sendVideo.result.caption
-                        .replace(caption(), "")
+                        .replace(caption(""), "")
                         .trim();
 
                       return insertOneObservable(

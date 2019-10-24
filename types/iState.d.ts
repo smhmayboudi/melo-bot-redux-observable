@@ -1,4 +1,5 @@
 import { IStateAnswerInlineQuery } from "./iStateAnswerInlineQuery";
+import { IStateChosenInlineResult } from "./iStateChosenInlineResult";
 import { IStateGetChatMember } from "./iStateGetChatMember";
 import { IStateInlineQuery } from "./iStateInlineQuery";
 import { IStateLiterate } from "./iStateLiterate";
@@ -12,6 +13,7 @@ import { IStateYoutubeVideoList } from "./iStateYoutubeVideoList";
 
 export interface IState {
   answerInlineQuery: IStateAnswerInlineQuery;
+  chosenInlineResult: IStateChosenInlineResult;
   getChatMember: IStateGetChatMember;
   inlineQuery: IStateInlineQuery;
   literate: IStateLiterate;

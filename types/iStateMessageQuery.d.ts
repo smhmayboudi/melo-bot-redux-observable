@@ -11,17 +11,17 @@ export interface IStateMessageQuery {
   channel_post?: IMessage;
   chosen_inline_result?: IChosenInlineResult;
   edited_channel_post?: IMessage;
-  // Edited_channel_post_text?: IMessage;
-  // Edited_channel_post_caption?: IMessage;
+  edited_channel_post_caption?: IMessage;
+  edited_channel_post_text?: IMessage;
   edited_message?: IMessage;
-  // Edited_message_text?: IMessage;
-  // Edited_message_caption?: IMessage;
+  edited_message_caption?: IMessage;
+  edited_message_text?: IMessage;
   error?: Error;
   inline_query?: IInlineQuery;
   message?: IMessage;
-  // Polling_error?: Error;
+  polling_error?: Error;
   pre_checkout_query?: IPreCheckoutQuery;
   shipping_query?: IShippingQuery;
   update_id: number;
-  // Webhook_error?: Error;
+  webhook_error?: Error;
 }
