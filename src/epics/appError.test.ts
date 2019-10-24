@@ -17,9 +17,9 @@ import * as epic from "../epics/appError";
 describe("appError epic", (): void => {
   const initialState: IState = {
     answerInlineQuery: actions.answerInlineQuery.initialState,
+    chosenInlineResult: actions.chosenInlineResult.initialState,
     getChatMember: actions.getChatMember.initialState,
     inlineQuery: actions.inlineQuery.initialState,
-    literate: actions.literate.initialState,
     message: actions.message.initialState,
     sendAudio: actions.sendAudio.initialState,
     sendMessage: actions.sendMessage.initialState,

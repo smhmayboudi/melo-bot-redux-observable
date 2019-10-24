@@ -2,7 +2,6 @@ import * as answerInlineQuery from "./answerInlineQuery";
 import * as chosenInlineResult from "./chosenInlineResult";
 import * as getChatMember from "./getChatMember";
 import * as inlineQuery from "./inlineQuery";
-import * as literate from "./literate";
 import * as message from "./message";
 import * as sendAudio from "./sendAudio";
 import * as sendMessage from "./sendMessage";
@@ -16,7 +15,6 @@ export {
   chosenInlineResult,
   getChatMember,
   inlineQuery,
-  literate,
   message,
   sendAudio,
   sendMessage,

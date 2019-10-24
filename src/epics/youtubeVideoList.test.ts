@@ -22,9 +22,9 @@ describe("youtubeVideoList epic", (): void => {
   const error: Error = new Error("");
   const initialState: IState = {
     answerInlineQuery: actions.answerInlineQuery.initialState,
+    chosenInlineResult: actions.chosenInlineResult.initialState,
     getChatMember: actions.getChatMember.initialState,
     inlineQuery: actions.inlineQuery.initialState,
-    literate: actions.literate.initialState,
     message: actions.message.initialState,
     sendAudio: actions.sendAudio.initialState,
     sendMessage: actions.sendMessage.initialState,

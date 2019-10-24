@@ -31,13 +31,6 @@ const handleMessage: (
         })
       );
       break;
-    case "/literate":
-      store.dispatch(
-        actions.literate.query({
-          query: "HI"
-        })
-      );
-      break;
     case "/sendAudio":
       store.dispatch(
         actions.sendAudio.query({

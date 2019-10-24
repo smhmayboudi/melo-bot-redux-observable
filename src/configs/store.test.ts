@@ -2,7 +2,6 @@ import { Store } from "redux";
 import { Observable, of } from "rxjs";
 
 import { IState } from "../../types/iState";
-import { IStateLiterate } from "../../types/iStateLiterate";
 import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
 
@@ -14,7 +13,6 @@ describe("store configs", (): void => {
     chosenInlineResult: actions.chosenInlineResult.initialState,
     getChatMember: actions.getChatMember.initialState,
     inlineQuery: actions.inlineQuery.initialState,
-    literate: actions.literate.initialState,
     message: actions.message.initialState,
     sendAudio: actions.sendAudio.initialState,
     sendMessage: actions.sendMessage.initialState,
@@ -56,10 +54,6 @@ describe("store configs", (): void => {
     }
   };
 
-  // Const literateError: Error = new Error("");
-  const literateQuery: string = "HI";
-  const literateResult: string = "های";
-
   test("should handle start message", (): void => {
     if (message.query !== undefined && message.query.message !== undefined) {
       message = {
@@ -73,28 +67,6 @@ describe("store configs", (): void => {
     store.dispatch(actions.message.query(message));
     expect(store.getState()).toEqual({
       ...initialStateh,
-      message
-    });
-  });
-
-  test("should handle literate message", (): void => {
-    if (message.query !== undefined && message.query.message !== undefined) {
-      message = {
-        query: {
-          ...message.query,
-          message: { ...message.query.message, text: "/literate" }
-        }
-      };
-    }
-    const store: Store<IState> & { dispatch: {} } = configureStore({
-      requestObservable: (): Observable<IStateLiterate> =>
-        of({ query: literateQuery, result: literateResult })
-    });
-    store.dispatch(actions.message.query(message));
-    store.dispatch(actions.literate.query({ query: literateQuery }));
-    expect(store.getState()).toEqual({
-      ...initialStateh,
-      literate: { query: literateQuery, result: literateResult },
       message
     });
   });

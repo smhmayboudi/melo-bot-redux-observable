@@ -6,6 +6,7 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionInlineQuery } from "../../types/iActionInlineQuery";
+import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
@@ -17,9 +18,9 @@ import * as epic from "../epics/inlineQuery";
 describe("inlineQuery epic", (): void => {
   const initialState: IState = {
     answerInlineQuery: actions.answerInlineQuery.initialState,
+    chosenInlineResult: actions.chosenInlineResult.initialState,
     getChatMember: actions.getChatMember.initialState,
     inlineQuery: actions.inlineQuery.initialState,
-    literate: actions.literate.initialState,
     message: actions.message.initialState,
     sendAudio: actions.sendAudio.initialState,
     sendMessage: actions.sendMessage.initialState,
@@ -108,7 +109,7 @@ describe("inlineQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionInlineQuery | IActionAnswerInlineQuery
+        IActionInlineQuery | IActionYoutubeSearchList
       > = epic.inlineQuery(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.inlineQuery.error({

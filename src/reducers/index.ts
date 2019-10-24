@@ -4,7 +4,6 @@ import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
-import { IStateLiterate } from "../../types/iStateLiterate";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
@@ -17,7 +16,6 @@ import { answerInlineQuery } from "./answerInlineQuery";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { getChatMember } from "./getChatMember";
 import { inlineQuery } from "./inlineQuery";
-import { literate } from "./literate";
 import { message } from "./message";
 import { sendAudio } from "./sendAudio";
 import { sendMessage } from "./sendMessage";
@@ -31,7 +29,6 @@ const index: Reducer<{
   chosenInlineResult: IStateChosenInlineResult;
   getChatMember: IStateGetChatMember;
   inlineQuery: IStateInlineQuery;
-  literate: IStateLiterate;
   message: IStateMessage;
   sendAudio: IStateSendAudio;
   sendMessage: IStateSendMessage;
@@ -44,7 +41,6 @@ const index: Reducer<{
   chosenInlineResult,
   getChatMember,
   inlineQuery,
-  literate,
   message,
   sendAudio,
   sendMessage,

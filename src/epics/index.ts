@@ -9,7 +9,6 @@ import { appError } from "./appError";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { getChatMember } from "./getChatMember";
 import { inlineQuery } from "./inlineQuery";
-import { literate } from "./literate";
 import { sendAudio } from "./sendAudio";
 import { sendMessage } from "./sendMessage";
 import { sendVideo } from "./sendVideo";
@@ -28,7 +27,6 @@ const index: Epic<
   chosenInlineResult,
   getChatMember,
   inlineQuery,
-  literate,
   sendAudio,
   sendMessage,
   sendVideo,

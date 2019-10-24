@@ -20,8 +20,6 @@ export PORT=8081
 export SENTRY_DSN=https://a74e2edcd150475f82cef68e0b09c5cd@sentry.io/1784965
 export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
-export SERVICE_LITERATE_HOSTNAME=195.201.122.194
-export SERVICE_LITERATE_PORT=1231
 
 rm -fr coverage
-./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose
+./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics

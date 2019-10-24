@@ -2,7 +2,6 @@ import { IStateAnswerInlineQuery } from "./iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "./iStateChosenInlineResult";
 import { IStateGetChatMember } from "./iStateGetChatMember";
 import { IStateInlineQuery } from "./iStateInlineQuery";
-import { IStateLiterate } from "./iStateLiterate";
 import { IStateMessage } from "./iStateMessage";
 import { IStateSendAudio } from "./iStateSendAudio";
 import { IStateSendMessage } from "./iStateSendMessage";
@@ -16,7 +15,6 @@ export interface IState {
   chosenInlineResult: IStateChosenInlineResult;
   getChatMember: IStateGetChatMember;
   inlineQuery: IStateInlineQuery;
-  literate: IStateLiterate;
   message: IStateMessage;
   sendAudio: IStateSendAudio;
   sendMessage: IStateSendMessage;

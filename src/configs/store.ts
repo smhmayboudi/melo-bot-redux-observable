@@ -14,7 +14,6 @@ import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
-import { IStateLiterate } from "../../types/iStateLiterate";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
@@ -39,7 +38,6 @@ const configureStore: (
     chosenInlineResult: IStateChosenInlineResult;
     getChatMember: IStateGetChatMember;
     inlineQuery: IStateInlineQuery;
-    literate: IStateLiterate;
     message: IStateMessage;
     sendAudio: IStateSendAudio;
     sendMessage: IStateSendMessage;

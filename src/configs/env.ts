@@ -64,14 +64,6 @@ const PORT: number = parseInt(getter("PORT", "number"), 10);
 const SENTRY_DSN: string = getter("SENTRY_DSN", "string");
 const SENTRY_RELEASE: string = getter("SENTRY_RELEASE", "string");
 const SENTRY_SERVERNAME: string = getter("SENTRY_SERVERNAME", "string");
-const SERVICE_LITERATE_HOSTNAME: string = getter(
-  "SERVICE_LITERATE_HOSTNAME",
-  "string"
-);
-const SERVICE_LITERATE_PORT: number = parseInt(
-  getter("SERVICE_LITERATE_PORT", "number"),
-  10
-);
 
 export {
   BOT_TOKEN,
@@ -94,7 +86,5 @@ export {
   PORT,
   SENTRY_DSN,
   SENTRY_RELEASE,
-  SENTRY_SERVERNAME,
-  SERVICE_LITERATE_HOSTNAME,
-  SERVICE_LITERATE_PORT
+  SENTRY_SERVERNAME
 };
