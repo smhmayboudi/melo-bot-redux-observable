@@ -4,8 +4,8 @@ import * as path from "path";
 import * as icons from "../config/icons";
 import * as texts from "../config/texts";
 
-const caption: (title?: string) => string = (title?: string): string =>
-  `${title !== undefined ? title : ""}\n\n🆔 @melodio`.trim();
+const caption: (title: string) => string = (title?: string): string =>
+  `${title}\n\n🆔 @melodio`.trim();
 
 const decode: (id: string) => string = (id: string): string =>
   Buffer.from(id, "base64").toString("ascii");
@@ -29,8 +29,8 @@ const transformSearchList: (
     return texts.messageNoResult;
   }
   const res: string[] = [];
-  for (let index: number = items.length - 1; index >= 0; index = index - 1) {
-    const value: youtube_v3.Schema$SearchResult = items[index];
+  for (let index: number = items.length; index > 0; index = index - 1) {
+    const value: youtube_v3.Schema$SearchResult = items[index - 1];
     const msg: string[] = [];
     if (
       value.id !== undefined &&
@@ -67,11 +67,14 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
   for (let index: number = items.length; index > 0; index = index - 1) {
     const value: youtube_v3.Schema$Video = items[index - 1];
     const msg: string[] = [];
-    if (value.snippet !== undefined && value.snippet.title !== undefined) {
-      msg.push(`${index}. ${value.snippet.title}`);
-    }
-    if (value.id !== undefined && value.id !== null) {
+    if (
+      value.id !== undefined &&
+      value.id !== null &&
+      value.snippet !== undefined &&
+      value.snippet.title !== undefined
+    ) {
       const videoId: string = encode(value.id);
+      msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
         `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}${videoId}`
       );

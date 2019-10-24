@@ -1,9 +1,9 @@
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 
 const actionGetChatMemberResultStatus: (
-  action?: IActionGetChatMember
-) => boolean = (action?: IActionGetChatMember): boolean => {
-  if (action !== undefined && action.getChatMember.result !== undefined) {
+  action: IActionGetChatMember
+) => boolean = (action: IActionGetChatMember): boolean => {
+  if (action.getChatMember.result !== undefined) {
     switch (action.getChatMember.result.status) {
       case "administrator":
       case "creator":
