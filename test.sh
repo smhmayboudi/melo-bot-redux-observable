@@ -22,4 +22,4 @@ export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
 
 rm -fr coverage
-./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
+./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose
