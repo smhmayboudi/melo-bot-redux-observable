@@ -56,7 +56,6 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (
     appDebug("end");
   });
   httpClientRequest.on("response", (response: http.IncomingMessage): void => {
-    // The server response { "Connection": "close" } when readiness is false.
     appDebug("response.headers", response.headers);
   });
 };
