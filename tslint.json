@@ -17,7 +17,7 @@
   },
   "linterOptions": {
     "exclude": [
-      "./src/lib/lib/*"
+      "./src/libs/lib/*"
     ]
   }
 }
