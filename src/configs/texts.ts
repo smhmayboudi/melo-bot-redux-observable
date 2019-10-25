@@ -98,8 +98,6 @@ const state$ValueYoutubeSearchListQueryUndefined: string =
   "state$ValueYoutubeSearchListQuery undefined.";
 const state$ValueYoutubeVideoListQueryQUndefined: string =
   "state$ValueYoutubeVideoListQueryQ undefined.";
-const state$ValueYoutubeVideoListQueryUndefined: string =
-  "state$ValueYoutubeVideoListQuery undefined.";
 
 export {
   actionAnswerInlineQueryQueryUndefined,
@@ -158,6 +156,5 @@ export {
   state$ValueMessageQueryUndefined,
   state$ValueYoutubeSearchListQueryQUndefined,
   state$ValueYoutubeSearchListQueryUndefined,
-  state$ValueYoutubeVideoListQueryQUndefined,
-  state$ValueYoutubeVideoListQueryUndefined
+  state$ValueYoutubeVideoListQueryQUndefined
 };

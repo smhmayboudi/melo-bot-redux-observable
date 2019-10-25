@@ -37,7 +37,7 @@ describe("appError epic", (): void => {
       }
     }
   };
-  const resultState: IState = {
+  const stateResult: IState = {
     ...initialState,
     message: {
       query: {
@@ -68,7 +68,7 @@ describe("appError epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: "ERROR" }
+        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {};
@@ -89,7 +89,7 @@ describe("appError epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: "ERROR" }
+        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
@@ -113,7 +113,7 @@ describe("appError epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: "ERROR" }
+        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
@@ -137,11 +137,11 @@ describe("appError epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: "ERROR" }
+        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        resultState
+        stateResult
       );
       const dependencies: IDependencies = {};
       const output$: Observable<IActionSendMessage> = epic.appError(

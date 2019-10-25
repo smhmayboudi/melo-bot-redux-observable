@@ -105,6 +105,14 @@ describe("youtubeDownload epic", (): void => {
     title: "",
     url: ""
   };
+  const stateResult: IState = {
+    ...initialState,
+    message,
+    youtubeDownload: {
+      query,
+      result
+    }
+  };
   const resultCache: IVideo & { id: string; title: string } = {
     duration: 0,
     file_id: "small",
@@ -147,14 +155,6 @@ describe("youtubeDownload epic", (): void => {
     thumb: undefined,
     title: "",
     width: 0
-  };
-  const resultState: IState = {
-    ...initialState,
-    message,
-    youtubeDownload: {
-      query,
-      result
-    }
   };
   const getChatMemberResult: IChatMember = {
     status: "member",
@@ -211,13 +211,11 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        resultState
+        stateResult
       );
       const dependencies: IDependencies = {
         collectionObservable: (): Observable<any> => cold("-"),
@@ -233,9 +231,7 @@ describe("youtubeDownload epic", (): void => {
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a-b", {
-        a: actions.getChatMember.query({
-          query: getChatMemberQuery
-        }),
+        a: actions.getChatMember.query({ query: getChatMemberQuery }),
         b: actions.youtubeDownload.error({
           error: new Error(
             texts.epicDependencyYoutubeDownloadObservableUndefined
@@ -249,13 +245,11 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        resultState
+        stateResult
       );
       const dependencies: IDependencies = {
         collectionObservable: (): Observable<any> => cold("-"),
@@ -272,9 +266,7 @@ describe("youtubeDownload epic", (): void => {
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
-        a: actions.getChatMember.query({
-          query: getChatMemberQuery
-        }),
+        a: actions.getChatMember.query({ query: getChatMemberQuery }),
         b: actions.youtubeDownload.error({
           error
         })
@@ -290,7 +282,7 @@ describe("youtubeDownload epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        resultState
+        stateResult
       );
       const dependencies: IDependencies = {
         collectionObservable: (): Observable<any> => cold("-"),
@@ -307,9 +299,7 @@ describe("youtubeDownload epic", (): void => {
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a-b", {
-        a: actions.getChatMember.query({
-          query: getChatMemberQuery
-        }),
+        a: actions.getChatMember.query({ query: getChatMemberQuery }),
         b: actions.youtubeDownload.error({
           error: new Error(texts.actionYoutubeDownloadQueryUndefined)
         })
@@ -321,13 +311,11 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        resultState
+        stateResult
       );
       const dependencies: IDependencies = {
         collectionObservable: (): Observable<any> => cold("-"),
@@ -344,9 +332,7 @@ describe("youtubeDownload epic", (): void => {
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
-        a: actions.getChatMember.query({
-          query: getChatMemberQuery
-        }),
+        a: actions.getChatMember.query({ query: getChatMemberQuery }),
         b: actions.youtubeDownload.error({
           error: new Error(texts.actionYoutubeDownloadResultUndefined)
         })
@@ -358,9 +344,7 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -392,9 +376,7 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
@@ -429,9 +411,7 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
@@ -466,13 +446,11 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({
-          query
-        })
+        a: actions.youtubeDownload.query({ query })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        resultState
+        stateResult
       );
       const dependencies: IDependencies = {
         collectionObservable: (): Observable<any> => cold("-"),
@@ -489,12 +467,8 @@ describe("youtubeDownload epic", (): void => {
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
-        a: actions.getChatMember.query({
-          query: getChatMemberQuery
-        }),
-        b: actions.sendVideo.query({
-          query: sendVideoQuery
-        })
+        a: actions.getChatMember.query({ query: getChatMemberQuery }),
+        b: actions.sendVideo.query({ query: sendVideoQuery })
       });
     });
   });
@@ -535,13 +509,11 @@ describe("youtubeDownload epic", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -557,9 +529,7 @@ describe("youtubeDownload epic", (): void => {
           IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a-b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
+          a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
             error: new Error(
               texts.epicDependencyMongoClientObservableObservableUndefined
@@ -573,13 +543,11 @@ describe("youtubeDownload epic", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -596,9 +564,7 @@ describe("youtubeDownload epic", (): void => {
           IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
+          a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
             error
           })
@@ -610,13 +576,11 @@ describe("youtubeDownload epic", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable: undefined,
@@ -632,9 +596,7 @@ describe("youtubeDownload epic", (): void => {
           IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a-b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
+          a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
             error: new Error(texts.epicDependencyCollectionObservableUndefined)
           })
@@ -646,13 +608,11 @@ describe("youtubeDownload epic", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable: (): ColdObservable<any> =>
@@ -669,9 +629,7 @@ describe("youtubeDownload epic", (): void => {
           IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
+          a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
             error
           })
@@ -683,13 +641,11 @@ describe("youtubeDownload epic", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -705,9 +661,7 @@ describe("youtubeDownload epic", (): void => {
           IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a-b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
+          a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
             error: new Error(texts.epicDependencyFindOneObservableUndefined)
           })
@@ -719,13 +673,11 @@ describe("youtubeDownload epic", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -741,9 +693,7 @@ describe("youtubeDownload epic", (): void => {
           IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a---b", {
-          a: actions.getChatMember.query({
-            query: getChatMemberQuery
-          }),
+          a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
             error
           })
@@ -756,13 +706,11 @@ describe("youtubeDownload epic", (): void => {
         // Const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -795,12 +743,8 @@ describe("youtubeDownload epic", (): void => {
                 | IActionSendVideo
             ): void => {
               cold("-a---b", {
-                a: actions.getChatMember.query({
-                  query: getChatMemberQuery
-                }),
-                b: actions.sendVideo.query({
-                  query: sendVideoQueryCache
-                })
+                a: actions.getChatMember.query({ query: getChatMemberQuery }),
+                b: actions.sendVideo.query({ query: sendVideoQueryCache })
               })
                 .toPromise()
                 .then(
@@ -821,13 +765,11 @@ describe("youtubeDownload epic", (): void => {
         // Const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -863,12 +805,8 @@ describe("youtubeDownload epic", (): void => {
                 | IActionSendVideo
             ): void => {
               cold("-a---b", {
-                a: actions.getChatMember.query({
-                  query: getChatMemberQuery
-                }),
-                b: actions.sendVideo.query({
-                  query: sendVideoQueryCache
-                })
+                a: actions.getChatMember.query({ query: getChatMemberQuery }),
+                b: actions.sendVideo.query({ query: sendVideoQueryCache })
               })
                 .toPromise()
                 .then(
@@ -889,13 +827,11 @@ describe("youtubeDownload epic", (): void => {
         // Const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -931,12 +867,8 @@ describe("youtubeDownload epic", (): void => {
                 | IActionSendVideo
             ): void => {
               cold("-a---b", {
-                a: actions.getChatMember.query({
-                  query: getChatMemberQuery
-                }),
-                b: actions.sendVideo.query({
-                  query: sendVideoQueryCache
-                })
+                a: actions.getChatMember.query({ query: getChatMemberQuery }),
+                b: actions.sendVideo.query({ query: sendVideoQueryCache })
               })
                 .toPromise()
                 .then(
@@ -957,13 +889,11 @@ describe("youtubeDownload epic", (): void => {
         // Const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({
-            query
-          })
+          a: actions.youtubeDownload.query({ query })
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
-          resultState
+          stateResult
         );
         const dependencies: IDependencies = {
           collectionObservable,
@@ -996,12 +926,8 @@ describe("youtubeDownload epic", (): void => {
                 | IActionSendVideo
             ): void => {
               cold("-a---b", {
-                a: actions.getChatMember.query({
-                  query: getChatMemberQuery
-                }),
-                b: actions.sendVideo.query({
-                  query: sendVideoQueryCache
-                })
+                a: actions.getChatMember.query({ query: getChatMemberQuery }),
+                b: actions.sendVideo.query({ query: sendVideoQueryCache })
               })
                 .toPromise()
                 .then(

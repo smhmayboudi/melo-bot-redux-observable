@@ -17,22 +17,13 @@ const inlineQuery: (
 ) => Observable<IActionInlineQuery | IActionYoutubeSearchList> = (
   action$: Observable<IActionInlineQuery>,
   _state$: StateObservable<IState> | undefined,
-  dependencies: IDependencies
+  _dependencies: IDependencies
 ): Observable<IActionInlineQuery | IActionYoutubeSearchList> => {
-  const { botToken } = dependencies;
-
   const actionObservable: (
     action: IActionInlineQuery
   ) => Observable<IActionInlineQuery | IActionYoutubeSearchList> = (
     action: IActionInlineQuery
   ): Observable<IActionInlineQuery | IActionYoutubeSearchList> => {
-    if (botToken === undefined) {
-      return of(
-        actions.inlineQuery.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
     if (action.inlineQuery.query === undefined) {
       return of(
         actions.inlineQuery.error({

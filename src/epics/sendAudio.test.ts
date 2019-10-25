@@ -10,7 +10,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-import * as action from "../actions/sendAudio";
+import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
 import * as epic from "./sendAudio";
@@ -30,114 +30,6 @@ describe("sendAudio epic", (): void => {
     thumb: "",
     title: ""
   };
-  const queryNoCaption: IStateSendAudioQuery = {
-    audio: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: "",
-    title: ""
-  };
-  const queryNoDisableNotification: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    duration: 0,
-    parse_mode: "HTML",
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: "",
-    title: ""
-  };
-  const queryNoDuration: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    parse_mode: "HTML",
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: "",
-    title: ""
-  };
-  const queryNoParseMode: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: "",
-    title: ""
-  };
-  const queryNoPerformer: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: "",
-    title: ""
-  };
-  const queryNoReplyMarkup: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    performer: "",
-    reply_to_message_id: 0,
-    thumb: "",
-    title: ""
-  };
-  const queryNoReplyToMessageId: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    thumb: "",
-    title: ""
-  };
-  const queryNoThumb: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    title: ""
-  };
-  const queryNoTitle: IStateSendAudioQuery = {
-    audio: "",
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    performer: "",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: ""
-  };
   const result: IMessage = {
     chat: {
       id: 0,
@@ -146,12 +38,12 @@ describe("sendAudio epic", (): void => {
     date: 0,
     message_id: 0
   };
-  const resultOKF: IResponse = {
+  const responseOKF: IResponse = {
     description: "Bad Request: CHAT_ADMIN_REQUIRED",
     error_code: 400,
     ok: false
   };
-  const resultOKT: IResponse = {
+  const responseOKT: IResponse = {
     ok: true,
     result
   };
@@ -170,15 +62,13 @@ describe("sendAudio epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query
-        })
+        a: actions.sendAudio.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -186,7 +76,7 @@ describe("sendAudio epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("-a", {
-        a: action.error({
+        a: actions.sendAudio.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       });
@@ -197,9 +87,7 @@ describe("sendAudio epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query
-        })
+        a: actions.sendAudio.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -212,7 +100,7 @@ describe("sendAudio epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("-a", {
-        a: action.error({
+        a: actions.sendAudio.error({
           error: new Error(
             texts.epicDependencyRequestsUploadObservableUndefined
           )
@@ -225,9 +113,7 @@ describe("sendAudio epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query
-        })
+        a: actions.sendAudio.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -241,9 +127,7 @@ describe("sendAudio epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: action.error({
-          error
-        })
+        a: actions.sendAudio.error({ error })
       });
     });
   });
@@ -252,13 +136,13 @@ describe("sendAudio epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({})
+        a: actions.sendAudio.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -266,7 +150,7 @@ describe("sendAudio epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("-a", {
-        a: action.error({
+        a: actions.sendAudio.error({
           error: new Error(texts.actionSendAudioQueryUndefined)
         })
       });
@@ -277,15 +161,13 @@ describe("sendAudio epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query
-        })
+        a: actions.sendAudio.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKF })
+          cold("--a", { a: responseOKF })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -293,9 +175,7 @@ describe("sendAudio epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: action.error({
-          error: resultOKF
-        })
+        a: actions.sendAudio.error({ error: responseOKF })
       });
     });
   });
@@ -304,15 +184,13 @@ describe("sendAudio epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query
-        })
+        a: actions.sendAudio.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendAudio> = epic.sendAudio(
         action$,
@@ -320,252 +198,7 @@ describe("sendAudio epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no caption", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoCaption
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no disable_notification", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoDisableNotification
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no duration", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoDuration
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no parse_mode", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoParseMode
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no performer", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoPerformer
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no reply_markup", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoReplyMarkup
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no reply_to_message_id", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoReplyToMessageId
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no thumb", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoThumb
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
-      });
-    });
-  });
-
-  test("should handle result ok true no title", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAudio> = cold("-a", {
-        a: action.query({
-          query: queryNoTitle
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendAudio> = epic.sendAudio(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("---a", {
-        a: action.result({
-          result
-        })
+        a: actions.sendAudio.result({ result })
       });
     });
   });

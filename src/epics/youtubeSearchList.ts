@@ -9,11 +9,10 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IInlineQueryResultArticle } from "../../types/telegramBot/inlineMode/iInlineQueryResultArticle";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformSearchList as transformSearchList2 } from "../utils/inlineQueryResultArticle";
-import { transformSearchList } from "../utils/string";
+import { transformSearchList as transformSearchListInline } from "../utils/inlineQueryResultArticle";
+import { transformSearchList as transformSearchListString } from "../utils/string";
 
 const youtubeSearchList: (
   action$: Observable<IActionYoutubeSearchList>,
@@ -74,7 +73,76 @@ const youtubeSearchList: (
     );
   };
 
-  const transformObservable: (
+  const transformObservableInline: (
+    action: IActionYoutubeSearchList
+  ) => Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> = (
+    action: IActionYoutubeSearchList
+  ): Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> => {
+    if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
+      return of(action);
+    }
+    if (action.youtubeSearchList.result === undefined) {
+      return of(
+        actions.youtubeSearchList.error({
+          error: new Error(texts.actionYoutubeSearchListResultUndefined)
+        })
+      );
+    }
+    if (action.youtubeSearchList.result.items === undefined) {
+      return of(
+        actions.youtubeSearchList.error({
+          error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
+        })
+      );
+    }
+    if (state$ === undefined) {
+      return of(
+        actions.youtubeSearchList.error({
+          error: new Error(texts.state$Undefined)
+        })
+      );
+    }
+    if (state$.value.inlineQuery.query === undefined) {
+      return of(
+        actions.youtubeSearchList.error({
+          error: new Error(texts.state$ValueInlineQueryQueryUndefined)
+        })
+      );
+    }
+    if (state$.value.youtubeSearchList.query === undefined) {
+      return of(
+        actions.youtubeSearchList.error({
+          error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
+        })
+      );
+    }
+    if (state$.value.youtubeSearchList.query.q === undefined) {
+      return of(
+        actions.youtubeSearchList.error({
+          error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
+        })
+      );
+    }
+
+    return of(
+      actions.answerInlineQuery.query({
+        query: {
+          cache_time: 0,
+          inline_query_id: state$.value.inlineQuery.query.id,
+          is_personal: true,
+          next_offset: "",
+          results: transformSearchListInline(
+            action.youtubeSearchList.result.items,
+            state$.value.youtubeSearchList.query.q
+          ),
+          switch_pm_parameter: "string",
+          switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
+        }
+      })
+    );
+  };
+
+  const transformObservableString: (
     action: IActionYoutubeSearchList
   ) => Observable<IActionSendMessage | IActionYoutubeSearchList> = (
     action: IActionYoutubeSearchList
@@ -132,11 +200,6 @@ const youtubeSearchList: (
       );
     }
 
-    const text: string = transformSearchList(
-      action.youtubeSearchList.result.items,
-      state$.value.youtubeSearchList.query.q
-    );
-
     return of(
       actions.sendMessage.query({
         query: {
@@ -146,79 +209,10 @@ const youtubeSearchList: (
           parse_mode: "HTML",
           reply_markup: { remove_keyboard: true },
           reply_to_message_id: state$.value.message.query.message.message_id,
-          text
-        }
-      })
-    );
-  };
-
-  const transformObservable2: (
-    action: IActionYoutubeSearchList
-  ) => Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> = (
-    action: IActionYoutubeSearchList
-  ): Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> => {
-    if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
-      return of(action);
-    }
-    if (action.youtubeSearchList.result === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.actionYoutubeSearchListResultUndefined)
-        })
-      );
-    }
-    if (action.youtubeSearchList.result.items === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
-        })
-      );
-    }
-    if (state$ === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.state$Undefined)
-        })
-      );
-    }
-    if (state$.value.inlineQuery.query === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.state$ValueInlineQueryQueryUndefined)
-        })
-      );
-    }
-    if (state$.value.youtubeSearchList.query === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
-        })
-      );
-    }
-    if (state$.value.youtubeSearchList.query.q === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
-        })
-      );
-    }
-
-    const inlineQueryId: string = state$.value.inlineQuery.query.id;
-    const inlineQueryResultArticles: IInlineQueryResultArticle[] = transformSearchList2(
-      action.youtubeSearchList.result.items,
-      state$.value.youtubeSearchList.query.q
-    );
-
-    return of(
-      actions.answerInlineQuery.query({
-        query: {
-          cache_time: 0,
-          inline_query_id: inlineQueryId,
-          is_personal: true,
-          next_offset: "",
-          results: inlineQueryResultArticles,
-          switch_pm_parameter: "string",
-          switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
+          text: transformSearchListString(
+            action.youtubeSearchList.result.items,
+            state$.value.youtubeSearchList.query.q
+          )
         }
       })
     );
@@ -230,11 +224,9 @@ const youtubeSearchList: (
     switchMap((value: IActionYoutubeSearchList) =>
       iif(
         () =>
-          state$ !== undefined &&
-          state$.value.message.query !== undefined &&
-          state$.value.message.query.message !== undefined,
-        transformObservable(value),
-        transformObservable2(value)
+          state$ !== undefined && state$.value.inlineQuery.query !== undefined,
+        transformObservableInline(value),
+        transformObservableString(value)
       )
     )
   );

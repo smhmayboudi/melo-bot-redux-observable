@@ -110,17 +110,6 @@ const youtubeVideoList: (
         })
       );
     }
-    if (state$.value.youtubeVideoList.query === undefined) {
-      return of(
-        actions.youtubeVideoList.error({
-          error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
-        })
-      );
-    }
-
-    const text: string = transformVideoList(
-      action.youtubeVideoList.result.items
-    );
 
     return of(
       actions.sendMessage.query({
@@ -131,7 +120,7 @@ const youtubeVideoList: (
           parse_mode: "HTML",
           reply_markup: { remove_keyboard: true },
           reply_to_message_id: state$.value.message.query.message.message_id,
-          text
+          text: transformVideoList(action.youtubeVideoList.result.items)
         }
       })
     );

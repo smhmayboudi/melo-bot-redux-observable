@@ -1,5 +1,4 @@
-import FormData from "form-data";
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, switchMapTo } from "rxjs/operators";
@@ -8,10 +7,10 @@ import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
-import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformStateSendVideoQuery } from "../utils/formData";
 import { caption, decode } from "../utils/string";
 
 const sendVideo: (
@@ -23,46 +22,6 @@ const sendVideo: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendVideo> => {
-  const transform: (query: IStateSendVideoQuery) => FormData = (
-    query: IStateSendVideoQuery
-  ): FormData => {
-    const formData: FormData = new FormData();
-    if (query.caption !== undefined) {
-      formData.append("caption", query.caption);
-    }
-    formData.append("chat_id", query.chat_id);
-    if (query.disable_notification !== undefined) {
-      formData.append("disable_notification", `${query.disable_notification}`);
-    }
-    if (query.duration !== undefined) {
-      formData.append("duration", query.duration);
-    }
-    if (query.height !== undefined) {
-      formData.append("height", query.height);
-    }
-    if (query.parse_mode !== undefined) {
-      formData.append("parse_mode", query.parse_mode);
-    }
-    if (query.reply_markup !== undefined) {
-      formData.append("reply_markup", JSON.stringify(query.reply_markup));
-    }
-    if (query.reply_to_message_id !== undefined) {
-      formData.append("reply_to_message_id", query.reply_to_message_id);
-    }
-    if (query.supports_streaming !== undefined) {
-      formData.append("supports_streaming", `${query.supports_streaming}`);
-    }
-    if (query.thumb !== undefined) {
-      formData.append("thumb", query.thumb);
-    }
-    formData.append("video", query.video);
-    if (query.width !== undefined) {
-      formData.append("width", query.width);
-    }
-
-    return formData;
-  };
-
   const {
     botToken,
     collectionObservable,
@@ -106,7 +65,7 @@ const sendVideo: (
         host: "api.telegram.org",
         path: `/bot${botToken}/sendVideo`
       },
-      transform(action.sendVideo.query)
+      transformStateSendVideoQuery(action.sendVideo.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendVideo => {
@@ -160,9 +119,7 @@ const sendVideo: (
             );
           }
 
-          const db: Db = client.db("melodio");
-
-          return collectionObservable(db, "cache", {}).pipe(
+          return collectionObservable(client.db("melodio"), "cache", {}).pipe(
             switchMap(
               (collection: any): Observable<IActionSendVideo> => {
                 if (findOneObservable === undefined) {
@@ -247,15 +204,13 @@ const sendVideo: (
                         );
                       }
 
-                      const title: string = action.sendVideo.result.caption
-                        .replace(caption(""), "")
-                        .trim();
-
                       return insertOneObservable(
                         collection,
                         {
                           id,
-                          title,
+                          title: action.sendVideo.result.caption
+                            .replace(caption(""), "")
+                            .trim(),
                           ...action.sendVideo.result.video
                         },
                         {}

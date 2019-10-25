@@ -1,7 +1,7 @@
 import { Action } from "redux";
-import { StateObservable } from "redux-observable";
+import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
-import { filter, switchMap } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
@@ -61,8 +61,17 @@ const appError: (
   };
 
   return action$.pipe(
-    filter((actionQuery: Action<string>): boolean =>
-      actionQuery.type.includes("ERROR")
+    ofType(
+      actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR,
+      actions.chosenInlineResult.CHOSEN_INLINE_RESULT_ERROR,
+      actions.getChatMember.GET_CHAT_MEMBER_ERROR,
+      actions.inlineQuery.INLINE_QUERY_ERROR,
+      actions.sendAudio.SEND_AUDIO_ERROR,
+      actions.sendMessage.SEND_MESSAGE_ERROR,
+      actions.sendVideo.SEND_VIDEO_ERROR,
+      actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR,
+      actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR,
+      actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR
     ),
     switchMap(actionObservable)
   );

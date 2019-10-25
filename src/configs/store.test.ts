@@ -1,5 +1,4 @@
 import { Store } from "redux";
-import { Observable, of } from "rxjs";
 
 import { IState } from "../../types/iState";
 import { IStateMessage } from "../../types/iStateMessage";

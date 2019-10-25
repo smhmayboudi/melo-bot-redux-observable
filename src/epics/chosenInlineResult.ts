@@ -1,4 +1,4 @@
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap, switchMapTo } from "rxjs/operators";
@@ -52,9 +52,11 @@ const chosenInlineResult: (
             );
           }
 
-          const db: Db = client.db("melodio");
-
-          return collectionObservable(db, "choseinInlineResult", {}).pipe(
+          return collectionObservable(
+            client.db("melodio"),
+            "chosenInlineResult",
+            {}
+          ).pipe(
             switchMap(
               (collection: any): Observable<IActionChosenInlineResult> => {
                 if (insertOneObservable === undefined) {

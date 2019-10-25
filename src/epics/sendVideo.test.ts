@@ -48,136 +48,6 @@ describe("sendVideo epic", (): void => {
     video: "",
     width: 0
   };
-  const queryNoCaption: IStateSendVideoQuery = {
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoDisableNotification: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoDuration: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoParseMode: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoHeight: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoReplyMarkup: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoReplyToMessageId: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoSupportsStreaming: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    thumb: "",
-    video: "",
-    width: 0
-  };
-  const queryNoThumb: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    video: "",
-    width: 0
-  };
-  const queryNoWidth: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: ""
-  };
   const result: IMessage = {
     caption: "",
     chat: {
@@ -246,28 +116,28 @@ describe("sendVideo epic", (): void => {
     message_id: 0,
     reply_to_message: undefined
   };
-  const resultOKF: IResponse = {
+  const responseOKF: IResponse = {
     description: "Bad Request: CHAT_ADMIN_REQUIRED",
     error_code: 400,
     ok: false
   };
-  const resultOKT: IResponse = {
+  const responseOKT: IResponse = {
     ok: true,
     result
   };
-  // Const resultOKTUndefined: IResponse = {
-  //   Ok: true,
-  //   Result: undefined
-  // };
-  const resultOKTCaption: IResponse = {
+  const responseOKTUndefined: IResponse = {
+    ok: true,
+    result: undefined
+  };
+  const responseOKTCaption: IResponse = {
     ok: true,
     result: resultCaption
   };
-  const resultOKTReplyToMessage: IResponse = {
+  const responseOKTReplyToMessage: IResponse = {
     ok: true,
     result: resultReplyToMessage
   };
-  const resultOKTReplyToMessageText: IResponse = {
+  const responseOKTReplyToMessageText: IResponse = {
     ok: true,
     result: resultReplyToMessageText
   };
@@ -311,9 +181,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -322,7 +190,8 @@ describe("sendVideo epic", (): void => {
         findOneObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: undefined
+        requestsUploadObservable: (): ColdObservable<any> =>
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -341,9 +210,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -373,9 +240,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -393,9 +258,7 @@ describe("sendVideo epic", (): void => {
         dependencies
       );
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.error({
-          error
-        })
+        a: actions.sendVideo.error({ error })
       });
     });
   });
@@ -414,7 +277,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -433,9 +296,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -445,7 +306,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: undefined,
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -466,9 +327,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -479,7 +338,7 @@ describe("sendVideo epic", (): void => {
         mongoClientObservable: (): ColdObservable<any> =>
           cold("--#", {}, error),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -498,9 +357,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -510,7 +367,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -529,9 +386,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -541,7 +396,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -560,9 +415,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -572,7 +425,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -591,9 +444,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -603,7 +454,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -623,9 +474,7 @@ describe("sendVideo epic", (): void => {
       // Const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -635,7 +484,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable: undefined,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -664,9 +513,7 @@ describe("sendVideo epic", (): void => {
       // Const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -676,7 +523,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -700,44 +547,12 @@ describe("sendVideo epic", (): void => {
     });
   });
 
-  // Test("should handle error actionSendVideoResult undefined", (): void => {
-  //   TestScheduler.run((runHelpers: RunHelpers): void => {
-  //     Const { cold, expectObservable } = runHelpers;
-  //     Const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-  //       A: actions.sendVideo.query({
-  //         Query
-  //       })
-  //     });
-  //     Const state$: StateObservable<IState> | undefined = undefined;
-  //     Const dependencies: IDependencies = {
-  //       BotToken: "",
-  //       CollectionObservable,
-  //       FindOneObservable,
-  //       InsertOneObservable,
-  //       MongoClientObservable: (): Observable<MongoClient> => of(connection),
-  //       RequestsUploadObservable: (): ColdObservable<any> =>
-  //         Cold("--a", { a: resultOKTUndefined })
-  //     };
-  //     Const output$: Observable<IActionSendVideo> = epic.sendVideo(
-  //       Action$,
-  //       State$,
-  //       Dependencies
-  //     );
-  //     ExpectObservable(output$).toBe("---a", {
-  //       A: actions.sendVideo.error({
-  //         Error: new Error(texts.actionSendVideoResultUndefined)
-  //       })
-  //     });
-  //   });
-  // });
-
-  test("should handle error actionSendVideoResultReplyToMessage undefined", (): void => {
+  test("should handle error actionSendVideoResult undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -747,7 +562,45 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKTReplyToMessage })
+          cold("--a", { a: responseOKTUndefined })
+      };
+      const output$: Observable<IActionSendVideo> = epic.sendVideo(
+        action$,
+        state$,
+        dependencies
+      );
+      // ExpectObservable(output$).toBe("---a", {
+      //   A: actions.sendVideo.error({
+      //     Error: new Error(texts.actionSendVideoResultUndefined)
+      //   })
+      // });
+      output$.toPromise().then((actual: IActionSendVideo): void => {
+        cold("---a", {
+          a: actions.sendVideo.error({
+            error: new Error(texts.actionSendVideoResultUndefined)
+          })
+        })
+          .toPromise()
+          .then((expected: IActionSendVideo): boolean => actual === expected);
+      });
+    });
+  });
+
+  test("should handle error actionSendVideoResultReplyToMessage undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
+        a: actions.sendVideo.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        botToken: "",
+        collectionObservable,
+        findOneObservable,
+        insertOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection),
+        requestsUploadObservable: (): ColdObservable<any> =>
+          cold("--a", { a: responseOKTReplyToMessage })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -766,9 +619,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -778,7 +629,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKTReplyToMessageText })
+          cold("--a", { a: responseOKTReplyToMessageText })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -800,9 +651,7 @@ describe("sendVideo epic", (): void => {
       // Const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -812,7 +661,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKTCaption })
+          cold("--a", { a: responseOKTCaption })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -840,9 +689,7 @@ describe("sendVideo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -852,7 +699,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKF })
+          cold("--a", { a: responseOKF })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,
@@ -861,7 +708,7 @@ describe("sendVideo epic", (): void => {
       );
       expectObservable(output$).toBe("---a", {
         a: actions.sendVideo.error({
-          error: resultOKF
+          error: responseOKF
         })
       });
     });
@@ -872,9 +719,7 @@ describe("sendVideo epic", (): void => {
       // Const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query
-        })
+        a: actions.sendVideo.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -884,417 +729,7 @@ describe("sendVideo epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection),
         requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no caption", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoCaption
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no disable_notification", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoDisableNotification
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no duration", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoDuration
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no parse_mode", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoParseMode
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no heigh", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoHeight
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no reply_markup", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoReplyMarkup
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no reply_to_message_id", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoReplyToMessageId
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no supports_streaming", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoSupportsStreaming
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no thumb", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoThumb
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
-      };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
-      // ExpectObservable(output$).toBe("---a", {
-      //   A: actions.sendVideo.result({
-      //     Result
-      //   })
-      // });
-      output$.toPromise().then((actual: IActionSendVideo): void => {
-        cold("---a", {
-          a: actions.sendVideo.result({
-            result
-          })
-        })
-          .toPromise()
-          .then((expected: IActionSendVideo): boolean => actual === expected);
-      });
-    });
-  });
-
-  test("should handle result ok true no width", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({
-          query: queryNoWidth
-        })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        collectionObservable,
-        findOneObservable,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection),
-        requestsUploadObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendVideo> = epic.sendVideo(
         action$,

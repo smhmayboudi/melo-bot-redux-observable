@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, ObservableInput, of, race } from "rxjs";
 import {
@@ -67,9 +67,9 @@ const youtubeDownload: (
       );
     }
 
-    const id: string = decode(action.youtubeDownload.query as string);
-
-    return youtubeDownloadObservable(id).pipe(
+    return youtubeDownloadObservable(
+      decode(action.youtubeDownload.query as string)
+    ).pipe(
       map(
         (result: IVideoInfo): IActionYoutubeDownload =>
           actions.youtubeDownload.result({
@@ -114,9 +114,7 @@ const youtubeDownload: (
             );
           }
 
-          const db: Db = client.db("melodio");
-
-          return collectionObservable(db, "cache", {}).pipe(
+          return collectionObservable(client.db("melodio"), "cache", {}).pipe(
             switchMap(
               (collection: any): Observable<IActionYoutubeDownload> => {
                 if (findOneObservable === undefined) {
@@ -138,11 +136,8 @@ const youtubeDownload: (
                   );
                 }
 
-                const id: string = decode(action.youtubeDownload
-                  .query as string);
-
                 return findOneObservable(collection, {
-                  id
+                  id: decode(action.youtubeDownload.query as string)
                 }).pipe(
                   switchMap(
                     (

@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Observable, Subject } from "rxjs";
+import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -9,43 +9,12 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateAnswerInlineQueryQuery } from "../../types/iStateAnswerInlineQueryQuery";
-import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/answerInlineQuery";
 
 describe("answerInlineQuery epic", (): void => {
   const error: Error = new Error("");
-  const initialState: IState = {
-    answerInlineQuery: actions.answerInlineQuery.initialState,
-    chosenInlineResult: actions.chosenInlineResult.initialState,
-    getChatMember: actions.getChatMember.initialState,
-    inlineQuery: actions.inlineQuery.initialState,
-    message: actions.message.initialState,
-    sendAudio: actions.sendAudio.initialState,
-    sendMessage: actions.sendMessage.initialState,
-    sendVideo: actions.sendVideo.initialState,
-    youtubeDownload: actions.youtubeDownload.initialState,
-    youtubeSearchList: actions.youtubeSearchList.initialState,
-    youtubeVideoList: actions.youtubeVideoList.initialState
-  };
-  const message: IStateMessage = {
-    query: {
-      message: {
-        chat: {
-          id: 0,
-          type: ""
-        },
-        date: 0,
-        message_id: 0
-      },
-      update_id: 0
-    }
-  };
-  const resultState: IState = {
-    ...initialState,
-    message
-  };
   const query: IStateAnswerInlineQueryQuery = {
     cache_time: 0,
     inline_query_id: "0",
@@ -74,10 +43,10 @@ describe("answerInlineQuery epic", (): void => {
     switch_pm_text: ""
   };
   const result: boolean = true;
-  const resultOKF: IResponse = {
+  const responseOKF: IResponse = {
     ok: false
   };
-  const resultOKT: IResponse = {
+  const responseOKT: IResponse = {
     ok: true,
     result
   };
@@ -96,14 +65,9 @@ describe("answerInlineQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionAnswerInlineQuery> = cold("-a", {
-        a: actions.answerInlineQuery.query({
-          query
-        })
+        a: actions.answerInlineQuery.query({ query })
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        resultState
-      );
+      const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsObservable: (): ColdObservable<any> => cold("--a")
@@ -123,14 +87,9 @@ describe("answerInlineQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionAnswerInlineQuery> = cold("-a", {
-        a: actions.answerInlineQuery.query({
-          query
-        })
+        a: actions.answerInlineQuery.query({ query })
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        resultState
-      );
+      const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: undefined
@@ -150,14 +109,9 @@ describe("answerInlineQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionAnswerInlineQuery> = cold("-a", {
-        a: actions.answerInlineQuery.query({
-          query
-        })
+        a: actions.answerInlineQuery.query({ query })
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        resultState
-      );
+      const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -166,9 +120,7 @@ describe("answerInlineQuery epic", (): void => {
         IActionAnswerInlineQuery | IActionAnswerInlineQuery
       > = epic.answerInlineQuery(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.answerInlineQuery.error({
-          error
-        })
+        a: actions.answerInlineQuery.error({ error })
       });
     });
   });
@@ -179,10 +131,7 @@ describe("answerInlineQuery epic", (): void => {
       const action$: Observable<IActionAnswerInlineQuery> = cold("-a", {
         a: actions.answerInlineQuery.query({})
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        resultState
-      );
+      const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
@@ -202,26 +151,19 @@ describe("answerInlineQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionAnswerInlineQuery> = cold("-a", {
-        a: actions.answerInlineQuery.query({
-          query
-        })
+        a: actions.answerInlineQuery.query({ query })
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        resultState
-      );
+      const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKF })
+          cold("--a", { a: responseOKF })
       };
       const output$: Observable<
         IActionAnswerInlineQuery
       > = epic.answerInlineQuery(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.answerInlineQuery.error({
-          error: resultOKF
-        })
+        a: actions.answerInlineQuery.error({ error: responseOKF })
       });
     });
   });
@@ -230,26 +172,19 @@ describe("answerInlineQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionAnswerInlineQuery> = cold("-a", {
-        a: actions.answerInlineQuery.query({
-          query
-        })
+        a: actions.answerInlineQuery.query({ query })
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        resultState
-      );
+      const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: resultOKT })
+          cold("--a", { a: responseOKT })
       };
       const output$: Observable<
         IActionAnswerInlineQuery
       > = epic.answerInlineQuery(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.answerInlineQuery.result({
-          result
-        })
+        a: actions.answerInlineQuery.result({ result })
       });
     });
   });
