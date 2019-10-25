@@ -1,11 +1,11 @@
 import { youtube_v3 } from "googleapis";
 import * as path from "path";
 
-import * as icons from "../configs/icons";
+import { findByCode } from "../configs/emojis";
 import * as texts from "../configs/texts";
 
 const caption: (title: string) => string = (title?: string): string =>
-  `${title}\n\n🆔 @melodio`.trim();
+  `${title}\n\n${findByCode("1F194").char} @melodio`.trim();
 
 const decode: (id: string) => string = (id: string): string =>
   Buffer.from(id, "base64").toString("ascii");
@@ -42,7 +42,9 @@ const transformSearchList: (
       const videoId: string = encode(value.id.videoId);
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
-        `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}${videoId}`
+        `${findByCode("1F4E5").char} /${texts.commandDownload}${
+          texts.commandSeparator
+        }${videoId}`
       );
     }
     msg.push(texts.messageSeparator);
@@ -51,7 +53,9 @@ const transformSearchList: (
   res.push(texts.messageResultQ(q));
   res.push(texts.messageSeparator);
   res.push(
-    `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+    `${findByCode("1F449").char} <a href='${
+      texts.messageAdvertisementChannelJoinLink
+    }'>${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
   );
 
   return res.join("\n");
@@ -76,7 +80,9 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
       const videoId: string = encode(value.id);
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
-        `${icons.inboxTray} /${texts.commandDownload}${texts.commandSeparator}${videoId}`
+        `${findByCode("1F4E5").char} /${texts.commandDownload}${
+          texts.commandSeparator
+        }${videoId}`
       );
     }
     msg.push(texts.messageSeparator);
@@ -85,7 +91,9 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
   res.push(texts.messageResultRelatedTo);
   res.push(texts.messageSeparator);
   res.push(
-    `${icons.backhandIndexFingerPointingRight} <a href='${texts.messageAdvertisementChannelJoinLink}'>${texts.messageAdvertisementChannel}</a> ${icons.backhandIndexFingerPointingLeft}`
+    `${findByCode("1F449").char} <a href='${
+      texts.messageAdvertisementChannelJoinLink
+    }'>${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
   );
 
   return res.join("\n");

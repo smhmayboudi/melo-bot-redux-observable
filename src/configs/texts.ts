@@ -1,4 +1,4 @@
-import * as icons from "./icons";
+import { findByCode } from "./emojis";
 
 const actionAnswerInlineQueryQueryUndefined: string =
   "actionAnswerInlineQueryQuery undefined.";
@@ -69,20 +69,28 @@ const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined: string =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
 const epicYoutubeFindOneObservableDownloadValueThumbUndefined: string =
   "epicYoutubeFindOneObservableDownloadValueThumb undefined.";
-const messageAdvertisementChannel: string = `${icons.identificationSign} melobit`;
+const messageAdvertisementChannel: string = `${
+  findByCode("1F194").char
+} melobit`;
 const messageAdvertisementChannelJoinLink: string =
   "https://t.me/joinchat/AAAAADu2QGw8mAt1RjY3nw";
-const messageChannel: string = `${icons.identificationSign} melodio`;
+const messageChannel: string = `${findByCode("1F194").char} melodio`;
 const messageChannelJoinLink: string =
   "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
-const messageError: string = `SYSTEM ERROR, PLEASE TRY AGAIN. ${icons.faceWithHeadBandage}`;
-const messageJoin: string = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${icons.backhandIndexFingerPointingRight} ${messageChannelJoinLink} ${icons.backhandIndexFingerPointingLeft}`;
+const messageError: string = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
+  findByCode("1F915").char
+}`;
+const messageJoin: string = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
+  findByCode("1F449").char
+} ${messageChannelJoinLink} ${findByCode("1F448").char}`;
 const messageNoResult: string = "NO RESULT";
 const messageResultQ: (q: string) => string = (q: string): string =>
-  `${icons.rightPointingMagnifyingGlass} RESULT(S) FOR ${q} QUERY`;
-const messageResultRelatedTo: string = `${icons.rightPointingMagnifyingGlass} RELATED RESULT(S)`;
+  `${findByCode("1F50E").char} RESULT(S) FOR ${q} QUERY`;
+const messageResultRelatedTo: string = `${
+  findByCode("1F50E").char
+} RELATED RESULT(S)`;
 const messageSeparator: string = "--------------------";
-const messageStart: string = `WELCOME ${icons.happyFaceWithHuggingHands}`;
+const messageStart: string = `WELCOME ${findByCode("1F917").char}`;
 const state$Undefined: string = "state$ undefined.";
 const state$ValueGetChatMemberQueryUndefined: string =
   "state$ValueGetChatMemberQuery undefined.";
