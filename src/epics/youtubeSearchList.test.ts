@@ -387,9 +387,7 @@ describe("youtubeSearchList epic", (): void => {
             disable_notification: true,
             disable_web_page_preview: true,
             parse_mode: "HTML",
-            reply_markup: {
-              remove_keyboard: true
-            },
+            reply_markup: { remove_keyboard: true },
             reply_to_message_id: 0,
             text: transformSearchList(
               result.items as youtube_v3.Schema$SearchResult[],
