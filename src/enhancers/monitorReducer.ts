@@ -37,13 +37,10 @@ const monitorReducer: (
     state: any,
     action: Action<string>
   ): any => {
-    const per: number = 100;
-    const round: (num: number) => number = (num: number): number =>
-      Math.round(num * per) / per;
     const start: number = performance.now();
     const newState: any = reducer(state, action);
     const end: number = performance.now();
-    const diff: number = round(end - start);
+    const diff: number = end - start;
     appDebug(`reducer process time ${diff}ms`);
     const dateNow: number = Date.now();
     counter.inc({ action_type: action.type }, 1, dateNow);
