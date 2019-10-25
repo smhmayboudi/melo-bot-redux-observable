@@ -2,9 +2,9 @@ import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { requestsObservable } from "./requestsObservable";
+import { youtubeDownloadObservable } from "./youtubeDownloadObservable";
 
-describe("requestsObservable lib", (): void => {
+describe("requestObservable lib", (): void => {
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -19,7 +19,7 @@ describe("requestsObservable lib", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
-        a: requestsObservable({})
+        a: youtubeDownloadObservable("")
       });
       expectObservable(action$).toBe("-a", { a: [] });
     });
