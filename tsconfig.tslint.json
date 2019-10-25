@@ -13,11 +13,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",
-    "plugins": [
-      { "name": "typescript-tslint-plugin" }
-    ],
+    "plugins": [{ "name": "typescript-tslint-plugin" }],
     "preserveConstEnums": true,
     "removeComments": true,
+    "resolveJsonModule": true,
     "target": "es6",
     "strict": true
   },

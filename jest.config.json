@@ -2,17 +2,8 @@
   "collectCoverage": true,
   "globalSetup": "./db/setup.js",
   "globalTeardown": "./db/teardown.js",
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx",
-    "json",
-    "node"
-  ],
-  "roots": [
-    "<rootDir>/src"
-  ],
+  "moduleFileExtensions": ["ts", "js", "json"],
+  "roots": [ "<rootDir>/src" ],
   "testEnvironment": "./db/environment.js",
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   "transform": {
