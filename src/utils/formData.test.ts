@@ -322,6 +322,12 @@ describe("formData utils", (): void => {
     ).toEqual("");
   });
 
+  test("should handle transformStateSendVideoQuery no supportsStreaming", (): void => {
+    expect(
+      transformStateSendVideoQuery(sendVideoQueryNoSupportsStreaming)
+    ).toEqual("");
+  });
+
   test("should handle transformStateSendVideoQuery no thumb", (): void => {
     expect(transformStateSendVideoQuery(sendVideoQueryNoThumb)).toEqual("");
   });
