@@ -22,7 +22,7 @@ import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
-import { IStateMessage } from "../../types/iStateMessage";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IVideoInfo } from "../../types/libs/iVideoInfo";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
@@ -40,7 +40,6 @@ import * as epic from "./youtubeDownload";
 jest.mock("fs");
 
 describe("youtubeDownload epic", (): void => {
-  const error: Error = new Error("");
   const initialState: IState = {
     answerInlineQuery: actions.answerInlineQuery.initialState,
     chosenInlineResult: actions.chosenInlineResult.initialState,
@@ -54,42 +53,40 @@ describe("youtubeDownload epic", (): void => {
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
-  const state$ValueMessageQueryUndefined: IState = {
-    ...initialState,
-    message: {
-      query: undefined
-    },
-    youtubeDownload: {
-      query: undefined,
-      result: undefined
-    }
-  };
-  const state$ValueMessageQueryMessageUndefined: IState = {
+  const stateResult: IState = {
     ...initialState,
     message: {
       query: {
-        message: undefined,
+        message: {
+          chat: {
+            id: 0,
+            type: ""
+          },
+          date: 0,
+          message_id: 0
+        },
         update_id: 0
       }
-    },
-    youtubeDownload: {
-      query: undefined,
-      result: undefined
     }
   };
-  const message: IStateMessage = {
-    query: {
-      message: {
-        chat: {
-          id: 0,
-          type: ""
-        },
-        date: 0,
-        message_id: 0
-      },
-      update_id: 0
+  const state$ValueMessageQueryUndefined: IState = {
+    ...stateResult,
+    message: {
+      ...stateResult.message,
+      query: undefined
     }
   };
+  const state$ValueMessageQueryMessageUndefined: IState = {
+    ...stateResult,
+    message: {
+      ...stateResult.message,
+      query: {
+        ...(stateResult.message.query as IStateMessageQuery),
+        message: undefined
+      }
+    }
+  };
+  const error: Error = new Error("");
   const query: string = encode("small");
   const result: IVideoInfo = {
     dur: 0,
@@ -104,14 +101,6 @@ describe("youtubeDownload epic", (): void => {
     thumbnailUrl: "",
     title: "",
     url: ""
-  };
-  const stateResult: IState = {
-    ...initialState,
-    message,
-    youtubeDownload: {
-      query,
-      result
-    }
   };
   const resultCache: IVideo & { id: string; title: string } = {
     duration: 0,

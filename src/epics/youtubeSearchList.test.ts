@@ -10,9 +10,8 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
-import { IStateMessage } from "../../types/iStateMessage";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
@@ -35,6 +34,109 @@ describe("youtubeSearchList epic", (): void => {
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
+  const stateInlineQueryResult: IState = {
+    ...initialState,
+    inlineQuery: {
+      query: {
+        from: {
+          first_name: "",
+          id: 0,
+          is_bot: false
+        },
+        id: "",
+        offset: "",
+        query: ""
+      }
+    },
+    youtubeSearchList: {
+      query: {
+        key: "",
+        q: ""
+      }
+    }
+  };
+  const state$InlineQueryValueInlineQueryQuery: IState = {
+    ...stateInlineQueryResult,
+    inlineQuery: {
+      ...stateInlineQueryResult.inlineQuery,
+      query: undefined
+    }
+  };
+  const state$InlineQueryValueYoutubeSearchListQuery: IState = {
+    ...stateInlineQueryResult,
+    youtubeSearchList: {
+      ...stateInlineQueryResult.youtubeSearchList,
+      query: undefined
+    }
+  };
+  const state$InlineQueryValueYoutubeSearchListQueryQ: IState = {
+    ...stateInlineQueryResult,
+    youtubeSearchList: {
+      ...stateInlineQueryResult.youtubeSearchList,
+      query: {
+        ...(stateInlineQueryResult.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery),
+        q: undefined
+      }
+    }
+  };
+  const stateMessageResult: IState = {
+    ...initialState,
+    message: {
+      query: {
+        message: {
+          chat: {
+            id: 0,
+            type: ""
+          },
+          date: 0,
+          message_id: 0
+        },
+        update_id: 0
+      }
+    },
+    youtubeSearchList: {
+      query: {
+        key: "",
+        q: ""
+      }
+    }
+  };
+  const state$ValueMessageQueryMessageUndefined: IState = {
+    ...stateMessageResult,
+    message: {
+      ...stateMessageResult.message,
+      query: {
+        ...(stateMessageResult.message.query as IStateMessageQuery),
+        message: undefined
+      }
+    }
+  };
+  const state$ValueMessageQueryUndefined: IState = {
+    ...stateMessageResult,
+    message: {
+      ...stateMessageResult.message,
+      query: undefined
+    }
+  };
+  const state$MessageValueYoutubeSearchListQuery: IState = {
+    ...stateMessageResult,
+    youtubeSearchList: {
+      ...stateMessageResult.youtubeSearchList,
+      query: undefined
+    }
+  };
+  const state$MessageValueYoutubeSearchListQueryQ: IState = {
+    ...stateMessageResult,
+    youtubeSearchList: {
+      ...stateMessageResult.youtubeSearchList,
+      query: {
+        ...(stateMessageResult.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery),
+        q: undefined
+      }
+    }
+  };
   const error: Error = new Error("");
   const query: IStateYoutubeSearchListQuery = {
     key: "",
@@ -51,119 +153,6 @@ describe("youtubeSearchList epic", (): void => {
         }
       }
     ]
-  };
-  const inlineQuery: IStateInlineQuery = {
-    query: {
-      from: {
-        first_name: "",
-        id: 0,
-        is_bot: false
-      },
-      id: "",
-      offset: "",
-      query: ""
-    }
-  };
-  const state$InlineQueryValueInlineQueryQuery: IState = {
-    ...initialState,
-    inlineQuery: {
-      query: undefined,
-      result: undefined
-    },
-    youtubeSearchList: {
-      query: undefined,
-      result: undefined
-    }
-  };
-  const state$InlineQueryValueYoutubeSearchListQuery: IState = {
-    ...initialState,
-    inlineQuery,
-    youtubeSearchList: {
-      query: undefined,
-      result: undefined
-    }
-  };
-  const state$InlineQueryValueYoutubeSearchListQueryQ: IState = {
-    ...initialState,
-    inlineQuery,
-    youtubeSearchList: {
-      query: {
-        key: "",
-        q: undefined
-      },
-      result: undefined
-    }
-  };
-  const stateInlineQueryResult: IState = {
-    ...initialState,
-    inlineQuery,
-    youtubeSearchList: {
-      query,
-      result
-    }
-  };
-  const state$ValueMessageQueryMessageUndefined: IState = {
-    ...initialState,
-    message: {
-      query: {
-        message: undefined,
-        update_id: 0
-      }
-    },
-    youtubeSearchList: {
-      query: undefined,
-      result: undefined
-    }
-  };
-  const state$ValueMessageQueryUndefined: IState = {
-    ...initialState,
-    message: {
-      query: undefined
-    },
-    youtubeSearchList: {
-      query: undefined,
-      result: undefined
-    }
-  };
-  const message: IStateMessage = {
-    query: {
-      message: {
-        chat: {
-          id: 0,
-          type: ""
-        },
-        date: 0,
-        message_id: 0
-      },
-      update_id: 0
-    }
-  };
-  const state$MessageValueYoutubeSearchListQuery: IState = {
-    ...initialState,
-    message,
-    youtubeSearchList: {
-      query: undefined,
-      result: undefined
-    }
-  };
-  const state$MessageValueYoutubeSearchListQueryQ: IState = {
-    ...initialState,
-    message,
-    youtubeSearchList: {
-      query: {
-        key: "",
-        q: undefined
-      },
-      result: undefined
-    }
-  };
-  const stateMessageResult: IState = {
-    ...initialState,
-    message,
-    youtubeSearchList: {
-      query,
-      result
-    }
   };
 
   let testScheduler: TestScheduler;
@@ -316,6 +305,119 @@ describe("youtubeSearchList epic", (): void => {
     });
   });
 
+  test("should handle error inline state$ValueInlineQueryQuery undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
+        a: actions.youtubeSearchList.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        state$InlineQueryValueInlineQueryQuery
+      );
+      const dependencies: IDependencies = {
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", { a: result })
+      };
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
+      > = epic.youtubeSearchList(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeSearchList.error({
+          error: new Error(texts.state$ValueInlineQueryQueryUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle error inline state$ValueYoutubeSearchListQuery undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
+        a: actions.youtubeSearchList.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        state$InlineQueryValueYoutubeSearchListQuery
+      );
+      const dependencies: IDependencies = {
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", { a: result })
+      };
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
+      > = epic.youtubeSearchList(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeSearchList.error({
+          error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle error inline state$ValueYoutubeSearchListQueryQ undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
+        a: actions.youtubeSearchList.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        state$InlineQueryValueYoutubeSearchListQueryQ
+      );
+      const dependencies: IDependencies = {
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", { a: result })
+      };
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
+      > = epic.youtubeSearchList(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeSearchList.error({
+          error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle result inline", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
+        a: actions.youtubeSearchList.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        stateInlineQueryResult
+      );
+      const dependencies: IDependencies = {
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", { a: result })
+      };
+      const output$: Observable<
+        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
+      > = epic.youtubeSearchList(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.answerInlineQuery.query({
+          query: {
+            cache_time: 0,
+            inline_query_id: (stateInlineQueryResult.inlineQuery
+              .query as IStateInlineQueryQuery).id,
+            is_personal: true,
+            next_offset: "",
+            results: inlineTransformSearchList(
+              result.items as youtube_v3.Schema$SearchResult[],
+              (stateInlineQueryResult.youtubeSearchList
+                .query as IStateYoutubeSearchListQuery).q as string
+            ),
+            switch_pm_parameter: "string",
+            switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
+          }
+        })
+      });
+    });
+  });
+
   test("should handle error message state$ValueMessageQuery undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -447,119 +549,6 @@ describe("youtubeSearchList epic", (): void => {
               (stateInlineQueryResult.youtubeSearchList
                 .query as IStateYoutubeSearchListQuery).q as string
             )
-          }
-        })
-      });
-    });
-  });
-
-  test("should handle error inline state$ValueInlineQueryQuery undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
-        a: actions.youtubeSearchList.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$InlineQueryValueInlineQueryQuery
-      );
-      const dependencies: IDependencies = {
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: result })
-      };
-      const output$: Observable<
-        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
-      > = epic.youtubeSearchList(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.youtubeSearchList.error({
-          error: new Error(texts.state$ValueInlineQueryQueryUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle error inline state$ValueYoutubeSearchListQuery undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
-        a: actions.youtubeSearchList.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$InlineQueryValueYoutubeSearchListQuery
-      );
-      const dependencies: IDependencies = {
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: result })
-      };
-      const output$: Observable<
-        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
-      > = epic.youtubeSearchList(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.youtubeSearchList.error({
-          error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle error inline state$ValueYoutubeSearchListQueryQ undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
-        a: actions.youtubeSearchList.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$InlineQueryValueYoutubeSearchListQueryQ
-      );
-      const dependencies: IDependencies = {
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: result })
-      };
-      const output$: Observable<
-        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
-      > = epic.youtubeSearchList(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.youtubeSearchList.error({
-          error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle result inline", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
-        a: actions.youtubeSearchList.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        stateInlineQueryResult
-      );
-      const dependencies: IDependencies = {
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: result })
-      };
-      const output$: Observable<
-        IActionYoutubeSearchList | IActionSendMessage | IActionAnswerInlineQuery
-      > = epic.youtubeSearchList(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.answerInlineQuery.query({
-          query: {
-            cache_time: 0,
-            inline_query_id: (stateInlineQueryResult.inlineQuery
-              .query as IStateInlineQueryQuery).id,
-            is_personal: true,
-            next_offset: "",
-            results: inlineTransformSearchList(
-              result.items as youtube_v3.Schema$SearchResult[],
-              (stateInlineQueryResult.youtubeSearchList
-                .query as IStateYoutubeSearchListQuery).q as string
-            ),
-            switch_pm_parameter: "string",
-            switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
           }
         })
       });

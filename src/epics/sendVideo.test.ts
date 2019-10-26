@@ -69,51 +69,18 @@ describe("sendVideo epic", (): void => {
     }
   };
   const resultCaption: IMessage = {
-    caption: undefined,
-    chat: {
-      id: 0,
-      type: "private"
-    },
-    date: 0,
-    message_id: 0,
-    reply_to_message: {
-      chat: {
-        id: 0,
-        type: "private"
-      },
-      date: 0,
-      message_id: 0,
-      text: `/${texts.commandDownload}${texts.commandSeparator}${encode(
-        "small"
-      )}`
-    }
+    ...result,
+    caption: undefined
   };
   const resultReplyToMessageText: IMessage = {
-    caption: "",
-    chat: {
-      id: 0,
-      type: "private"
-    },
-    date: 0,
-    message_id: 0,
+    ...result,
     reply_to_message: {
-      chat: {
-        id: 0,
-        type: "private"
-      },
-      date: 0,
-      message_id: 0,
+      ...(result.reply_to_message as IMessage),
       text: undefined
     }
   };
   const resultReplyToMessage: IMessage = {
-    caption: "",
-    chat: {
-      id: 0,
-      type: "private"
-    },
-    date: 0,
-    message_id: 0,
+    ...result,
     reply_to_message: undefined
   };
   const responseOKF: IResponse = {
@@ -126,19 +93,19 @@ describe("sendVideo epic", (): void => {
     result
   };
   const responseOKTUndefined: IResponse = {
-    ok: true,
+    ...responseOKT,
     result: undefined
   };
   const responseOKTCaption: IResponse = {
-    ok: true,
+    ...responseOKT,
     result: resultCaption
   };
   const responseOKTReplyToMessage: IResponse = {
-    ok: true,
+    ...responseOKT,
     result: resultReplyToMessage
   };
   const responseOKTReplyToMessageText: IResponse = {
-    ok: true,
+    ...responseOKT,
     result: resultReplyToMessageText
   };
 

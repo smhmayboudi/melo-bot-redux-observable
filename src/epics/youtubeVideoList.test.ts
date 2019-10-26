@@ -9,6 +9,7 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
@@ -30,21 +31,6 @@ describe("youtubeVideoList epic", (): void => {
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
-  const state$ValueMessageQueryUndefined: IState = {
-    ...initialState,
-    message: {
-      query: undefined
-    }
-  };
-  const state$ValueMessageQueryMessageUndefined: IState = {
-    ...initialState,
-    message: {
-      query: {
-        message: undefined,
-        update_id: 0
-      }
-    }
-  };
   const stateResult: IState = {
     ...initialState,
     message: {
@@ -57,6 +43,24 @@ describe("youtubeVideoList epic", (): void => {
           date: 0,
           message_id: 0
         },
+        update_id: 0
+      }
+    }
+  };
+  const state$ValueMessageQueryUndefined: IState = {
+    ...stateResult,
+    message: {
+      ...stateResult.message,
+      query: undefined
+    }
+  };
+  const state$ValueMessageQueryMessageUndefined: IState = {
+    ...stateResult,
+    message: {
+      ...stateResult.message,
+      query: {
+        ...(stateResult.message.query as IStateMessageQuery),
+        message: undefined,
         update_id: 0
       }
     }

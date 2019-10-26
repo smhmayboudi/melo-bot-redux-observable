@@ -10,14 +10,13 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
-import { IStateMessage } from "../../types/iStateMessage";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getChatMember";
 
 describe("getChatMember epic", (): void => {
-  const error: Error = new Error("");
   const initialState: IState = {
     answerInlineQuery: actions.answerInlineQuery.initialState,
     chosenInlineResult: actions.chosenInlineResult.initialState,
@@ -31,43 +30,45 @@ describe("getChatMember epic", (): void => {
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
-  const state$ValueMessageQueryUndefined: IState = {
-    ...initialState,
-    message: {
-      query: undefined
-    }
-  };
-  const state$ValueMessageQueryMessageUndefined: IState = {
+  const stateResult: IState = {
     ...initialState,
     message: {
       query: {
-        message: undefined,
+        message: {
+          chat: {
+            id: 0,
+            type: ""
+          },
+          date: 0,
+          message_id: 0
+        },
         update_id: 0
       }
     }
   };
-  const message: IStateMessage = {
-    query: {
-      message: {
-        chat: {
-          id: 0,
-          type: ""
-        },
-        date: 0,
-        message_id: 0
-      },
-      update_id: 0
+  const state$ValueMessageQueryUndefined: IState = {
+    ...stateResult,
+    message: {
+      ...stateResult.message,
+      query: undefined
     }
   };
-  const stateResult: IState = {
-    ...initialState,
-    message
+  const state$ValueMessageQueryMessageUndefined: IState = {
+    ...stateResult,
+    message: {
+      ...stateResult.message,
+      query: {
+        ...(stateResult.message.query as IStateMessageQuery),
+        message: undefined
+      }
+    }
   };
+  const error: Error = new Error("");
   const query: IStateGetChatMemberQuery = {
     chat_id: 0,
     user_id: 0
   };
-  const resultLeft: IChatMember = {
+  const result: IChatMember = {
     status: "left",
     user: {
       first_name: "",
@@ -75,25 +76,29 @@ describe("getChatMember epic", (): void => {
       is_bot: false
     }
   };
+  const resultLeft: IChatMember = {
+    ...result,
+    status: "left"
+  };
   const resultMember: IChatMember = {
-    status: "member",
-    user: {
-      first_name: "",
-      id: 0,
-      is_bot: false
-    }
+    ...result,
+    status: "member"
   };
   const responseOKF: IResponse = {
     description: "Bad Request: CHAT_ADMIN_REQUIRED",
     error_code: 400,
     ok: false
   };
-  const responseOKTLeft: IResponse = {
+  const responseOKT: IResponse = {
     ok: true,
+    result
+  };
+  const responseOKTLeft: IResponse = {
+    ...responseOKT,
     result: resultLeft
   };
   const responseOKTMember: IResponse = {
-    ok: true,
+    ...responseOKT,
     result: resultMember
   };
 
