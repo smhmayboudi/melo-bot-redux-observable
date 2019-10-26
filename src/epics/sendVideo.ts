@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
-import { Observable, of } from "rxjs";
+import { concat, EMPTY, Observable, ObservableInput, of } from "rxjs";
 import { catchError, map, switchMap, switchMapTo } from "rxjs/operators";
 
 import { IActionSendVideo } from "../../types/iActionSendVideo";
@@ -174,7 +174,7 @@ const sendVideo: (
                   switchMap(
                     (value: any): Observable<IActionSendVideo> => {
                       if (value !== null) {
-                        return of(action);
+                        return EMPTY;
                       }
                       if (insertOneObservable === undefined) {
                         return of(
@@ -215,7 +215,7 @@ const sendVideo: (
                         },
                         {}
                       ).pipe(
-                        switchMapTo(of(action)),
+                        switchMapTo(EMPTY),
                         catchError((error: any) =>
                           of(
                             actions.sendVideo.error({
@@ -259,7 +259,10 @@ const sendVideo: (
   return action$.pipe(
     ofType(actions.sendVideo.SEND_VIDEO_QUERY),
     switchMap(actionObservable),
-    switchMap(cache)
+    switchMap(
+      (actionResult: IActionSendVideo): ObservableInput<IActionSendVideo> =>
+        concat(cache(actionResult), of(actionResult))
+    )
   );
 };
 
