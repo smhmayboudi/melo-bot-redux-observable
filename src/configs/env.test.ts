@@ -70,11 +70,11 @@ describe("env configs", (): void => {
   });
 
   test("should handle REMOTEDEV_REALTIME", (): void => {
-    expect(env.REMOTEDEV_REALTIME).toEqual("false");
+    expect(env.REMOTEDEV_REALTIME).toEqual(false);
   });
 
   test("should handle PORT", (): void => {
-    expect(env.REMOTEDEV_REALTIME).toEqual(8081);
+    expect(env.PORT).toEqual(8081);
   });
 
   test("should handle SENTRY_DSN", (): void => {
