@@ -17,9 +17,11 @@
     "type-check:watch": "tsc --noEmit --project tsconfig.json --watch; exit 0"
   },
   "keywords": [
-    "reactive",
-    "rxjs",
-    "node"
+    "node",
+    "telegram-bot",
+    "redux",
+    "redux-observable",
+    "rxjs"
   ],
   "author": "",
   "license": "ISC",
@@ -37,6 +39,7 @@
     "prometheus-gc-stats": "^0.6.2",
     "redux": "^4.0.4",
     "redux-observable": "^1.2.0",
+    "remotedev-server": "^0.3.1",
     "remote-redux-devtools": "^0.5.16",
     "rxjs": "^6.5.3",
     "source-map-support": "^0.5.13"
@@ -56,7 +59,6 @@
     "jest": "^24.9.0",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
-    "remotedev-server": "^0.3.1",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
