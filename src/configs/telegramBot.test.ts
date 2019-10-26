@@ -223,7 +223,7 @@ describe("telegramBot configs", (): void => {
           state: "",
           street_line1: "",
           street_line2: ""
-        },
+        }
       },
       update_id: 0
     };
