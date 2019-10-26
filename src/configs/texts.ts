@@ -143,7 +143,6 @@ export {
   epicInlineQueryConnectGoogleAccount,
   epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined,
   epicYoutubeFindOneObservableDownloadValueThumbUndefined,
-  epicYoutubeFindOneObservableDownloadValueUndefined,
   messageAdvertisementChannel,
   messageAdvertisementChannelJoinLink,
   messageChannel,
