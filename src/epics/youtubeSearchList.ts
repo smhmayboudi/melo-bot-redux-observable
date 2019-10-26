@@ -11,8 +11,8 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformSearchList as transformSearchListInline } from "../utils/inlineQueryResultArticle";
-import { transformSearchList as transformSearchListString } from "../utils/string";
+import { transformSearchList as inlineTransformSearchList } from "../utils/inlineQueryResultArticle";
+import { transformSearchList as stringTransformSearchList } from "../utils/string";
 
 const youtubeSearchList: (
   action$: Observable<IActionYoutubeSearchList>,
@@ -131,7 +131,7 @@ const youtubeSearchList: (
           inline_query_id: state$.value.inlineQuery.query.id,
           is_personal: true,
           next_offset: "",
-          results: transformSearchListInline(
+          results: inlineTransformSearchList(
             action.youtubeSearchList.result.items,
             state$.value.youtubeSearchList.query.q
           ),
@@ -209,7 +209,7 @@ const youtubeSearchList: (
           parse_mode: "HTML",
           reply_markup: { remove_keyboard: true },
           reply_to_message_id: state$.value.message.query.message.message_id,
-          text: transformSearchListString(
+          text: stringTransformSearchList(
             action.youtubeSearchList.result.items,
             state$.value.youtubeSearchList.query.q
           )
@@ -224,7 +224,9 @@ const youtubeSearchList: (
     switchMap((value: IActionYoutubeSearchList) =>
       iif(
         () =>
-          state$ !== undefined && state$.value.inlineQuery.query !== undefined,
+          state$ !== undefined &&
+          (state$.value.inlineQuery.query !== undefined ||
+            state$.value.message.query === undefined),
         transformObservableInline(value),
         transformObservableString(value)
       )
