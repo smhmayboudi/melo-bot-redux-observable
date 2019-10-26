@@ -63,8 +63,6 @@ const epicDependencyYoutubeDownloadObservableUndefined: string =
   "epicDependencyYoutubeDownloadObservable undefined.";
 const epicInlineQueryConnectGoogleAccount: string =
   "Connect your Google account";
-const epicYoutubeFindOneObservableDownloadValueUndefined: string =
-  "epicYoutubeFindOneObservableDownloadValue undefined.";
 const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined: string =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
 const epicYoutubeFindOneObservableDownloadValueThumbUndefined: string =

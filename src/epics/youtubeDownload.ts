@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
-import { Observable, ObservableInput, of, race } from "rxjs";
+import { NEVER, Observable, ObservableInput, of, race } from "rxjs";
 import {
   catchError,
   filter,
@@ -144,13 +144,7 @@ const youtubeDownload: (
                       value: IVideo & { id: string; title: string } | null
                     ): Observable<IActionYoutubeDownload> => {
                       if (value === null) {
-                        return of(
-                          actions.youtubeDownload.error({
-                            error: new Error(
-                              texts.epicYoutubeFindOneObservableDownloadValueUndefined
-                            )
-                          })
-                        );
+                        return NEVER;
                       }
                       if (value.mime_type === undefined) {
                         return of(
@@ -313,12 +307,10 @@ const youtubeDownload: (
       });
     }
 
-    const chatId: number = state$.value.message.query.message.chat.id;
-
     return actions.getChatMember.query({
       query: {
         chat_id: "@melodio",
-        user_id: chatId
+        user_id: state$.value.message.query.message.chat.id
       }
     });
   };
