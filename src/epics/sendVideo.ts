@@ -94,7 +94,7 @@ const sendVideo: (
     action: IActionSendVideo
   ): Observable<IActionSendVideo> => {
     if (action.type === actions.sendVideo.SEND_VIDEO_ERROR) {
-      return of(action);
+      return EMPTY;
     }
     if (mongoClientObservable === undefined) {
       return of(

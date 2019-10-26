@@ -313,12 +313,13 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
+      expectObservable(output$).toBe("---(ab)", {
         a: actions.sendVideo.error({
           error: new Error(
             texts.epicDependencyMongoClientObservableObservableUndefined
           )
-        })
+        }),
+        b: actions.sendVideo.result({ result })
       });
     });
   });
@@ -345,10 +346,9 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("-----a", {
-        a: actions.sendVideo.error({
-          error
-        })
+      expectObservable(output$).toBe("-----(ab)", {
+        a: actions.sendVideo.error({ error }),
+        b: actions.sendVideo.result({ result })
       });
     });
   });
@@ -374,10 +374,11 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
+      expectObservable(output$).toBe("---(ab)", {
         a: actions.sendVideo.error({
           error: new Error(texts.epicDependencyCollectionObservableUndefined)
-        })
+        }),
+        b: actions.sendVideo.result({ result })
       });
     });
   });
@@ -403,10 +404,9 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("-----a", {
-        a: actions.sendVideo.error({
-          error
-        })
+      expectObservable(output$).toBe("-----(ab)", {
+        a: actions.sendVideo.error({ error }),
+        b: actions.sendVideo.result({ result })
       });
     });
   });
@@ -432,10 +432,11 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
+      expectObservable(output$).toBe("---(ab)", {
         a: actions.sendVideo.error({
           error: new Error(texts.epicDependencyFindOneObservableUndefined)
-        })
+        }),
+        b: actions.sendVideo.result({ result })
       });
     });
   });
@@ -461,10 +462,9 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("-----a", {
-        a: actions.sendVideo.error({
-          error
-        })
+      expectObservable(output$).toBe("-----(ab)", {
+        a: actions.sendVideo.error({ error }),
+        b: actions.sendVideo.result({ result })
       });
     });
   });
@@ -607,10 +607,11 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
+      expectObservable(output$).toBe("---(ab)", {
         a: actions.sendVideo.error({
           error: new Error(texts.actionSendVideoResultReplyToMessageUndefined)
-        })
+        }),
+        b: actions.sendVideo.result({ result: resultReplyToMessage })
       });
     });
   });
@@ -636,12 +637,13 @@ describe("sendVideo epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
+      expectObservable(output$).toBe("---(ab)", {
         a: actions.sendVideo.error({
           error: new Error(
             texts.actionSendVideoResultReplyToMessageTextUndefined
           )
-        })
+        }),
+        b: actions.sendVideo.result({ result: resultReplyToMessageText })
       });
     });
   });
