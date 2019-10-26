@@ -20,6 +20,7 @@ import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
 
 import * as env from "./env";
 import { configureStore } from "./store";
+import { handle } from "./telegramBotHandle";
 import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
 import { handleChanelPost } from "./telegramBotHandleChanelPost";
 import { handleChosenInlineResult } from "./telegramBotHandleChosenInlineResult";
@@ -97,6 +98,8 @@ const operate: (message: IStateMessageQuery) => void = (
     handleShippingQuery(store, message.shipping_query);
   } else if (message.webhook_error !== undefined) {
     handleWebhookError(store, message.webhook_error);
+  } else {
+    handle(store);
   }
 };
 

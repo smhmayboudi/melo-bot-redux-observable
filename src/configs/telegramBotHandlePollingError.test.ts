@@ -9,7 +9,7 @@ describe("telegramBotHandlePollingError configs", (): void => {
   };
 
   test("should handle", (): void => {
-    const error: Error = new Error();
+    const error: Error = new Error("");
     expect(handlePollingError(store, error)).toHaveBeenCalled();
   });
 });

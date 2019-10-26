@@ -9,7 +9,7 @@ describe("telegramBotHandleWebhookError configs", (): void => {
   };
 
   test("should handle", (): void => {
-    const error: Error = new Error();
+    const error: Error = new Error("");
     expect(handleWebhookError(store, error)).toHaveBeenCalled();
   });
 });

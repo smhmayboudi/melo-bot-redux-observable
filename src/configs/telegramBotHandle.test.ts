@@ -1,6 +1,6 @@
-import { handleError } from "./telegramBotHandleError";
+import { handle } from "./telegramBotHandle";
 
-describe("telegramBotHandleError configs", (): void => {
+describe("telegramBotHandle configs", (): void => {
   const store: any = {
     dispatch: jest.fn(() => {}),
     getState: jest.fn(() => {}),
@@ -9,7 +9,6 @@ describe("telegramBotHandleError configs", (): void => {
   };
 
   test("should handle", (): void => {
-    const error: Error = new Error("");
-    expect(handleError(store, error)).toHaveBeenCalled();
+    expect(handle(store)).toHaveBeenCalled();
   });
 });
