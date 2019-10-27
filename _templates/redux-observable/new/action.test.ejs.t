@@ -8,7 +8,7 @@ import * as action from "./<%= h.changeCase.camel(name)%>";
 describe("<%= h.changeCase.camel(name)%> actions", (): void => {
   const error: Error = new Error("");
   const query: IState<%= h.changeCase.pascal(name)%>Query = {
-      // TODO: fill it
+    // TODO: fill it
   };
   // TODO: check it
   const result: boolean = true;
