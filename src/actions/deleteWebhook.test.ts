@@ -4,10 +4,7 @@ import * as action from "./deleteWebhook";
 
 describe("deleteWebhook actions", (): void => {
   const error: Error = new Error("");
-  const query: IStateDeleteWebhookQuery = {
-    // TODO: fill it
-  };
-  // TODO: check it
+  const query: IStateDeleteWebhookQuery = {};
   const result: boolean = true;
 
   test("should handle error", (): void => {
