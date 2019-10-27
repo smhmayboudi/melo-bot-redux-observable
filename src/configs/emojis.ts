@@ -15,10 +15,10 @@ const findByCode: (code: string) => IEmoji = (code: string): IEmoji => {
   return emoji !== undefined
     ? emoji
     : {
-        codes: "1F534",
+        category: "Symbols (geometric)",
         char: "🔴",
-        name: "E2.0 red circle",
-        category: "Symbols (geometric)"
+        codes: "1F534",
+        name: "E2.0 red circle"
       };
 };
 
@@ -31,10 +31,10 @@ const findByName: (name: string) => IEmoji = (name: string): IEmoji => {
   return emoji !== undefined
     ? emoji
     : {
-        codes: "1F534",
+        category: "Symbols (geometric)",
         char: "🔴",
-        name: "E2.0 red circle",
-        category: "Symbols (geometric)"
+        codes: "1F534",
+        name: "E2.0 red circle"
       };
 };
 

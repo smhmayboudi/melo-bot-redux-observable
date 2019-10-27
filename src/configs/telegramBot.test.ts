@@ -232,8 +232,8 @@ describe("telegramBot configs", (): void => {
 
   test("should handle", (): void => {
     const message: IStateMessageQuery = {
-      webhook_error: new Error(""),
-      update_id: 0
+      update_id: 0,
+      webhook_error: new Error("")
     };
     expect(operate(message)).toHaveBeenCalled();
   });

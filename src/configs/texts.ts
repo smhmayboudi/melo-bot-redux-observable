@@ -14,6 +14,10 @@ const actionChosenInlineResultQueryUndefined: string =
   "actionChosenInlineResultQuery undefined.";
 const actionCreateNewStickerSetQueryUndefined: string =
   "actionCreateNewStickerSetQuery undefined.";
+const actionDeleteChatPhotoQueryUndefined: string =
+  "actionDeleteChatPhotoQuery undefined.";
+const actionDeleteChatStickerSetQueryUndefined: string =
+  "actionDeleteChatStickerSetQuery undefined.";
 const actionDeleteMessageQueryUndefined: string =
   "actionDeleteMessageQuery undefined.";
 const actionDeleteStickerFromSetQueryUndefined: string =
@@ -22,32 +26,73 @@ const actionDeleteWebhookQueryUndefined: string =
   "actionDeleteWebhookQueryUndefined undefined.";
 const actionEditMessageCaptionQueryUndefined: string =
   "actionEditMessageCaptionQuery undefined.";
+const actionEditMessageLiveLocationQueryUndefined: string =
+  "actionEditMessageLiveLocationQuery undefined.";
 const actionEditMessageMediaQueryUndefined: string =
   "actionEditMessageMediaQuery undefined.";
 const actionEditMessageReplyMarkupQueryUndefined: string =
   "actionEditMessageReplyMarkupQuery undefined.";
 const actionEditMessageTextQueryUndefined: string =
   "actionEditMessageTextQuery undefined.";
+const actionExportChatInviteLinkQueryUndefined: string =
+  "actionExportChatInviteLinkQuery undefined.";
+const actionForwardMessageQueryUndefined: string =
+  "actionForwardMessageQuery undefined.";
+const actionGetChatAdministratorsQueryUndefined: string =
+  "actionGetChatAdministratorsQuery undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
+const actionGetChatMembersCountQueryUndefined: string =
+  "actionGetChatMembersCountQuery undefined.";
+const actionGetChatQueryUndefined: string = "actionGetChatQuery undefined.";
+const actionGetFileQueryUndefined: string = "actionGetFileQuery undefined.";
 const actionGetGameHighScoresQueryUndefined: string =
   "actionGetGameHighScoresQuery undefined.";
+const actionGetMeQueryUndefined: string = "actionGetMeQuery undefined.";
 const actionGetStickerSetQueryUndefined: string =
   "actionGetStickerSetQuery undefined.";
-const actionGetWebhookInfoQueryUndefined: string =
-  "actionGetWebhookInfoQuery undefined.";
 const actionGetUpdatesQueryUndefined: string =
   "actionGetUpdatesQuery undefined.";
+const actionGetUserProfilePhotosQueryUndefined: string =
+  "actionGetUserProfilePhotosQuery undefined.";
+const actionGetWebhookInfoQueryUndefined: string =
+  "actionGetWebhookInfoQuery undefined.";
 const actionInlineQueryQueryUndefined: string =
   "actionInlineQueryQuery undefined.";
+const actionKickChatMemberQueryUndefined: string =
+  "actionKickChatMemberQuery undefined.";
+const actionLeaveChatQueryUndefined: string = "actionLeaveChatQuery undefined.";
+const actionPinChatMessageQueryUndefined: string =
+  "actionPinChatMessageQuery undefined.";
+const actionPromoteChatMemberQueryUndefined: string =
+  "actionPromoteChatMemberQuery undefined.";
+const actionRestrictChatMemberQueryUndefined: string =
+  "actionRestrictChatMemberQuery undefined.";
+const actionSendAnimationQueryUndefined: string =
+  "actionSendAnimationQuery undefined.";
 const actionSendAudioQueryUndefined: string = "actionSendAudioQuery undefined.";
+const actionSendChatActionQueryUndefined: string =
+  "actionSendChatActionQuery undefined.";
+const actionSendContactQueryUndefined: string =
+  "actionSendContactQuery undefined.";
+const actionSendDocumentQueryUndefined: string =
+  "actionSendDocumentQuery undefined.";
+const actionSendGameQueryUndefined: string = "actionSendGameQuery undefined.";
 const actionSendInvoiceQueryUndefined: string =
   "actionSendInvoiceQuery undefined.";
-const actionSendGameQueryUndefined: string = "actionSendGameQuery undefined.";
+const actionSendLocationQueryUndefined: string =
+  "actionSendLocationQuery undefined.";
+const actionSendMediaGroupQueryUndefined: string =
+  "actionSendMediaGroupQuery undefined.";
 const actionSendMessageQueryUndefined: string =
   "actionSendMessageQuery undefined.";
+const actionSendPhotoQueryUndefined: string = "actionSendPhotoQuery undefined.";
+const actionSendPollQueryUndefined: string = "actionSendPollQuery undefined.";
 const actionSendStickerQueryUndefined: string =
   "actionSendStickerQuery undefined.";
+const actionSendVenueQueryUndefined: string = "actionSendVenueQuery undefined.";
+const actionSendVideoNoteQueryUndefined: string =
+  "actionSendVideoNoteQuery undefined.";
 const actionSendVideoQueryUndefined: string = "actionSendVideoQuery undefined.";
 const actionSendVideoResultCaptionUndefined: string =
   "actionSendVideoResultCaption undefined.";
@@ -57,6 +102,15 @@ const actionSendVideoResultReplyToMessageUndefined: string =
   "actionSendVideoResultReplyToMessage undefined.";
 const actionSendVideoResultUndefined: string =
   "actionSendVideoResult undefined.";
+const actionSendVoiceQueryUndefined: string = "actionSendVoiceQuery undefined.";
+const actionSetChatDescriptionQueryUndefined: string =
+  "actionSetChatDescriptionQuery undefined.";
+const actionSetChatPhotoQueryUndefined: string =
+  "actionSetChatPhotoQuery undefined.";
+const actionSetChatStickerSetQueryUndefined: string =
+  "actionSetChatStickerSetQuery undefined.";
+const actionSetChatTitleQueryUndefined: string =
+  "actionSetChatTitleQuery undefined.";
 const actionSetGameScoreQueryUndefined: string =
   "actionSetGameScoreQuery undefined.";
 const actionSetPassportDataErrorsQueryUndefined: string =
@@ -65,7 +119,13 @@ const actionSetStickerPositionInSetQueryUndefined: string =
   "actionSetStickerPositionInSetQuery undefined.";
 const actionSetWebhookQueryUndefined: string =
   "actionSetWebhookQuery undefined.";
+const actionStopMessageLiveLocationQueryUndefined: string =
+  "actionStopMessageLiveLocationQuery undefined.";
 const actionStopPollQueryUndefined: string = "actionStopPollQuery undefined.";
+const actionUnbanChatMemberQueryUndefined: string =
+  "actionUnbanChatMemberQuery undefined.";
+const actionUnpinChatMessageQueryUndefined: string =
+  "actionUnpinChatMessageQuery undefined.";
 const actionUploadStickerFileQueryUndefined: string =
   "actionUploadStickerFileQuery undefined.";
 const actionYoutubeDownloadQueryUndefined: string =
@@ -161,34 +221,68 @@ export {
   actionAnswerShippingQueryQueryUndefined,
   actionChosenInlineResultQueryUndefined,
   actionCreateNewStickerSetQueryUndefined,
+  actionDeleteChatPhotoQueryUndefined,
+  actionDeleteChatStickerSetQueryUndefined,
   actionDeleteMessageQueryUndefined,
   actionDeleteStickerFromSetQueryUndefined,
   actionDeleteWebhookQueryUndefined,
   actionEditMessageCaptionQueryUndefined,
+  actionEditMessageLiveLocationQueryUndefined,
   actionEditMessageMediaQueryUndefined,
   actionEditMessageReplyMarkupQueryUndefined,
   actionEditMessageTextQueryUndefined,
+  actionExportChatInviteLinkQueryUndefined,
+  actionForwardMessageQueryUndefined,
+  actionGetChatAdministratorsQueryUndefined,
   actionGetChatMemberQueryUndefined,
+  actionGetChatMembersCountQueryUndefined,
+  actionGetChatQueryUndefined,
+  actionGetFileQueryUndefined,
   actionGetGameHighScoresQueryUndefined,
+  actionGetMeQueryUndefined,
   actionGetStickerSetQueryUndefined,
   actionGetUpdatesQueryUndefined,
+  actionGetUserProfilePhotosQueryUndefined,
   actionGetWebhookInfoQueryUndefined,
   actionInlineQueryQueryUndefined,
+  actionKickChatMemberQueryUndefined,
+  actionLeaveChatQueryUndefined,
+  actionPinChatMessageQueryUndefined,
+  actionPromoteChatMemberQueryUndefined,
+  actionRestrictChatMemberQueryUndefined,
+  actionSendAnimationQueryUndefined,
   actionSendAudioQueryUndefined,
-  actionSendInvoiceQueryUndefined,
+  actionSendChatActionQueryUndefined,
+  actionSendContactQueryUndefined,
+  actionSendDocumentQueryUndefined,
   actionSendGameQueryUndefined,
+  actionSendInvoiceQueryUndefined,
+  actionSendLocationQueryUndefined,
+  actionSendMediaGroupQueryUndefined,
   actionSendMessageQueryUndefined,
+  actionSendPhotoQueryUndefined,
+  actionSendPollQueryUndefined,
   actionSendStickerQueryUndefined,
+  actionSendVenueQueryUndefined,
+  actionSendVideoNoteQueryUndefined,
   actionSendVideoQueryUndefined,
   actionSendVideoResultCaptionUndefined,
   actionSendVideoResultReplyToMessageTextUndefined,
   actionSendVideoResultReplyToMessageUndefined,
   actionSendVideoResultUndefined,
+  actionSendVoiceQueryUndefined,
+  actionSetChatDescriptionQueryUndefined,
+  actionSetChatPhotoQueryUndefined,
+  actionSetChatStickerSetQueryUndefined,
+  actionSetChatTitleQueryUndefined,
   actionSetGameScoreQueryUndefined,
   actionSetPassportDataErrorsQueryUndefined,
   actionSetStickerPositionInSetQueryUndefined,
   actionSetWebhookQueryUndefined,
+  actionStopMessageLiveLocationQueryUndefined,
   actionStopPollQueryUndefined,
+  actionUnbanChatMemberQueryUndefined,
+  actionUnpinChatMessageQueryUndefined,
   actionUploadStickerFileQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
   actionYoutubeDownloadResultUndefined,

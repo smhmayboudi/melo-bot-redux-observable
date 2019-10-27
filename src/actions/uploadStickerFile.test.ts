@@ -17,22 +17,22 @@ describe("uploadStickerFile actions", (): void => {
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({
-      uploadStickerFile: { error },
-      type: action.UPLOAD_STICKER_FILE_ERROR
+      type: action.UPLOAD_STICKER_FILE_ERROR,
+      uploadStickerFile: { error }
     });
   });
 
   test("should handle query", (): void => {
     expect(action.query({ query })).toEqual({
-      uploadStickerFile: { query },
-      type: action.UPLOAD_STICKER_FILE_QUERY
+      type: action.UPLOAD_STICKER_FILE_QUERY,
+      uploadStickerFile: { query }
     });
   });
 
   test("should handle result", (): void => {
     expect(action.result({ result })).toEqual({
-      uploadStickerFile: { result },
-      type: action.UPLOAD_STICKER_FILE_RESULT
+      type: action.UPLOAD_STICKER_FILE_RESULT,
+      uploadStickerFile: { result }
     });
   });
 });

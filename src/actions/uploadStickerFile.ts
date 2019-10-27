@@ -12,30 +12,30 @@ const error: (
 ) => IActionUploadStickerFile = (
   uploadStickerFile: IStateUploadStickerFile
 ): IActionUploadStickerFile => ({
+  type: UPLOAD_STICKER_FILE_ERROR,
   uploadStickerFile: {
     error: uploadStickerFile.error
-  },
-  type: UPLOAD_STICKER_FILE_ERROR
+  }
 });
 const query: (
   uploadStickerFile: IStateUploadStickerFile
 ) => IActionUploadStickerFile = (
   uploadStickerFile: IStateUploadStickerFile
 ): IActionUploadStickerFile => ({
+  type: UPLOAD_STICKER_FILE_QUERY,
   uploadStickerFile: {
     query: uploadStickerFile.query
-  },
-  type: UPLOAD_STICKER_FILE_QUERY
+  }
 });
 const result: (
   uploadStickerFile: IStateUploadStickerFile
 ) => IActionUploadStickerFile = (
   uploadStickerFile: IStateUploadStickerFile
 ): IActionUploadStickerFile => ({
+  type: UPLOAD_STICKER_FILE_RESULT,
   uploadStickerFile: {
     result: uploadStickerFile.result
-  },
-  type: UPLOAD_STICKER_FILE_RESULT
+  }
 });
 
 export {

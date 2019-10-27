@@ -7,8 +7,8 @@ import * as reducer from "./sendGame";
 describe("sendGame reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendGameQuery = {
-    game_short_name: "",
-    chat_id: 0
+    chat_id: 0,
+    game_short_name: ""
   };
   const result: IMessage = {
     chat: {

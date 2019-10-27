@@ -6,8 +6,8 @@ describe("telegramBotHandleChosenInlineResult configs", (): void => {
   const store: any = {
     dispatch: jest.fn(() => {}),
     getState: jest.fn(() => {}),
-    subscribe: jest.fn(() => () => {}),
-    replaceReducer: jest.fn(() => {})
+    replaceReducer: jest.fn(() => {}),
+    subscribe: jest.fn(() => () => {})
   };
 
   test("should handle", (): void => {

@@ -19,8 +19,8 @@ describe("uploadStickerFile reducer", (): void => {
   test("should handle initialState", (): void => {
     expect(
       reducer.uploadStickerFile(undefined, {
-        uploadStickerFile: {},
-        type: ""
+        type: "",
+        uploadStickerFile: {}
       })
     ).toEqual(action.initialState);
   });

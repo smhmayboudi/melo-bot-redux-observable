@@ -5,8 +5,8 @@ import * as action from "./answerPreCheckoutQuery";
 describe("answerPreCheckoutQuery actions", (): void => {
   const error: Error = new Error("");
   const query: IStateAnswerPreCheckoutQueryQuery = {
-    pre_checkout_query_id: "",
-    ok: false
+    ok: false,
+    pre_checkout_query_id: ""
   };
   const result: boolean = true;
 
