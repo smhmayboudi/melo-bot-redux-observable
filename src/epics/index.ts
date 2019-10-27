@@ -8,6 +8,7 @@ import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
 import { appError } from "./appError";
 import { chosenInlineResult } from "./chosenInlineResult";
+import { deleteWebhook } from "./deleteWebhook";
 import { getChatMember } from "./getChatMember";
 import { getUpdates } from "./getUpdates";
 import { inlineQuery } from "./inlineQuery";
@@ -29,6 +30,7 @@ const index: Epic<
   answerInlineQuery,
   appError,
   chosenInlineResult,
+  deleteWebhook,
   getChatMember,
   getUpdates,
   inlineQuery,

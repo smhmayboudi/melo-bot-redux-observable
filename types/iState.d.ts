@@ -1,5 +1,6 @@
 import { IStateAnswerInlineQuery } from "./iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "./iStateChosenInlineResult";
+import { IStateDeleteWebhook } from "./iStateDeleteWebhook";
 import { IStateGetChatMember } from "./iStateGetChatMember";
 import { IStateGetUpdates } from "./iStateGetUpdates";
 import { IStateInlineQuery } from "./iStateInlineQuery";
@@ -15,6 +16,7 @@ import { IStateYoutubeVideoList } from "./iStateYoutubeVideoList";
 export interface IState {
   answerInlineQuery: IStateAnswerInlineQuery;
   chosenInlineResult: IStateChosenInlineResult;
+  deleteWebhook: IStateDeleteWebhook;
   getChatMember: IStateGetChatMember;
   getUpdates: IStateGetUpdates;
   inlineQuery: IStateInlineQuery;
@@ -22,7 +24,7 @@ export interface IState {
   sendAudio: IStateSendAudio;
   sendMessage: IStateSendMessage;
   sendVideo: IStateSendVideo;
-  setWebhook: IStateSetWebhook,
+  setWebhook: IStateSetWebhook;
   youtubeDownload: IStateYoutubeDownload;
   youtubeSearchList: IStateYoutubeSearchList;
   youtubeVideoList: IStateYoutubeVideoList;

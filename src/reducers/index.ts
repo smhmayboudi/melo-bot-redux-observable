@@ -3,6 +3,7 @@ import { combineReducers, Reducer } from "redux";
 import { IStateAnswerCallbackQuery } from "../../types/iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
+import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateGetUpdates } from "../../types/iStateGetUpdates";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
@@ -18,6 +19,7 @@ import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
 import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
 import { chosenInlineResult } from "./chosenInlineResult";
+import { deleteWebhook } from "./deleteWebhook";
 import { getChatMember } from "./getChatMember";
 import { getUpdates } from "./getUpdates";
 import { inlineQuery } from "./inlineQuery";
@@ -34,6 +36,7 @@ const index: Reducer<{
   answerCallbackQuery: IStateAnswerCallbackQuery;
   answerInlineQuery: IStateAnswerInlineQuery;
   chosenInlineResult: IStateChosenInlineResult;
+  deleteWebhook: IStateDeleteWebhook;
   getChatMember: IStateGetChatMember;
   getUpdates: IStateGetUpdates;
   inlineQuery: IStateInlineQuery;
@@ -49,6 +52,7 @@ const index: Reducer<{
   answerCallbackQuery,
   answerInlineQuery,
   chosenInlineResult,
+  deleteWebhook,
   getChatMember,
   getUpdates,
   inlineQuery,

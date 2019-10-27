@@ -1,6 +1,7 @@
 import * as answerCallbackQuery from "./answerCallbackQuery";
 import * as answerInlineQuery from "./answerInlineQuery";
 import * as chosenInlineResult from "./chosenInlineResult";
+import * as deleteWebhook from "./deleteWebhook";
 import * as getChatMember from "./getChatMember";
 import * as getUpdates from "./getUpdates";
 import * as inlineQuery from "./inlineQuery";
@@ -17,6 +18,7 @@ export {
   answerCallbackQuery,
   answerInlineQuery,
   chosenInlineResult,
+  deleteWebhook,
   getChatMember,
   getUpdates,
   inlineQuery,
