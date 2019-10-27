@@ -16,6 +16,7 @@ import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateGetUpdates } from "../../types/iStateGetUpdates";
+import { IStateGetWebhookInfo } from "../../types/iStateGetWebhookInfo";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
@@ -44,6 +45,7 @@ const configureStore: (
     deleteWebhook: IStateDeleteWebhook;
     getChatMember: IStateGetChatMember;
     getUpdates: IStateGetUpdates;
+    getWebhookInfo: IStateGetWebhookInfo;
     inlineQuery: IStateInlineQuery;
     message: IStateMessage;
     sendAudio: IStateSendAudio;

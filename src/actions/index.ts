@@ -4,6 +4,7 @@ import * as chosenInlineResult from "./chosenInlineResult";
 import * as deleteWebhook from "./deleteWebhook";
 import * as getChatMember from "./getChatMember";
 import * as getUpdates from "./getUpdates";
+import * as getWebhookInfo from "./getWebhookInfo";
 import * as inlineQuery from "./inlineQuery";
 import * as message from "./message";
 import * as sendAudio from "./sendAudio";
@@ -21,6 +22,7 @@ export {
   deleteWebhook,
   getChatMember,
   getUpdates,
+  getWebhookInfo,
   inlineQuery,
   message,
   sendAudio,

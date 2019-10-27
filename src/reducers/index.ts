@@ -6,6 +6,7 @@ import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateGetUpdates } from "../../types/iStateGetUpdates";
+import { IStateGetWebhookInfo } from "../../types/iStateGetWebhookInfo";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
@@ -22,6 +23,7 @@ import { chosenInlineResult } from "./chosenInlineResult";
 import { deleteWebhook } from "./deleteWebhook";
 import { getChatMember } from "./getChatMember";
 import { getUpdates } from "./getUpdates";
+import { getWebhookInfo } from "./getWebhookInfo";
 import { inlineQuery } from "./inlineQuery";
 import { message } from "./message";
 import { sendAudio } from "./sendAudio";
@@ -39,6 +41,7 @@ const index: Reducer<{
   deleteWebhook: IStateDeleteWebhook;
   getChatMember: IStateGetChatMember;
   getUpdates: IStateGetUpdates;
+  getWebhookInfo: IStateGetWebhookInfo;
   inlineQuery: IStateInlineQuery;
   message: IStateMessage;
   sendAudio: IStateSendAudio;
@@ -55,6 +58,7 @@ const index: Reducer<{
   deleteWebhook,
   getChatMember,
   getUpdates,
+  getWebhookInfo,
   inlineQuery,
   message,
   sendAudio,

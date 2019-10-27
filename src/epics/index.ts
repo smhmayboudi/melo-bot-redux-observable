@@ -11,6 +11,7 @@ import { chosenInlineResult } from "./chosenInlineResult";
 import { deleteWebhook } from "./deleteWebhook";
 import { getChatMember } from "./getChatMember";
 import { getUpdates } from "./getUpdates";
+import { getWebhookInfo } from "./getWebhookInfo";
 import { inlineQuery } from "./inlineQuery";
 import { sendAudio } from "./sendAudio";
 import { sendMessage } from "./sendMessage";
@@ -33,6 +34,7 @@ const index: Epic<
   deleteWebhook,
   getChatMember,
   getUpdates,
+  getWebhookInfo,
   inlineQuery,
   sendAudio,
   sendMessage,

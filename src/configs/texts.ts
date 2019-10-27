@@ -10,6 +10,8 @@ const actionDeleteWebhookQueryUndefined: string =
   "actionDeleteWebhookQueryUndefined undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
+const actionGetWebhookInfoQueryUndefined: string =
+  "actionGetWebhookInfoQuery undefined.";
 const actionGetUpdatesQueryUndefined: string =
   "actionGetUpdatesQuery undefined.";
 const actionInlineQueryQueryUndefined: string =
@@ -120,6 +122,7 @@ export {
   actionDeleteWebhookQueryUndefined,
   actionGetChatMemberQueryUndefined,
   actionGetUpdatesQueryUndefined,
+  actionGetWebhookInfoQueryUndefined,
   actionInlineQueryQueryUndefined,
   actionSendAudioQueryUndefined,
   actionSendMessageQueryUndefined,

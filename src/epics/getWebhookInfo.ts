@@ -2,47 +2,48 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
-import { IActionDeleteWebhook } from "../../types/iActionDeleteWebhook";
+import { IActionGetWebhookInfo } from "../../types/iActionGetWebhookInfo";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IWebhookInfo } from "../../types/telegramBot/updates/iWebhookInfo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
-const deleteWebhook: (
-  action$: Observable<IActionDeleteWebhook>,
+const getWebhookInfo: (
+  action$: Observable<IActionGetWebhookInfo>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionDeleteWebhook> = (
-  action$: Observable<IActionDeleteWebhook>,
+) => Observable<IActionGetWebhookInfo> = (
+  action$: Observable<IActionGetWebhookInfo>,
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionDeleteWebhook> => {
+): Observable<IActionGetWebhookInfo> => {
   const { botToken, requestsObservable } = dependencies;
 
   const actionObservable: (
-    action: IActionDeleteWebhook
-  ) => Observable<IActionDeleteWebhook> = (
-    action: IActionDeleteWebhook
-  ): Observable<IActionDeleteWebhook> => {
+    action: IActionGetWebhookInfo
+  ) => Observable<IActionGetWebhookInfo> = (
+    action: IActionGetWebhookInfo
+  ): Observable<IActionGetWebhookInfo> => {
     if (botToken === undefined) {
       return of(
-        actions.deleteWebhook.error({
+        actions.getWebhookInfo.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       );
     }
     if (requestsObservable === undefined) {
       return of(
-        actions.deleteWebhook.error({
+        actions.getWebhookInfo.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       );
     }
-    if (action.deleteWebhook.query === undefined) {
+    if (action.getWebhookInfo.query === undefined) {
       return of(
-        actions.deleteWebhook.error({
-          error: new Error(texts.actionDeleteWebhookQueryUndefined)
+        actions.getWebhookInfo.error({
+          error: new Error(texts.actionGetWebhookInfoQueryUndefined)
         })
       );
     }
@@ -51,26 +52,26 @@ const deleteWebhook: (
       {
         host: "api.telegram.org",
         method: "POST",
-        path: `/bot${botToken}/deleteWebhook`
+        path: `/bot${botToken}/getWebhookInfo`
       },
-      action.deleteWebhook.query
+      action.getWebhookInfo.query
     ).pipe(
       map(
-        (response: IResponse): IActionDeleteWebhook => {
+        (response: IResponse): IActionGetWebhookInfo => {
           if (response.ok) {
-            return actions.deleteWebhook.result({
-              result: response.result as boolean
+            return actions.getWebhookInfo.result({
+              result: response.result as IWebhookInfo
             });
           }
 
-          return actions.deleteWebhook.error({
+          return actions.getWebhookInfo.error({
             error: response
           });
         }
       ),
       catchError((error: any) =>
         of(
-          actions.deleteWebhook.error({
+          actions.getWebhookInfo.error({
             error
           })
         )
@@ -79,9 +80,9 @@ const deleteWebhook: (
   };
 
   return action$.pipe(
-    ofType(actions.deleteWebhook.DELETE_WEBHOOK_QUERY),
+    ofType(actions.getWebhookInfo.GET_WEBHOOK_INFO_QUERY),
     switchMap(actionObservable)
   );
 };
 
-export { deleteWebhook };
+export { getWebhookInfo };
