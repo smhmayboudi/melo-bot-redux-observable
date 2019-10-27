@@ -1,5 +1,6 @@
 ---
 to: types/iState<%= h.changeCase.pascal(name)%>.d.ts
+unless_exists: true
 ---
 import { IState<%= h.changeCase.pascal(name)%>Query } from "./iState<%= h.changeCase.pascal(name)%>Query";
 

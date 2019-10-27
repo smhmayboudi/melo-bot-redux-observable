@@ -1,5 +1,6 @@
 ---
 to: src/reducers/<%= h.changeCase.camel(name)%>.ts
+unless_exists: true
 ---
 import { IAction<%= h.changeCase.pascal(name)%> } from "../../types/iAction<%= h.changeCase.pascal(name)%>";
 import { IState<%= h.changeCase.pascal(name)%> } from "../../types/iState<%= h.changeCase.pascal(name)%>";

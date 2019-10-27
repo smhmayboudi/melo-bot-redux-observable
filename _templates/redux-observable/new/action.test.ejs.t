@@ -1,5 +1,6 @@
 ---
 to: src/actions/<%= h.changeCase.camel(name)%>.test.ts
+unless_exists: true
 ---
 import { IState<%= h.changeCase.pascal(name)%>Query } from "../../types/iState<%= h.changeCase.pascal(name)%>Query";
 

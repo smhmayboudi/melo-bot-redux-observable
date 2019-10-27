@@ -1,5 +1,6 @@
 ---
 to: src/epics/<%= h.changeCase.camel(name)%>.test.ts
+unless_exists: true
 ---
 import { StateObservable } from "redux-observable";
 import { Observable } from "rxjs";

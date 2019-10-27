@@ -1,5 +1,6 @@
 ---
 to: types/iAction<%= h.changeCase.pascal(name)%>.d.ts
+unless_exists: true
 ---
 import { Action } from "redux";
 
