@@ -30,7 +30,7 @@ describe("youtubeSearchList epic", (): void => {
     chosenInlineResult: actions.chosenInlineResult.initialState,
     createNewStickerSet: actions.createNewStickerSet.initialState,
     deleteChatPhoto: actions.deleteChatPhoto.initialState,
-    deleteChatStickerSet: actions.ddeleteChatStickerSet.initialState,
+    deleteChatStickerSet: actions.deleteChatStickerSet.initialState,
     deleteMessage: actions.deleteMessage.initialState,
     deleteStickerFromSet: actions.deleteStickerFromSet.initialState,
     deleteWebhook: actions.deleteWebhook.initialState,
