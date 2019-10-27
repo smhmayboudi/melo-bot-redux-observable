@@ -15,6 +15,7 @@ import { IStateSendGame } from "../../types/iStateSendGame";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
 import { IStateSendVideo } from "../../types/iStateSendVideo";
 import { IStateSetGameScore } from "../../types/iStateSetGameScore";
+import { IStateSetPassportDataErrors } from "../../types/iStateSetPassportDataErrors";
 import { IStateSetWebhook } from "../../types/iStateSetWebhook";
 import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
@@ -35,6 +36,7 @@ import { sendGame } from "./sendGame";
 import { sendMessage } from "./sendMessage";
 import { sendVideo } from "./sendVideo";
 import { setGameScore } from "./setGameScore";
+import { setPassportDataErrors } from "./setPassportDataErrors";
 import { setWebhook } from "./setWebhook";
 import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
@@ -56,6 +58,7 @@ const index: Reducer<{
   sendMessage: IStateSendMessage;
   sendVideo: IStateSendVideo;
   setGameScore: IStateSetGameScore;
+  setPassportDataErrors: IStateSetPassportDataErrors;
   setWebhook: IStateSetWebhook;
   youtubeDownload: IStateYoutubeDownload;
   youtubeSearchList: IStateYoutubeSearchList;
@@ -76,6 +79,7 @@ const index: Reducer<{
   sendMessage,
   sendVideo,
   setGameScore,
+  setPassportDataErrors,
   setWebhook,
   youtubeDownload,
   youtubeSearchList,

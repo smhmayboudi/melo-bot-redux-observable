@@ -25,6 +25,7 @@ import { IStateSendGame } from "../../types/iStateSendGame";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
 import { IStateSendVideo } from "../../types/iStateSendVideo";
 import { IStateSetGameScore } from "../../types/iStateSetGameScore";
+import { IStateSetPassportDataErrors } from "../../types/iStateSetPassportDataErrors";
 import { IStateSetWebhook } from "../../types/iStateSetWebhook";
 import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
@@ -57,6 +58,7 @@ const configureStore: (
     sendMessage: IStateSendMessage;
     sendVideo: IStateSendVideo;
     setGameScore: IStateSetGameScore;
+    setPassportDataErrors: IStateSetPassportDataErrors;
     setWebhook: IStateSetWebhook;
     youtubeDownload: IStateYoutubeDownload;
     youtubeSearchList: IStateYoutubeSearchList;

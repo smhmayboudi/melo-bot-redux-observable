@@ -13,6 +13,7 @@ import * as sendGame from "./sendGame";
 import * as sendMessage from "./sendMessage";
 import * as sendVideo from "./sendVideo";
 import * as setGameScore from "./setGameScore";
+import * as setPassportDataErrors from "./setPassportDataErrors";
 import * as setWebhook from "./setWebhook";
 import * as youtubeDownload from "./youtubeDownload";
 import * as youtubeSearchList from "./youtubeSearchList";
@@ -34,6 +35,7 @@ export {
   sendMessage,
   sendVideo,
   setGameScore,
+  setPassportDataErrors,
   setWebhook,
   youtubeDownload,
   youtubeSearchList,

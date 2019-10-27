@@ -33,6 +33,8 @@ const actionSendVideoResultUndefined: string =
   "actionSendVideoResult undefined.";
 const actionSetGameScoreQueryUndefined: string =
   "actionSetGameScoreQuery undefined.";
+const actionSetPassportDataErrorsQueryUndefined: string =
+  "actionSetPassportDataErrorsQuery undefined.";
 const actionSetWebhookQueryUndefined: string =
   "actionSetWebhookQuery undefined.";
 const actionYoutubeDownloadQueryUndefined: string =
@@ -139,6 +141,7 @@ export {
   actionSendVideoResultReplyToMessageUndefined,
   actionSendVideoResultUndefined,
   actionSetGameScoreQueryUndefined,
+  actionSetPassportDataErrorsQueryUndefined,
   actionSetWebhookQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
   actionYoutubeDownloadResultUndefined,

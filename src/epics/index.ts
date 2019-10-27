@@ -19,6 +19,7 @@ import { sendGame } from "./sendGame";
 import { sendMessage } from "./sendMessage";
 import { sendVideo } from "./sendVideo";
 import { setGameScore } from "./setGameScore";
+import { setPassportDataErrors } from "./setPassportDataErrors";
 import { setWebhook } from "./setWebhook";
 import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
@@ -45,6 +46,7 @@ const index: Epic<
   sendMessage,
   sendVideo,
   setGameScore,
+  setPassportDataErrors,
   setWebhook,
   youtubeDownload,
   youtubeSearchList,
