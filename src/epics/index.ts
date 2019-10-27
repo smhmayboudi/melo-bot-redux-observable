@@ -12,8 +12,13 @@ import { answerShippingQuery } from "./answerShippingQuery";
 import { appError } from "./appError";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { createNewStickerSet } from "./createNewStickerSet";
+import { deleteMessage } from "./deleteMessage";
 import { deleteStickerFromSet } from "./deleteStickerFromSet";
 import { deleteWebhook } from "./deleteWebhook";
+import { editMessageCaption } from "./editMessageCaption";
+import { editMessageMedia } from "./editMessageMedia";
+import { editMessageReplyMarkup } from "./editMessageReplyMarkup";
+import { editMessageText } from "./editMessageText";
 import { getChatMember } from "./getChatMember";
 import { getGameHighScores } from "./getGameHighScores";
 import { getStickerSet } from "./getStickerSet";
@@ -30,6 +35,7 @@ import { setGameScore } from "./setGameScore";
 import { setPassportDataErrors } from "./setPassportDataErrors";
 import { setStickerPositionInSet } from "./setStickerPositionInSet";
 import { setWebhook } from "./setWebhook";
+import { stopPoll } from "./stopPoll";
 import { uploadStickerFile } from "./uploadStickerFile";
 import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
@@ -49,11 +55,16 @@ const index: Epic<
   appError,
   chosenInlineResult,
   createNewStickerSet,
+  deleteMessage,
   deleteStickerFromSet,
   deleteWebhook,
-  getChatMember,
+  editMessageCaption,
+  editMessageMedia,
+  editMessageReplyMarkup,
+  editMessageText,
   getGameHighScores,
   getStickerSet,
+  getChatMember,
   getUpdates,
   getWebhookInfo,
   inlineQuery,
@@ -67,6 +78,7 @@ const index: Epic<
   setPassportDataErrors,
   setStickerPositionInSet,
   setWebhook,
+  stopPoll,
   uploadStickerFile,
   youtubeDownload,
   youtubeSearchList,

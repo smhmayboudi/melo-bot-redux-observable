@@ -5,8 +5,13 @@ import * as answerPreCheckoutQuery from "./answerPreCheckoutQuery";
 import * as answerShippingQuery from "./answerShippingQuery";
 import * as chosenInlineResult from "./chosenInlineResult";
 import * as createNewStickerSet from "./createNewStickerSet";
+import * as deleteMessage from "./deleteMessage";
 import * as deleteStickerFromSet from "./deleteStickerFromSet";
 import * as deleteWebhook from "./deleteWebhook";
+import * as editMessageCaption from "./editMessageCaption";
+import * as editMessageMedia from "./editMessageMedia";
+import * as editMessageReplyMarkup from "./editMessageReplyMarkup";
+import * as editMessageText from "./editMessageText";
 import * as getChatMember from "./getChatMember";
 import * as getGameHighScores from "./getGameHighScores";
 import * as getStickerSet from "./getStickerSet";
@@ -24,6 +29,7 @@ import * as setGameScore from "./setGameScore";
 import * as setPassportDataErrors from "./setPassportDataErrors";
 import * as setStickerPositionInSet from "./setStickerPositionInSet";
 import * as setWebhook from "./setWebhook";
+import * as stopPoll from "./stopPoll";
 import * as uploadStickerFile from "./uploadStickerFile";
 import * as youtubeDownload from "./youtubeDownload";
 import * as youtubeSearchList from "./youtubeSearchList";
@@ -37,8 +43,13 @@ export {
   answerShippingQuery,
   chosenInlineResult,
   createNewStickerSet,
+  deleteMessage,
   deleteStickerFromSet,
   deleteWebhook,
+  editMessageCaption,
+  editMessageMedia,
+  editMessageReplyMarkup,
+  editMessageText,
   getGameHighScores,
   getStickerSet,
   getChatMember,
@@ -56,6 +67,7 @@ export {
   setPassportDataErrors,
   setStickerPositionInSet,
   setWebhook,
+  stopPoll,
   uploadStickerFile,
   youtubeDownload,
   youtubeSearchList,

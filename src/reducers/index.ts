@@ -7,8 +7,13 @@ import { IStateAnswerPreCheckoutQuery } from "../../types/iStateAnswerPreCheckou
 import { IStateAnswerShippingQuery } from "../../types/iStateAnswerShippingQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateCreateNewStickerSet } from "../../types/iStateCreateNewStickerSet";
+import { IStateDeleteMessage } from "../../types/iStateDeleteMessage";
 import { IStateDeleteStickerFromSet } from "../../types/iStateDeleteStickerFromSet";
 import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
+import { IStateEditMessageCaption } from "../../types/iStateEditMessageCaption";
+import { IStateEditMessageMedia } from "../../types/iStateEditMessageMedia";
+import { IStateEditMessageReplyMarkup } from "../../types/iStateEditMessageReplyMarkup";
+import { IStateEditMessageText } from "../../types/iStateEditMessageText";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
 import { IStateGetGameHighScores } from "../../types/iStateGetGameHighScores";
 import { IStateGetStickerSet } from "../../types/iStateGetStickerSet";
@@ -26,6 +31,7 @@ import { IStateSetGameScore } from "../../types/iStateSetGameScore";
 import { IStateSetPassportDataErrors } from "../../types/iStateSetPassportDataErrors";
 import { IStateSetStickerPositionInSet } from "../../types/iStateSetStickerPositionInSet";
 import { IStateSetWebhook } from "../../types/iStateSetWebhook";
+import { IStateStopPoll } from "../../types/iStateStopPoll";
 import { IStateUploadStickerFile } from "../../types/iStateUploadStickerFile";
 import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
@@ -38,8 +44,13 @@ import { answerPreCheckoutQuery } from "./answerPreCheckoutQuery";
 import { answerShippingQuery } from "./answerShippingQuery";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { createNewStickerSet } from "./createNewStickerSet";
+import { deleteMessage } from "./deleteMessage";
 import { deleteStickerFromSet } from "./deleteStickerFromSet";
 import { deleteWebhook } from "./deleteWebhook";
+import { editMessageCaption } from "./editMessageCaption";
+import { editMessageMedia } from "./editMessageMedia";
+import { editMessageReplyMarkup } from "./editMessageReplyMarkup";
+import { editMessageText } from "./editMessageText";
 import { getChatMember } from "./getChatMember";
 import { getGameHighScores } from "./getGameHighScores";
 import { getStickerSet } from "./getStickerSet";
@@ -57,6 +68,7 @@ import { setGameScore } from "./setGameScore";
 import { setPassportDataErrors } from "./setPassportDataErrors";
 import { setStickerPositionInSet } from "./setStickerPositionInSet";
 import { setWebhook } from "./setWebhook";
+import { stopPoll } from "./stopPoll";
 import { uploadStickerFile } from "./uploadStickerFile";
 import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
@@ -70,8 +82,13 @@ const index: Reducer<{
   answerShippingQuery: IStateAnswerShippingQuery;
   chosenInlineResult: IStateChosenInlineResult;
   createNewStickerSet: IStateCreateNewStickerSet;
+  deleteMessage: IStateDeleteMessage;
   deleteStickerFromSet: IStateDeleteStickerFromSet;
   deleteWebhook: IStateDeleteWebhook;
+  editMessageCaption: IStateEditMessageCaption;
+  editMessageMedia: IStateEditMessageMedia;
+  editMessageReplyMarkup: IStateEditMessageReplyMarkup;
+  editMessageText: IStateEditMessageText;
   getChatMember: IStateGetChatMember;
   getGameHighScores: IStateGetGameHighScores;
   getStickerSet: IStateGetStickerSet;
@@ -89,6 +106,7 @@ const index: Reducer<{
   setPassportDataErrors: IStateSetPassportDataErrors;
   setStickerPositionInSet: IStateSetStickerPositionInSet;
   setWebhook: IStateSetWebhook;
+  stopPoll: IStateStopPoll;
   uploadStickerFile: IStateUploadStickerFile;
   youtubeDownload: IStateYoutubeDownload;
   youtubeSearchList: IStateYoutubeSearchList;
@@ -101,11 +119,16 @@ const index: Reducer<{
   answerShippingQuery,
   chosenInlineResult,
   createNewStickerSet,
+  deleteMessage,
   deleteStickerFromSet,
   deleteWebhook,
-  getChatMember,
+  editMessageCaption,
+  editMessageMedia,
+  editMessageReplyMarkup,
+  editMessageText,
   getGameHighScores,
   getStickerSet,
+  getChatMember,
   getUpdates,
   getWebhookInfo,
   inlineQuery,
@@ -120,6 +143,7 @@ const index: Reducer<{
   setPassportDataErrors,
   setStickerPositionInSet,
   setWebhook,
+  stopPoll,
   uploadStickerFile,
   youtubeDownload,
   youtubeSearchList,

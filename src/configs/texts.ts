@@ -14,10 +14,20 @@ const actionChosenInlineResultQueryUndefined: string =
   "actionChosenInlineResultQuery undefined.";
 const actionCreateNewStickerSetQueryUndefined: string =
   "actionCreateNewStickerSetQuery undefined.";
+const actionDeleteMessageQueryUndefined: string =
+  "actionDeleteMessageQuery undefined.";
 const actionDeleteStickerFromSetQueryUndefined: string =
   "actionDeleteStickerFromSetQuery undefined.";
 const actionDeleteWebhookQueryUndefined: string =
   "actionDeleteWebhookQueryUndefined undefined.";
+const actionEditMessageCaptionQueryUndefined: string =
+  "actionEditMessageCaptionQuery undefined.";
+const actionEditMessageMediaQueryUndefined: string =
+  "actionEditMessageMediaQuery undefined.";
+const actionEditMessageReplyMarkupQueryUndefined: string =
+  "actionEditMessageReplyMarkupQuery undefined.";
+const actionEditMessageTextQueryUndefined: string =
+  "actionEditMessageTextQuery undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
 const actionGetGameHighScoresQueryUndefined: string =
@@ -55,6 +65,7 @@ const actionSetStickerPositionInSetQueryUndefined: string =
   "actionSetStickerPositionInSetQuery undefined.";
 const actionSetWebhookQueryUndefined: string =
   "actionSetWebhookQuery undefined.";
+const actionStopPollQueryUndefined: string = "actionStopPollQuery undefined.";
 const actionUploadStickerFileQueryUndefined: string =
   "actionUploadStickerFileQuery undefined.";
 const actionYoutubeDownloadQueryUndefined: string =
@@ -150,8 +161,13 @@ export {
   actionAnswerShippingQueryQueryUndefined,
   actionChosenInlineResultQueryUndefined,
   actionCreateNewStickerSetQueryUndefined,
+  actionDeleteMessageQueryUndefined,
   actionDeleteStickerFromSetQueryUndefined,
   actionDeleteWebhookQueryUndefined,
+  actionEditMessageCaptionQueryUndefined,
+  actionEditMessageMediaQueryUndefined,
+  actionEditMessageReplyMarkupQueryUndefined,
+  actionEditMessageTextQueryUndefined,
   actionGetChatMemberQueryUndefined,
   actionGetGameHighScoresQueryUndefined,
   actionGetStickerSetQueryUndefined,
@@ -172,6 +188,7 @@ export {
   actionSetPassportDataErrorsQueryUndefined,
   actionSetStickerPositionInSetQueryUndefined,
   actionSetWebhookQueryUndefined,
+  actionStopPollQueryUndefined,
   actionUploadStickerFileQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
   actionYoutubeDownloadResultUndefined,

@@ -1,3 +1,9 @@
+import { IStateDeleteMessage } from ".//iStateDeleteMessage";
+import { IStateEditMessageCaption } from ".//iStateEditMessageCaption";
+import { IStateEditMessageMedia } from ".//iStateEditMessageMedia";
+import { IStateEditMessageReplyMarkup } from ".//iStateEditMessageReplyMarkup";
+import { IStateEditMessageText } from ".//iStateEditMessageText";
+import { IStateStopPoll } from ".//iStateStopPoll";
 import { IStateAddStickerToSet } from "./iStateAddStickerToSet";
 import { IStateAnswerCallbackQuery } from "./iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "./iStateAnswerInlineQuery";
@@ -37,8 +43,13 @@ export interface IState {
   answerShippingQuery: IStateAnswerShippingQuery;
   chosenInlineResult: IStateChosenInlineResult;
   createNewStickerSet: IStateCreateNewStickerSet;
+  deleteMessage: IStateDeleteMessage;
   deleteStickerFromSet: IStateDeleteStickerFromSet;
   deleteWebhook: IStateDeleteWebhook;
+  editMessageCaption: IStateEditMessageCaption;
+  editMessageMedia: IStateEditMessageMedia;
+  editMessageReplyMarkup: IStateEditMessageReplyMarkup;
+  editMessageText: IStateEditMessageText;
   getChatMember: IStateGetChatMember;
   getGameHighScores: IStateGetGameHighScores;
   getStickerSet: IStateGetStickerSet;
@@ -56,6 +67,7 @@ export interface IState {
   setPassportDataErrors: IStateSetPassportDataErrors;
   setStickerPositionInSet: IStateSetStickerPositionInSet;
   setWebhook: IStateSetWebhook;
+  stopPoll: IStateStopPoll;
   uploadStickerFile: IStateUploadStickerFile;
   youtubeDownload: IStateYoutubeDownload;
   youtubeSearchList: IStateYoutubeSearchList;
