@@ -1,5 +1,7 @@
 import { findByCode } from "./emojis";
 
+const actionAddStickerToSetQueryUndefined: string =
+  "actionAddStickerToSetQuery undefined.";
 const actionAnswerCallbackQueryQueryUndefined: string =
   "actionAnswerCallbackQueryQuery undefined.";
 const actionAnswerInlineQueryQueryUndefined: string =
@@ -10,12 +12,18 @@ const actionAnswerShippingQueryQueryUndefined: string =
   "actionAnswerShippingQueryQuery undefined.";
 const actionChosenInlineResultQueryUndefined: string =
   "actionChosenInlineResultQuery undefined.";
+const actionCreateNewStickerSetQueryUndefined: string =
+  "actionCreateNewStickerSetQuery undefined.";
+const actionDeleteStickerFromSetQueryUndefined: string =
+  "actionDeleteStickerFromSetQuery undefined.";
 const actionDeleteWebhookQueryUndefined: string =
   "actionDeleteWebhookQueryUndefined undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
 const actionGetGameHighScoresQueryUndefined: string =
   "actionGetGameHighScoresQuery undefined.";
+const actionGetStickerSetQueryUndefined: string =
+  "actionGetStickerSetQuery undefined.";
 const actionGetWebhookInfoQueryUndefined: string =
   "actionGetWebhookInfoQuery undefined.";
 const actionGetUpdatesQueryUndefined: string =
@@ -28,6 +36,8 @@ const actionSendInvoiceQueryUndefined: string =
 const actionSendGameQueryUndefined: string = "actionSendGameQuery undefined.";
 const actionSendMessageQueryUndefined: string =
   "actionSendMessageQuery undefined.";
+const actionSendStickerQueryUndefined: string =
+  "actionSendStickerQuery undefined.";
 const actionSendVideoQueryUndefined: string = "actionSendVideoQuery undefined.";
 const actionSendVideoResultCaptionUndefined: string =
   "actionSendVideoResultCaption undefined.";
@@ -41,8 +51,12 @@ const actionSetGameScoreQueryUndefined: string =
   "actionSetGameScoreQuery undefined.";
 const actionSetPassportDataErrorsQueryUndefined: string =
   "actionSetPassportDataErrorsQuery undefined.";
+const actionSetStickerPositionInSetQueryUndefined: string =
+  "actionSetStickerPositionInSetQuery undefined.";
 const actionSetWebhookQueryUndefined: string =
   "actionSetWebhookQuery undefined.";
+const actionUploadStickerFileQueryUndefined: string =
+  "actionUploadStickerFileQuery undefined.";
 const actionYoutubeDownloadQueryUndefined: string =
   "actionYoutubeDownloadQuery undefined.";
 const actionYoutubeDownloadResultUndefined: string =
@@ -129,14 +143,18 @@ const state$ValueYoutubeVideoListQueryQUndefined: string =
   "state$ValueYoutubeVideoListQueryQ undefined.";
 
 export {
+  actionAddStickerToSetQueryUndefined,
   actionAnswerCallbackQueryQueryUndefined,
   actionAnswerInlineQueryQueryUndefined,
   actionAnswerPreCheckoutQueryQueryUndefined,
   actionAnswerShippingQueryQueryUndefined,
   actionChosenInlineResultQueryUndefined,
+  actionCreateNewStickerSetQueryUndefined,
+  actionDeleteStickerFromSetQueryUndefined,
   actionDeleteWebhookQueryUndefined,
   actionGetChatMemberQueryUndefined,
   actionGetGameHighScoresQueryUndefined,
+  actionGetStickerSetQueryUndefined,
   actionGetUpdatesQueryUndefined,
   actionGetWebhookInfoQueryUndefined,
   actionInlineQueryQueryUndefined,
@@ -144,6 +162,7 @@ export {
   actionSendInvoiceQueryUndefined,
   actionSendGameQueryUndefined,
   actionSendMessageQueryUndefined,
+  actionSendStickerQueryUndefined,
   actionSendVideoQueryUndefined,
   actionSendVideoResultCaptionUndefined,
   actionSendVideoResultReplyToMessageTextUndefined,
@@ -151,7 +170,9 @@ export {
   actionSendVideoResultUndefined,
   actionSetGameScoreQueryUndefined,
   actionSetPassportDataErrorsQueryUndefined,
+  actionSetStickerPositionInSetQueryUndefined,
   actionSetWebhookQueryUndefined,
+  actionUploadStickerFileQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
   actionYoutubeDownloadResultUndefined,
   actionYoutubeSearchListQueryUndefined,
