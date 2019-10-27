@@ -4,6 +4,10 @@ const actionAnswerCallbackQueryQueryUndefined: string =
   "actionAnswerCallbackQueryQuery undefined.";
 const actionAnswerInlineQueryQueryUndefined: string =
   "actionAnswerInlineQueryQuery undefined.";
+const actionAnswerPreCheckoutQueryQueryUndefined: string =
+  "actionAnswerPreCheckoutQueryQuery undefined.";
+const actionAnswerShippingQueryQueryUndefined: string =
+  "actionAnswerShippingQueryQuery undefined.";
 const actionChosenInlineResultQueryUndefined: string =
   "actionChosenInlineResultQuery undefined.";
 const actionDeleteWebhookQueryUndefined: string =
@@ -19,6 +23,8 @@ const actionGetUpdatesQueryUndefined: string =
 const actionInlineQueryQueryUndefined: string =
   "actionInlineQueryQuery undefined.";
 const actionSendAudioQueryUndefined: string = "actionSendAudioQuery undefined.";
+const actionSendInvoiceQueryUndefined: string =
+  "actionSendInvoiceQuery undefined.";
 const actionSendGameQueryUndefined: string = "actionSendGameQuery undefined.";
 const actionSendMessageQueryUndefined: string =
   "actionSendMessageQuery undefined.";
@@ -125,6 +131,8 @@ const state$ValueYoutubeVideoListQueryQUndefined: string =
 export {
   actionAnswerCallbackQueryQueryUndefined,
   actionAnswerInlineQueryQueryUndefined,
+  actionAnswerPreCheckoutQueryQueryUndefined,
+  actionAnswerShippingQueryQueryUndefined,
   actionChosenInlineResultQueryUndefined,
   actionDeleteWebhookQueryUndefined,
   actionGetChatMemberQueryUndefined,
@@ -133,6 +141,7 @@ export {
   actionGetWebhookInfoQueryUndefined,
   actionInlineQueryQueryUndefined,
   actionSendAudioQueryUndefined,
+  actionSendInvoiceQueryUndefined,
   actionSendGameQueryUndefined,
   actionSendMessageQueryUndefined,
   actionSendVideoQueryUndefined,

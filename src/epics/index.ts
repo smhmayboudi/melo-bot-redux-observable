@@ -6,6 +6,8 @@ import { IState } from "../../types/iState";
 
 import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
+import { answerPreCheckoutQuery } from "./answerPreCheckoutQuery";
+import { answerShippingQuery } from "./answerShippingQuery";
 import { appError } from "./appError";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { deleteWebhook } from "./deleteWebhook";
@@ -16,6 +18,7 @@ import { getWebhookInfo } from "./getWebhookInfo";
 import { inlineQuery } from "./inlineQuery";
 import { sendAudio } from "./sendAudio";
 import { sendGame } from "./sendGame";
+import { sendInvoice } from "./sendInvoice";
 import { sendMessage } from "./sendMessage";
 import { sendVideo } from "./sendVideo";
 import { setGameScore } from "./setGameScore";
@@ -33,6 +36,8 @@ const index: Epic<
 > = combineEpics(
   answerCallbackQuery,
   answerInlineQuery,
+  answerPreCheckoutQuery,
+  answerShippingQuery,
   appError,
   chosenInlineResult,
   deleteWebhook,
@@ -43,6 +48,7 @@ const index: Epic<
   inlineQuery,
   sendAudio,
   sendGame,
+  sendInvoice,
   sendMessage,
   sendVideo,
   setGameScore,

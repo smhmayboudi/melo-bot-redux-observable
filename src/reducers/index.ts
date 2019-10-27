@@ -2,6 +2,8 @@ import { combineReducers, Reducer } from "redux";
 
 import { IStateAnswerCallbackQuery } from "../../types/iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
+import { IStateAnswerPreCheckoutQuery } from "../../types/iStateAnswerPreCheckoutQuery";
+import { IStateAnswerShippingQuery } from "../../types/iStateAnswerShippingQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
@@ -12,6 +14,7 @@ import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
 import { IStateSendGame } from "../../types/iStateSendGame";
+import { IStateSendInvoice } from "../../types/iStateSendInvoice";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
 import { IStateSendVideo } from "../../types/iStateSendVideo";
 import { IStateSetGameScore } from "../../types/iStateSetGameScore";
@@ -23,6 +26,8 @@ import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
 
 import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
+import { answerPreCheckoutQuery } from "./answerPreCheckoutQuery";
+import { answerShippingQuery } from "./answerShippingQuery";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { deleteWebhook } from "./deleteWebhook";
 import { getChatMember } from "./getChatMember";
@@ -33,6 +38,7 @@ import { inlineQuery } from "./inlineQuery";
 import { message } from "./message";
 import { sendAudio } from "./sendAudio";
 import { sendGame } from "./sendGame";
+import { sendInvoice } from "./sendInvoice";
 import { sendMessage } from "./sendMessage";
 import { sendVideo } from "./sendVideo";
 import { setGameScore } from "./setGameScore";
@@ -45,6 +51,8 @@ import { youtubeVideoList } from "./youtubeVideoList";
 const index: Reducer<{
   answerCallbackQuery: IStateAnswerCallbackQuery;
   answerInlineQuery: IStateAnswerInlineQuery;
+  answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery;
+  answerShippingQuery: IStateAnswerShippingQuery;
   chosenInlineResult: IStateChosenInlineResult;
   deleteWebhook: IStateDeleteWebhook;
   getChatMember: IStateGetChatMember;
@@ -55,6 +63,7 @@ const index: Reducer<{
   message: IStateMessage;
   sendAudio: IStateSendAudio;
   sendGame: IStateSendGame;
+  sendInvoice: IStateSendInvoice;
   sendMessage: IStateSendMessage;
   sendVideo: IStateSendVideo;
   setGameScore: IStateSetGameScore;
@@ -66,6 +75,8 @@ const index: Reducer<{
 }> = combineReducers({
   answerCallbackQuery,
   answerInlineQuery,
+  answerPreCheckoutQuery,
+  answerShippingQuery,
   chosenInlineResult,
   deleteWebhook,
   getChatMember,
@@ -76,6 +87,7 @@ const index: Reducer<{
   message,
   sendAudio,
   sendGame,
+  sendInvoice,
   sendMessage,
   sendVideo,
   setGameScore,

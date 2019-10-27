@@ -2,47 +2,47 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
-import { IActionSetPassportDataErrors } from "../../types/iActionSetPassportDataErrors";
+import { IActionAnswerShippingQuery } from "../../types/iActionAnswerShippingQuery";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
-const setPassportDataErrors: (
-  action$: Observable<IActionSetPassportDataErrors>,
+const answerShippingQuery: (
+  action$: Observable<IActionAnswerShippingQuery>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionSetPassportDataErrors> = (
-  action$: Observable<IActionSetPassportDataErrors>,
+) => Observable<IActionAnswerShippingQuery> = (
+  action$: Observable<IActionAnswerShippingQuery>,
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionSetPassportDataErrors> => {
+): Observable<IActionAnswerShippingQuery> => {
   const { botToken, requestsObservable } = dependencies;
 
   const actionObservable: (
-    action: IActionSetPassportDataErrors
-  ) => Observable<IActionSetPassportDataErrors> = (
-    action: IActionSetPassportDataErrors
-  ): Observable<IActionSetPassportDataErrors> => {
+    action: IActionAnswerShippingQuery
+  ) => Observable<IActionAnswerShippingQuery> = (
+    action: IActionAnswerShippingQuery
+  ): Observable<IActionAnswerShippingQuery> => {
     if (botToken === undefined) {
       return of(
-        actions.setPassportDataErrors.error({
+        actions.answerShippingQuery.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       );
     }
     if (requestsObservable === undefined) {
       return of(
-        actions.setPassportDataErrors.error({
+        actions.answerShippingQuery.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       );
     }
-    if (action.setPassportDataErrors.query === undefined) {
+    if (action.answerShippingQuery.query === undefined) {
       return of(
-        actions.setPassportDataErrors.error({
-          error: new Error(texts.actionSetPassportDataErrorsQueryUndefined)
+        actions.answerShippingQuery.error({
+          error: new Error(texts.actionAnswerShippingQueryQueryUndefined)
         })
       );
     }
@@ -51,26 +51,26 @@ const setPassportDataErrors: (
       {
         host: "api.telegram.org",
         method: "POST",
-        path: `/bot${botToken}/setPassportDataErrors`
+        path: `/bot${botToken}/answerShippingQuery`
       },
-      action.setPassportDataErrors.query
+      action.answerShippingQuery.query
     ).pipe(
       map(
-        (response: IResponse): IActionSetPassportDataErrors => {
+        (response: IResponse): IActionAnswerShippingQuery => {
           if (response.ok) {
-            return actions.setPassportDataErrors.result({
+            return actions.answerShippingQuery.result({
               result: response.result as boolean
             });
           }
 
-          return actions.setPassportDataErrors.error({
+          return actions.answerShippingQuery.error({
             error: response
           });
         }
       ),
       catchError((error: any) =>
         of(
-          actions.setPassportDataErrors.error({
+          actions.answerShippingQuery.error({
             error
           })
         )
@@ -79,9 +79,9 @@ const setPassportDataErrors: (
   };
 
   return action$.pipe(
-    ofType(actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_QUERY),
+    ofType(actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_QUERY),
     switchMap(actionObservable)
   );
 };
 
-export { setPassportDataErrors };
+export { answerShippingQuery };

@@ -2,47 +2,48 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
-import { IActionSetPassportDataErrors } from "../../types/iActionSetPassportDataErrors";
+import { IActionSendInvoice } from "../../types/iActionSendInvoice";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
-const setPassportDataErrors: (
-  action$: Observable<IActionSetPassportDataErrors>,
+const sendInvoice: (
+  action$: Observable<IActionSendInvoice>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionSetPassportDataErrors> = (
-  action$: Observable<IActionSetPassportDataErrors>,
+) => Observable<IActionSendInvoice> = (
+  action$: Observable<IActionSendInvoice>,
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionSetPassportDataErrors> => {
+): Observable<IActionSendInvoice> => {
   const { botToken, requestsObservable } = dependencies;
 
   const actionObservable: (
-    action: IActionSetPassportDataErrors
-  ) => Observable<IActionSetPassportDataErrors> = (
-    action: IActionSetPassportDataErrors
-  ): Observable<IActionSetPassportDataErrors> => {
+    action: IActionSendInvoice
+  ) => Observable<IActionSendInvoice> = (
+    action: IActionSendInvoice
+  ): Observable<IActionSendInvoice> => {
     if (botToken === undefined) {
       return of(
-        actions.setPassportDataErrors.error({
+        actions.sendInvoice.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       );
     }
     if (requestsObservable === undefined) {
       return of(
-        actions.setPassportDataErrors.error({
+        actions.sendInvoice.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       );
     }
-    if (action.setPassportDataErrors.query === undefined) {
+    if (action.sendInvoice.query === undefined) {
       return of(
-        actions.setPassportDataErrors.error({
-          error: new Error(texts.actionSetPassportDataErrorsQueryUndefined)
+        actions.sendInvoice.error({
+          error: new Error(texts.actionSendInvoiceQueryUndefined)
         })
       );
     }
@@ -51,26 +52,26 @@ const setPassportDataErrors: (
       {
         host: "api.telegram.org",
         method: "POST",
-        path: `/bot${botToken}/setPassportDataErrors`
+        path: `/bot${botToken}/sendInvoice`
       },
-      action.setPassportDataErrors.query
+      action.sendInvoice.query
     ).pipe(
       map(
-        (response: IResponse): IActionSetPassportDataErrors => {
+        (response: IResponse): IActionSendInvoice => {
           if (response.ok) {
-            return actions.setPassportDataErrors.result({
-              result: response.result as boolean
+            return actions.sendInvoice.result({
+              result: response.result as IMessage
             });
           }
 
-          return actions.setPassportDataErrors.error({
+          return actions.sendInvoice.error({
             error: response
           });
         }
       ),
       catchError((error: any) =>
         of(
-          actions.setPassportDataErrors.error({
+          actions.sendInvoice.error({
             error
           })
         )
@@ -79,9 +80,9 @@ const setPassportDataErrors: (
   };
 
   return action$.pipe(
-    ofType(actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_QUERY),
+    ofType(actions.sendInvoice.SEND_INVOICE_QUERY),
     switchMap(actionObservable)
   );
 };
 
-export { setPassportDataErrors };
+export { sendInvoice };

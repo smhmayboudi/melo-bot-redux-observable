@@ -1,5 +1,7 @@
 import * as answerCallbackQuery from "./answerCallbackQuery";
 import * as answerInlineQuery from "./answerInlineQuery";
+import * as answerPreCheckoutQuery from "./answerPreCheckoutQuery";
+import * as answerShippingQuery from "./answerShippingQuery";
 import * as chosenInlineResult from "./chosenInlineResult";
 import * as deleteWebhook from "./deleteWebhook";
 import * as getChatMember from "./getChatMember";
@@ -10,6 +12,7 @@ import * as inlineQuery from "./inlineQuery";
 import * as message from "./message";
 import * as sendAudio from "./sendAudio";
 import * as sendGame from "./sendGame";
+import * as sendInvoice from "./sendInvoice";
 import * as sendMessage from "./sendMessage";
 import * as sendVideo from "./sendVideo";
 import * as setGameScore from "./setGameScore";
@@ -22,6 +25,8 @@ import * as youtubeVideoList from "./youtubeVideoList";
 export {
   answerCallbackQuery,
   answerInlineQuery,
+  answerPreCheckoutQuery,
+  answerShippingQuery,
   chosenInlineResult,
   deleteWebhook,
   getGameHighScores,
@@ -32,6 +37,7 @@ export {
   message,
   sendAudio,
   sendGame,
+  sendInvoice,
   sendMessage,
   sendVideo,
   setGameScore,

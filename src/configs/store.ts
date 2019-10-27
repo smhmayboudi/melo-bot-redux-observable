@@ -12,6 +12,8 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateAnswerCallbackQuery } from "../../types/iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
+import { IStateAnswerPreCheckoutQuery } from "../../types/iStateAnswerPreCheckoutQuery";
+import { IStateAnswerShippingQuery } from "../../types/iStateAnswerShippingQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
@@ -45,6 +47,8 @@ const configureStore: (
   const preloadedState: DeepPartial<{
     answerCallbackQuery: IStateAnswerCallbackQuery;
     answerInlineQuery: IStateAnswerInlineQuery;
+    answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery;
+    answerShippingQuery: IStateAnswerShippingQuery;
     chosenInlineResult: IStateChosenInlineResult;
     deleteWebhook: IStateDeleteWebhook;
     getChatMember: IStateGetChatMember;
