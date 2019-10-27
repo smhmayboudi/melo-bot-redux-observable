@@ -21,6 +21,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
   const query: IState<%= h.changeCase.pascal(name)%>Query = {
     // TODO: fill it
   };
+  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false
