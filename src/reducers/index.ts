@@ -17,6 +17,7 @@ import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { getChatMember } from "./getChatMember";
+import { getUpdates } from "./getUpdates";
 import { inlineQuery } from "./inlineQuery";
 import { message } from "./message";
 import { sendAudio } from "./sendAudio";
@@ -31,6 +32,7 @@ const index: Reducer<{
   answerInlineQuery: IStateAnswerInlineQuery;
   chosenInlineResult: IStateChosenInlineResult;
   getChatMember: IStateGetChatMember;
+  getUpdates: IStateGetChatMember;
   inlineQuery: IStateInlineQuery;
   message: IStateMessage;
   sendAudio: IStateSendAudio;
@@ -44,6 +46,7 @@ const index: Reducer<{
   answerInlineQuery,
   chosenInlineResult,
   getChatMember,
+  getUpdates,
   inlineQuery,
   message,
   sendAudio,

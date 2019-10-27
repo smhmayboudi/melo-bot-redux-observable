@@ -2,6 +2,7 @@ import * as answerCallbackQuery from "./answerCallbackQuery";
 import * as answerInlineQuery from "./answerInlineQuery";
 import * as chosenInlineResult from "./chosenInlineResult";
 import * as getChatMember from "./getChatMember";
+import * as getUpdates from "./getUpdates";
 import * as inlineQuery from "./inlineQuery";
 import * as message from "./message";
 import * as sendAudio from "./sendAudio";
@@ -16,6 +17,7 @@ export {
   answerInlineQuery,
   chosenInlineResult,
   getChatMember,
+  getUpdates,
   inlineQuery,
   message,
   sendAudio,

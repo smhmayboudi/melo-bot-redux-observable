@@ -8,6 +8,8 @@ const actionChosenInlineResultQueryUndefined: string =
   "actionChosenInlineResultQuery undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
+const actionGetUpdatesQueryUndefined: string =
+  "actionGetUpdatesQuery undefined.";
 const actionInlineQueryQueryUndefined: string =
   "actionInlineQueryQuery undefined.";
 const actionSendAudioQueryUndefined: string = "actionSendAudioQuery undefined.";
@@ -112,6 +114,7 @@ export {
   actionAnswerInlineQueryQueryUndefined,
   actionChosenInlineResultQueryUndefined,
   actionGetChatMemberQueryUndefined,
+  actionGetUpdatesQueryUndefined,
   actionInlineQueryQueryUndefined,
   actionSendAudioQueryUndefined,
   actionSendMessageQueryUndefined,
