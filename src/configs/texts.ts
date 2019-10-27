@@ -10,6 +10,8 @@ const actionDeleteWebhookQueryUndefined: string =
   "actionDeleteWebhookQueryUndefined undefined.";
 const actionGetChatMemberQueryUndefined: string =
   "actionGetChatMemberQuery undefined.";
+const actionGetGameHighScoresQueryUndefined: string =
+  "actionGetGameHighScoresQuery undefined.";
 const actionGetWebhookInfoQueryUndefined: string =
   "actionGetWebhookInfoQuery undefined.";
 const actionGetUpdatesQueryUndefined: string =
@@ -17,6 +19,7 @@ const actionGetUpdatesQueryUndefined: string =
 const actionInlineQueryQueryUndefined: string =
   "actionInlineQueryQuery undefined.";
 const actionSendAudioQueryUndefined: string = "actionSendAudioQuery undefined.";
+const actionSendGameQueryUndefined: string = "actionSendGameQuery undefined.";
 const actionSendMessageQueryUndefined: string =
   "actionSendMessageQuery undefined.";
 const actionSendVideoQueryUndefined: string = "actionSendVideoQuery undefined.";
@@ -28,6 +31,8 @@ const actionSendVideoResultReplyToMessageUndefined: string =
   "actionSendVideoResultReplyToMessage undefined.";
 const actionSendVideoResultUndefined: string =
   "actionSendVideoResult undefined.";
+const actionSetGameScoreQueryUndefined: string =
+  "actionSetGameScoreQuery undefined.";
 const actionSetWebhookQueryUndefined: string =
   "actionSetWebhookQuery undefined.";
 const actionYoutubeDownloadQueryUndefined: string =
@@ -121,16 +126,19 @@ export {
   actionChosenInlineResultQueryUndefined,
   actionDeleteWebhookQueryUndefined,
   actionGetChatMemberQueryUndefined,
+  actionGetGameHighScoresQueryUndefined,
   actionGetUpdatesQueryUndefined,
   actionGetWebhookInfoQueryUndefined,
   actionInlineQueryQueryUndefined,
   actionSendAudioQueryUndefined,
+  actionSendGameQueryUndefined,
   actionSendMessageQueryUndefined,
   actionSendVideoQueryUndefined,
   actionSendVideoResultCaptionUndefined,
   actionSendVideoResultReplyToMessageTextUndefined,
   actionSendVideoResultReplyToMessageUndefined,
   actionSendVideoResultUndefined,
+  actionSetGameScoreQueryUndefined,
   actionSetWebhookQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
   actionYoutubeDownloadResultUndefined,
