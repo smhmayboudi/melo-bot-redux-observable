@@ -2,48 +2,47 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
-import { IActionGetUpdates } from "../../types/iActionGetUpdates";
+import { IActionSetWebhook } from "../../types/iActionSetWebhook";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
-import { IUpdate } from "../../types/telegramBot/updates/iUpdate";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
-const getUpdates: (
-  action$: Observable<IActionGetUpdates>,
+const setWebhook: (
+  action$: Observable<IActionSetWebhook>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionGetUpdates> = (
-  action$: Observable<IActionGetUpdates>,
+) => Observable<IActionSetWebhook> = (
+  action$: Observable<IActionSetWebhook>,
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionGetUpdates> => {
+): Observable<IActionSetWebhook> => {
   const { botToken, requestsObservable } = dependencies;
 
   const actionObservable: (
-    action: IActionGetUpdates
-  ) => Observable<IActionGetUpdates> = (
-    action: IActionGetUpdates
-  ): Observable<IActionGetUpdates> => {
+    action: IActionSetWebhook
+  ) => Observable<IActionSetWebhook> = (
+    action: IActionSetWebhook
+  ): Observable<IActionSetWebhook> => {
     if (botToken === undefined) {
       return of(
-        actions.getUpdates.error({
+        actions.setWebhook.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       );
     }
     if (requestsObservable === undefined) {
       return of(
-        actions.getUpdates.error({
+        actions.setWebhook.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       );
     }
-    if (action.getUpdates.query === undefined) {
+    if (action.setWebhook.query === undefined) {
       return of(
-        actions.getUpdates.error({
-          error: new Error(texts.actionGetUpdatesQueryUndefined)
+        actions.setWebhook.error({
+          error: new Error(texts.actionSetWebhookQueryUndefined)
         })
       );
     }
@@ -52,26 +51,26 @@ const getUpdates: (
       {
         host: "api.telegram.org",
         method: "POST",
-        path: `/bot${botToken}/getUpdates`
+        path: `/bot${botToken}/setWebhook`
       },
-      action.getUpdates.query
+      action.setWebhook.query
     ).pipe(
       map(
-        (response: IResponse): IActionGetUpdates => {
+        (response: IResponse): IActionSetWebhook => {
           if (response.ok) {
-            return actions.getUpdates.result({
-              result: response.result as IUpdate[]
+            return actions.setWebhook.result({
+              result: response.result as boolean
             });
           }
 
-          return actions.getUpdates.error({
+          return actions.setWebhook.error({
             error: response
           });
         }
       ),
       catchError((error: any) =>
         of(
-          actions.getUpdates.error({
+          actions.setWebhook.error({
             error
           })
         )
@@ -80,9 +79,9 @@ const getUpdates: (
   };
 
   return action$.pipe(
-    ofType(actions.getUpdates.GET_UPDATES_QUERY),
+    ofType(actions.setWebhook.SET_WEBHOOK_QUERY),
     switchMap(actionObservable)
   );
 };
 
-export { getUpdates };
+export { setWebhook };

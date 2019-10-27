@@ -10,14 +10,17 @@ import { composeWithDevTools } from "remote-redux-devtools";
 
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IStateAnswerCallbackQuery } from "../../types/iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
+import { IStateGetUpdates } from "../../types/iStateGetUpdates";
 import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 import { IStateMessage } from "../../types/iStateMessage";
 import { IStateSendAudio } from "../../types/iStateSendAudio";
 import { IStateSendMessage } from "../../types/iStateSendMessage";
 import { IStateSendVideo } from "../../types/iStateSendVideo";
+import { IStateSetWebhook } from "../../types/iStateSetWebhook";
 import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
 import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
@@ -34,14 +37,17 @@ const configureStore: (
   dependencies?: IDependencies
 ): Store<IState> & { dispatch: {} } => {
   const preloadedState: DeepPartial<{
+    answerCallbackQuery: IStateAnswerCallbackQuery;
     answerInlineQuery: IStateAnswerInlineQuery;
     chosenInlineResult: IStateChosenInlineResult;
     getChatMember: IStateGetChatMember;
+    getUpdates: IStateGetUpdates;
     inlineQuery: IStateInlineQuery;
     message: IStateMessage;
     sendAudio: IStateSendAudio;
     sendMessage: IStateSendMessage;
     sendVideo: IStateSendVideo;
+    setWebhook: IStateSetWebhook;
     youtubeDownload: IStateYoutubeDownload;
     youtubeSearchList: IStateYoutubeSearchList;
     youtubeVideoList: IStateYoutubeVideoList;

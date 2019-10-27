@@ -24,6 +24,8 @@ const actionSendVideoResultReplyToMessageUndefined: string =
   "actionSendVideoResultReplyToMessage undefined.";
 const actionSendVideoResultUndefined: string =
   "actionSendVideoResult undefined.";
+const actionSetWebhookQueryUndefined: string =
+  "actionSetWebhookQuery undefined.";
 const actionYoutubeDownloadQueryUndefined: string =
   "actionYoutubeDownloadQuery undefined.";
 const actionYoutubeDownloadResultUndefined: string =
@@ -123,6 +125,7 @@ export {
   actionSendVideoResultReplyToMessageTextUndefined,
   actionSendVideoResultReplyToMessageUndefined,
   actionSendVideoResultUndefined,
+  actionSetWebhookQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
   actionYoutubeDownloadResultUndefined,
   actionYoutubeSearchListQueryUndefined,

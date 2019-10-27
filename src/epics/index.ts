@@ -14,6 +14,7 @@ import { inlineQuery } from "./inlineQuery";
 import { sendAudio } from "./sendAudio";
 import { sendMessage } from "./sendMessage";
 import { sendVideo } from "./sendVideo";
+import { setWebhook } from "./setWebhook";
 import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
@@ -34,6 +35,7 @@ const index: Epic<
   sendAudio,
   sendMessage,
   sendVideo,
+  setWebhook,
   youtubeDownload,
   youtubeSearchList,
   youtubeVideoList
