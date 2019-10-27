@@ -1,3 +1,4 @@
+import * as answerCallbackQuery from "./answerCallbackQuery";
 import * as answerInlineQuery from "./answerInlineQuery";
 import * as chosenInlineResult from "./chosenInlineResult";
 import * as getChatMember from "./getChatMember";
@@ -11,6 +12,7 @@ import * as youtubeSearchList from "./youtubeSearchList";
 import * as youtubeVideoList from "./youtubeVideoList";
 
 export {
+  answerCallbackQuery,
   answerInlineQuery,
   chosenInlineResult,
   getChatMember,

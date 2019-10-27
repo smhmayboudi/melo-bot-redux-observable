@@ -1,5 +1,6 @@
 import { combineReducers, Reducer } from "redux";
 
+import { IStateAnswerCallbackQuery } from "../../types/iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 import { IStateGetChatMember } from "../../types/iStateGetChatMember";
@@ -12,6 +13,7 @@ import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "../../types/iStateYoutubeSearchList";
 import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
 
+import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { getChatMember } from "./getChatMember";
@@ -25,6 +27,7 @@ import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
 
 const index: Reducer<{
+  AnswerCallbackQuery: IStateAnswerCallbackQuery;
   answerInlineQuery: IStateAnswerInlineQuery;
   chosenInlineResult: IStateChosenInlineResult;
   getChatMember: IStateGetChatMember;
@@ -37,6 +40,7 @@ const index: Reducer<{
   youtubeSearchList: IStateYoutubeSearchList;
   youtubeVideoList: IStateYoutubeVideoList;
 }> = combineReducers({
+  answerCallbackQuery,
   answerInlineQuery,
   chosenInlineResult,
   getChatMember,

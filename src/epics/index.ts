@@ -4,6 +4,7 @@ import { combineEpics, Epic } from "redux-observable";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 
+import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
 import { appError } from "./appError";
 import { chosenInlineResult } from "./chosenInlineResult";
@@ -22,6 +23,7 @@ const index: Epic<
   IState,
   IDependencies
 > = combineEpics(
+  answerCallbackQuery,
   answerInlineQuery,
   appError,
   chosenInlineResult,

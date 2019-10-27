@@ -1,13 +1,13 @@
 import {
   captureException,
   configureScope,
-  getCurrentHub,
-  Hub,
+  // GetCurrentHub,
+  // Hub,
   init,
-  Scope,
-  Severity
+  Scope
+  // Severity
 } from "@sentry/node";
-import { Integration } from "@sentry/types";
+// Import { Integration } from "@sentry/types";
 import debug from "debug";
 import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
 
@@ -20,10 +20,10 @@ const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
 
 init({
   dsn: env.SENTRY_DSN,
-  integrations: (integrations: Integration[]): Integration[] =>
-    integrations.filter(
-      (integration: Integration) => integration.name !== "OnUncaughtException"
-    ),
+  // Integrations: (integrations: Integration[]): Integration[] =>
+  //   Integrations.filter(
+  //     (integration: Integration) => integration.name !== "OnUncaughtException"
+  //   ),
   onFatalError: (error: Error): void => {
     appDebug(error);
   },
@@ -31,13 +31,13 @@ init({
   serverName: env.SENTRY_SERVERNAME
 });
 
-global.process.on("uncaughtException", (error: Error): void => {
-  const hub: Hub = getCurrentHub();
-  hub.withScope((scope: Scope): void => {
-    scope.setLevel(Severity.Fatal);
-    hub.captureException(error);
-  });
-});
+// Global.process.on("uncaughtException", (error: Error): void => {
+//   Const hub: Hub = getCurrentHub();
+//   Hub.withScope((scope: Scope): void => {
+//     Scope.setLevel(Severity.Fatal);
+//     Hub.captureException(error);
+//   });
+// });
 
 const crashReporter: Middleware = (
   middlewareAPI: MiddlewareAPI

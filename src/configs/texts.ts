@@ -1,5 +1,7 @@
 import { findByCode } from "./emojis";
 
+const actionAnswerCallbackQueryQueryUndefined: string =
+  "actionAnswerCallbackQueryQuery undefined.";
 const actionAnswerInlineQueryQueryUndefined: string =
   "actionAnswerInlineQueryQuery undefined.";
 const actionChosenInlineResultQueryUndefined: string =
@@ -106,6 +108,7 @@ const state$ValueYoutubeVideoListQueryQUndefined: string =
   "state$ValueYoutubeVideoListQueryQ undefined.";
 
 export {
+  actionAnswerCallbackQueryQueryUndefined,
   actionAnswerInlineQueryQueryUndefined,
   actionChosenInlineResultQueryUndefined,
   actionGetChatMemberQueryUndefined,

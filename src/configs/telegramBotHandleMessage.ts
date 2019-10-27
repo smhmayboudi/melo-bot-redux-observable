@@ -21,6 +21,11 @@ const handleMessage: (
 ): void => {
   appDebug("telegramBot:handleMessage");
   switch (message.text) {
+    case "/start":
+    case "/help":
+    case "/settings":
+    case "/setinlinegeo":
+      break;
     case "/getChatMember":
       store.dispatch(
         actions.getChatMember.query({
