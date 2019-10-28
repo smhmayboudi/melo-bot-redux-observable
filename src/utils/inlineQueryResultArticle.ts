@@ -39,19 +39,12 @@ const transformSearchList: (
           inline_keyboard: [
             [
               {
-                // TODO: callback_data?: string,
-                // TODO: callback_game?: ICallbackGame,
-                login_url: {
-                  // TODO: bot_username?: string,
-                  // TODO: forward_text?: string,
-                  // TODO: request_write_access?: boolean,
-                  url: "http://www.melobit.com"
-                },
-                // TODO: pay?: boolean,
-                // TODO: switch_inline_query?: string,
-                // TODO: switch_inline_query_current_chat?: string,
-                text: "reply_markup:text"
-                // TODO: url?: string;
+                callback_data: "callback_data:OK",
+                text: "OK"
+              },
+              {
+                callback_data: "callback_data:NOK",
+                text: "NOK"
               }
             ]
           ]

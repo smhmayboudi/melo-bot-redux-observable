@@ -277,8 +277,21 @@ const youtubeDownload: (
           duration: videoInfo.dur,
           height: videoInfo.fmtList.height,
           parse_mode: "HTML",
-          reply_markup: { remove_keyboard: true },
           reply_to_message_id: messageId,
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  callback_data: "callback_data:OK",
+                  text: "OK"
+                },
+                {
+                  callback_data: "callback_data:NOK",
+                  text: "NOK"
+                }
+              ]
+            ]
+          },
           supports_streaming: true,
           thumb,
           video,
