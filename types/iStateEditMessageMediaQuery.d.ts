@@ -15,5 +15,5 @@ export interface IStateEditMessageMediaQuery {
     | IInputMediaPhoto
     | IInputMediaVideo;
   message_id?: number;
-  reply_markup: IInlineKeyboardMarkup;
+  reply_markup?: IInlineKeyboardMarkup;
 }

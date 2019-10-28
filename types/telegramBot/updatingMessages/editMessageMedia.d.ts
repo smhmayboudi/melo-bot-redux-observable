@@ -12,8 +12,8 @@ export type editMessageMedia = (
     | IInputMediaDocument
     | IInputMediaPhoto
     | IInputMediaVideo,
-  reply_markup: IInlineKeyboardMarkup,
   chat_id?: number | string,
   inline_message_id?: string,
-  message_id?: number
+  message_id?: number,
+  reply_markup?: IInlineKeyboardMarkup
 ) => IMessage;
