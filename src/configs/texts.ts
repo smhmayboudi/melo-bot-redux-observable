@@ -145,9 +145,12 @@ const actionYoutubeVideoListResultItemsUndefined: string =
 const actionYoutubeVideoListResultUndefined: string =
   "actionYoutubeVideoListResult undefined.";
 const commandDownload: string = "dl";
+const commandHelp: string = "help";
 const commandMostPopular: string = "mp";
 const commandRelatedToVideoId: string = "rl";
 const commandSeparator: string = "_";
+const commandSetInlineGeo: string = "setinlinegeo";
+const commandSettings: string = "settings";
 const commandStart: string = "start";
 const epicDependencyBotTokenUndefined: string =
   "epicDependencyBotToken undefined.";
@@ -186,6 +189,7 @@ const messageChannelJoinLink: string =
 const messageError: string = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
   findByCode("1F915").char
 }`;
+const messageHelp: string = "HELP";
 const messageJoin: string = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
   findByCode("1F449").char
 } ${messageChannelJoinLink} ${findByCode("1F448").char}`;
@@ -196,6 +200,8 @@ const messageResultRelatedTo: string = `${
   findByCode("1F50E").char
 } RELATED RESULT(S)`;
 const messageSeparator: string = "--------------------";
+const messageSetInlineGeo: string = "SETINLINEGEO";
+const messageSettings: string = "SETTINGS";
 const messageStart: string = `WELCOME ${findByCode("1F917").char}`;
 const state$Undefined: string = "state$ undefined.";
 const state$ValueGetChatMemberQueryUndefined: string =
@@ -293,9 +299,12 @@ export {
   actionYoutubeVideoListResultItemsUndefined,
   actionYoutubeVideoListResultUndefined,
   commandDownload,
+  commandHelp,
   commandMostPopular,
   commandRelatedToVideoId,
   commandSeparator,
+  commandSetInlineGeo,
+  commandSettings,
   commandStart,
   epicDependencyBotTokenUndefined,
   epicDependencyCollectionObservableUndefined,
@@ -315,11 +324,14 @@ export {
   messageChannel,
   messageChannelJoinLink,
   messageError,
+  messageHelp,
   messageJoin,
   messageNoResult,
   messageResultQ,
   messageResultRelatedTo,
   messageSeparator,
+  messageSetInlineGeo,
+  messageSettings,
   messageStart,
   state$Undefined,
   state$ValueGetChatMemberQueryUndefined,

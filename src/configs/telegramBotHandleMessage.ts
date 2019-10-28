@@ -21,11 +21,6 @@ const handleMessage: (
 ): void => {
   appDebug("telegramBot:handleMessage");
   switch (message.text) {
-    case "/start":
-    case "/help":
-    case "/settings":
-    case "/setinlinegeo":
-      break;
     case "/getChatMember":
       store.dispatch(
         actions.getChatMember.query({
@@ -104,7 +99,7 @@ const handleMessage: (
             key: env.GOOGLE_API_KEY,
             maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
             part: "id,snippet",
-            q: "HI",
+            q: "youtube",
             type: env.GOOGLE_API_SEARCH_LIST_TYPE
           }
         })
@@ -134,7 +129,49 @@ const handleMessage: (
                 parse_mode: "HTML",
                 reply_markup: { remove_keyboard: true },
                 reply_to_message_id: message.message_id,
+                text: texts.messageHelp
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandHelp}`)) {
+          store.dispatch(
+            actions.sendMessage.query({
+              query: {
+                chat_id: message.chat.id,
+                disable_notification: true,
+                disable_web_page_preview: true,
+                parse_mode: "HTML",
+                reply_markup: { remove_keyboard: true },
+                reply_to_message_id: message.message_id,
                 text: texts.messageStart
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandSettings}`)) {
+          store.dispatch(
+            actions.sendMessage.query({
+              query: {
+                chat_id: message.chat.id,
+                disable_notification: true,
+                disable_web_page_preview: true,
+                parse_mode: "HTML",
+                reply_markup: { remove_keyboard: true },
+                reply_to_message_id: message.message_id,
+                text: texts.messageSettings
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandSetInlineGeo}`)) {
+          store.dispatch(
+            actions.sendMessage.query({
+              query: {
+                chat_id: message.chat.id,
+                disable_notification: true,
+                disable_web_page_preview: true,
+                parse_mode: "HTML",
+                reply_markup: { remove_keyboard: true },
+                reply_to_message_id: message.message_id,
+                text: texts.messageSetInlineGeo
               }
             })
           );
