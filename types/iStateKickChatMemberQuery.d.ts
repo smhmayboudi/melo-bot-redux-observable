@@ -1,3 +1,5 @@
 export interface IStateKickChatMemberQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  until_date?: number;
+  user_id: number;
 }

@@ -3,6 +3,5 @@ import { IStateDeleteChatStickerSetQuery } from "./iStateDeleteChatStickerSetQue
 export interface IStateDeleteChatStickerSet {
   error?: any;
   query?: IStateDeleteChatStickerSetQuery;
-  // TODO: check it
   result?: boolean;
 }

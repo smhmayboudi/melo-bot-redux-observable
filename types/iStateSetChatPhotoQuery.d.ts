@@ -1,3 +1,6 @@
+import { IInputFile } from "./telegramBot/types/iInputFile";
+
 export interface IStateSetChatPhotoQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  photo: IInputFile;
 }

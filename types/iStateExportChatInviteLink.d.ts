@@ -3,6 +3,5 @@ import { IStateExportChatInviteLinkQuery } from "./iStateExportChatInviteLinkQue
 export interface IStateExportChatInviteLink {
   error?: any;
   query?: IStateExportChatInviteLinkQuery;
-  // TODO: check it
-  result?: boolean;
+  result?: string;
 }

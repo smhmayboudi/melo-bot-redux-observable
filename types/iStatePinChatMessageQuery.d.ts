@@ -1,3 +1,5 @@
 export interface IStatePinChatMessageQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  disable_notification?: boolean;
+  message_id: number;
 }

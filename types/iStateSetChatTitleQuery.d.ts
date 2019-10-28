@@ -1,3 +1,4 @@
 export interface IStateSetChatTitleQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  title: string;
 }

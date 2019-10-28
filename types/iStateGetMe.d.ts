@@ -1,8 +1,8 @@
 import { IStateGetMeQuery } from "./iStateGetMeQuery";
+import { IUser } from "./telegramBot/types/iUser";
 
 export interface IStateGetMe {
   error?: any;
   query?: IStateGetMeQuery;
-  // TODO: check it
-  result?: boolean;
+  result?: IUser;
 }

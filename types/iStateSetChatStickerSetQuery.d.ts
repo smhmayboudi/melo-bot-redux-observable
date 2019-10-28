@@ -1,3 +1,4 @@
 export interface IStateSetChatStickerSetQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  sticker_set_name: string;
 }

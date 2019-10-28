@@ -1,3 +1,3 @@
 export interface IStateDeleteChatStickerSetQuery {
-  // TODO: fill it
+  chat_id: number | string;
 }

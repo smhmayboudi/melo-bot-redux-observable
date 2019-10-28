@@ -1,3 +1,5 @@
 export interface IStateGetUserProfilePhotosQuery {
-  // TODO: fill it
+  limit?: number;
+  offset?: number;
+  user_id: number;
 }

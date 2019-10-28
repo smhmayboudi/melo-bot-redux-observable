@@ -1,3 +1,4 @@
 export interface IStateUnbanChatMemberQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  user_id: number;
 }

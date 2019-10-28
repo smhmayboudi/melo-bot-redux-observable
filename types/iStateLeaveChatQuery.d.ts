@@ -1,3 +1,3 @@
 export interface IStateLeaveChatQuery {
-  // TODO: fill it
+  chat_id: number | string;
 }

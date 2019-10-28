@@ -1,3 +1,3 @@
 export interface IStateGetChatMembersCountQuery {
-  // TODO: fill it
+  chat_id: number | string;
 }

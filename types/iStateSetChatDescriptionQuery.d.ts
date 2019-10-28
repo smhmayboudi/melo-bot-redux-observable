@@ -1,3 +1,4 @@
 export interface IStateSetChatDescriptionQuery {
-  // TODO: fill it
+  chat_id: number | string;
+  description?: string;
 }

@@ -1,3 +1,8 @@
+import { IInlineKeyboardMarkup } from "./telegramBot/types/iInlineKeyboardMarkup";
+
 export interface IStateStopMessageLiveLocationQuery {
-  // TODO: fill it
+  chat_id?: number | string;
+  inline_message_id?: string;
+  message_id?: number;
+  reply_markup?: IInlineKeyboardMarkup;
 }

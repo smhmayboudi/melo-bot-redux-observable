@@ -1,8 +1,8 @@
 import { IStateSendContactQuery } from "./iStateSendContactQuery";
+import { IMessage } from "./telegramBot/types/iMessage";
 
 export interface IStateSendContact {
   error?: any;
   query?: IStateSendContactQuery;
-  // TODO: check it
-  result?: boolean;
+  result?: IMessage;
 }

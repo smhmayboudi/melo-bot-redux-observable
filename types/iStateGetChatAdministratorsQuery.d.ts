@@ -1,3 +1,3 @@
 export interface IStateGetChatAdministratorsQuery {
-  // TODO: fill it
+  chat_id: number | string;
 }

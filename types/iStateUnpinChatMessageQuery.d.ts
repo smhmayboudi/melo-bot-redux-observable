@@ -1,3 +1,3 @@
 export interface IStateUnpinChatMessageQuery {
-  // TODO: fill it
+  chat_id: number | string;
 }

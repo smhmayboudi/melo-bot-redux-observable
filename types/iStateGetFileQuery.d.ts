@@ -1,3 +1,3 @@
 export interface IStateGetFileQuery {
-  // TODO: fill it
+  file_id: string;
 }

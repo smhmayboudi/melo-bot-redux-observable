@@ -1,3 +1,4 @@
 export interface IStateSendChatActionQuery {
-  // TODO: fill it
+  action: string;
+  chat_id: number | string;
 }

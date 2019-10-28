@@ -1,3 +1,3 @@
 export interface IStateDeleteChatPhotoQuery {
-  // TODO: fill it
+  chat_id: number | string;
 }
