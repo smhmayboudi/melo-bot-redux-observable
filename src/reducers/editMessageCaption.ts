@@ -12,11 +12,11 @@ const editMessageCaption: (
 ): IStateEditMessageCaption => {
   switch (action.type) {
     case actions.editMessageCaption.EDIT_MESSAGE_CAPTION_ERROR:
-      return { error: action.editMessageCaption.error, query: state.query };
+      return { ...state, error: action.editMessageCaption.error };
     case actions.editMessageCaption.EDIT_MESSAGE_CAPTION_QUERY:
-      return { query: action.editMessageCaption.query };
+      return { ...state, query: action.editMessageCaption.query };
     case actions.editMessageCaption.EDIT_MESSAGE_CAPTION_RESULT:
-      return { query: state.query, result: action.editMessageCaption.result };
+      return { ...state, result: action.editMessageCaption.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const getChatMember: (
 ): IStateGetChatMember => {
   switch (action.type) {
     case actions.getChatMember.GET_CHAT_MEMBER_ERROR:
-      return { error: action.getChatMember.error, query: state.query };
+      return { ...state, error: action.getChatMember.error };
     case actions.getChatMember.GET_CHAT_MEMBER_QUERY:
-      return { query: action.getChatMember.query };
+      return { ...state, query: action.getChatMember.query };
     case actions.getChatMember.GET_CHAT_MEMBER_RESULT:
-      return { query: state.query, result: action.getChatMember.result };
+      return { ...state, result: action.getChatMember.result };
     default:
       return state;
   }

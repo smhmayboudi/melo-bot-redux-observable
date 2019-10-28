@@ -12,11 +12,11 @@ const getUserProfilePhotos: (
 ): IStateGetUserProfilePhotos => {
   switch (action.type) {
     case actions.getUserProfilePhotos.GET_USER_PROFILE_PHOTOS_ERROR:
-      return { error: action.getUserProfilePhotos.error, query: state.query };
+      return { ...state, error: action.getUserProfilePhotos.error };
     case actions.getUserProfilePhotos.GET_USER_PROFILE_PHOTOS_QUERY:
-      return { query: action.getUserProfilePhotos.query };
+      return { ...state, query: action.getUserProfilePhotos.query };
     case actions.getUserProfilePhotos.GET_USER_PROFILE_PHOTOS_RESULT:
-      return { query: state.query, result: action.getUserProfilePhotos.result };
+      return { ...state, result: action.getUserProfilePhotos.result };
     default:
       return state;
   }

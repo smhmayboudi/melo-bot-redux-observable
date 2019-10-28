@@ -12,12 +12,12 @@ const setPassportDataErrors: (
 ): IStateSetPassportDataErrors => {
   switch (action.type) {
     case actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_ERROR:
-      return { error: action.setPassportDataErrors.error, query: state.query };
+      return { ...state, error: action.setPassportDataErrors.error };
     case actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_QUERY:
-      return { query: action.setPassportDataErrors.query };
+      return { ...state, query: action.setPassportDataErrors.query };
     case actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.setPassportDataErrors.result
       };
     default:

@@ -12,12 +12,12 @@ const answerPreCheckoutQuery: (
 ): IStateAnswerPreCheckoutQuery => {
   switch (action.type) {
     case actions.answerPreCheckoutQuery.ANSWER_PRE_CHECKOUT_QUERY_ERROR:
-      return { error: action.answerPreCheckoutQuery.error, query: state.query };
+      return { ...state, error: action.answerPreCheckoutQuery.error };
     case actions.answerPreCheckoutQuery.ANSWER_PRE_CHECKOUT_QUERY_QUERY:
-      return { query: action.answerPreCheckoutQuery.query };
+      return { ...state, query: action.answerPreCheckoutQuery.query };
     case actions.answerPreCheckoutQuery.ANSWER_PRE_CHECKOUT_QUERY_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.answerPreCheckoutQuery.result
       };
     default:

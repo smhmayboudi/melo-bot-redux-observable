@@ -12,11 +12,11 @@ const youtubeDownload: (
 ): IStateYoutubeDownload => {
   switch (action.type) {
     case actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR:
-      return { error: action.youtubeDownload.error, query: state.query };
+      return { ...state, error: action.youtubeDownload.error };
     case actions.youtubeDownload.YOUTUBE_DOWNLOAD_QUERY:
-      return { query: action.youtubeDownload.query };
+      return { ...state, query: action.youtubeDownload.query };
     case actions.youtubeDownload.YOUTUBE_DOWNLOAD_RESULT:
-      return { query: state.query, result: action.youtubeDownload.result };
+      return { ...state, result: action.youtubeDownload.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const sendMessage: (
 ): IStateSendMessage => {
   switch (action.type) {
     case actions.sendMessage.SEND_MESSAGE_ERROR:
-      return { error: action.sendMessage.error, query: state.query };
+      return { ...state, error: action.sendMessage.error };
     case actions.sendMessage.SEND_MESSAGE_QUERY:
-      return { query: action.sendMessage.query };
+      return { ...state, query: action.sendMessage.query };
     case actions.sendMessage.SEND_MESSAGE_RESULT:
-      return { query: state.query, result: action.sendMessage.result };
+      return { ...state, result: action.sendMessage.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const sendVenue: (
 ): IStateSendVenue => {
   switch (action.type) {
     case actions.sendVenue.SEND_VENUE_ERROR:
-      return { error: action.sendVenue.error, query: state.query };
+      return { ...state, error: action.sendVenue.error };
     case actions.sendVenue.SEND_VENUE_QUERY:
-      return { query: action.sendVenue.query };
+      return { ...state, query: action.sendVenue.query };
     case actions.sendVenue.SEND_VENUE_RESULT:
-      return { query: state.query, result: action.sendVenue.result };
+      return { ...state, result: action.sendVenue.result };
     default:
       return state;
   }

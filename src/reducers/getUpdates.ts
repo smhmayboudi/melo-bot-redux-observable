@@ -11,11 +11,11 @@ const getUpdates: (
 ): IStateGetUpdates => {
   switch (action.type) {
     case actions.getUpdates.GET_UPDATES_ERROR:
-      return { error: action.getUpdates.error, query: state.query };
+      return { ...state, error: action.getUpdates.error };
     case actions.getUpdates.GET_UPDATES_QUERY:
-      return { query: action.getUpdates.query };
+      return { ...state, query: action.getUpdates.query };
     case actions.getUpdates.GET_UPDATES_RESULT:
-      return { query: state.query, result: action.getUpdates.result };
+      return { ...state, result: action.getUpdates.result };
     default:
       return state;
   }

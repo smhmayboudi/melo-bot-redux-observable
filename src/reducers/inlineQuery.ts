@@ -11,11 +11,11 @@ const inlineQuery: (
 ): IStateInlineQuery => {
   switch (action.type) {
     case actions.inlineQuery.INLINE_QUERY_ERROR:
-      return { error: action.inlineQuery.error, query: state.query };
+      return { ...state, error: action.inlineQuery.error };
     case actions.inlineQuery.INLINE_QUERY_QUERY:
-      return { query: action.inlineQuery.query };
+      return { ...state, query: action.inlineQuery.query };
     case actions.inlineQuery.INLINE_QUERY_RESULT:
-      return { query: state.query, result: action.inlineQuery.result };
+      return { ...state, result: action.inlineQuery.result };
     default:
       return state;
   }

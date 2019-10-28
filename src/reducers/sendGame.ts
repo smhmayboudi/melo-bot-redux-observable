@@ -11,11 +11,11 @@ const sendGame: (
 ): IStateSendGame => {
   switch (action.type) {
     case actions.sendGame.SEND_GAME_ERROR:
-      return { error: action.sendGame.error, query: state.query };
+      return { ...state, error: action.sendGame.error };
     case actions.sendGame.SEND_GAME_QUERY:
-      return { query: action.sendGame.query };
+      return { ...state, query: action.sendGame.query };
     case actions.sendGame.SEND_GAME_RESULT:
-      return { query: state.query, result: action.sendGame.result };
+      return { ...state, result: action.sendGame.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const deleteWebhook: (
 ): IStateDeleteWebhook => {
   switch (action.type) {
     case actions.deleteWebhook.DELETE_WEBHOOK_ERROR:
-      return { error: action.deleteWebhook.error, query: state.query };
+      return { ...state, error: action.deleteWebhook.error };
     case actions.deleteWebhook.DELETE_WEBHOOK_QUERY:
-      return { query: action.deleteWebhook.query };
+      return { ...state, query: action.deleteWebhook.query };
     case actions.deleteWebhook.DELETE_WEBHOOK_RESULT:
-      return { query: state.query, result: action.deleteWebhook.result };
+      return { ...state, result: action.deleteWebhook.result };
     default:
       return state;
   }

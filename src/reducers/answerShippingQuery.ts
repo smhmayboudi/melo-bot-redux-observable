@@ -12,11 +12,11 @@ const answerShippingQuery: (
 ): IStateAnswerShippingQuery => {
   switch (action.type) {
     case actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_ERROR:
-      return { error: action.answerShippingQuery.error, query: state.query };
+      return { ...state, error: action.answerShippingQuery.error };
     case actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_QUERY:
-      return { query: action.answerShippingQuery.query };
+      return { ...state, query: action.answerShippingQuery.query };
     case actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_RESULT:
-      return { query: state.query, result: action.answerShippingQuery.result };
+      return { ...state, result: action.answerShippingQuery.result };
     default:
       return state;
   }

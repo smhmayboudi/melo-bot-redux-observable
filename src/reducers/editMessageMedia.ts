@@ -12,11 +12,11 @@ const editMessageMedia: (
 ): IStateEditMessageMedia => {
   switch (action.type) {
     case actions.editMessageMedia.EDIT_MESSAGE_MEDIA_ERROR:
-      return { error: action.editMessageMedia.error, query: state.query };
+      return { ...state, error: action.editMessageMedia.error };
     case actions.editMessageMedia.EDIT_MESSAGE_MEDIA_QUERY:
-      return { query: action.editMessageMedia.query };
+      return { ...state, query: action.editMessageMedia.query };
     case actions.editMessageMedia.EDIT_MESSAGE_MEDIA_RESULT:
-      return { query: state.query, result: action.editMessageMedia.result };
+      return { ...state, result: action.editMessageMedia.result };
     default:
       return state;
   }

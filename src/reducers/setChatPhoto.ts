@@ -11,11 +11,11 @@ const setChatPhoto: (
 ): IStateSetChatPhoto => {
   switch (action.type) {
     case actions.setChatPhoto.SET_CHAT_PHOTO_ERROR:
-      return { error: action.setChatPhoto.error, query: state.query };
+      return { ...state, error: action.setChatPhoto.error };
     case actions.setChatPhoto.SET_CHAT_PHOTO_QUERY:
-      return { query: action.setChatPhoto.query };
+      return { ...state, query: action.setChatPhoto.query };
     case actions.setChatPhoto.SET_CHAT_PHOTO_RESULT:
-      return { query: state.query, result: action.setChatPhoto.result };
+      return { ...state, result: action.setChatPhoto.result };
     default:
       return state;
   }

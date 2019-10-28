@@ -12,12 +12,12 @@ const getChatAdministrators: (
 ): IStateGetChatAdministrators => {
   switch (action.type) {
     case actions.getChatAdministrators.GET_CHAT_ADMINISTRATORS_ERROR:
-      return { error: action.getChatAdministrators.error, query: state.query };
+      return { ...state, error: action.getChatAdministrators.error };
     case actions.getChatAdministrators.GET_CHAT_ADMINISTRATORS_QUERY:
-      return { query: action.getChatAdministrators.query };
+      return { ...state, query: action.getChatAdministrators.query };
     case actions.getChatAdministrators.GET_CHAT_ADMINISTRATORS_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.getChatAdministrators.result
       };
     default:

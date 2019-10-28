@@ -11,11 +11,11 @@ const leaveChat: (
 ): IStateLeaveChat => {
   switch (action.type) {
     case actions.leaveChat.LEAVE_CHAT_ERROR:
-      return { error: action.leaveChat.error, query: state.query };
+      return { ...state, error: action.leaveChat.error };
     case actions.leaveChat.LEAVE_CHAT_QUERY:
-      return { query: action.leaveChat.query };
+      return { ...state, query: action.leaveChat.query };
     case actions.leaveChat.LEAVE_CHAT_RESULT:
-      return { query: state.query, result: action.leaveChat.result };
+      return { ...state, result: action.leaveChat.result };
     default:
       return state;
   }

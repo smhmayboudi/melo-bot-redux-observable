@@ -11,11 +11,11 @@ const sendLocation: (
 ): IStateSendLocation => {
   switch (action.type) {
     case actions.sendLocation.SEND_LOCATION_ERROR:
-      return { error: action.sendLocation.error, query: state.query };
+      return { ...state, error: action.sendLocation.error };
     case actions.sendLocation.SEND_LOCATION_QUERY:
-      return { query: action.sendLocation.query };
+      return { ...state, query: action.sendLocation.query };
     case actions.sendLocation.SEND_LOCATION_RESULT:
-      return { query: state.query, result: action.sendLocation.result };
+      return { ...state, result: action.sendLocation.result };
     default:
       return state;
   }

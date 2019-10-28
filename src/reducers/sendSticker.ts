@@ -11,11 +11,11 @@ const sendSticker: (
 ): IStateSendSticker => {
   switch (action.type) {
     case actions.sendSticker.SEND_STICKER_ERROR:
-      return { error: action.sendSticker.error, query: state.query };
+      return { ...state, error: action.sendSticker.error };
     case actions.sendSticker.SEND_STICKER_QUERY:
-      return { query: action.sendSticker.query };
+      return { ...state, query: action.sendSticker.query };
     case actions.sendSticker.SEND_STICKER_RESULT:
-      return { query: state.query, result: action.sendSticker.result };
+      return { ...state, result: action.sendSticker.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const sendContact: (
 ): IStateSendContact => {
   switch (action.type) {
     case actions.sendContact.SEND_CONTACT_ERROR:
-      return { error: action.sendContact.error, query: state.query };
+      return { ...state, error: action.sendContact.error };
     case actions.sendContact.SEND_CONTACT_QUERY:
-      return { query: action.sendContact.query };
+      return { ...state, query: action.sendContact.query };
     case actions.sendContact.SEND_CONTACT_RESULT:
-      return { query: state.query, result: action.sendContact.result };
+      return { ...state, result: action.sendContact.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const forwardMessage: (
 ): IStateForwardMessage => {
   switch (action.type) {
     case actions.forwardMessage.FORWARD_MESSAGE_ERROR:
-      return { error: action.forwardMessage.error, query: state.query };
+      return { ...state, error: action.forwardMessage.error };
     case actions.forwardMessage.FORWARD_MESSAGE_QUERY:
-      return { query: action.forwardMessage.query };
+      return { ...state, query: action.forwardMessage.query };
     case actions.forwardMessage.FORWARD_MESSAGE_RESULT:
-      return { query: state.query, result: action.forwardMessage.result };
+      return { ...state, result: action.forwardMessage.result };
     default:
       return state;
   }

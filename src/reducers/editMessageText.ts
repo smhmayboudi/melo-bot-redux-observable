@@ -12,11 +12,11 @@ const editMessageText: (
 ): IStateEditMessageText => {
   switch (action.type) {
     case actions.editMessageText.EDIT_MESSAGE_TEXT_ERROR:
-      return { error: action.editMessageText.error, query: state.query };
+      return { ...state, error: action.editMessageText.error };
     case actions.editMessageText.EDIT_MESSAGE_TEXT_QUERY:
-      return { query: action.editMessageText.query };
+      return { ...state, query: action.editMessageText.query };
     case actions.editMessageText.EDIT_MESSAGE_TEXT_RESULT:
-      return { query: state.query, result: action.editMessageText.result };
+      return { ...state, result: action.editMessageText.result };
     default:
       return state;
   }

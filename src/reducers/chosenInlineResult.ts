@@ -12,11 +12,11 @@ const chosenInlineResult: (
 ): IStateChosenInlineResult => {
   switch (action.type) {
     case actions.chosenInlineResult.CHOSEN_INLINE_RESULT_ERROR:
-      return { error: action.chosenInlineResult.error, query: state.query };
+      return { ...state, error: action.chosenInlineResult.error };
     case actions.chosenInlineResult.CHOSEN_INLINE_RESULT_QUERY:
-      return { query: action.chosenInlineResult.query };
+      return { ...state, query: action.chosenInlineResult.query };
     case actions.chosenInlineResult.CHOSEN_INLINE_RESULT_RESULT:
-      return { query: state.query, result: action.chosenInlineResult.result };
+      return { ...state, result: action.chosenInlineResult.result };
     default:
       return state;
   }

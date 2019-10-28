@@ -12,11 +12,11 @@ const setChatDescription: (
 ): IStateSetChatDescription => {
   switch (action.type) {
     case actions.setChatDescription.SET_CHAT_DESCRIPTION_ERROR:
-      return { error: action.setChatDescription.error, query: state.query };
+      return { ...state, error: action.setChatDescription.error };
     case actions.setChatDescription.SET_CHAT_DESCRIPTION_QUERY:
-      return { query: action.setChatDescription.query };
+      return { ...state, query: action.setChatDescription.query };
     case actions.setChatDescription.SET_CHAT_DESCRIPTION_RESULT:
-      return { query: state.query, result: action.setChatDescription.result };
+      return { ...state, result: action.setChatDescription.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const kickChatMember: (
 ): IStateKickChatMember => {
   switch (action.type) {
     case actions.kickChatMember.KICK_CHAT_MEMBER_ERROR:
-      return { error: action.kickChatMember.error, query: state.query };
+      return { ...state, error: action.kickChatMember.error };
     case actions.kickChatMember.KICK_CHAT_MEMBER_QUERY:
-      return { query: action.kickChatMember.query };
+      return { ...state, query: action.kickChatMember.query };
     case actions.kickChatMember.KICK_CHAT_MEMBER_RESULT:
-      return { query: state.query, result: action.kickChatMember.result };
+      return { ...state, result: action.kickChatMember.result };
     default:
       return state;
   }

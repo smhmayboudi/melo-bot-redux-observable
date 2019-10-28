@@ -11,11 +11,11 @@ const getWebhookInfo: (
 ): IStateGetWebhookInfo => {
   switch (action.type) {
     case actions.getWebhookInfo.GET_WEBHOOK_INFO_ERROR:
-      return { error: action.getWebhookInfo.error, query: state.query };
+      return { ...state, error: action.getWebhookInfo.error };
     case actions.getWebhookInfo.GET_WEBHOOK_INFO_QUERY:
-      return { query: action.getWebhookInfo.query };
+      return { ...state, query: action.getWebhookInfo.query };
     case actions.getWebhookInfo.GET_WEBHOOK_INFO_RESULT:
-      return { query: state.query, result: action.getWebhookInfo.result };
+      return { ...state, result: action.getWebhookInfo.result };
     default:
       return state;
   }

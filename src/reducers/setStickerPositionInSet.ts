@@ -13,14 +13,14 @@ const setStickerPositionInSet: (
   switch (action.type) {
     case actions.setStickerPositionInSet.SET_STICKER_POSITION_IN_SET_ERROR:
       return {
-        error: action.setStickerPositionInSet.error,
-        query: state.query
+        ...state,
+        error: action.setStickerPositionInSet.error
       };
     case actions.setStickerPositionInSet.SET_STICKER_POSITION_IN_SET_QUERY:
-      return { query: action.setStickerPositionInSet.query };
+      return { ...state, query: action.setStickerPositionInSet.query };
     case actions.setStickerPositionInSet.SET_STICKER_POSITION_IN_SET_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.setStickerPositionInSet.result
       };
     default:

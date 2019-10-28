@@ -11,11 +11,11 @@ const sendAudio: (
 ): IStateSendAudio => {
   switch (action.type) {
     case actions.sendAudio.SEND_AUDIO_ERROR:
-      return { error: action.sendAudio.error, query: state.query };
+      return { ...state, error: action.sendAudio.error };
     case actions.sendAudio.SEND_AUDIO_QUERY:
-      return { query: action.sendAudio.query };
+      return { ...state, query: action.sendAudio.query };
     case actions.sendAudio.SEND_AUDIO_RESULT:
-      return { query: state.query, result: action.sendAudio.result };
+      return { ...state, result: action.sendAudio.result };
     default:
       return state;
   }

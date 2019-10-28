@@ -12,11 +12,11 @@ const deleteStickerFromSet: (
 ): IStateDeleteStickerFromSet => {
   switch (action.type) {
     case actions.deleteStickerFromSet.DELETE_STICKER_FROM_SET_ERROR:
-      return { error: action.deleteStickerFromSet.error, query: state.query };
+      return { ...state, error: action.deleteStickerFromSet.error };
     case actions.deleteStickerFromSet.DELETE_STICKER_FROM_SET_QUERY:
-      return { query: action.deleteStickerFromSet.query };
+      return { ...state, query: action.deleteStickerFromSet.query };
     case actions.deleteStickerFromSet.DELETE_STICKER_FROM_SET_RESULT:
-      return { query: state.query, result: action.deleteStickerFromSet.result };
+      return { ...state, result: action.deleteStickerFromSet.result };
     default:
       return state;
   }

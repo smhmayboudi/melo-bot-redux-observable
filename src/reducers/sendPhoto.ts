@@ -11,11 +11,11 @@ const sendPhoto: (
 ): IStateSendPhoto => {
   switch (action.type) {
     case actions.sendPhoto.SEND_PHOTO_ERROR:
-      return { error: action.sendPhoto.error, query: state.query };
+      return { ...state, error: action.sendPhoto.error };
     case actions.sendPhoto.SEND_PHOTO_QUERY:
-      return { query: action.sendPhoto.query };
+      return { ...state, query: action.sendPhoto.query };
     case actions.sendPhoto.SEND_PHOTO_RESULT:
-      return { query: state.query, result: action.sendPhoto.result };
+      return { ...state, result: action.sendPhoto.result };
     default:
       return state;
   }

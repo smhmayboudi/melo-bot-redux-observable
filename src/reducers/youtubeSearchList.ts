@@ -12,11 +12,11 @@ const youtubeSearchList: (
 ): IStateYoutubeSearchList => {
   switch (action.type) {
     case actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR:
-      return { error: action.youtubeSearchList.error, query: state.query };
+      return { ...state, error: action.youtubeSearchList.error };
     case actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_QUERY:
-      return { query: action.youtubeSearchList.query };
+      return { ...state, query: action.youtubeSearchList.query };
     case actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_RESULT:
-      return { query: state.query, result: action.youtubeSearchList.result };
+      return { ...state, result: action.youtubeSearchList.result };
     default:
       return state;
   }

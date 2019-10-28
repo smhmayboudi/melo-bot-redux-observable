@@ -12,11 +12,11 @@ const uploadStickerFile: (
 ): IStateUploadStickerFile => {
   switch (action.type) {
     case actions.uploadStickerFile.UPLOAD_STICKER_FILE_ERROR:
-      return { error: action.uploadStickerFile.error, query: state.query };
+      return { ...state, error: action.uploadStickerFile.error };
     case actions.uploadStickerFile.UPLOAD_STICKER_FILE_QUERY:
-      return { query: action.uploadStickerFile.query };
+      return { ...state, query: action.uploadStickerFile.query };
     case actions.uploadStickerFile.UPLOAD_STICKER_FILE_RESULT:
-      return { query: state.query, result: action.uploadStickerFile.result };
+      return { ...state, result: action.uploadStickerFile.result };
     default:
       return state;
   }

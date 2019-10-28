@@ -11,11 +11,11 @@ const sendVoice: (
 ): IStateSendVoice => {
   switch (action.type) {
     case actions.sendVoice.SEND_VOICE_ERROR:
-      return { error: action.sendVoice.error, query: state.query };
+      return { ...state, error: action.sendVoice.error };
     case actions.sendVoice.SEND_VOICE_QUERY:
-      return { query: action.sendVoice.query };
+      return { ...state, query: action.sendVoice.query };
     case actions.sendVoice.SEND_VOICE_RESULT:
-      return { query: state.query, result: action.sendVoice.result };
+      return { ...state, result: action.sendVoice.result };
     default:
       return state;
   }

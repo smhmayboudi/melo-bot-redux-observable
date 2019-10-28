@@ -11,11 +11,11 @@ const deleteMessage: (
 ): IStateDeleteMessage => {
   switch (action.type) {
     case actions.deleteMessage.DELETE_MESSAGE_ERROR:
-      return { error: action.deleteMessage.error, query: state.query };
+      return { ...state, error: action.deleteMessage.error };
     case actions.deleteMessage.DELETE_MESSAGE_QUERY:
-      return { query: action.deleteMessage.query };
+      return { ...state, query: action.deleteMessage.query };
     case actions.deleteMessage.DELETE_MESSAGE_RESULT:
-      return { query: state.query, result: action.deleteMessage.result };
+      return { ...state, result: action.deleteMessage.result };
     default:
       return state;
   }

@@ -12,11 +12,11 @@ const answerInlineQuery: (
 ): IStateAnswerInlineQuery => {
   switch (action.type) {
     case actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR:
-      return { error: action.answerInlineQuery.error, query: state.query };
+      return { ...state, error: action.answerInlineQuery.error };
     case actions.answerInlineQuery.ANSWER_INLINE_QUERY_QUERY:
-      return { query: action.answerInlineQuery.query };
+      return { ...state, query: action.answerInlineQuery.query };
     case actions.answerInlineQuery.ANSWER_INLINE_QUERY_RESULT:
-      return { query: state.query, result: action.answerInlineQuery.result };
+      return { ...state, result: action.answerInlineQuery.result };
     default:
       return state;
   }

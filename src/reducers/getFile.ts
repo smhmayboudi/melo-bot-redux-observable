@@ -11,11 +11,11 @@ const getFile: (
 ): IStateGetFile => {
   switch (action.type) {
     case actions.getFile.GET_FILE_ERROR:
-      return { error: action.getFile.error, query: state.query };
+      return { ...state, error: action.getFile.error };
     case actions.getFile.GET_FILE_QUERY:
-      return { query: action.getFile.query };
+      return { ...state, query: action.getFile.query };
     case actions.getFile.GET_FILE_RESULT:
-      return { query: state.query, result: action.getFile.result };
+      return { ...state, result: action.getFile.result };
     default:
       return state;
   }

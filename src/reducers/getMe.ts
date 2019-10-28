@@ -11,11 +11,11 @@ const getMe: (
 ): IStateGetMe => {
   switch (action.type) {
     case actions.getMe.GET_ME_ERROR:
-      return { error: action.getMe.error, query: state.query };
+      return { ...state, error: action.getMe.error };
     case actions.getMe.GET_ME_QUERY:
-      return { query: action.getMe.query };
+      return { ...state, query: action.getMe.query };
     case actions.getMe.GET_ME_RESULT:
-      return { query: state.query, result: action.getMe.result };
+      return { ...state, result: action.getMe.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const sendDocument: (
 ): IStateSendDocument => {
   switch (action.type) {
     case actions.sendDocument.SEND_DOCUMENT_ERROR:
-      return { error: action.sendDocument.error, query: state.query };
+      return { ...state, error: action.sendDocument.error };
     case actions.sendDocument.SEND_DOCUMENT_QUERY:
-      return { query: action.sendDocument.query };
+      return { ...state, query: action.sendDocument.query };
     case actions.sendDocument.SEND_DOCUMENT_RESULT:
-      return { query: state.query, result: action.sendDocument.result };
+      return { ...state, result: action.sendDocument.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const pinChatMessage: (
 ): IStatePinChatMessage => {
   switch (action.type) {
     case actions.pinChatMessage.PIN_CHAT_MESSAGE_ERROR:
-      return { error: action.pinChatMessage.error, query: state.query };
+      return { ...state, error: action.pinChatMessage.error };
     case actions.pinChatMessage.PIN_CHAT_MESSAGE_QUERY:
-      return { query: action.pinChatMessage.query };
+      return { ...state, query: action.pinChatMessage.query };
     case actions.pinChatMessage.PIN_CHAT_MESSAGE_RESULT:
-      return { query: state.query, result: action.pinChatMessage.result };
+      return { ...state, result: action.pinChatMessage.result };
     default:
       return state;
   }

@@ -12,11 +12,11 @@ const deleteChatStickerSet: (
 ): IStateDeleteChatStickerSet => {
   switch (action.type) {
     case actions.deleteChatStickerSet.DELETE_CHAT_STICKER_SET_ERROR:
-      return { error: action.deleteChatStickerSet.error, query: state.query };
+      return { ...state, error: action.deleteChatStickerSet.error };
     case actions.deleteChatStickerSet.DELETE_CHAT_STICKER_SET_QUERY:
-      return { query: action.deleteChatStickerSet.query };
+      return { ...state, query: action.deleteChatStickerSet.query };
     case actions.deleteChatStickerSet.DELETE_CHAT_STICKER_SET_RESULT:
-      return { query: state.query, result: action.deleteChatStickerSet.result };
+      return { ...state, result: action.deleteChatStickerSet.result };
     default:
       return state;
   }

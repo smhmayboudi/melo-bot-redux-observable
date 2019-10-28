@@ -13,14 +13,14 @@ const stopMessageLiveLocation: (
   switch (action.type) {
     case actions.stopMessageLiveLocation.STOP_MESSAGE_LIVE_LOCATION_ERROR:
       return {
-        error: action.stopMessageLiveLocation.error,
-        query: state.query
+        ...state,
+        error: action.stopMessageLiveLocation.error
       };
     case actions.stopMessageLiveLocation.STOP_MESSAGE_LIVE_LOCATION_QUERY:
-      return { query: action.stopMessageLiveLocation.query };
+      return { ...state, query: action.stopMessageLiveLocation.query };
     case actions.stopMessageLiveLocation.STOP_MESSAGE_LIVE_LOCATION_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.stopMessageLiveLocation.result
       };
     default:

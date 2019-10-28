@@ -11,11 +11,11 @@ const sendAnimation: (
 ): IStateSendAnimation => {
   switch (action.type) {
     case actions.sendAnimation.SEND_ANIMATION_ERROR:
-      return { error: action.sendAnimation.error, query: state.query };
+      return { ...state, error: action.sendAnimation.error };
     case actions.sendAnimation.SEND_ANIMATION_QUERY:
-      return { query: action.sendAnimation.query };
+      return { ...state, query: action.sendAnimation.query };
     case actions.sendAnimation.SEND_ANIMATION_RESULT:
-      return { query: state.query, result: action.sendAnimation.result };
+      return { ...state, result: action.sendAnimation.result };
     default:
       return state;
   }

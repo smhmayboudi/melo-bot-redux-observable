@@ -11,11 +11,11 @@ const stopPoll: (
 ): IStateStopPoll => {
   switch (action.type) {
     case actions.stopPoll.STOP_POLL_ERROR:
-      return { error: action.stopPoll.error, query: state.query };
+      return { ...state, error: action.stopPoll.error };
     case actions.stopPoll.STOP_POLL_QUERY:
-      return { query: action.stopPoll.query };
+      return { ...state, query: action.stopPoll.query };
     case actions.stopPoll.STOP_POLL_RESULT:
-      return { query: state.query, result: action.stopPoll.result };
+      return { ...state, result: action.stopPoll.result };
     default:
       return state;
   }

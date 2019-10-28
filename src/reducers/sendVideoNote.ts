@@ -11,11 +11,11 @@ const sendVideoNote: (
 ): IStateSendVideoNote => {
   switch (action.type) {
     case actions.sendVideoNote.SEND_VIDEO_NOTE_ERROR:
-      return { error: action.sendVideoNote.error, query: state.query };
+      return { ...state, error: action.sendVideoNote.error };
     case actions.sendVideoNote.SEND_VIDEO_NOTE_QUERY:
-      return { query: action.sendVideoNote.query };
+      return { ...state, query: action.sendVideoNote.query };
     case actions.sendVideoNote.SEND_VIDEO_NOTE_RESULT:
-      return { query: state.query, result: action.sendVideoNote.result };
+      return { ...state, result: action.sendVideoNote.result };
     default:
       return state;
   }

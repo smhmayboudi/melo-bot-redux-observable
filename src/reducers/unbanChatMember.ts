@@ -12,11 +12,11 @@ const unbanChatMember: (
 ): IStateUnbanChatMember => {
   switch (action.type) {
     case actions.unbanChatMember.UNBAN_CHAT_MEMBER_ERROR:
-      return { error: action.unbanChatMember.error, query: state.query };
+      return { ...state, error: action.unbanChatMember.error };
     case actions.unbanChatMember.UNBAN_CHAT_MEMBER_QUERY:
-      return { query: action.unbanChatMember.query };
+      return { ...state, query: action.unbanChatMember.query };
     case actions.unbanChatMember.UNBAN_CHAT_MEMBER_RESULT:
-      return { query: state.query, result: action.unbanChatMember.result };
+      return { ...state, result: action.unbanChatMember.result };
     default:
       return state;
   }

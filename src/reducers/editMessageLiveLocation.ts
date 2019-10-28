@@ -13,14 +13,14 @@ const editMessageLiveLocation: (
   switch (action.type) {
     case actions.editMessageLiveLocation.EDIT_MESSAGE_LIVE_LOCATION_ERROR:
       return {
-        error: action.editMessageLiveLocation.error,
-        query: state.query
+        ...state,
+        error: action.editMessageLiveLocation.error
       };
     case actions.editMessageLiveLocation.EDIT_MESSAGE_LIVE_LOCATION_QUERY:
-      return { query: action.editMessageLiveLocation.query };
+      return { ...state, query: action.editMessageLiveLocation.query };
     case actions.editMessageLiveLocation.EDIT_MESSAGE_LIVE_LOCATION_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.editMessageLiveLocation.result
       };
     default:

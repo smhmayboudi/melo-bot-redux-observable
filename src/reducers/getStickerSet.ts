@@ -11,11 +11,11 @@ const getStickerSet: (
 ): IStateGetStickerSet => {
   switch (action.type) {
     case actions.getStickerSet.GET_STICKER_SET_ERROR:
-      return { error: action.getStickerSet.error, query: state.query };
+      return { ...state, error: action.getStickerSet.error };
     case actions.getStickerSet.GET_STICKER_SET_QUERY:
-      return { query: action.getStickerSet.query };
+      return { ...state, query: action.getStickerSet.query };
     case actions.getStickerSet.GET_STICKER_SET_RESULT:
-      return { query: state.query, result: action.getStickerSet.result };
+      return { ...state, result: action.getStickerSet.result };
     default:
       return state;
   }

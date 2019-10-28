@@ -11,11 +11,11 @@ const setGameScore: (
 ): IStateSetGameScore => {
   switch (action.type) {
     case actions.setGameScore.SET_GAME_SCORE_ERROR:
-      return { error: action.setGameScore.error, query: state.query };
+      return { ...state, error: action.setGameScore.error };
     case actions.setGameScore.SET_GAME_SCORE_QUERY:
-      return { query: action.setGameScore.query };
+      return { ...state, query: action.setGameScore.query };
     case actions.setGameScore.SET_GAME_SCORE_RESULT:
-      return { query: state.query, result: action.setGameScore.result };
+      return { ...state, result: action.setGameScore.result };
     default:
       return state;
   }

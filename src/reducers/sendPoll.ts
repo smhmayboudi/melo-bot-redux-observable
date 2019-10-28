@@ -11,11 +11,11 @@ const sendPoll: (
 ): IStateSendPoll => {
   switch (action.type) {
     case actions.sendPoll.SEND_POLL_ERROR:
-      return { error: action.sendPoll.error, query: state.query };
+      return { ...state, error: action.sendPoll.error };
     case actions.sendPoll.SEND_POLL_QUERY:
-      return { query: action.sendPoll.query };
+      return { ...state, query: action.sendPoll.query };
     case actions.sendPoll.SEND_POLL_RESULT:
-      return { query: state.query, result: action.sendPoll.result };
+      return { ...state, result: action.sendPoll.result };
     default:
       return state;
   }

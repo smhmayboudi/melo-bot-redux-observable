@@ -12,12 +12,12 @@ const editMessageReplyMarkup: (
 ): IStateEditMessageReplyMarkup => {
   switch (action.type) {
     case actions.editMessageReplyMarkup.EDIT_MESSAGE_REPLY_MARKUP_ERROR:
-      return { error: action.editMessageReplyMarkup.error, query: state.query };
+      return { ...state, error: action.editMessageReplyMarkup.error };
     case actions.editMessageReplyMarkup.EDIT_MESSAGE_REPLY_MARKUP_QUERY:
-      return { query: action.editMessageReplyMarkup.query };
+      return { ...state, query: action.editMessageReplyMarkup.query };
     case actions.editMessageReplyMarkup.EDIT_MESSAGE_REPLY_MARKUP_RESULT:
       return {
-        query: state.query,
+        ...state,
         result: action.editMessageReplyMarkup.result
       };
     default:

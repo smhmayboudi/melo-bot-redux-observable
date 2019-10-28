@@ -12,11 +12,11 @@ const promoteChatMember: (
 ): IStatePromoteChatMember => {
   switch (action.type) {
     case actions.promoteChatMember.PROMOTE_CHAT_MEMBER_ERROR:
-      return { error: action.promoteChatMember.error, query: state.query };
+      return { ...state, error: action.promoteChatMember.error };
     case actions.promoteChatMember.PROMOTE_CHAT_MEMBER_QUERY:
-      return { query: action.promoteChatMember.query };
+      return { ...state, query: action.promoteChatMember.query };
     case actions.promoteChatMember.PROMOTE_CHAT_MEMBER_RESULT:
-      return { query: state.query, result: action.promoteChatMember.result };
+      return { ...state, result: action.promoteChatMember.result };
     default:
       return state;
   }

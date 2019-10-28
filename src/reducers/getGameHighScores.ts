@@ -12,11 +12,11 @@ const getGameHighScores: (
 ): IStateGetGameHighScores => {
   switch (action.type) {
     case actions.getGameHighScores.GET_GAME_HIGH_SCORES_ERROR:
-      return { error: action.getGameHighScores.error, query: state.query };
+      return { ...state, error: action.getGameHighScores.error };
     case actions.getGameHighScores.GET_GAME_HIGH_SCORES_QUERY:
-      return { query: action.getGameHighScores.query };
+      return { ...state, query: action.getGameHighScores.query };
     case actions.getGameHighScores.GET_GAME_HIGH_SCORES_RESULT:
-      return { query: state.query, result: action.getGameHighScores.result };
+      return { ...state, result: action.getGameHighScores.result };
     default:
       return state;
   }

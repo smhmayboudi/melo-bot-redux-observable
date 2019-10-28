@@ -12,11 +12,11 @@ const setChatStickerSet: (
 ): IStateSetChatStickerSet => {
   switch (action.type) {
     case actions.setChatStickerSet.SET_CHAT_STICKER_SET_ERROR:
-      return { error: action.setChatStickerSet.error, query: state.query };
+      return { ...state, error: action.setChatStickerSet.error };
     case actions.setChatStickerSet.SET_CHAT_STICKER_SET_QUERY:
-      return { query: action.setChatStickerSet.query };
+      return { ...state, query: action.setChatStickerSet.query };
     case actions.setChatStickerSet.SET_CHAT_STICKER_SET_RESULT:
-      return { query: state.query, result: action.setChatStickerSet.result };
+      return { ...state, result: action.setChatStickerSet.result };
     default:
       return state;
   }

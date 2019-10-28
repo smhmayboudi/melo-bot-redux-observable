@@ -11,11 +11,11 @@ const setWebhook: (
 ): IStateSetWebhook => {
   switch (action.type) {
     case actions.setWebhook.SET_WEBHOOK_ERROR:
-      return { error: action.setWebhook.error, query: state.query };
+      return { ...state, error: action.setWebhook.error };
     case actions.setWebhook.SET_WEBHOOK_QUERY:
-      return { query: action.setWebhook.query };
+      return { ...state, query: action.setWebhook.query };
     case actions.setWebhook.SET_WEBHOOK_RESULT:
-      return { query: state.query, result: action.setWebhook.result };
+      return { ...state, result: action.setWebhook.result };
     default:
       return state;
   }

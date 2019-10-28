@@ -12,11 +12,11 @@ const youtubeVideoList: (
 ): IStateYoutubeVideoList => {
   switch (action.type) {
     case actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR:
-      return { error: action.youtubeVideoList.error, query: state.query };
+      return { ...state, error: action.youtubeVideoList.error };
     case actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_QUERY:
-      return { query: action.youtubeVideoList.query };
+      return { ...state, query: action.youtubeVideoList.query };
     case actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_RESULT:
-      return { query: state.query, result: action.youtubeVideoList.result };
+      return { ...state, result: action.youtubeVideoList.result };
     default:
       return state;
   }

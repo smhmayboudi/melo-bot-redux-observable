@@ -12,11 +12,11 @@ const restrictChatMember: (
 ): IStateRestrictChatMember => {
   switch (action.type) {
     case actions.restrictChatMember.RESTRICT_CHAT_MEMBER_ERROR:
-      return { error: action.restrictChatMember.error, query: state.query };
+      return { ...state, error: action.restrictChatMember.error };
     case actions.restrictChatMember.RESTRICT_CHAT_MEMBER_QUERY:
-      return { query: action.restrictChatMember.query };
+      return { ...state, query: action.restrictChatMember.query };
     case actions.restrictChatMember.RESTRICT_CHAT_MEMBER_RESULT:
-      return { query: state.query, result: action.restrictChatMember.result };
+      return { ...state, result: action.restrictChatMember.result };
     default:
       return state;
   }

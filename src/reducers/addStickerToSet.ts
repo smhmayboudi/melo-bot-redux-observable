@@ -12,11 +12,11 @@ const addStickerToSet: (
 ): IStateAddStickerToSet => {
   switch (action.type) {
     case actions.addStickerToSet.ADD_STICKER_TO_SET_ERROR:
-      return { error: action.addStickerToSet.error, query: state.query };
+      return { ...state, error: action.addStickerToSet.error };
     case actions.addStickerToSet.ADD_STICKER_TO_SET_QUERY:
-      return { query: action.addStickerToSet.query };
+      return { ...state, query: action.addStickerToSet.query };
     case actions.addStickerToSet.ADD_STICKER_TO_SET_RESULT:
-      return { query: state.query, result: action.addStickerToSet.result };
+      return { ...state, result: action.addStickerToSet.result };
     default:
       return state;
   }

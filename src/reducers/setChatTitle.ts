@@ -11,11 +11,11 @@ const setChatTitle: (
 ): IStateSetChatTitle => {
   switch (action.type) {
     case actions.setChatTitle.SET_CHAT_TITLE_ERROR:
-      return { error: action.setChatTitle.error, query: state.query };
+      return { ...state, error: action.setChatTitle.error };
     case actions.setChatTitle.SET_CHAT_TITLE_QUERY:
-      return { query: action.setChatTitle.query };
+      return { ...state, query: action.setChatTitle.query };
     case actions.setChatTitle.SET_CHAT_TITLE_RESULT:
-      return { query: state.query, result: action.setChatTitle.result };
+      return { ...state, result: action.setChatTitle.result };
     default:
       return state;
   }

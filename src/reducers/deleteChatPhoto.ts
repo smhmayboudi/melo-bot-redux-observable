@@ -12,11 +12,11 @@ const deleteChatPhoto: (
 ): IStateDeleteChatPhoto => {
   switch (action.type) {
     case actions.deleteChatPhoto.DELETE_CHAT_PHOTO_ERROR:
-      return { error: action.deleteChatPhoto.error, query: state.query };
+      return { ...state, error: action.deleteChatPhoto.error };
     case actions.deleteChatPhoto.DELETE_CHAT_PHOTO_QUERY:
-      return { query: action.deleteChatPhoto.query };
+      return { ...state, query: action.deleteChatPhoto.query };
     case actions.deleteChatPhoto.DELETE_CHAT_PHOTO_RESULT:
-      return { query: state.query, result: action.deleteChatPhoto.result };
+      return { ...state, result: action.deleteChatPhoto.result };
     default:
       return state;
   }

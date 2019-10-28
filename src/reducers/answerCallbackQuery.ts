@@ -12,11 +12,11 @@ const answerCallbackQuery: (
 ): IStateAnswerCallbackQuery => {
   switch (action.type) {
     case actions.answerCallbackQuery.ANSWER_CALLBACK_QUERY_ERROR:
-      return { error: action.answerCallbackQuery.error, query: state.query };
+      return { ...state, error: action.answerCallbackQuery.error };
     case actions.answerCallbackQuery.ANSWER_CALLBACK_QUERY_QUERY:
-      return { query: action.answerCallbackQuery.query };
+      return { ...state, query: action.answerCallbackQuery.query };
     case actions.answerCallbackQuery.ANSWER_CALLBACK_QUERY_RESULT:
-      return { query: state.query, result: action.answerCallbackQuery.result };
+      return { ...state, result: action.answerCallbackQuery.result };
     default:
       return state;
   }

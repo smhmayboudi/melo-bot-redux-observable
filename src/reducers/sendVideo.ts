@@ -11,11 +11,11 @@ const sendVideo: (
 ): IStateSendVideo => {
   switch (action.type) {
     case actions.sendVideo.SEND_VIDEO_ERROR:
-      return { error: action.sendVideo.error, query: state.query };
+      return { ...state, error: action.sendVideo.error };
     case actions.sendVideo.SEND_VIDEO_QUERY:
-      return { query: action.sendVideo.query };
+      return { ...state, query: action.sendVideo.query };
     case actions.sendVideo.SEND_VIDEO_RESULT:
-      return { query: state.query, result: action.sendVideo.result };
+      return { ...state, result: action.sendVideo.result };
     default:
       return state;
   }

@@ -11,11 +11,11 @@ const sendChatAction: (
 ): IStateSendChatAction => {
   switch (action.type) {
     case actions.sendChatAction.SEND_CHAT_ACTION_ERROR:
-      return { error: action.sendChatAction.error, query: state.query };
+      return { ...state, error: action.sendChatAction.error };
     case actions.sendChatAction.SEND_CHAT_ACTION_QUERY:
-      return { query: action.sendChatAction.query };
+      return { ...state, query: action.sendChatAction.query };
     case actions.sendChatAction.SEND_CHAT_ACTION_RESULT:
-      return { query: state.query, result: action.sendChatAction.result };
+      return { ...state, result: action.sendChatAction.result };
     default:
       return state;
   }

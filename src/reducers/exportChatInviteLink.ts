@@ -12,11 +12,11 @@ const exportChatInviteLink: (
 ): IStateExportChatInviteLink => {
   switch (action.type) {
     case actions.exportChatInviteLink.EXPORT_CHAT_INVITE_LINK_ERROR:
-      return { error: action.exportChatInviteLink.error, query: state.query };
+      return { ...state, error: action.exportChatInviteLink.error };
     case actions.exportChatInviteLink.EXPORT_CHAT_INVITE_LINK_QUERY:
-      return { query: action.exportChatInviteLink.query };
+      return { ...state, query: action.exportChatInviteLink.query };
     case actions.exportChatInviteLink.EXPORT_CHAT_INVITE_LINK_RESULT:
-      return { query: state.query, result: action.exportChatInviteLink.result };
+      return { ...state, result: action.exportChatInviteLink.result };
     default:
       return state;
   }

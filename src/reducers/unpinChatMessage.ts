@@ -12,11 +12,11 @@ const unpinChatMessage: (
 ): IStateUnpinChatMessage => {
   switch (action.type) {
     case actions.unpinChatMessage.UNPIN_CHAT_MESSAGE_ERROR:
-      return { error: action.unpinChatMessage.error, query: state.query };
+      return { ...state, error: action.unpinChatMessage.error };
     case actions.unpinChatMessage.UNPIN_CHAT_MESSAGE_QUERY:
-      return { query: action.unpinChatMessage.query };
+      return { ...state, query: action.unpinChatMessage.query };
     case actions.unpinChatMessage.UNPIN_CHAT_MESSAGE_RESULT:
-      return { query: state.query, result: action.unpinChatMessage.result };
+      return { ...state, result: action.unpinChatMessage.result };
     default:
       return state;
   }

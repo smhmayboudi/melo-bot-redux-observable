@@ -11,7 +11,7 @@ const message: (
 ): IStateMessage => {
   switch (action.type) {
     case actions.message.MESSAGE_QUERY:
-      return { query: action.message.query };
+      return { ...state, query: action.message.query };
     default:
       return state;
   }
