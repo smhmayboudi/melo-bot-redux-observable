@@ -9,18 +9,6 @@ describe("editMessageMedia actions", (): void => {
     media: {
       media: "",
       type: ""
-    },
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            login_url: {
-              url: ""
-            },
-            text: ""
-          }
-        ]
-      ]
     }
   };
   const result: IMessage = {

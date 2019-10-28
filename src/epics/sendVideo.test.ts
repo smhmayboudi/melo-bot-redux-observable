@@ -41,7 +41,6 @@ describe("sendVideo epic", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",

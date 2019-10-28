@@ -216,7 +216,6 @@ describe("appError epic", (): void => {
             disable_notification: true,
             disable_web_page_preview: true,
             parse_mode: "HTML",
-            reply_markup: { remove_keyboard: true },
             reply_to_message_id: ((state$.value.message
               .query as IStateMessageQuery).message as IMessage).message_id,
             text: texts.messageError

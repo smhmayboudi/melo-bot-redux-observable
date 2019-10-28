@@ -118,7 +118,6 @@ const youtubeVideoList: (
           disable_notification: true,
           disable_web_page_preview: true,
           parse_mode: "HTML",
-          reply_markup: { remove_keyboard: true },
           reply_to_message_id: state$.value.message.query.message.message_id,
           text: transformVideoList(action.youtubeVideoList.result.items)
         }

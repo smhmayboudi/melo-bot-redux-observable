@@ -16,10 +16,7 @@ import * as epic from "../epics/answerInlineQuery";
 describe("answerInlineQuery epic", (): void => {
   const error: Error = new Error("");
   const query: IStateAnswerInlineQueryQuery = {
-    cache_time: 0,
     inline_query_id: "0",
-    is_personal: false,
-    next_offset: "",
     results: [
       {
         description: "",

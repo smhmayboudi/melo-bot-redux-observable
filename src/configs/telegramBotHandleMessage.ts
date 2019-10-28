@@ -42,7 +42,6 @@ const handleMessage: (
             duration: 6,
             parse_mode: "HTML",
             performer: "small",
-            reply_markup: { remove_keyboard: true },
             reply_to_message_id: message.message_id,
             thumb: fs.createReadStream("./asset/small.jpg"),
             title: "small"
@@ -58,7 +57,6 @@ const handleMessage: (
             disable_notification: true,
             disable_web_page_preview: true,
             parse_mode: "HTML",
-            reply_markup: { remove_keyboard: true },
             reply_to_message_id: message.message_id,
             text: texts.messageStart
           }
@@ -75,7 +73,6 @@ const handleMessage: (
             duration: 6,
             height: 320,
             parse_mode: "HTML",
-            reply_markup: { remove_keyboard: true },
             reply_to_message_id: message.message_id,
             supports_streaming: true,
             thumb: fs.createReadStream("./asset/small.jpg"),
@@ -127,7 +124,6 @@ const handleMessage: (
                 disable_notification: true,
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
-                reply_markup: { remove_keyboard: true },
                 reply_to_message_id: message.message_id,
                 text: texts.messageHelp
               }
@@ -141,7 +137,6 @@ const handleMessage: (
                 disable_notification: true,
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
-                reply_markup: { remove_keyboard: true },
                 reply_to_message_id: message.message_id,
                 text: texts.messageStart
               }
@@ -155,7 +150,6 @@ const handleMessage: (
                 disable_notification: true,
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
-                reply_markup: { remove_keyboard: true },
                 reply_to_message_id: message.message_id,
                 text: texts.messageSettings
               }
@@ -169,7 +163,6 @@ const handleMessage: (
                 disable_notification: true,
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
-                reply_markup: { remove_keyboard: true },
                 reply_to_message_id: message.message_id,
                 text: texts.messageSetInlineGeo
               }

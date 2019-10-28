@@ -25,7 +25,6 @@ describe("sendAudio epic", (): void => {
     duration: 0,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     title: ""

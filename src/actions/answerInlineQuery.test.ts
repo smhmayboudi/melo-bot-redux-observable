@@ -5,7 +5,6 @@ import * as action from "./answerInlineQuery";
 describe("answerInlineQuery actions", (): void => {
   const error: Error = new Error("");
   const query: IStateAnswerInlineQueryQuery = {
-    cache_time: 0,
     inline_query_id: "",
     results: []
   };

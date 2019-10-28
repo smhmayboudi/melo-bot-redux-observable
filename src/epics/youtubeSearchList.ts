@@ -127,10 +127,8 @@ const youtubeSearchList: (
     return of(
       actions.answerInlineQuery.query({
         query: {
-          cache_time: 0,
           inline_query_id: state$.value.inlineQuery.query.id,
           is_personal: true,
-          next_offset: "",
           results: inlineTransformSearchList(
             action.youtubeSearchList.result.items,
             state$.value.youtubeSearchList.query.q
@@ -207,7 +205,6 @@ const youtubeSearchList: (
           disable_notification: true,
           disable_web_page_preview: true,
           parse_mode: "HTML",
-          reply_markup: { remove_keyboard: true },
           reply_to_message_id: state$.value.message.query.message.message_id,
           text: stringTransformSearchList(
             action.youtubeSearchList.result.items,

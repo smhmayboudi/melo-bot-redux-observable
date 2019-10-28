@@ -14,7 +14,6 @@ describe("formData utils", (): void => {
     duration: 0,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     title: ""
@@ -26,7 +25,6 @@ describe("formData utils", (): void => {
     duration: 0,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     title: ""
@@ -38,7 +36,6 @@ describe("formData utils", (): void => {
     disable_notification: true,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     title: ""
@@ -50,7 +47,6 @@ describe("formData utils", (): void => {
     disable_notification: true,
     duration: 0,
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     title: ""
@@ -62,7 +58,6 @@ describe("formData utils", (): void => {
     disable_notification: true,
     duration: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     title: ""
@@ -87,7 +82,6 @@ describe("formData utils", (): void => {
     duration: 0,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     thumb: "",
     title: ""
   };
@@ -99,7 +93,6 @@ describe("formData utils", (): void => {
     duration: 0,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     title: ""
   };
@@ -111,7 +104,6 @@ describe("formData utils", (): void => {
     duration: 0,
     parse_mode: "HTML",
     performer: "",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: ""
   };
@@ -121,7 +113,6 @@ describe("formData utils", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",
@@ -134,7 +125,6 @@ describe("formData utils", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",
@@ -147,7 +137,6 @@ describe("formData utils", (): void => {
     disable_notification: true,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",
@@ -160,7 +149,6 @@ describe("formData utils", (): void => {
     disable_notification: true,
     duration: 0,
     height: 0,
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",
@@ -173,7 +161,6 @@ describe("formData utils", (): void => {
     disable_notification: true,
     duration: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",
@@ -200,7 +187,6 @@ describe("formData utils", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     supports_streaming: true,
     thumb: "",
     video: "",
@@ -213,7 +199,6 @@ describe("formData utils", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     thumb: "",
     video: "",
@@ -226,7 +211,6 @@ describe("formData utils", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     video: "",
@@ -239,7 +223,6 @@ describe("formData utils", (): void => {
     duration: 0,
     height: 0,
     parse_mode: "HTML",
-    reply_markup: { remove_keyboard: true },
     reply_to_message_id: 0,
     supports_streaming: true,
     thumb: "",
@@ -308,12 +291,6 @@ describe("formData utils", (): void => {
 
   test("should handle transformStateSendVideoQuery no height", (): void => {
     expect(transformStateSendVideoQuery(sendVideoQueryNoHeight)).toEqual("");
-  });
-
-  test("should handle transformStateSendVideoQuery no replyMarkup", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoReplyMarkup)).toEqual(
-      ""
-    );
   });
 
   test("should handle transformStateSendVideoQuery no replyToMessageId", (): void => {

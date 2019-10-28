@@ -6,7 +6,6 @@ import * as reducer from "./answerInlineQuery";
 describe("answerInlineQuery reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateAnswerInlineQueryQuery = {
-    cache_time: 0,
     inline_query_id: "",
     results: []
   };

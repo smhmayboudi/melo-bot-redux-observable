@@ -459,11 +459,9 @@ describe("youtubeSearchList epic", (): void => {
       expectObservable(output$).toBe("---a", {
         a: actions.answerInlineQuery.query({
           query: {
-            cache_time: 0,
             inline_query_id: (stateInlineQueryResult.inlineQuery
               .query as IStateInlineQueryQuery).id,
             is_personal: true,
-            next_offset: "",
             results: inlineTransformSearchList(
               result.items as youtube_v3.Schema$SearchResult[],
               (stateInlineQueryResult.youtubeSearchList
@@ -601,7 +599,6 @@ describe("youtubeSearchList epic", (): void => {
             disable_notification: true,
             disable_web_page_preview: true,
             parse_mode: "HTML",
-            reply_markup: { remove_keyboard: true },
             reply_to_message_id: 0,
             text: stringTransformSearchList(
               result.items as youtube_v3.Schema$SearchResult[],
