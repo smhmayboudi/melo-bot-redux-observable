@@ -1,8 +1,8 @@
 import { IStateGetUserProfilePhotosQuery } from "../../types/iStateGetUserProfilePhotosQuery";
+import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 import * as action from "../actions/getUserProfilePhotos";
 
 import * as reducer from "./getUserProfilePhotos";
-import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 
 describe("getUserProfilePhotos reducer", (): void => {
   const error: Error = new Error("");
@@ -10,11 +10,15 @@ describe("getUserProfilePhotos reducer", (): void => {
     user_id: 0
   };
   const result: IUserProfilePhotos = {
-    photos: [[{
-      file_id: "",
-      height: 0,
-      width: 0    
-    }]],
+    photos: [
+      [
+        {
+          file_id: "",
+          height: 0,
+          width: 0
+        }
+      ]
+    ],
     total_count: 1
   };
 

@@ -7,7 +7,7 @@ describe("telegramBotHandleEditedChannelPostCaption configs", (): void => {
     dispatch: jest.fn(() => {}),
     getState: jest.fn(() => {}),
     replaceReducer: jest.fn(() => {}),
-    subscribe: jest.fn(() => () => {})
+    subscribe: jest.fn(() => jest.fn(() => {}))
   };
 
   test("should handle", (): void => {

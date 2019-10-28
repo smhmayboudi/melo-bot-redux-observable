@@ -1,17 +1,19 @@
 import { IStateSendMediaGroupQuery } from "../../types/iStateSendMediaGroupQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendMediaGroup";
 
 import * as reducer from "./sendMediaGroup";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendMediaGroup reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendMediaGroupQuery = {
     chat_id: 0,
-    media: [{
-      media: "",
-      type: ""
-    }]
+    media: [
+      {
+        media: "",
+        type: ""
+      }
+    ]
   };
   const result: IMessage = {
     chat: {

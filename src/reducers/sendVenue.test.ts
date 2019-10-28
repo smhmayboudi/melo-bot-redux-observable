@@ -1,8 +1,8 @@
 import { IStateSendVenueQuery } from "../../types/iStateSendVenueQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendVenue";
 
 import * as reducer from "./sendVenue";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendVenue reducer", (): void => {
   const error: Error = new Error("");

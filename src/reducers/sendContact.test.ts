@@ -1,8 +1,8 @@
 import { IStateSendContactQuery } from "../../types/iStateSendContactQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendContact";
 
 import * as reducer from "./sendContact";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendContact reducer", (): void => {
   const error: Error = new Error("");

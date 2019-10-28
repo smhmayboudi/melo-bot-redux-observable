@@ -1,8 +1,8 @@
 import { IStateGetMeQuery } from "../../types/iStateGetMeQuery";
+import { IUser } from "../../types/telegramBot/types/iUser";
 import * as action from "../actions/getMe";
 
 import * as reducer from "./getMe";
-import { IUser } from "../../types/telegramBot/types/iUser";
 
 describe("getMe reducer", (): void => {
   const error: Error = new Error("");
@@ -13,7 +13,7 @@ describe("getMe reducer", (): void => {
   const result: IUser = {
     first_name: "",
     id: 0,
-    is_bot: false  
+    is_bot: false
   };
 
   test("should handle initialState", (): void => {

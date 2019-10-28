@@ -1,8 +1,8 @@
 import { IStateSendPhotoQuery } from "../../types/iStateSendPhotoQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendPhoto";
 
 import * as reducer from "./sendPhoto";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendPhoto reducer", (): void => {
   const error: Error = new Error("");

@@ -1,8 +1,8 @@
 import { IStateSendDocumentQuery } from "../../types/iStateSendDocumentQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendDocument";
 
 import * as reducer from "./sendDocument";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendDocument reducer", (): void => {
   const error: Error = new Error("");

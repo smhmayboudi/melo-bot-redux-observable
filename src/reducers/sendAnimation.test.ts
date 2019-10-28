@@ -1,8 +1,8 @@
 import { IStateSendAnimationQuery } from "../../types/iStateSendAnimationQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendAnimation";
 
 import * as reducer from "./sendAnimation";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendAnimation reducer", (): void => {
   const error: Error = new Error("");

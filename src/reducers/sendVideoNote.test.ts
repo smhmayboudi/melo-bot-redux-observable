@@ -1,8 +1,8 @@
 import { IStateSendVideoNoteQuery } from "../../types/iStateSendVideoNoteQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendVideoNote";
 
 import * as reducer from "./sendVideoNote";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendVideoNote reducer", (): void => {
   const error: Error = new Error("");

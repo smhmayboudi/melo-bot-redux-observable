@@ -9,14 +9,16 @@ describe("getChatAdministrators reducer", (): void => {
   const query: IStateGetChatAdministratorsQuery = {
     chat_id: 0
   };
-  const result: IChatMember[] = [{
-    status: "",
-    user: {
-      first_name: "",
-      id: 0,
-      is_bot: false
+  const result: IChatMember[] = [
+    {
+      status: "",
+      user: {
+        first_name: "",
+        id: 0,
+        is_bot: false
+      }
     }
-  }];
+  ];
 
   test("should handle initialState", (): void => {
     expect(

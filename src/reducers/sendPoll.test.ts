@@ -1,8 +1,8 @@
 import { IStateSendPollQuery } from "../../types/iStateSendPollQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as action from "../actions/sendPoll";
 
 import * as reducer from "./sendPoll";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendPoll reducer", (): void => {
   const error: Error = new Error("");
