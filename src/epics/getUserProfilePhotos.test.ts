@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetUserProfilePhotosQuery } from "../../types/iStateGetUserProfilePhotosQuery";
+import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getUserProfilePhotos";
@@ -16,10 +17,20 @@ import * as epic from "../epics/getUserProfilePhotos";
 describe("getUserProfilePhotos epic", (): void => {
   const error: Error = new Error("");
   const query: IStateGetUserProfilePhotosQuery = {
-    // TODO: fill it
+    user_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IUserProfilePhotos = {
+    photos: [
+      [
+        {
+          file_id: "",
+          height: 0,
+          width: 0
+        }
+      ]
+    ],
+    total_count: 1
+  };
   const responseOKF: IResponse = {
     ok: false
   };

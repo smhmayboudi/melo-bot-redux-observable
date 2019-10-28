@@ -59,7 +59,6 @@ const deleteChatPhoto: (
         (response: IResponse): IActionDeleteChatPhoto => {
           if (response.ok) {
             return actions.deleteChatPhoto.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

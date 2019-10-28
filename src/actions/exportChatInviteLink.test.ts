@@ -5,10 +5,9 @@ import * as action from "./exportChatInviteLink";
 describe("exportChatInviteLink actions", (): void => {
   const error: Error = new Error("");
   const query: IStateExportChatInviteLinkQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: string = "";
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

@@ -6,9 +6,9 @@ import * as reducer from "./editMessageLiveLocation";
 describe("editMessageLiveLocation reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateEditMessageLiveLocationQuery = {
-    // TODO: fill it
+    latitude: 0,
+    longitude: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle initialState", (): void => {

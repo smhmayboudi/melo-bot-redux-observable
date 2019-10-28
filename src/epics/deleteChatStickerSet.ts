@@ -59,7 +59,6 @@ const deleteChatStickerSet: (
         (response: IResponse): IActionDeleteChatStickerSet => {
           if (response.ok) {
             return actions.deleteChatStickerSet.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

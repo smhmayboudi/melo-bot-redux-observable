@@ -59,8 +59,7 @@ const exportChatInviteLink: (
         (response: IResponse): IActionExportChatInviteLink => {
           if (response.ok) {
             return actions.exportChatInviteLink.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as string
             });
           }
 

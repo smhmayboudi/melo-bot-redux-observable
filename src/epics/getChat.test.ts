@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetChatQuery } from "../../types/iStateGetChatQuery";
+import { IChat } from "../../types/telegramBot/types/iChat";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getChat";
@@ -16,10 +17,12 @@ import * as epic from "../epics/getChat";
 describe("getChat epic", (): void => {
   const error: Error = new Error("");
   const query: IStateGetChatQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IChat = {
+    id: 0,
+    type: ""
+  };
   const responseOKF: IResponse = {
     ok: false
   };

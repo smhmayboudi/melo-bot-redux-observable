@@ -59,7 +59,6 @@ const unpinChatMessage: (
         (response: IResponse): IActionUnpinChatMessage => {
           if (response.ok) {
             return actions.unpinChatMessage.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

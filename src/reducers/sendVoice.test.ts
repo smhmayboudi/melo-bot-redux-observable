@@ -2,14 +2,22 @@ import { IStateSendVoiceQuery } from "../../types/iStateSendVoiceQuery";
 import * as action from "../actions/sendVoice";
 
 import * as reducer from "./sendVoice";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendVoice reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendVoiceQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    voice: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle initialState", (): void => {
     expect(

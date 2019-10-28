@@ -16,9 +16,9 @@ import * as epic from "../epics/setChatStickerSet";
 describe("setChatStickerSet epic", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatStickerSetQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    sticker_set_name: ""
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

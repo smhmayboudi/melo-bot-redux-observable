@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetFileQuery } from "../../types/iStateGetFileQuery";
+import { IFile } from "../../types/telegramBot/types/iFile";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getFile";
@@ -16,10 +17,11 @@ import * as epic from "../epics/getFile";
 describe("getFile epic", (): void => {
   const error: Error = new Error("");
   const query: IStateGetFileQuery = {
-    // TODO: fill it
+    file_id: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IFile = {
+    file_id: ""
+  };
   const responseOKF: IResponse = {
     ok: false
   };

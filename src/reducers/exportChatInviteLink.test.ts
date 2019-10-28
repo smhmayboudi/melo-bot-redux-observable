@@ -6,10 +6,9 @@ import * as reducer from "./exportChatInviteLink";
 describe("exportChatInviteLink reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateExportChatInviteLinkQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: string = "";
 
   test("should handle initialState", (): void => {
     expect(

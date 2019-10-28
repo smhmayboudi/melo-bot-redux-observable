@@ -59,7 +59,6 @@ const kickChatMember: (
         (response: IResponse): IActionKickChatMember => {
           if (response.ok) {
             return actions.kickChatMember.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

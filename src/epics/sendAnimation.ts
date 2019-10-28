@@ -6,6 +6,7 @@ import { IActionSendAnimation } from "../../types/iActionSendAnimation";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const sendAnimation: (
         (response: IResponse): IActionSendAnimation => {
           if (response.ok) {
             return actions.sendAnimation.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IMessage
             });
           }
 

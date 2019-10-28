@@ -1,14 +1,22 @@
 import { IStateSendAnimationQuery } from "../../types/iStateSendAnimationQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 import * as action from "./sendAnimation";
 
 describe("sendAnimation actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSendAnimationQuery = {
-    // TODO: fill it
+    animation: "",
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

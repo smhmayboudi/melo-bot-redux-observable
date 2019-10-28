@@ -2,14 +2,25 @@ import { IStateSendVenueQuery } from "../../types/iStateSendVenueQuery";
 import * as action from "../actions/sendVenue";
 
 import * as reducer from "./sendVenue";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendVenue reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendVenueQuery = {
-    // TODO: fill it
+    address: "",
+    chat_id: 0,
+    latitude: 0,
+    longitude: 0,
+    title: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle initialState", (): void => {
     expect(

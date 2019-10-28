@@ -5,9 +5,9 @@ import * as action from "./setChatStickerSet";
 describe("setChatStickerSet actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatStickerSetQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    sticker_set_name: ""
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

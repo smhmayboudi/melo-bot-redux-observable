@@ -59,7 +59,6 @@ const restrictChatMember: (
         (response: IResponse): IActionRestrictChatMember => {
           if (response.ok) {
             return actions.restrictChatMember.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

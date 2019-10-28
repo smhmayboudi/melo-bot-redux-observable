@@ -5,9 +5,9 @@ import * as action from "./kickChatMember";
 describe("kickChatMember actions", (): void => {
   const error: Error = new Error("");
   const query: IStateKickChatMemberQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    user_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

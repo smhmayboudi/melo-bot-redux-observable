@@ -59,7 +59,6 @@ const setChatTitle: (
         (response: IResponse): IActionSetChatTitle => {
           if (response.ok) {
             return actions.setChatTitle.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

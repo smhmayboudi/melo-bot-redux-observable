@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateForwardMessageQuery } from "../../types/iStateForwardMessageQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/forwardMessage";
@@ -16,10 +17,18 @@ import * as epic from "../epics/forwardMessage";
 describe("forwardMessage epic", (): void => {
   const error: Error = new Error("");
   const query: IStateForwardMessageQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    from_chat_id: 0,
+    message_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
   const responseOKF: IResponse = {
     ok: false
   };

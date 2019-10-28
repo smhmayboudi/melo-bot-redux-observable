@@ -16,9 +16,8 @@ import * as epic from "../epics/deleteChatPhoto";
 describe("deleteChatPhoto epic", (): void => {
   const error: Error = new Error("");
   const query: IStateDeleteChatPhotoQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

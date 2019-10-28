@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import { StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -16,9 +17,9 @@ import * as epic from "../epics/setChatPhoto";
 describe("setChatPhoto epic", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatPhotoQuery = {
-    // TODO: fill it
+    chat_id: "",
+    photo: fs.createReadStream("./asset/small.jpg")
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

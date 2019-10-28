@@ -6,6 +6,7 @@ import { IActionForwardMessage } from "../../types/iActionForwardMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const forwardMessage: (
         (response: IResponse): IActionForwardMessage => {
           if (response.ok) {
             return actions.forwardMessage.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IMessage
             });
           }
 

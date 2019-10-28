@@ -1,14 +1,25 @@
 import { IStateGetUserProfilePhotosQuery } from "../../types/iStateGetUserProfilePhotosQuery";
+import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 
 import * as action from "./getUserProfilePhotos";
 
 describe("getUserProfilePhotos actions", (): void => {
   const error: Error = new Error("");
   const query: IStateGetUserProfilePhotosQuery = {
-    // TODO: fill it
+    user_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IUserProfilePhotos = {
+    photos: [
+      [
+        {
+          file_id: "",
+          height: 0,
+          width: 0
+        }
+      ]
+    ],
+    total_count: 1
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

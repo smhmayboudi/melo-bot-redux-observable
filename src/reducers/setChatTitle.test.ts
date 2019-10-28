@@ -6,9 +6,9 @@ import * as reducer from "./setChatTitle";
 describe("setChatTitle reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatTitleQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    title: ""
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle initialState", (): void => {

@@ -16,10 +16,9 @@ import * as epic from "../epics/getChatMembersCount";
 describe("getChatMembersCount epic", (): void => {
   const error: Error = new Error("");
   const query: IStateGetChatMembersCountQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: number = 0;
   const responseOKF: IResponse = {
     ok: false
   };

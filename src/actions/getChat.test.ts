@@ -1,14 +1,17 @@
 import { IStateGetChatQuery } from "../../types/iStateGetChatQuery";
+import { IChat } from "../../types/telegramBot/types/iChat";
 
 import * as action from "./getChat";
 
 describe("getChat actions", (): void => {
   const error: Error = new Error("");
   const query: IStateGetChatQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IChat = {
+    id: 0,
+    type: ""
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

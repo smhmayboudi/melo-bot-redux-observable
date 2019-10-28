@@ -1,14 +1,16 @@
 import { IStateGetFileQuery } from "../../types/iStateGetFileQuery";
+import { IFile } from "../../types/telegramBot/types/iFile";
 
 import * as action from "./getFile";
 
 describe("getFile actions", (): void => {
   const error: Error = new Error("");
   const query: IStateGetFileQuery = {
-    // TODO: fill it
+    file_id: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IFile = {
+    file_id: ""
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

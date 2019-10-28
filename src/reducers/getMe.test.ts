@@ -2,14 +2,19 @@ import { IStateGetMeQuery } from "../../types/iStateGetMeQuery";
 import * as action from "../actions/getMe";
 
 import * as reducer from "./getMe";
+import { IUser } from "../../types/telegramBot/types/iUser";
 
 describe("getMe reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateGetMeQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    text: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IUser = {
+    first_name: "",
+    id: 0,
+    is_bot: false  
+  };
 
   test("should handle initialState", (): void => {
     expect(

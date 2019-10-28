@@ -6,6 +6,7 @@ import { IActionGetChat } from "../../types/iActionGetChat";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IChat } from "../../types/telegramBot/types/iChat";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const getChat: (
         (response: IResponse): IActionGetChat => {
           if (response.ok) {
             return actions.getChat.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IChat
             });
           }
 

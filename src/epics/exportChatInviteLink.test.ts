@@ -16,10 +16,9 @@ import * as epic from "../epics/exportChatInviteLink";
 describe("exportChatInviteLink epic", (): void => {
   const error: Error = new Error("");
   const query: IStateExportChatInviteLinkQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: string = "";
   const responseOKF: IResponse = {
     ok: false
   };

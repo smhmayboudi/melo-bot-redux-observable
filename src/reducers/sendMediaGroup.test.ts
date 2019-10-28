@@ -2,14 +2,25 @@ import { IStateSendMediaGroupQuery } from "../../types/iStateSendMediaGroupQuery
 import * as action from "../actions/sendMediaGroup";
 
 import * as reducer from "./sendMediaGroup";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendMediaGroup reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendMediaGroupQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    media: [{
+      media: "",
+      type: ""
+    }]
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle initialState", (): void => {
     expect(

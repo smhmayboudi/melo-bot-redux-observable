@@ -6,9 +6,9 @@ import * as reducer from "./setChatStickerSet";
 describe("setChatStickerSet reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatStickerSetQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    sticker_set_name: ""
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle initialState", (): void => {

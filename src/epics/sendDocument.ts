@@ -6,6 +6,7 @@ import { IActionSendDocument } from "../../types/iActionSendDocument";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const sendDocument: (
         (response: IResponse): IActionSendDocument => {
           if (response.ok) {
             return actions.sendDocument.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IMessage
             });
           }
 

@@ -6,10 +6,9 @@ import * as reducer from "./getChatMembersCount";
 describe("getChatMembersCount reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateGetChatMembersCountQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: number = 0;
 
   test("should handle initialState", (): void => {
     expect(

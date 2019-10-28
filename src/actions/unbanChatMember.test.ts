@@ -5,9 +5,9 @@ import * as action from "./unbanChatMember";
 describe("unbanChatMember actions", (): void => {
   const error: Error = new Error("");
   const query: IStateUnbanChatMemberQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    user_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

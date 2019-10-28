@@ -59,8 +59,7 @@ const getChatMembersCount: (
         (response: IResponse): IActionGetChatMembersCount => {
           if (response.ok) {
             return actions.getChatMembersCount.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as number
             });
           }
 

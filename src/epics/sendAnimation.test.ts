@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSendAnimationQuery } from "../../types/iStateSendAnimationQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/sendAnimation";
@@ -16,10 +17,17 @@ import * as epic from "../epics/sendAnimation";
 describe("sendAnimation epic", (): void => {
   const error: Error = new Error("");
   const query: IStateSendAnimationQuery = {
-    // TODO: fill it
+    animation: "",
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
   const responseOKF: IResponse = {
     ok: false
   };

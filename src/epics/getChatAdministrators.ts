@@ -6,6 +6,7 @@ import { IActionGetChatAdministrators } from "../../types/iActionGetChatAdminist
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const getChatAdministrators: (
         (response: IResponse): IActionGetChatAdministrators => {
           if (response.ok) {
             return actions.getChatAdministrators.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IChatMember[]
             });
           }
 

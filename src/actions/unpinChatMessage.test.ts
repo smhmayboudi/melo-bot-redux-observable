@@ -5,9 +5,8 @@ import * as action from "./unpinChatMessage";
 describe("unpinChatMessage actions", (): void => {
   const error: Error = new Error("");
   const query: IStateUnpinChatMessageQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

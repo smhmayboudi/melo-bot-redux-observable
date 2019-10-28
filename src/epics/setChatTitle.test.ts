@@ -16,9 +16,9 @@ import * as epic from "../epics/setChatTitle";
 describe("setChatTitle epic", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatTitleQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    title: ""
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

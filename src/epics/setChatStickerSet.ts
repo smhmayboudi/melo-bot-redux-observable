@@ -59,7 +59,6 @@ const setChatStickerSet: (
         (response: IResponse): IActionSetChatStickerSet => {
           if (response.ok) {
             return actions.setChatStickerSet.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

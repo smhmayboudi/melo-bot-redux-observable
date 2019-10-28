@@ -5,9 +5,9 @@ import * as action from "./setChatTitle";
 describe("setChatTitle actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatTitleQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    title: ""
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

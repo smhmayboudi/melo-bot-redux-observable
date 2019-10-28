@@ -59,7 +59,6 @@ const leaveChat: (
         (response: IResponse): IActionLeaveChat => {
           if (response.ok) {
             return actions.leaveChat.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

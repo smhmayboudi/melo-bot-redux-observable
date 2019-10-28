@@ -1,4 +1,5 @@
 import { IStateGetFileQuery } from "../../types/iStateGetFileQuery";
+import { IFile } from "../../types/telegramBot/types/iFile";
 import * as action from "../actions/getFile";
 
 import * as reducer from "./getFile";
@@ -6,10 +7,11 @@ import * as reducer from "./getFile";
 describe("getFile reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateGetFileQuery = {
-    // TODO: fill it
+    file_id: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IFile = {
+    file_id: ""
+  };
 
   test("should handle initialState", (): void => {
     expect(

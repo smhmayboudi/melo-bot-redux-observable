@@ -2,14 +2,23 @@ import { IStateSendPollQuery } from "../../types/iStateSendPollQuery";
 import * as action from "../actions/sendPoll";
 
 import * as reducer from "./sendPoll";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendPoll reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendPollQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    options: [""],
+    question: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle initialState", (): void => {
     expect(

@@ -1,14 +1,23 @@
 import { IStateGetChatAdministratorsQuery } from "../../types/iStateGetChatAdministratorsQuery";
+import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 
 import * as action from "./getChatAdministrators";
 
 describe("getChatAdministrators actions", (): void => {
   const error: Error = new Error("");
   const query: IStateGetChatAdministratorsQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IChatMember[] = [
+    {
+      status: "",
+      user: {
+        first_name: "",
+        id: 0,
+        is_bot: false
+      }
+    }
+  ];
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

@@ -1,14 +1,22 @@
 import { IStateSendVoiceQuery } from "../../types/iStateSendVoiceQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 import * as action from "./sendVoice";
 
 describe("sendVoice actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSendVoiceQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    voice: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

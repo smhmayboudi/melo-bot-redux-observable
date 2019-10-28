@@ -6,9 +6,8 @@ import * as reducer from "./setChatDescription";
 describe("setChatDescription reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatDescriptionQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle initialState", (): void => {

@@ -16,9 +16,9 @@ import * as epic from "../epics/editMessageLiveLocation";
 describe("editMessageLiveLocation epic", (): void => {
   const error: Error = new Error("");
   const query: IStateEditMessageLiveLocationQuery = {
-    // TODO: fill it
+    latitude: 0,
+    longitude: 0
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

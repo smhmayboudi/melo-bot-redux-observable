@@ -5,9 +5,10 @@ import * as action from "./restrictChatMember";
 describe("restrictChatMember actions", (): void => {
   const error: Error = new Error("");
   const query: IStateRestrictChatMemberQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    permissions: {},
+    user_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

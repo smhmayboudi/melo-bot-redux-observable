@@ -59,7 +59,6 @@ const setChatPhoto: (
         (response: IResponse): IActionSetChatPhoto => {
           if (response.ok) {
             return actions.setChatPhoto.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

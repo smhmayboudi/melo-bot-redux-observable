@@ -16,9 +16,9 @@ import * as epic from "../epics/pinChatMessage";
 describe("pinChatMessage epic", (): void => {
   const error: Error = new Error("");
   const query: IStatePinChatMessageQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    message_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

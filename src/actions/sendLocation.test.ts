@@ -1,14 +1,23 @@
 import { IStateSendLocationQuery } from "../../types/iStateSendLocationQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 import * as action from "./sendLocation";
 
 describe("sendLocation actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSendLocationQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    latitude: 0,
+    longitude: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

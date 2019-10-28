@@ -2,14 +2,22 @@ import { IStateSendDocumentQuery } from "../../types/iStateSendDocumentQuery";
 import * as action from "../actions/sendDocument";
 
 import * as reducer from "./sendDocument";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("sendDocument reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSendDocumentQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    document: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle initialState", (): void => {
     expect(

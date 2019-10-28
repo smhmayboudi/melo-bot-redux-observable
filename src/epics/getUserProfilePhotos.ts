@@ -6,6 +6,7 @@ import { IActionGetUserProfilePhotos } from "../../types/iActionGetUserProfilePh
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const getUserProfilePhotos: (
         (response: IResponse): IActionGetUserProfilePhotos => {
           if (response.ok) {
             return actions.getUserProfilePhotos.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IUserProfilePhotos
             });
           }
 

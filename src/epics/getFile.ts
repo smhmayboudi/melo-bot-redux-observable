@@ -6,6 +6,7 @@ import { IActionGetFile } from "../../types/iActionGetFile";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IFile } from "../../types/telegramBot/types/iFile";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -59,8 +60,7 @@ const getFile: (
         (response: IResponse): IActionGetFile => {
           if (response.ok) {
             return actions.getFile.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IFile
             });
           }
 

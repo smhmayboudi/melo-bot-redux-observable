@@ -59,7 +59,6 @@ const unbanChatMember: (
         (response: IResponse): IActionUnbanChatMember => {
           if (response.ok) {
             return actions.unbanChatMember.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

@@ -5,9 +5,9 @@ import * as action from "./sendChatAction";
 describe("sendChatAction actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSendChatActionQuery = {
-    // TODO: fill it
+    action: "",
+    chat_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {

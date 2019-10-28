@@ -59,7 +59,6 @@ const setChatDescription: (
         (response: IResponse): IActionSetChatDescription => {
           if (response.ok) {
             return actions.setChatDescription.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

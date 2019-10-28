@@ -59,7 +59,6 @@ const pinChatMessage: (
         (response: IResponse): IActionPinChatMessage => {
           if (response.ok) {
             return actions.pinChatMessage.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

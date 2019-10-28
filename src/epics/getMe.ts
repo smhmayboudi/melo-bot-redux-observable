@@ -6,6 +6,7 @@ import { IActionGetMe } from "../../types/iActionGetMe";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
+import { IUser } from "../../types/telegramBot/types/iUser";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -57,8 +58,7 @@ const getMe: (
         (response: IResponse): IActionGetMe => {
           if (response.ok) {
             return actions.getMe.result({
-              // TODO: check it
-              result: response.result as boolean
+              result: response.result as IUser
             });
           }
 

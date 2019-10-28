@@ -1,4 +1,5 @@
 import { IStateGetChatQuery } from "../../types/iStateGetChatQuery";
+import { IChat } from "../../types/telegramBot/types/iChat";
 import * as action from "../actions/getChat";
 
 import * as reducer from "./getChat";
@@ -6,10 +7,12 @@ import * as reducer from "./getChat";
 describe("getChat reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateGetChatQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IChat = {
+    id: 0,
+    type: ""
+  };
 
   test("should handle initialState", (): void => {
     expect(

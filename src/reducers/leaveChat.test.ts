@@ -6,9 +6,8 @@ import * as reducer from "./leaveChat";
 describe("leaveChat reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateLeaveChatQuery = {
-    // TODO: fill it
+    chat_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle initialState", (): void => {

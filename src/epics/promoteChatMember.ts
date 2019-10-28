@@ -59,7 +59,6 @@ const promoteChatMember: (
         (response: IResponse): IActionPromoteChatMember => {
           if (response.ok) {
             return actions.promoteChatMember.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

@@ -6,9 +6,9 @@ import * as reducer from "./kickChatMember";
 describe("kickChatMember reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateKickChatMemberQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    user_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle initialState", (): void => {

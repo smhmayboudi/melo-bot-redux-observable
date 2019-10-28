@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetMeQuery } from "../../types/iStateGetMeQuery";
+import { IUser } from "../../types/telegramBot/types/iUser";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getMe";
@@ -16,10 +17,14 @@ import * as epic from "../epics/getMe";
 describe("getMe epic", (): void => {
   const error: Error = new Error("");
   const query: IStateGetMeQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    text: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IUser = {
+    first_name: "",
+    id: 0,
+    is_bot: false
+  };
   const responseOKF: IResponse = {
     ok: false
   };

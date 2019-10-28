@@ -16,9 +16,9 @@ import * as epic from "../epics/promoteChatMember";
 describe("promoteChatMember epic", (): void => {
   const error: Error = new Error("");
   const query: IStatePromoteChatMemberQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    user_id: 0
   };
-  // TODO: check it
   const result: boolean = true;
   const responseOKF: IResponse = {
     ok: false

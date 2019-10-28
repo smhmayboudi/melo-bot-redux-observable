@@ -1,14 +1,23 @@
 import { IStateSendContactQuery } from "../../types/iStateSendContactQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 import * as action from "./sendContact";
 
 describe("sendContact actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSendContactQuery = {
-    // TODO: fill it
+    chat_id: 0,
+    first_name: "",
+    phone_number: ""
   };
-  // TODO: check it
-  const result: boolean = true;
+  const result: IMessage = {
+    chat: {
+      id: 0,
+      type: "private"
+    },
+    date: 0,
+    message_id: 0
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

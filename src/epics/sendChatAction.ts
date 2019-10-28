@@ -59,7 +59,6 @@ const sendChatAction: (
         (response: IResponse): IActionSendChatAction => {
           if (response.ok) {
             return actions.sendChatAction.result({
-              // TODO: check it
               result: response.result as boolean
             });
           }

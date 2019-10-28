@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 import { IStateSetChatPhotoQuery } from "../../types/iStateSetChatPhotoQuery";
 
 import * as action from "./setChatPhoto";
@@ -5,9 +7,9 @@ import * as action from "./setChatPhoto";
 describe("setChatPhoto actions", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatPhotoQuery = {
-    // TODO: fill it
+    chat_id: "",
+    photo: fs.createReadStream("./asset/small.jpg")
   };
-  // TODO: check it
   const result: boolean = true;
 
   test("should handle error", (): void => {
