@@ -3,9 +3,9 @@ import { IStateSendAudio } from "../../types/iStateSendAudio";
 
 const initialState: IStateSendAudio = {};
 
-const SEND_AUDIO_ERROR: string = "SEND_AUDIO_ERROR";
-const SEND_AUDIO_QUERY: string = "SEND_AUDIO_QUERY";
-const SEND_AUDIO_RESULT: string = "SEND_AUDIO_RESULT";
+const SEND_AUDIO_ERROR = "SEND_AUDIO_ERROR";
+const SEND_AUDIO_QUERY = "SEND_AUDIO_QUERY";
+const SEND_AUDIO_RESULT = "SEND_AUDIO_RESULT";
 
 const error: (sendAudio: IStateSendAudio) => IActionSendAudio = (
   sendAudio: IStateSendAudio

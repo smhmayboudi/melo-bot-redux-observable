@@ -14,7 +14,7 @@ describe("chosenInlineResult reducer", (): void => {
     query: "",
     result_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

@@ -8,7 +8,7 @@ describe("deleteStickerFromSet reducer", (): void => {
   const query: IStateDeleteStickerFromSetQuery = {
     sticker: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

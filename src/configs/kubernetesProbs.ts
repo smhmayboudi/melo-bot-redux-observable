@@ -4,8 +4,8 @@ import * as env from "./env";
 
 const appDebug: debug.IDebugger = debug("app:config:kubernetesProbs");
 
-const liveness: boolean = true;
-let readiness: boolean = false;
+const liveness = true;
+let readiness = false;
 
 setTimeout((): void => {
   appDebug("READINESS_START");

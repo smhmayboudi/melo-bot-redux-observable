@@ -3,9 +3,9 @@ import { IStateSetChatTitle } from "../../types/iStateSetChatTitle";
 
 const initialState: IStateSetChatTitle = {};
 
-const SET_CHAT_TITLE_ERROR: string = "SET_CHAT_TITLE_ERROR";
-const SET_CHAT_TITLE_QUERY: string = "SET_CHAT_TITLE_QUERY";
-const SET_CHAT_TITLE_RESULT: string = "SET_CHAT_TITLE_RESULT";
+const SET_CHAT_TITLE_ERROR = "SET_CHAT_TITLE_ERROR";
+const SET_CHAT_TITLE_QUERY = "SET_CHAT_TITLE_QUERY";
+const SET_CHAT_TITLE_RESULT = "SET_CHAT_TITLE_RESULT";
 
 const error: (setChatTitle: IStateSetChatTitle) => IActionSetChatTitle = (
   setChatTitle: IStateSetChatTitle

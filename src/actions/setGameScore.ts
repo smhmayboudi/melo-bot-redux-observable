@@ -3,9 +3,9 @@ import { IStateSetGameScore } from "../../types/iStateSetGameScore";
 
 const initialState: IStateSetGameScore = {};
 
-const SET_GAME_SCORE_ERROR: string = "SET_GAME_SCORE_ERROR";
-const SET_GAME_SCORE_QUERY: string = "SET_GAME_SCORE_QUERY";
-const SET_GAME_SCORE_RESULT: string = "SET_GAME_SCORE_RESULT";
+const SET_GAME_SCORE_ERROR = "SET_GAME_SCORE_ERROR";
+const SET_GAME_SCORE_QUERY = "SET_GAME_SCORE_QUERY";
+const SET_GAME_SCORE_RESULT = "SET_GAME_SCORE_RESULT";
 
 const error: (setGameScore: IStateSetGameScore) => IActionSetGameScore = (
   setGameScore: IStateSetGameScore

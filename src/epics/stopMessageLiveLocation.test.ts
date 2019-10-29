@@ -16,7 +16,7 @@ import * as epic from "../epics/stopMessageLiveLocation";
 describe("stopMessageLiveLocation epic", (): void => {
   const error: Error = new Error("");
   const query: IStateStopMessageLiveLocationQuery = {};
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

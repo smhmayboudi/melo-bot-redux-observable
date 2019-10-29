@@ -1,7 +1,5 @@
 import { IStickerSet } from "./iStickerSet";
 
 export interface getStickerSet {
-  (
-    name: string,
-  ): IStickerSet
+  (name: string): IStickerSet;
 }

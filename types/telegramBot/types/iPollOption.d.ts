@@ -1,4 +1,4 @@
 export interface IPollOption {
-    text?: string;
-    voter_count: number;
-  }
+  text?: string;
+  voter_count: number;
+}

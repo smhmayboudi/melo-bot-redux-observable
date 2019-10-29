@@ -8,7 +8,7 @@ describe("answerCallbackQuery reducer", (): void => {
   const query: IStateAnswerCallbackQueryQuery = {
     callback_query_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

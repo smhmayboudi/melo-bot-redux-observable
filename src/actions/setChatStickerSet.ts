@@ -3,9 +3,9 @@ import { IStateSetChatStickerSet } from "../../types/iStateSetChatStickerSet";
 
 const initialState: IStateSetChatStickerSet = {};
 
-const SET_CHAT_STICKER_SET_ERROR: string = "SET_CHAT_STICKER_SET_ERROR";
-const SET_CHAT_STICKER_SET_QUERY: string = "SET_CHAT_STICKER_SET_QUERY";
-const SET_CHAT_STICKER_SET_RESULT: string = "SET_CHAT_STICKER_SET_RESULT";
+const SET_CHAT_STICKER_SET_ERROR = "SET_CHAT_STICKER_SET_ERROR";
+const SET_CHAT_STICKER_SET_QUERY = "SET_CHAT_STICKER_SET_QUERY";
+const SET_CHAT_STICKER_SET_RESULT = "SET_CHAT_STICKER_SET_RESULT";
 
 const error: (
   setChatStickerSet: IStateSetChatStickerSet

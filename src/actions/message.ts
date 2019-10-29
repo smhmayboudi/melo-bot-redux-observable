@@ -3,7 +3,7 @@ import { IStateMessage } from "../../types/iStateMessage";
 
 const initialState: IStateMessage = {};
 
-const MESSAGE_QUERY: string = "MESSAGE_QUERY";
+const MESSAGE_QUERY = "MESSAGE_QUERY";
 
 const query: (message: IStateMessage) => IActionMessage = (
   message: IStateMessage

@@ -1,222 +1,195 @@
 import { findByCode } from "./emojis";
 
-const actionAddStickerToSetQueryUndefined: string =
+const actionAddStickerToSetQueryUndefined =
   "actionAddStickerToSetQuery undefined.";
-const actionAnswerCallbackQueryQueryUndefined: string =
+const actionAnswerCallbackQueryQueryUndefined =
   "actionAnswerCallbackQueryQuery undefined.";
-const actionAnswerInlineQueryQueryUndefined: string =
+const actionAnswerInlineQueryQueryUndefined =
   "actionAnswerInlineQueryQuery undefined.";
-const actionAnswerPreCheckoutQueryQueryUndefined: string =
+const actionAnswerPreCheckoutQueryQueryUndefined =
   "actionAnswerPreCheckoutQueryQuery undefined.";
-const actionAnswerShippingQueryQueryUndefined: string =
+const actionAnswerShippingQueryQueryUndefined =
   "actionAnswerShippingQueryQuery undefined.";
-const actionChosenInlineResultQueryUndefined: string =
+const actionChosenInlineResultQueryUndefined =
   "actionChosenInlineResultQuery undefined.";
-const actionCreateNewStickerSetQueryUndefined: string =
+const actionCreateNewStickerSetQueryUndefined =
   "actionCreateNewStickerSetQuery undefined.";
-const actionDeleteChatPhotoQueryUndefined: string =
+const actionDeleteChatPhotoQueryUndefined =
   "actionDeleteChatPhotoQuery undefined.";
-const actionDeleteChatStickerSetQueryUndefined: string =
+const actionDeleteChatStickerSetQueryUndefined =
   "actionDeleteChatStickerSetQuery undefined.";
-const actionDeleteMessageQueryUndefined: string =
-  "actionDeleteMessageQuery undefined.";
-const actionDeleteStickerFromSetQueryUndefined: string =
+const actionDeleteMessageQueryUndefined = "actionDeleteMessageQuery undefined.";
+const actionDeleteStickerFromSetQueryUndefined =
   "actionDeleteStickerFromSetQuery undefined.";
-const actionDeleteWebhookQueryUndefined: string =
+const actionDeleteWebhookQueryUndefined =
   "actionDeleteWebhookQueryUndefined undefined.";
-const actionEditMessageCaptionQueryUndefined: string =
+const actionEditMessageCaptionQueryUndefined =
   "actionEditMessageCaptionQuery undefined.";
-const actionEditMessageLiveLocationQueryUndefined: string =
+const actionEditMessageLiveLocationQueryUndefined =
   "actionEditMessageLiveLocationQuery undefined.";
-const actionEditMessageMediaQueryUndefined: string =
+const actionEditMessageMediaQueryUndefined =
   "actionEditMessageMediaQuery undefined.";
-const actionEditMessageReplyMarkupQueryUndefined: string =
+const actionEditMessageReplyMarkupQueryUndefined =
   "actionEditMessageReplyMarkupQuery undefined.";
-const actionEditMessageTextQueryUndefined: string =
+const actionEditMessageTextQueryUndefined =
   "actionEditMessageTextQuery undefined.";
-const actionExportChatInviteLinkQueryUndefined: string =
+const actionExportChatInviteLinkQueryUndefined =
   "actionExportChatInviteLinkQuery undefined.";
-const actionForwardMessageQueryUndefined: string =
+const actionForwardMessageQueryUndefined =
   "actionForwardMessageQuery undefined.";
-const actionGetChatAdministratorsQueryUndefined: string =
+const actionGetChatAdministratorsQueryUndefined =
   "actionGetChatAdministratorsQuery undefined.";
-const actionGetChatMemberQueryUndefined: string =
-  "actionGetChatMemberQuery undefined.";
-const actionGetChatMembersCountQueryUndefined: string =
+const actionGetChatMemberQueryUndefined = "actionGetChatMemberQuery undefined.";
+const actionGetChatMembersCountQueryUndefined =
   "actionGetChatMembersCountQuery undefined.";
-const actionGetChatQueryUndefined: string = "actionGetChatQuery undefined.";
-const actionGetFileQueryUndefined: string = "actionGetFileQuery undefined.";
-const actionGetGameHighScoresQueryUndefined: string =
+const actionGetChatQueryUndefined = "actionGetChatQuery undefined.";
+const actionGetFileQueryUndefined = "actionGetFileQuery undefined.";
+const actionGetGameHighScoresQueryUndefined =
   "actionGetGameHighScoresQuery undefined.";
-const actionGetMeQueryUndefined: string = "actionGetMeQuery undefined.";
-const actionGetStickerSetQueryUndefined: string =
-  "actionGetStickerSetQuery undefined.";
-const actionGetUpdatesQueryUndefined: string =
-  "actionGetUpdatesQuery undefined.";
-const actionGetUserProfilePhotosQueryUndefined: string =
+const actionGetMeQueryUndefined = "actionGetMeQuery undefined.";
+const actionGetStickerSetQueryUndefined = "actionGetStickerSetQuery undefined.";
+const actionGetUpdatesQueryUndefined = "actionGetUpdatesQuery undefined.";
+const actionGetUserProfilePhotosQueryUndefined =
   "actionGetUserProfilePhotosQuery undefined.";
-const actionGetWebhookInfoQueryUndefined: string =
+const actionGetWebhookInfoQueryUndefined =
   "actionGetWebhookInfoQuery undefined.";
-const actionInlineQueryQueryUndefined: string =
-  "actionInlineQueryQuery undefined.";
-const actionKickChatMemberQueryUndefined: string =
+const actionInlineQueryQueryUndefined = "actionInlineQueryQuery undefined.";
+const actionKickChatMemberQueryUndefined =
   "actionKickChatMemberQuery undefined.";
-const actionLeaveChatQueryUndefined: string = "actionLeaveChatQuery undefined.";
-const actionPinChatMessageQueryUndefined: string =
+const actionLeaveChatQueryUndefined = "actionLeaveChatQuery undefined.";
+const actionPinChatMessageQueryUndefined =
   "actionPinChatMessageQuery undefined.";
-const actionPromoteChatMemberQueryUndefined: string =
+const actionPromoteChatMemberQueryUndefined =
   "actionPromoteChatMemberQuery undefined.";
-const actionRestrictChatMemberQueryUndefined: string =
+const actionRestrictChatMemberQueryUndefined =
   "actionRestrictChatMemberQuery undefined.";
-const actionSendAnimationQueryUndefined: string =
-  "actionSendAnimationQuery undefined.";
-const actionSendAudioQueryUndefined: string = "actionSendAudioQuery undefined.";
-const actionSendChatActionQueryUndefined: string =
+const actionSendAnimationQueryUndefined = "actionSendAnimationQuery undefined.";
+const actionSendAudioQueryUndefined = "actionSendAudioQuery undefined.";
+const actionSendChatActionQueryUndefined =
   "actionSendChatActionQuery undefined.";
-const actionSendContactQueryUndefined: string =
-  "actionSendContactQuery undefined.";
-const actionSendDocumentQueryUndefined: string =
-  "actionSendDocumentQuery undefined.";
-const actionSendGameQueryUndefined: string = "actionSendGameQuery undefined.";
-const actionSendInvoiceQueryUndefined: string =
-  "actionSendInvoiceQuery undefined.";
-const actionSendLocationQueryUndefined: string =
-  "actionSendLocationQuery undefined.";
-const actionSendMediaGroupQueryUndefined: string =
+const actionSendContactQueryUndefined = "actionSendContactQuery undefined.";
+const actionSendDocumentQueryUndefined = "actionSendDocumentQuery undefined.";
+const actionSendGameQueryUndefined = "actionSendGameQuery undefined.";
+const actionSendInvoiceQueryUndefined = "actionSendInvoiceQuery undefined.";
+const actionSendLocationQueryUndefined = "actionSendLocationQuery undefined.";
+const actionSendMediaGroupQueryUndefined =
   "actionSendMediaGroupQuery undefined.";
-const actionSendMessageQueryUndefined: string =
-  "actionSendMessageQuery undefined.";
-const actionSendPhotoQueryUndefined: string = "actionSendPhotoQuery undefined.";
-const actionSendPollQueryUndefined: string = "actionSendPollQuery undefined.";
-const actionSendStickerQueryUndefined: string =
-  "actionSendStickerQuery undefined.";
-const actionSendVenueQueryUndefined: string = "actionSendVenueQuery undefined.";
-const actionSendVideoNoteQueryUndefined: string =
-  "actionSendVideoNoteQuery undefined.";
-const actionSendVideoQueryUndefined: string = "actionSendVideoQuery undefined.";
-const actionSendVideoResultCaptionUndefined: string =
+const actionSendMessageQueryUndefined = "actionSendMessageQuery undefined.";
+const actionSendPhotoQueryUndefined = "actionSendPhotoQuery undefined.";
+const actionSendPollQueryUndefined = "actionSendPollQuery undefined.";
+const actionSendStickerQueryUndefined = "actionSendStickerQuery undefined.";
+const actionSendVenueQueryUndefined = "actionSendVenueQuery undefined.";
+const actionSendVideoNoteQueryUndefined = "actionSendVideoNoteQuery undefined.";
+const actionSendVideoQueryUndefined = "actionSendVideoQuery undefined.";
+const actionSendVideoResultCaptionUndefined =
   "actionSendVideoResultCaption undefined.";
-const actionSendVideoResultReplyToMessageTextUndefined: string =
+const actionSendVideoResultReplyToMessageTextUndefined =
   "actionSendVideoResultReplyToMessageText undefined.";
-const actionSendVideoResultReplyToMessageUndefined: string =
+const actionSendVideoResultReplyToMessageUndefined =
   "actionSendVideoResultReplyToMessage undefined.";
-const actionSendVideoResultUndefined: string =
-  "actionSendVideoResult undefined.";
-const actionSendVoiceQueryUndefined: string = "actionSendVoiceQuery undefined.";
-const actionSetChatDescriptionQueryUndefined: string =
+const actionSendVideoResultUndefined = "actionSendVideoResult undefined.";
+const actionSendVoiceQueryUndefined = "actionSendVoiceQuery undefined.";
+const actionSetChatDescriptionQueryUndefined =
   "actionSetChatDescriptionQuery undefined.";
-const actionSetChatPhotoQueryUndefined: string =
-  "actionSetChatPhotoQuery undefined.";
-const actionSetChatStickerSetQueryUndefined: string =
+const actionSetChatPhotoQueryUndefined = "actionSetChatPhotoQuery undefined.";
+const actionSetChatStickerSetQueryUndefined =
   "actionSetChatStickerSetQuery undefined.";
-const actionSetChatTitleQueryUndefined: string =
-  "actionSetChatTitleQuery undefined.";
-const actionSetGameScoreQueryUndefined: string =
-  "actionSetGameScoreQuery undefined.";
-const actionSetPassportDataErrorsQueryUndefined: string =
+const actionSetChatTitleQueryUndefined = "actionSetChatTitleQuery undefined.";
+const actionSetGameScoreQueryUndefined = "actionSetGameScoreQuery undefined.";
+const actionSetPassportDataErrorsQueryUndefined =
   "actionSetPassportDataErrorsQuery undefined.";
-const actionSetStickerPositionInSetQueryUndefined: string =
+const actionSetStickerPositionInSetQueryUndefined =
   "actionSetStickerPositionInSetQuery undefined.";
-const actionSetWebhookQueryUndefined: string =
-  "actionSetWebhookQuery undefined.";
-const actionStopMessageLiveLocationQueryUndefined: string =
+const actionSetWebhookQueryUndefined = "actionSetWebhookQuery undefined.";
+const actionStopMessageLiveLocationQueryUndefined =
   "actionStopMessageLiveLocationQuery undefined.";
-const actionStopPollQueryUndefined: string = "actionStopPollQuery undefined.";
-const actionUnbanChatMemberQueryUndefined: string =
+const actionStopPollQueryUndefined = "actionStopPollQuery undefined.";
+const actionUnbanChatMemberQueryUndefined =
   "actionUnbanChatMemberQuery undefined.";
-const actionUnpinChatMessageQueryUndefined: string =
+const actionUnpinChatMessageQueryUndefined =
   "actionUnpinChatMessageQuery undefined.";
-const actionUploadStickerFileQueryUndefined: string =
+const actionUploadStickerFileQueryUndefined =
   "actionUploadStickerFileQuery undefined.";
-const actionYoutubeDownloadQueryUndefined: string =
+const actionYoutubeDownloadQueryUndefined =
   "actionYoutubeDownloadQuery undefined.";
-const actionYoutubeDownloadResultUndefined: string =
+const actionYoutubeDownloadResultUndefined =
   "actionYoutubeDownloadResult undefined.";
-const actionYoutubeSearchListQueryUndefined: string =
+const actionYoutubeSearchListQueryUndefined =
   "actionYoutubeSearchListQuery undefined.";
-const actionYoutubeSearchListResultItemsUndefined: string =
+const actionYoutubeSearchListResultItemsUndefined =
   "actionYoutubeSearchListResultItems undefined.";
-const actionYoutubeSearchListResultUndefined: string =
+const actionYoutubeSearchListResultUndefined =
   "actionYoutubeSearchListResult undefined.";
-const actionYoutubeVideoListQueryUndefined: string =
+const actionYoutubeVideoListQueryUndefined =
   "actionYoutubeVideoListQuery undefined.";
-const actionYoutubeVideoListResultItemsUndefined: string =
+const actionYoutubeVideoListResultItemsUndefined =
   "actionYoutubeVideoListResultItems undefined.";
-const actionYoutubeVideoListResultUndefined: string =
+const actionYoutubeVideoListResultUndefined =
   "actionYoutubeVideoListResult undefined.";
-const commandDownload: string = "dl";
-const commandHelp: string = "help";
-const commandMostPopular: string = "mp";
-const commandRelatedToVideoId: string = "rl";
-const commandSeparator: string = "_";
-const commandSetInlineGeo: string = "setinlinegeo";
-const commandSettings: string = "settings";
-const commandStart: string = "start";
-const epicDependencyBotTokenUndefined: string =
-  "epicDependencyBotToken undefined.";
-const epicDependencyCollectionObservableUndefined: string =
+const commandDownload = "dl";
+const commandHelp = "help";
+const commandMostPopular = "mp";
+const commandRelatedToVideoId = "rl";
+const commandSeparator = "_";
+const commandSetInlineGeo = "setinlinegeo";
+const commandSettings = "settings";
+const commandStart = "start";
+const epicDependencyBotTokenUndefined = "epicDependencyBotToken undefined.";
+const epicDependencyCollectionObservableUndefined =
   "collectionObservable undefined.";
-const epicDependencyFindOneObservableUndefined: string =
-  "findOneObservable undefined.";
-const epicDependencyInsertOneObservableUndefined: string =
+const epicDependencyFindOneObservableUndefined = "findOneObservable undefined.";
+const epicDependencyInsertOneObservableUndefined =
   "insertOneObservable undefined.";
-const epicDependencyMongoClientObservableObservableUndefined: string =
+const epicDependencyMongoClientObservableObservableUndefined =
   "epicDependencyMongoClientObservable undefined.";
-const epicDependencyRequestObservableUndefined: string =
+const epicDependencyRequestObservableUndefined =
   "epicDependencyRequestObservable undefined.";
-const epicDependencyRequestUploadObservableUndefined: string =
+const epicDependencyRequestUploadObservableUndefined =
   "epicDependencyRequestUploadObservable undefined.";
-const epicDependencyRequestsObservableUndefined: string =
+const epicDependencyRequestsObservableUndefined =
   "epicDependencyRequestsObservable undefined.";
-const epicDependencyRequestsUploadObservableUndefined: string =
+const epicDependencyRequestsUploadObservableUndefined =
   "epicDependencyRequestsUploadObservable undefined.";
-const epicDependencyYoutubeDownloadObservableUndefined: string =
+const epicDependencyYoutubeDownloadObservableUndefined =
   "epicDependencyYoutubeDownloadObservable undefined.";
-const epicInlineQueryConnectGoogleAccount: string =
-  "Connect your Google account";
-const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined: string =
+const epicInlineQueryConnectGoogleAccount = "Connect your Google account";
+const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
-const epicYoutubeFindOneObservableDownloadValueThumbUndefined: string =
+const epicYoutubeFindOneObservableDownloadValueThumbUndefined =
   "epicYoutubeFindOneObservableDownloadValueThumb undefined.";
-const messageAdvertisementChannel: string = `${
-  findByCode("1F194").char
-} melobit`;
-const messageAdvertisementChannelJoinLink: string =
+const messageAdvertisementChannel = `${findByCode("1F194").char} melobit`;
+const messageAdvertisementChannelJoinLink =
   "https://t.me/joinchat/AAAAADu2QGw8mAt1RjY3nw";
-const messageChannel: string = `${findByCode("1F194").char} melodio`;
-const messageChannelJoinLink: string =
-  "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
-const messageError: string = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
+const messageChannel = `${findByCode("1F194").char} melodio`;
+const messageChannelJoinLink = "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
+const messageError = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
   findByCode("1F915").char
 }`;
-const messageHelp: string = "HELP";
-const messageJoin: string = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
+const messageHelp = "HELP";
+const messageJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
   findByCode("1F449").char
 } ${messageChannelJoinLink} ${findByCode("1F448").char}`;
-const messageNoResult: string = "NO RESULT";
+const messageNoResult = "NO RESULT";
 const messageResultQ: (q: string) => string = (q: string): string =>
   `${findByCode("1F50E").char} RESULT(S) FOR ${q} QUERY`;
-const messageResultRelatedTo: string = `${
-  findByCode("1F50E").char
-} RELATED RESULT(S)`;
-const messageSeparator: string = "--------------------";
-const messageSetInlineGeo: string = "SETINLINEGEO";
-const messageSettings: string = "SETTINGS";
-const messageStart: string = `WELCOME ${findByCode("1F917").char}`;
-const state$Undefined: string = "state$ undefined.";
-const state$ValueGetChatMemberQueryUndefined: string =
+const messageResultRelatedTo = `${findByCode("1F50E").char} RELATED RESULT(S)`;
+const messageSeparator = "--------------------";
+const messageSetInlineGeo = "SETINLINEGEO";
+const messageSettings = "SETTINGS";
+const messageStart = `WELCOME ${findByCode("1F917").char}`;
+const state$Undefined = "state$ undefined.";
+const state$ValueGetChatMemberQueryUndefined =
   "state$ValueGetChatMemberQuery undefined.";
-const state$ValueInlineQueryQueryUndefined: string =
+const state$ValueInlineQueryQueryUndefined =
   "state$ValueInlineQueryQuery undefined.";
-const state$ValueMessageQueryMessageUndefined: string =
+const state$ValueMessageQueryMessageUndefined =
   "state$ValueMessageQueryMessage undefined.";
-const state$ValueMessageQueryUndefined: string =
-  "state$ValueMessageQuery undefined.";
-const state$ValueYoutubeSearchListQueryQUndefined: string =
+const state$ValueMessageQueryUndefined = "state$ValueMessageQuery undefined.";
+const state$ValueYoutubeSearchListQueryQUndefined =
   "state$ValueYoutubeSearchListQueryQ undefined.";
-const state$ValueYoutubeSearchListQueryUndefined: string =
+const state$ValueYoutubeSearchListQueryUndefined =
   "state$ValueYoutubeSearchListQuery undefined.";
-const state$ValueYoutubeVideoListQueryQUndefined: string =
+const state$ValueYoutubeVideoListQueryQUndefined =
   "state$ValueYoutubeVideoListQueryQ undefined.";
 
 export {

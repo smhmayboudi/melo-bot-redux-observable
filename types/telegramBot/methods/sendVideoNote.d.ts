@@ -18,6 +18,6 @@ export interface sendVideoNote {
       | IReplyKeyboardRemove
       | IForceReply,
     reply_to_message_id?: number,
-    thumb?: IInputFile | string,
-  ): IMessage
+    thumb?: IInputFile | string
+  ): IMessage;
 }

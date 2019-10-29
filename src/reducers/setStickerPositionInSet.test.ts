@@ -9,7 +9,7 @@ describe("setStickerPositionInSet reducer", (): void => {
     position: 0,
     sticker: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

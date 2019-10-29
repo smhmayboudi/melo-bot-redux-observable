@@ -3,9 +3,9 @@ import { IStateGetChat } from "../../types/iStateGetChat";
 
 const initialState: IStateGetChat = {};
 
-const GET_CHAT_ERROR: string = "GET_CHAT_ERROR";
-const GET_CHAT_QUERY: string = "GET_CHAT_QUERY";
-const GET_CHAT_RESULT: string = "GET_CHAT_RESULT";
+const GET_CHAT_ERROR = "GET_CHAT_ERROR";
+const GET_CHAT_QUERY = "GET_CHAT_QUERY";
+const GET_CHAT_RESULT = "GET_CHAT_RESULT";
 
 const error: (getChat: IStateGetChat) => IActionGetChat = (
   getChat: IStateGetChat

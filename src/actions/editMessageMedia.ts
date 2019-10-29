@@ -3,9 +3,9 @@ import { IStateEditMessageMedia } from "../../types/iStateEditMessageMedia";
 
 const initialState: IStateEditMessageMedia = {};
 
-const EDIT_MESSAGE_MEDIA_ERROR: string = "EDIT_MESSAGE_MEDIA_ERROR";
-const EDIT_MESSAGE_MEDIA_QUERY: string = "EDIT_MESSAGE_MEDIA_QUERY";
-const EDIT_MESSAGE_MEDIA_RESULT: string = "EDIT_MESSAGE_MEDIA_RESULT";
+const EDIT_MESSAGE_MEDIA_ERROR = "EDIT_MESSAGE_MEDIA_ERROR";
+const EDIT_MESSAGE_MEDIA_QUERY = "EDIT_MESSAGE_MEDIA_QUERY";
+const EDIT_MESSAGE_MEDIA_RESULT = "EDIT_MESSAGE_MEDIA_RESULT";
 
 const error: (
   editMessageMedia: IStateEditMessageMedia

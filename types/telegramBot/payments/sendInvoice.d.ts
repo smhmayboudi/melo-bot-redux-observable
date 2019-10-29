@@ -26,6 +26,6 @@ export interface sendInvoice {
     reply_markup?: IInlineKeyboardMarkup,
     reply_to_message_id?: number,
     send_email_to_provider?: boolean,
-    send_phone_number_to_provider?: boolean,
-  ): IMessage
+    send_phone_number_to_provider?: boolean
+  ): IMessage;
 }

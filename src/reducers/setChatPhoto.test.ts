@@ -11,7 +11,7 @@ describe("setChatPhoto reducer", (): void => {
     chat_id: "",
     photo: fs.createReadStream("./asset/small.jpg")
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

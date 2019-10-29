@@ -3,9 +3,9 @@ import { IStateSendSticker } from "../../types/iStateSendSticker";
 
 const initialState: IStateSendSticker = {};
 
-const SEND_STICKER_ERROR: string = "SEND_STICKER_ERROR";
-const SEND_STICKER_QUERY: string = "SEND_STICKER_QUERY";
-const SEND_STICKER_RESULT: string = "SEND_STICKER_RESULT";
+const SEND_STICKER_ERROR = "SEND_STICKER_ERROR";
+const SEND_STICKER_QUERY = "SEND_STICKER_QUERY";
+const SEND_STICKER_RESULT = "SEND_STICKER_RESULT";
 
 const error: (sendSticker: IStateSendSticker) => IActionSendSticker = (
   sendSticker: IStateSendSticker

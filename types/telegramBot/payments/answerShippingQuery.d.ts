@@ -1,4 +1,4 @@
-import { IShippingOption } from "./iShippingOption"
+import { IShippingOption } from "./iShippingOption";
 
 export interface answerShippingQuery {
   (
@@ -6,5 +6,5 @@ export interface answerShippingQuery {
     ok: boolean,
     shipping_options: IShippingOption[],
     shipping_query_id: string
-  ): boolean
+  ): boolean;
 }

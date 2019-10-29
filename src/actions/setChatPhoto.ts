@@ -3,9 +3,9 @@ import { IStateSetChatPhoto } from "../../types/iStateSetChatPhoto";
 
 const initialState: IStateSetChatPhoto = {};
 
-const SET_CHAT_PHOTO_ERROR: string = "SET_CHAT_PHOTO_ERROR";
-const SET_CHAT_PHOTO_QUERY: string = "SET_CHAT_PHOTO_QUERY";
-const SET_CHAT_PHOTO_RESULT: string = "SET_CHAT_PHOTO_RESULT";
+const SET_CHAT_PHOTO_ERROR = "SET_CHAT_PHOTO_ERROR";
+const SET_CHAT_PHOTO_QUERY = "SET_CHAT_PHOTO_QUERY";
+const SET_CHAT_PHOTO_RESULT = "SET_CHAT_PHOTO_RESULT";
 
 const error: (setChatPhoto: IStateSetChatPhoto) => IActionSetChatPhoto = (
   setChatPhoto: IStateSetChatPhoto

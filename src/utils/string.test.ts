@@ -14,8 +14,8 @@ import {
 } from "./string";
 
 describe("string utils", (): void => {
-  const query: string = "E0yxlqfXfEY";
-  const result: string = "RTB5eGxxZlhmRVk";
+  const query = "E0yxlqfXfEY";
+  const result = "RTB5eGxxZlhmRVk";
 
   test("should handle caption", (): void => {
     expect(caption("")).toEqual("🆔 @melodio");
@@ -38,13 +38,13 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchList items length", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [];
     expect(transformSearchList(items, q)).toEqual(texts.messageNoResult);
   });
 
   test("should handle transformSearchList id undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: undefined,
@@ -66,7 +66,7 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchList id videoId undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -90,7 +90,7 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchList id videoId null", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -115,7 +115,7 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchList snippet undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -137,7 +137,7 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchList snippet title undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -161,7 +161,7 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchList", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {

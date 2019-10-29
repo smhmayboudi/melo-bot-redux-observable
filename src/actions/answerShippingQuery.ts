@@ -3,9 +3,9 @@ import { IStateAnswerShippingQuery } from "../../types/iStateAnswerShippingQuery
 
 const initialState: IStateAnswerShippingQuery = {};
 
-const ANSWER_SHIPPING_QUERY_ERROR: string = "ANSWER_SHIPPING_QUERY_ERROR";
-const ANSWER_SHIPPING_QUERY_QUERY: string = "ANSWER_SHIPPING_QUERY_QUERY";
-const ANSWER_SHIPPING_QUERY_RESULT: string = "ANSWER_SHIPPING_QUERY_RESULT";
+const ANSWER_SHIPPING_QUERY_ERROR = "ANSWER_SHIPPING_QUERY_ERROR";
+const ANSWER_SHIPPING_QUERY_QUERY = "ANSWER_SHIPPING_QUERY_QUERY";
+const ANSWER_SHIPPING_QUERY_RESULT = "ANSWER_SHIPPING_QUERY_RESULT";
 
 const error: (
   answerShippingQuery: IStateAnswerShippingQuery

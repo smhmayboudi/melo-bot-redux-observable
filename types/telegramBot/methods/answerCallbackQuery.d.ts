@@ -4,6 +4,6 @@ export interface answerCallbackQuery {
     cache_time?: number,
     show_alert?: boolean,
     text?: string,
-    url?: string,
-  ): boolean
+    url?: string
+  ): boolean;
 }

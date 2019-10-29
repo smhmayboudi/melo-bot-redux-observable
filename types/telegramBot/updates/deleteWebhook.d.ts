@@ -1,3 +1,3 @@
 declare interface deleteWebhook {
-  (): boolean
+  (): boolean;
 }

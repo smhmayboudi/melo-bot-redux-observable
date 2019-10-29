@@ -3,9 +3,9 @@ import { IStateDeleteChatStickerSet } from "../../types/iStateDeleteChatStickerS
 
 const initialState: IStateDeleteChatStickerSet = {};
 
-const DELETE_CHAT_STICKER_SET_ERROR: string = "DELETE_CHAT_STICKER_SET_ERROR";
-const DELETE_CHAT_STICKER_SET_QUERY: string = "DELETE_CHAT_STICKER_SET_QUERY";
-const DELETE_CHAT_STICKER_SET_RESULT: string = "DELETE_CHAT_STICKER_SET_RESULT";
+const DELETE_CHAT_STICKER_SET_ERROR = "DELETE_CHAT_STICKER_SET_ERROR";
+const DELETE_CHAT_STICKER_SET_QUERY = "DELETE_CHAT_STICKER_SET_QUERY";
+const DELETE_CHAT_STICKER_SET_RESULT = "DELETE_CHAT_STICKER_SET_RESULT";
 
 const error: (
   deleteChatStickerSet: IStateDeleteChatStickerSet

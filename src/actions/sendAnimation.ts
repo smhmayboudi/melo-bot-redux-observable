@@ -3,9 +3,9 @@ import { IStateSendAnimation } from "../../types/iStateSendAnimation";
 
 const initialState: IStateSendAnimation = {};
 
-const SEND_ANIMATION_ERROR: string = "SEND_ANIMATION_ERROR";
-const SEND_ANIMATION_QUERY: string = "SEND_ANIMATION_QUERY";
-const SEND_ANIMATION_RESULT: string = "SEND_ANIMATION_RESULT";
+const SEND_ANIMATION_ERROR = "SEND_ANIMATION_ERROR";
+const SEND_ANIMATION_QUERY = "SEND_ANIMATION_QUERY";
+const SEND_ANIMATION_RESULT = "SEND_ANIMATION_RESULT";
 
 const error: (sendAnimation: IStateSendAnimation) => IActionSendAnimation = (
   sendAnimation: IStateSendAnimation

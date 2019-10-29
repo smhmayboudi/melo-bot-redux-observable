@@ -3,9 +3,9 @@ import { IStateForwardMessage } from "../../types/iStateForwardMessage";
 
 const initialState: IStateForwardMessage = {};
 
-const FORWARD_MESSAGE_ERROR: string = "FORWARD_MESSAGE_ERROR";
-const FORWARD_MESSAGE_QUERY: string = "FORWARD_MESSAGE_QUERY";
-const FORWARD_MESSAGE_RESULT: string = "FORWARD_MESSAGE_RESULT";
+const FORWARD_MESSAGE_ERROR = "FORWARD_MESSAGE_ERROR";
+const FORWARD_MESSAGE_QUERY = "FORWARD_MESSAGE_QUERY";
+const FORWARD_MESSAGE_RESULT = "FORWARD_MESSAGE_RESULT";
 
 const error: (forwardMessage: IStateForwardMessage) => IActionForwardMessage = (
   forwardMessage: IStateForwardMessage

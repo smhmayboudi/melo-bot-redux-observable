@@ -13,10 +13,10 @@ export interface IStateSendVideoQuery {
   height?: number;
   parse_mode?: string;
   reply_markup?:
-  | IInlineKeyboardMarkup
-  | IReplyKeyboardMarkup
-  | IReplyKeyboardRemove
-  | IForceReply;
+    | IInlineKeyboardMarkup
+    | IReplyKeyboardMarkup
+    | IReplyKeyboardRemove
+    | IForceReply;
   reply_to_message_id?: number;
   supports_streaming?: boolean;
   thumb?: IInputFile | string;

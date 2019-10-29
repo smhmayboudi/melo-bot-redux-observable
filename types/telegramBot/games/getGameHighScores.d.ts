@@ -5,6 +5,6 @@ export interface getGameHighScores {
     user_id: number,
     chat_id?: number,
     inline_message_id?: string,
-    message_id?: number,
-  ): IGameHighScore[]
+    message_id?: number
+  ): IGameHighScore[];
 }

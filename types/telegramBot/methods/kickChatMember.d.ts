@@ -1,7 +1,3 @@
 export interface kickChatMember {
-  (
-    user_id: number,
-    chat_id: number | string,
-    until_date?: number,
-  ): boolean
+  (user_id: number, chat_id: number | string, until_date?: number): boolean;
 }

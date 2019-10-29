@@ -3,9 +3,9 @@ import { IStatePinChatMessage } from "../../types/iStatePinChatMessage";
 
 const initialState: IStatePinChatMessage = {};
 
-const PIN_CHAT_MESSAGE_ERROR: string = "PIN_CHAT_MESSAGE_ERROR";
-const PIN_CHAT_MESSAGE_QUERY: string = "PIN_CHAT_MESSAGE_QUERY";
-const PIN_CHAT_MESSAGE_RESULT: string = "PIN_CHAT_MESSAGE_RESULT";
+const PIN_CHAT_MESSAGE_ERROR = "PIN_CHAT_MESSAGE_ERROR";
+const PIN_CHAT_MESSAGE_QUERY = "PIN_CHAT_MESSAGE_QUERY";
+const PIN_CHAT_MESSAGE_RESULT = "PIN_CHAT_MESSAGE_RESULT";
 
 const error: (pinChatMessage: IStatePinChatMessage) => IActionPinChatMessage = (
   pinChatMessage: IStatePinChatMessage

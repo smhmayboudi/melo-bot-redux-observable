@@ -3,9 +3,9 @@ import { IStateYoutubeDownload } from "../../types/iStateYoutubeDownload";
 
 const initialState: IStateYoutubeDownload = {};
 
-const YOUTUBE_DOWNLOAD_ERROR: string = "YOUTUBE_DOWNLOAD_ERROR";
-const YOUTUBE_DOWNLOAD_QUERY: string = "YOUTUBE_DOWNLOAD_QUERY";
-const YOUTUBE_DOWNLOAD_RESULT: string = "YOUTUBE_DOWNLOAD_RESULT";
+const YOUTUBE_DOWNLOAD_ERROR = "YOUTUBE_DOWNLOAD_ERROR";
+const YOUTUBE_DOWNLOAD_QUERY = "YOUTUBE_DOWNLOAD_QUERY";
+const YOUTUBE_DOWNLOAD_RESULT = "YOUTUBE_DOWNLOAD_RESULT";
 
 const error: (
   youtubeDownload: IStateYoutubeDownload

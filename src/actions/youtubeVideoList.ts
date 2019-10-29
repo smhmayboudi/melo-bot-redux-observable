@@ -3,9 +3,9 @@ import { IStateYoutubeVideoList } from "../../types/iStateYoutubeVideoList";
 
 const initialState: IStateYoutubeVideoList = {};
 
-const YOUTUBE_VIDEO_LIST_ERROR: string = "YOUTUBE_VIDEO_LIST_ERROR";
-const YOUTUBE_VIDEO_LIST_QUERY: string = "YOUTUBE_VIDEO_LIST_QUERY";
-const YOUTUBE_VIDEO_LIST_RESULT: string = "YOUTUBE_VIDEO_LIST_RESULT";
+const YOUTUBE_VIDEO_LIST_ERROR = "YOUTUBE_VIDEO_LIST_ERROR";
+const YOUTUBE_VIDEO_LIST_QUERY = "YOUTUBE_VIDEO_LIST_QUERY";
+const YOUTUBE_VIDEO_LIST_RESULT = "YOUTUBE_VIDEO_LIST_RESULT";
 
 const error: (
   youtubeVideoList: IStateYoutubeVideoList

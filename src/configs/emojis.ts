@@ -8,8 +8,8 @@ const appDebug: debug.IDebugger = debug("app:config:emoji");
 
 const findByCode: (code: string) => IEmoji = (code: string): IEmoji => {
   appDebug("findByCode", code);
-  const emoji: IEmoji | undefined = emojis.find(
-    (value: IEmoji) => value.codes.indexOf(code) > -1
+  const emoji: IEmoji | undefined = emojis.find((value: IEmoji) =>
+    value.codes.includes(code)
   );
 
   return emoji !== undefined
@@ -24,8 +24,8 @@ const findByCode: (code: string) => IEmoji = (code: string): IEmoji => {
 
 const findByName: (name: string) => IEmoji = (name: string): IEmoji => {
   appDebug("findByName", name);
-  const emoji: IEmoji | undefined = emojis.find(
-    (value: IEmoji) => value.name.indexOf(name) > -1
+  const emoji: IEmoji | undefined = emojis.find((value: IEmoji) =>
+    value.name.includes(name)
   );
 
   return emoji !== undefined

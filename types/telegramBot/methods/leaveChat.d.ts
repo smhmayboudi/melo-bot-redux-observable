@@ -1,5 +1,3 @@
 export interface leaveChat {
-  (
-    chat_id: number | string,
-  ): boolean
+  (chat_id: number | string): boolean;
 }

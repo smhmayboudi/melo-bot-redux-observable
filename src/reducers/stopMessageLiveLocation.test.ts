@@ -6,7 +6,7 @@ import * as reducer from "./stopMessageLiveLocation";
 describe("stopMessageLiveLocation reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateStopMessageLiveLocationQuery = {};
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

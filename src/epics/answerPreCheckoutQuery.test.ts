@@ -19,7 +19,7 @@ describe("answerPreCheckoutQuery epic", (): void => {
     ok: false,
     pre_checkout_query_id: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

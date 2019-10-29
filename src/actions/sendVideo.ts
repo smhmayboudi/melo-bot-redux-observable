@@ -3,9 +3,9 @@ import { IStateSendVideo } from "../../types/iStateSendVideo";
 
 const initialState: IStateSendVideo = {};
 
-const SEND_VIDEO_ERROR: string = "SEND_VIDEO_ERROR";
-const SEND_VIDEO_QUERY: string = "SEND_VIDEO_QUERY";
-const SEND_VIDEO_RESULT: string = "SEND_VIDEO_RESULT";
+const SEND_VIDEO_ERROR = "SEND_VIDEO_ERROR";
+const SEND_VIDEO_QUERY = "SEND_VIDEO_QUERY";
+const SEND_VIDEO_RESULT = "SEND_VIDEO_RESULT";
 
 const error: (sendVideo: IStateSendVideo) => IActionSendVideo = (
   sendVideo: IStateSendVideo

@@ -3,9 +3,9 @@ import { IStateDeleteWebhook } from "../../types/iStateDeleteWebhook";
 
 const initialState: IStateDeleteWebhook = {};
 
-const DELETE_WEBHOOK_ERROR: string = "DELETE_WEBHOOK_ERROR";
-const DELETE_WEBHOOK_QUERY: string = "DELETE_WEBHOOK_QUERY";
-const DELETE_WEBHOOK_RESULT: string = "DELETE_WEBHOOK_RESULT";
+const DELETE_WEBHOOK_ERROR = "DELETE_WEBHOOK_ERROR";
+const DELETE_WEBHOOK_QUERY = "DELETE_WEBHOOK_QUERY";
+const DELETE_WEBHOOK_RESULT = "DELETE_WEBHOOK_RESULT";
 
 const error: (deleteWebhook: IStateDeleteWebhook) => IActionDeleteWebhook = (
   deleteWebhook: IStateDeleteWebhook

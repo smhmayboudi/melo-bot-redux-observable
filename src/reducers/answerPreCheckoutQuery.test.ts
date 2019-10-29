@@ -9,7 +9,7 @@ describe("answerPreCheckoutQuery reducer", (): void => {
     ok: false,
     pre_checkout_query_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

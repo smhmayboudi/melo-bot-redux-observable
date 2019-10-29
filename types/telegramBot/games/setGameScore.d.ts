@@ -8,6 +8,6 @@ export interface setGameScore {
     disable_edit_message?: boolean,
     force?: boolean,
     inline_message_id?: string,
-    message_id?: number,
-  ): IMessage
+    message_id?: number
+  ): IMessage;
 }

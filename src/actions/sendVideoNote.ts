@@ -3,9 +3,9 @@ import { IStateSendVideoNote } from "../../types/iStateSendVideoNote";
 
 const initialState: IStateSendVideoNote = {};
 
-const SEND_VIDEO_NOTE_ERROR: string = "SEND_VIDEO_NOTE_ERROR";
-const SEND_VIDEO_NOTE_QUERY: string = "SEND_VIDEO_NOTE_QUERY";
-const SEND_VIDEO_NOTE_RESULT: string = "SEND_VIDEO_NOTE_RESULT";
+const SEND_VIDEO_NOTE_ERROR = "SEND_VIDEO_NOTE_ERROR";
+const SEND_VIDEO_NOTE_QUERY = "SEND_VIDEO_NOTE_QUERY";
+const SEND_VIDEO_NOTE_RESULT = "SEND_VIDEO_NOTE_RESULT";
 
 const error: (sendVideoNote: IStateSendVideoNote) => IActionSendVideoNote = (
   sendVideoNote: IStateSendVideoNote

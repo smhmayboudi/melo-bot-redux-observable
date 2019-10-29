@@ -3,9 +3,9 @@ import { IStateSendVenue } from "../../types/iStateSendVenue";
 
 const initialState: IStateSendVenue = {};
 
-const SEND_VENUE_ERROR: string = "SEND_VENUE_ERROR";
-const SEND_VENUE_QUERY: string = "SEND_VENUE_QUERY";
-const SEND_VENUE_RESULT: string = "SEND_VENUE_RESULT";
+const SEND_VENUE_ERROR = "SEND_VENUE_ERROR";
+const SEND_VENUE_QUERY = "SEND_VENUE_QUERY";
+const SEND_VENUE_RESULT = "SEND_VENUE_RESULT";
 
 const error: (sendVenue: IStateSendVenue) => IActionSendVenue = (
   sendVenue: IStateSendVenue

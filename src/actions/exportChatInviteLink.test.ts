@@ -7,7 +7,7 @@ describe("exportChatInviteLink actions", (): void => {
   const query: IStateExportChatInviteLinkQuery = {
     chat_id: 0
   };
-  const result: string = "";
+  const result = "";
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

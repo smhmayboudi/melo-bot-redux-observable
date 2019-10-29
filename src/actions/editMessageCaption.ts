@@ -3,9 +3,9 @@ import { IStateEditMessageCaption } from "../../types/iStateEditMessageCaption";
 
 const initialState: IStateEditMessageCaption = {};
 
-const EDIT_MESSAGE_CAPTION_ERROR: string = "EDIT_MESSAGE_CAPTION_ERROR";
-const EDIT_MESSAGE_CAPTION_QUERY: string = "EDIT_MESSAGE_CAPTION_QUERY";
-const EDIT_MESSAGE_CAPTION_RESULT: string = "EDIT_MESSAGE_CAPTION_RESULT";
+const EDIT_MESSAGE_CAPTION_ERROR = "EDIT_MESSAGE_CAPTION_ERROR";
+const EDIT_MESSAGE_CAPTION_QUERY = "EDIT_MESSAGE_CAPTION_QUERY";
+const EDIT_MESSAGE_CAPTION_RESULT = "EDIT_MESSAGE_CAPTION_RESULT";
 
 const error: (
   editMessageCaption: IStateEditMessageCaption

@@ -1,6 +1,3 @@
 export interface setChatDescription {
-  (
-    chat_id: number | string,
-    description?: string,
-  ): boolean
+  (chat_id: number | string, description?: string): boolean;
 }

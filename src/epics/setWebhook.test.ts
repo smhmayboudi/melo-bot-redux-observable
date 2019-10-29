@@ -18,7 +18,7 @@ describe("setWebhook epic", (): void => {
   const query: IStateSetWebhookQuery = {
     url: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

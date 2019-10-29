@@ -7,6 +7,6 @@ export interface addStickerToSet {
     name: string,
     png_sticker: IInputFile | string,
     user_id: number,
-    mask_position?: IMaskPosition,
-  ): boolean
+    mask_position?: IMaskPosition
+  ): boolean;
 }

@@ -3,9 +3,9 @@ import { IStateSendMediaGroup } from "../../types/iStateSendMediaGroup";
 
 const initialState: IStateSendMediaGroup = {};
 
-const SEND_MEDIA_GROUP_ERROR: string = "SEND_MEDIA_GROUP_ERROR";
-const SEND_MEDIA_GROUP_QUERY: string = "SEND_MEDIA_GROUP_QUERY";
-const SEND_MEDIA_GROUP_RESULT: string = "SEND_MEDIA_GROUP_RESULT";
+const SEND_MEDIA_GROUP_ERROR = "SEND_MEDIA_GROUP_ERROR";
+const SEND_MEDIA_GROUP_QUERY = "SEND_MEDIA_GROUP_QUERY";
+const SEND_MEDIA_GROUP_RESULT = "SEND_MEDIA_GROUP_RESULT";
 
 const error: (sendMediaGroup: IStateSendMediaGroup) => IActionSendMediaGroup = (
   sendMediaGroup: IStateSendMediaGroup

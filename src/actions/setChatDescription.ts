@@ -3,9 +3,9 @@ import { IStateSetChatDescription } from "../../types/iStateSetChatDescription";
 
 const initialState: IStateSetChatDescription = {};
 
-const SET_CHAT_DESCRIPTION_ERROR: string = "SET_CHAT_DESCRIPTION_ERROR";
-const SET_CHAT_DESCRIPTION_QUERY: string = "SET_CHAT_DESCRIPTION_QUERY";
-const SET_CHAT_DESCRIPTION_RESULT: string = "SET_CHAT_DESCRIPTION_RESULT";
+const SET_CHAT_DESCRIPTION_ERROR = "SET_CHAT_DESCRIPTION_ERROR";
+const SET_CHAT_DESCRIPTION_QUERY = "SET_CHAT_DESCRIPTION_QUERY";
+const SET_CHAT_DESCRIPTION_RESULT = "SET_CHAT_DESCRIPTION_RESULT";
 
 const error: (
   setChatDescription: IStateSetChatDescription

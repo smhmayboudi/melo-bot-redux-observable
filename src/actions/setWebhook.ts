@@ -3,9 +3,9 @@ import { IStateSetWebhook } from "../../types/iStateSetWebhook";
 
 const initialState: IStateSetWebhook = {};
 
-const SET_WEBHOOK_ERROR: string = "SET_WEBHOOK_ERROR";
-const SET_WEBHOOK_QUERY: string = "SET_WEBHOOK_QUERY";
-const SET_WEBHOOK_RESULT: string = "SET_WEBHOOK_RESULT";
+const SET_WEBHOOK_ERROR = "SET_WEBHOOK_ERROR";
+const SET_WEBHOOK_QUERY = "SET_WEBHOOK_QUERY";
+const SET_WEBHOOK_RESULT = "SET_WEBHOOK_RESULT";
 
 const error: (setWebhook: IStateSetWebhook) => IActionSetWebhook = (
   setWebhook: IStateSetWebhook

@@ -7,7 +7,7 @@ describe("deleteStickerFromSet actions", (): void => {
   const query: IStateDeleteStickerFromSetQuery = {
     sticker: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

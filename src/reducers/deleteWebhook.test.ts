@@ -6,7 +6,7 @@ import * as reducer from "./deleteWebhook";
 describe("deleteWebhook reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateDeleteWebhookQuery = {};
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

@@ -1,5 +1,3 @@
 export interface exportChatInviteLink {
-  (
-    chat_id: number | string,
-  ): string
+  (chat_id: number | string): string;
 }

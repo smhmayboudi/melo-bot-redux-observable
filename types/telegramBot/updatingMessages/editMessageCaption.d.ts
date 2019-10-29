@@ -8,6 +8,6 @@ export interface editMessageCaption {
     inline_message_id?: string,
     message_id?: number,
     parse_mode?: string,
-    reply_markup?: IInlineKeyboardMarkup,
-  ): IMessage
+    reply_markup?: IInlineKeyboardMarkup
+  ): IMessage;
 }

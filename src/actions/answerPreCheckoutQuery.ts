@@ -3,12 +3,9 @@ import { IStateAnswerPreCheckoutQuery } from "../../types/iStateAnswerPreCheckou
 
 const initialState: IStateAnswerPreCheckoutQuery = {};
 
-const ANSWER_PRE_CHECKOUT_QUERY_ERROR: string =
-  "ANSWER_PRE_CHECKOUT_QUERY_ERROR";
-const ANSWER_PRE_CHECKOUT_QUERY_QUERY: string =
-  "ANSWER_PRE_CHECKOUT_QUERY_QUERY";
-const ANSWER_PRE_CHECKOUT_QUERY_RESULT: string =
-  "ANSWER_PRE_CHECKOUT_QUERY_RESULT";
+const ANSWER_PRE_CHECKOUT_QUERY_ERROR = "ANSWER_PRE_CHECKOUT_QUERY_ERROR";
+const ANSWER_PRE_CHECKOUT_QUERY_QUERY = "ANSWER_PRE_CHECKOUT_QUERY_QUERY";
+const ANSWER_PRE_CHECKOUT_QUERY_RESULT = "ANSWER_PRE_CHECKOUT_QUERY_RESULT";
 
 const error: (
   answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery

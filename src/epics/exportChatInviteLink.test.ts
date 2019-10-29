@@ -18,7 +18,7 @@ describe("exportChatInviteLink epic", (): void => {
   const query: IStateExportChatInviteLinkQuery = {
     chat_id: 0
   };
-  const result: string = "";
+  const result = "";
   const responseOKF: IResponse = {
     ok: false
   };

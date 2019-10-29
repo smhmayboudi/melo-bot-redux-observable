@@ -16,7 +16,7 @@ import * as epic from "../epics/deleteWebhook";
 describe("deleteWebhook epic", (): void => {
   const error: Error = new Error("");
   const query: IStateDeleteWebhookQuery = {};
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

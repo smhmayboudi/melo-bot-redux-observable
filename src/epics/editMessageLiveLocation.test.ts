@@ -19,7 +19,7 @@ describe("editMessageLiveLocation epic", (): void => {
     latitude: 0,
     longitude: 0
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

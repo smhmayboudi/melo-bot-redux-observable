@@ -1,6 +1,3 @@
 export interface sendChatAction {
-  (
-    action: string,
-    chat_id: number | string,
-  ): boolean
+  (action: string, chat_id: number | string): boolean;
 }

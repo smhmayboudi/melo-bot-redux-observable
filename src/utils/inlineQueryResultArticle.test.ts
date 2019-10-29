@@ -4,13 +4,13 @@ import { transformSearchList } from "./inlineQueryResultArticle";
 
 describe("inlineQueryResultArticle utils", (): void => {
   test("should handle transformSearchList items length", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [];
     expect(transformSearchList(items, q)).toEqual([]);
   });
 
   test("should handle transformSearchList id undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: undefined,
@@ -26,7 +26,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList id videoId undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -44,7 +44,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList id videoId null", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -63,7 +63,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList snippet undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -76,7 +76,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList snippet thumbnails undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -92,7 +92,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList snippet thumbnails default undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -110,7 +110,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList snippet title undefined", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
@@ -128,7 +128,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchList", (): void => {
-    const q: string = "";
+    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {

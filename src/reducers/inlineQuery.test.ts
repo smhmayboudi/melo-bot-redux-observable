@@ -15,7 +15,7 @@ describe("inlineQuery reducer", (): void => {
     offset: "",
     query: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

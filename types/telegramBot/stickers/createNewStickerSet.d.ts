@@ -9,6 +9,6 @@ export interface createNewStickerSet {
     title: string,
     user_id: number,
     contains_masks?: boolean,
-    mask_position?: IMaskPosition,
-  ): boolean
+    mask_position?: IMaskPosition
+  ): boolean;
 }

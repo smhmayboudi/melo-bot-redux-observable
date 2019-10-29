@@ -8,7 +8,7 @@ describe("setChatDescription reducer", (): void => {
   const query: IStateSetChatDescriptionQuery = {
     chat_id: 0
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

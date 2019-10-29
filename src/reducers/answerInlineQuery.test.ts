@@ -9,7 +9,7 @@ describe("answerInlineQuery reducer", (): void => {
     inline_query_id: "",
     results: []
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

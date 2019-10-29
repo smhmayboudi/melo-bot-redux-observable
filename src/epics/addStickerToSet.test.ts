@@ -21,7 +21,7 @@ describe("addStickerToSet epic", (): void => {
     png_sticker: "",
     user_id: 0
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

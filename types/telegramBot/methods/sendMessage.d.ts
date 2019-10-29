@@ -16,6 +16,6 @@ export interface sendMessage {
       | IInlineKeyboardMarkup
       | IReplyKeyboardMarkup
       | IReplyKeyboardRemove
-      | IForceReply,
-  ): IMessage
+      | IForceReply
+  ): IMessage;
 }

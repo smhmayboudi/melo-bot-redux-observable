@@ -3,9 +3,9 @@ import { IStateGetChatAdministrators } from "../../types/iStateGetChatAdministra
 
 const initialState: IStateGetChatAdministrators = {};
 
-const GET_CHAT_ADMINISTRATORS_ERROR: string = "GET_CHAT_ADMINISTRATORS_ERROR";
-const GET_CHAT_ADMINISTRATORS_QUERY: string = "GET_CHAT_ADMINISTRATORS_QUERY";
-const GET_CHAT_ADMINISTRATORS_RESULT: string = "GET_CHAT_ADMINISTRATORS_RESULT";
+const GET_CHAT_ADMINISTRATORS_ERROR = "GET_CHAT_ADMINISTRATORS_ERROR";
+const GET_CHAT_ADMINISTRATORS_QUERY = "GET_CHAT_ADMINISTRATORS_QUERY";
+const GET_CHAT_ADMINISTRATORS_RESULT = "GET_CHAT_ADMINISTRATORS_RESULT";
 
 const error: (
   getChatAdministrators: IStateGetChatAdministrators

@@ -18,7 +18,7 @@ describe("deleteStickerFromSet epic", (): void => {
   const query: IStateDeleteStickerFromSetQuery = {
     sticker: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

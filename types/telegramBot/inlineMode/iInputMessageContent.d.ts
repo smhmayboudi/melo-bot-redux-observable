@@ -1,1 +1,1 @@
-export interface IInputMessageContent { }
+export interface IInputMessageContent {}

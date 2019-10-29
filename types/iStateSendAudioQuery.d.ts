@@ -14,10 +14,10 @@ export interface IStateSendAudioQuery {
   parse_mode?: string;
   performer?: string;
   reply_markup?:
-  | IInlineKeyboardMarkup
-  | IReplyKeyboardMarkup
-  | IReplyKeyboardRemove
-  | IForceReply;
+    | IInlineKeyboardMarkup
+    | IReplyKeyboardMarkup
+    | IReplyKeyboardRemove
+    | IForceReply;
   reply_to_message_id?: number;
   thumb?: IInputFile | string;
   title?: string;

@@ -3,9 +3,9 @@ import { IStateSendMessage } from "../../types/iStateSendMessage";
 
 const initialState: IStateSendMessage = {};
 
-const SEND_MESSAGE_ERROR: string = "SEND_MESSAGE_ERROR";
-const SEND_MESSAGE_QUERY: string = "SEND_MESSAGE_QUERY";
-const SEND_MESSAGE_RESULT: string = "SEND_MESSAGE_RESULT";
+const SEND_MESSAGE_ERROR = "SEND_MESSAGE_ERROR";
+const SEND_MESSAGE_QUERY = "SEND_MESSAGE_QUERY";
+const SEND_MESSAGE_RESULT = "SEND_MESSAGE_RESULT";
 
 const error: (sendMessage: IStateSendMessage) => IActionSendMessage = (
   sendMessage: IStateSendMessage

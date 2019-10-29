@@ -24,7 +24,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
         a: RegExpMatchArray,
         f: (str: string) => string
       ): RegExpMatchArray => {
-        for (let i: number = 0; i < a.length; i = i + 1) {
+        for (let i = 0; i < a.length; i = i + 1) {
           a[i] = f(a[i]);
         }
 
@@ -34,18 +34,18 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
       const parseVideoInfo: (videoInfo: string) => IVideoInfo[] = (
         videoInfo: string
       ): IVideoInfo[] => {
-        const rxFmtList: RegExp = /fmt_list=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxFmtList = /fmt_list=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         const fmtListmap: string = unescape(
           (videoInfo.match(rxFmtList) as RegExpMatchArray)[1]
         );
 
-        const rxFmtListNumG: RegExp = /\d+/g;
+        const rxFmtListNumG = /\d+/g;
         const fmtListNums: RegExpMatchArray = fmtListmap.match(
           rxFmtListNumG
         ) as RegExpMatchArray;
         const fmtList: IFmtList[] = [];
-        const add: number = 3;
-        for (let index: number = 0; index < fmtListNums.length; index += add) {
+        const add = 3;
+        for (let index = 0; index < fmtListNums.length; index += add) {
           fmtList.push({
             height: parseInt(fmtListNums[index + 1 + 1], 10),
             itag: parseInt(fmtListNums[index], 10),
@@ -53,14 +53,14 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
           });
         }
 
-        const rxUrlMap: RegExp = /url_encoded_fmt_stream_map=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxUrlMap = /url_encoded_fmt_stream_map=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         const urlmap: string = unescape(
           (videoInfo.match(rxUrlMap) as RegExpMatchArray)[1]
         );
 
-        const rxUrlG: RegExp = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/g;
+        const rxUrlG = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/g;
 
-        const rxDur: RegExp = /dur=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxDur = /dur=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         let durs: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         durs = map(durs, unescape);
         durs = map(
@@ -68,7 +68,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
           (s: string): string => (s.match(rxDur) as RegExpMatchArray)[1]
         );
 
-        const rxItag: RegExp = /itag=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxItag = /itag=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         let itags: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         itags = map(itags, unescape);
         itags = map(
@@ -76,7 +76,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
           (s: string): string => (s.match(rxItag) as RegExpMatchArray)[1]
         );
 
-        const rxMime: RegExp = /mime=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxMime = /mime=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         let mimes: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         mimes = map(mimes, unescape);
         mimes = map(
@@ -88,7 +88,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
         // TODO: const rxThumbnailUrl: RegExp = /thumbnail_url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         // TODO: const thumbnailUrl: string = unescape((videoInfo.match(rxThumbnailUrl) as RegExpMatchArray)[1]);
 
-        const rxThumbnailUrl: RegExp = /\=(\{.*\})\&/gm;
+        const rxThumbnailUrl = /\=(\{.*\})\&/gm;
         const res: RegExpMatchArray | null = rxThumbnailUrl.exec(
           unescape(videoInfo)
         );
@@ -102,7 +102,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
 
         const title: string = playerResponseJSON.videoDetails.title;
 
-        const rxUrl: RegExp = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxUrl = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         let urls: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         urls = map(
           urls,
@@ -111,7 +111,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
         urls = map(urls, unescape);
 
         const videoInfos: IVideoInfo[] = [];
-        for (let index: number = 0; index < durs.length; index = index + 1) {
+        for (let index = 0; index < durs.length; index = index + 1) {
           videoInfos.push({
             dur: parseFloat(durs[index]),
             fmtList: fmtList[index],

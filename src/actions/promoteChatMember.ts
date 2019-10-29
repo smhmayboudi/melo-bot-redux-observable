@@ -3,9 +3,9 @@ import { IStatePromoteChatMember } from "../../types/iStatePromoteChatMember";
 
 const initialState: IStatePromoteChatMember = {};
 
-const PROMOTE_CHAT_MEMBER_ERROR: string = "PROMOTE_CHAT_MEMBER_ERROR";
-const PROMOTE_CHAT_MEMBER_QUERY: string = "PROMOTE_CHAT_MEMBER_QUERY";
-const PROMOTE_CHAT_MEMBER_RESULT: string = "PROMOTE_CHAT_MEMBER_RESULT";
+const PROMOTE_CHAT_MEMBER_ERROR = "PROMOTE_CHAT_MEMBER_ERROR";
+const PROMOTE_CHAT_MEMBER_QUERY = "PROMOTE_CHAT_MEMBER_QUERY";
+const PROMOTE_CHAT_MEMBER_RESULT = "PROMOTE_CHAT_MEMBER_RESULT";
 
 const error: (
   promoteChatMember: IStatePromoteChatMember

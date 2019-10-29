@@ -3,9 +3,9 @@ import { IStateUnbanChatMember } from "../../types/iStateUnbanChatMember";
 
 const initialState: IStateUnbanChatMember = {};
 
-const UNBAN_CHAT_MEMBER_ERROR: string = "UNBAN_CHAT_MEMBER_ERROR";
-const UNBAN_CHAT_MEMBER_QUERY: string = "UNBAN_CHAT_MEMBER_QUERY";
-const UNBAN_CHAT_MEMBER_RESULT: string = "UNBAN_CHAT_MEMBER_RESULT";
+const UNBAN_CHAT_MEMBER_ERROR = "UNBAN_CHAT_MEMBER_ERROR";
+const UNBAN_CHAT_MEMBER_QUERY = "UNBAN_CHAT_MEMBER_QUERY";
+const UNBAN_CHAT_MEMBER_RESULT = "UNBAN_CHAT_MEMBER_RESULT";
 
 const error: (
   unbanChatMember: IStateUnbanChatMember

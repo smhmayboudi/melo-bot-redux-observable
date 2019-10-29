@@ -3,9 +3,9 @@ import { IStateGetStickerSet } from "../../types/iStateGetStickerSet";
 
 const initialState: IStateGetStickerSet = {};
 
-const GET_STICKER_SET_ERROR: string = "GET_STICKER_SET_ERROR";
-const GET_STICKER_SET_QUERY: string = "GET_STICKER_SET_QUERY";
-const GET_STICKER_SET_RESULT: string = "GET_STICKER_SET_RESULT";
+const GET_STICKER_SET_ERROR = "GET_STICKER_SET_ERROR";
+const GET_STICKER_SET_QUERY = "GET_STICKER_SET_QUERY";
+const GET_STICKER_SET_RESULT = "GET_STICKER_SET_RESULT";
 
 const error: (getStickerSet: IStateGetStickerSet) => IActionGetStickerSet = (
   getStickerSet: IStateGetStickerSet

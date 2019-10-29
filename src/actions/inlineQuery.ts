@@ -3,9 +3,9 @@ import { IStateInlineQuery } from "../../types/iStateInlineQuery";
 
 const initialState: IStateInlineQuery = {};
 
-const INLINE_QUERY_ERROR: string = "INLINE_QUERY_ERROR";
-const INLINE_QUERY_QUERY: string = "INLINE_QUERY_QUERY";
-const INLINE_QUERY_RESULT: string = "INLINE_QUERY_RESULT";
+const INLINE_QUERY_ERROR = "INLINE_QUERY_ERROR";
+const INLINE_QUERY_QUERY = "INLINE_QUERY_QUERY";
+const INLINE_QUERY_RESULT = "INLINE_QUERY_RESULT";
 
 const error: (inlineQuery: IStateInlineQuery) => IActionInlineQuery = (
   inlineQuery: IStateInlineQuery

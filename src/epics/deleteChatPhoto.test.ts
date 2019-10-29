@@ -18,7 +18,7 @@ describe("deleteChatPhoto epic", (): void => {
   const query: IStateDeleteChatPhotoQuery = {
     chat_id: 0
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

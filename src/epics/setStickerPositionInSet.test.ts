@@ -19,7 +19,7 @@ describe("setStickerPositionInSet epic", (): void => {
     position: 0,
     sticker: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

@@ -3,9 +3,9 @@ import { IStateDeleteMessage } from "../../types/iStateDeleteMessage";
 
 const initialState: IStateDeleteMessage = {};
 
-const DELETE_MESSAGE_ERROR: string = "DELETE_MESSAGE_ERROR";
-const DELETE_MESSAGE_QUERY: string = "DELETE_MESSAGE_QUERY";
-const DELETE_MESSAGE_RESULT: string = "DELETE_MESSAGE_RESULT";
+const DELETE_MESSAGE_ERROR = "DELETE_MESSAGE_ERROR";
+const DELETE_MESSAGE_QUERY = "DELETE_MESSAGE_QUERY";
+const DELETE_MESSAGE_RESULT = "DELETE_MESSAGE_RESULT";
 
 const error: (deleteMessage: IStateDeleteMessage) => IActionDeleteMessage = (
   deleteMessage: IStateDeleteMessage

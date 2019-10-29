@@ -13,7 +13,7 @@ describe("chosenInlineResult actions", (): void => {
     query: "",
     result_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

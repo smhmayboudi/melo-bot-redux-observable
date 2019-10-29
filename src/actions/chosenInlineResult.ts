@@ -3,9 +3,9 @@ import { IStateChosenInlineResult } from "../../types/iStateChosenInlineResult";
 
 const initialState: IStateChosenInlineResult = {};
 
-const CHOSEN_INLINE_RESULT_ERROR: string = "CHOSEN_INLINE_RESULT_ERROR";
-const CHOSEN_INLINE_RESULT_QUERY: string = "CHOSEN_INLINE_RESULT_QUERY";
-const CHOSEN_INLINE_RESULT_RESULT: string = "CHOSEN_INLINE_RESULT_RESULT";
+const CHOSEN_INLINE_RESULT_ERROR = "CHOSEN_INLINE_RESULT_ERROR";
+const CHOSEN_INLINE_RESULT_QUERY = "CHOSEN_INLINE_RESULT_QUERY";
+const CHOSEN_INLINE_RESULT_RESULT = "CHOSEN_INLINE_RESULT_RESULT";
 
 const error: (
   chosenInlineResult: IStateChosenInlineResult

@@ -3,9 +3,9 @@ import { IStateGetMe } from "../../types/iStateGetMe";
 
 const initialState: IStateGetMe = {};
 
-const GET_ME_ERROR: string = "GET_ME_ERROR";
-const GET_ME_QUERY: string = "GET_ME_QUERY";
-const GET_ME_RESULT: string = "GET_ME_RESULT";
+const GET_ME_ERROR = "GET_ME_ERROR";
+const GET_ME_QUERY = "GET_ME_QUERY";
+const GET_ME_RESULT = "GET_ME_RESULT";
 
 const error: (getMe: IStateGetMe) => IActionGetMe = (
   getMe: IStateGetMe

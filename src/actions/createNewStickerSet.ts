@@ -3,9 +3,9 @@ import { IStateCreateNewStickerSet } from "../../types/iStateCreateNewStickerSet
 
 const initialState: IStateCreateNewStickerSet = {};
 
-const CREATE_NEW_STICKER_SET_ERROR: string = "CREATE_NEW_STICKER_SET_ERROR";
-const CREATE_NEW_STICKER_SET_QUERY: string = "CREATE_NEW_STICKER_SET_QUERY";
-const CREATE_NEW_STICKER_SET_RESULT: string = "CREATE_NEW_STICKER_SET_RESULT";
+const CREATE_NEW_STICKER_SET_ERROR = "CREATE_NEW_STICKER_SET_ERROR";
+const CREATE_NEW_STICKER_SET_QUERY = "CREATE_NEW_STICKER_SET_QUERY";
+const CREATE_NEW_STICKER_SET_RESULT = "CREATE_NEW_STICKER_SET_RESULT";
 
 const error: (
   createNewStickerSet: IStateCreateNewStickerSet

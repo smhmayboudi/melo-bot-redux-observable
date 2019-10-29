@@ -3,9 +3,9 @@ import { IStateGetUpdates } from "../../types/iStateGetUpdates";
 
 const initialState: IStateGetUpdates = {};
 
-const GET_UPDATES_ERROR: string = "GET_UPDATES_ERROR";
-const GET_UPDATES_QUERY: string = "GET_UPDATES_QUERY";
-const GET_UPDATES_RESULT: string = "GET_UPDATES_RESULT";
+const GET_UPDATES_ERROR = "GET_UPDATES_ERROR";
+const GET_UPDATES_QUERY = "GET_UPDATES_QUERY";
+const GET_UPDATES_RESULT = "GET_UPDATES_RESULT";
 
 const error: (getUpdates: IStateGetUpdates) => IActionGetUpdates = (
   getUpdates: IStateGetUpdates

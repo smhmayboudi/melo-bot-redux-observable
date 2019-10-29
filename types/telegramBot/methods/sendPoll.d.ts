@@ -12,10 +12,10 @@ export interface sendPhoto {
     options: string[],
     disable_notification?: boolean,
     reply_markup?:
-    | IInlineKeyboardMarkup
-    | IReplyKeyboardMarkup
-    | IReplyKeyboardRemove
-    | IForceReply,
-    reply_to_message_id?: number,
-  ): IMessage
+      | IInlineKeyboardMarkup
+      | IReplyKeyboardMarkup
+      | IReplyKeyboardRemove
+      | IForceReply,
+    reply_to_message_id?: number
+  ): IMessage;
 }

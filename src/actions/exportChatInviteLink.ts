@@ -3,9 +3,9 @@ import { IStateExportChatInviteLink } from "../../types/iStateExportChatInviteLi
 
 const initialState: IStateExportChatInviteLink = {};
 
-const EXPORT_CHAT_INVITE_LINK_ERROR: string = "EXPORT_CHAT_INVITE_LINK_ERROR";
-const EXPORT_CHAT_INVITE_LINK_QUERY: string = "EXPORT_CHAT_INVITE_LINK_QUERY";
-const EXPORT_CHAT_INVITE_LINK_RESULT: string = "EXPORT_CHAT_INVITE_LINK_RESULT";
+const EXPORT_CHAT_INVITE_LINK_ERROR = "EXPORT_CHAT_INVITE_LINK_ERROR";
+const EXPORT_CHAT_INVITE_LINK_QUERY = "EXPORT_CHAT_INVITE_LINK_QUERY";
+const EXPORT_CHAT_INVITE_LINK_RESULT = "EXPORT_CHAT_INVITE_LINK_RESULT";
 
 const error: (
   exportChatInviteLink: IStateExportChatInviteLink

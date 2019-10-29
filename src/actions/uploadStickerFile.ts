@@ -3,9 +3,9 @@ import { IStateUploadStickerFile } from "../../types/iStateUploadStickerFile";
 
 const initialState: IStateUploadStickerFile = {};
 
-const UPLOAD_STICKER_FILE_ERROR: string = "UPLOAD_STICKER_FILE_ERROR";
-const UPLOAD_STICKER_FILE_QUERY: string = "UPLOAD_STICKER_FILE_QUERY";
-const UPLOAD_STICKER_FILE_RESULT: string = "UPLOAD_STICKER_FILE_RESULT";
+const UPLOAD_STICKER_FILE_ERROR = "UPLOAD_STICKER_FILE_ERROR";
+const UPLOAD_STICKER_FILE_QUERY = "UPLOAD_STICKER_FILE_QUERY";
+const UPLOAD_STICKER_FILE_RESULT = "UPLOAD_STICKER_FILE_RESULT";
 
 const error: (
   uploadStickerFile: IStateUploadStickerFile

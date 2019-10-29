@@ -20,7 +20,7 @@ describe("setChatPhoto epic", (): void => {
     chat_id: "",
     photo: fs.createReadStream("./asset/small.jpg")
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

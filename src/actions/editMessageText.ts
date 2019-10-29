@@ -3,9 +3,9 @@ import { IStateEditMessageText } from "../../types/iStateEditMessageText";
 
 const initialState: IStateEditMessageText = {};
 
-const EDIT_MESSAGE_TEXT_ERROR: string = "EDIT_MESSAGE_TEXT_ERROR";
-const EDIT_MESSAGE_TEXT_QUERY: string = "EDIT_MESSAGE_TEXT_QUERY";
-const EDIT_MESSAGE_TEXT_RESULT: string = "EDIT_MESSAGE_TEXT_RESULT";
+const EDIT_MESSAGE_TEXT_ERROR = "EDIT_MESSAGE_TEXT_ERROR";
+const EDIT_MESSAGE_TEXT_QUERY = "EDIT_MESSAGE_TEXT_QUERY";
+const EDIT_MESSAGE_TEXT_RESULT = "EDIT_MESSAGE_TEXT_RESULT";
 
 const error: (
   editMessageText: IStateEditMessageText

@@ -19,7 +19,7 @@ describe("setChatTitle epic", (): void => {
     chat_id: 0,
     title: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

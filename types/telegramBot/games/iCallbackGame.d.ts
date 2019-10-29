@@ -1,1 +1,1 @@
-export interface ICallbackGame { }
+export interface ICallbackGame {}

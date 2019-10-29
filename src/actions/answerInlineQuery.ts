@@ -3,9 +3,9 @@ import { IStateAnswerInlineQuery } from "../../types/iStateAnswerInlineQuery";
 
 const initialState: IStateAnswerInlineQuery = {};
 
-const ANSWER_INLINE_QUERY_ERROR: string = "ANSWER_INLINE_QUERY_ERROR";
-const ANSWER_INLINE_QUERY_QUERY: string = "ANSWER_INLINE_QUERY_QUERY";
-const ANSWER_INLINE_QUERY_RESULT: string = "ANSWER_INLINE_QUERY_RESULT";
+const ANSWER_INLINE_QUERY_ERROR = "ANSWER_INLINE_QUERY_ERROR";
+const ANSWER_INLINE_QUERY_QUERY = "ANSWER_INLINE_QUERY_QUERY";
+const ANSWER_INLINE_QUERY_RESULT = "ANSWER_INLINE_QUERY_RESULT";
 
 const error: (
   answerInlineQuery: IStateAnswerInlineQuery

@@ -8,7 +8,7 @@ describe("answerInlineQuery actions", (): void => {
     inline_query_id: "",
     results: []
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

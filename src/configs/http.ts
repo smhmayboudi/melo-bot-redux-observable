@@ -18,7 +18,7 @@ const answer200: (
   _request: http.IncomingMessage,
   response: http.ServerResponse
 ): void => {
-  const statusCode: number = 200;
+  const statusCode = 200;
   response.writeHead(statusCode, {
     "Content-Type": "text/plain; version=0.0.4; charset=utf-8"
   });
@@ -34,7 +34,7 @@ const answer500: (
   _request: http.IncomingMessage,
   response: http.ServerResponse
 ): void => {
-  const statusCode: number = 500;
+  const statusCode = 500;
   response.writeHead(statusCode, {
     "Content-Type": "text/plain; version=0.0.4; charset=utf-8"
   });
@@ -68,7 +68,7 @@ const answerBotToken: (
     .on("error", (error: Error): void => {
       appDebug("error", error);
     });
-  const statusCode: number = 200;
+  const statusCode = 200;
   if (readiness) {
     response.writeHead(statusCode, { "Content-Type": "application/json" });
   } else {
@@ -89,7 +89,7 @@ const answerMetrics: (
   _request: http.IncomingMessage,
   response: http.ServerResponse
 ): void => {
-  const statusCode: number = 200;
+  const statusCode = 200;
   response.writeHead(statusCode, {
     "Content-Type": Prometheus.register.contentType
   });

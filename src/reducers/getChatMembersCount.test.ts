@@ -8,7 +8,7 @@ describe("getChatMembersCount reducer", (): void => {
   const query: IStateGetChatMembersCountQuery = {
     chat_id: 0
   };
-  const result: number = 0;
+  const result = 0;
 
   test("should handle initialState", (): void => {
     expect(

@@ -5,7 +5,7 @@ import * as reducer from "./youtubeDownload";
 
 describe("youtubeDownload reducer", (): void => {
   const error: Error = new Error("");
-  const query: string = "";
+  const query = "";
   const result: IVideoInfo = {
     dur: 0,
     fmtList: {

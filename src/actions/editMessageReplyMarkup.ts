@@ -3,12 +3,9 @@ import { IStateEditMessageReplyMarkup } from "../../types/iStateEditMessageReply
 
 const initialState: IStateEditMessageReplyMarkup = {};
 
-const EDIT_MESSAGE_REPLY_MARKUP_ERROR: string =
-  "EDIT_MESSAGE_REPLY_MARKUP_ERROR";
-const EDIT_MESSAGE_REPLY_MARKUP_QUERY: string =
-  "EDIT_MESSAGE_REPLY_MARKUP_QUERY";
-const EDIT_MESSAGE_REPLY_MARKUP_RESULT: string =
-  "EDIT_MESSAGE_REPLY_MARKUP_RESULT";
+const EDIT_MESSAGE_REPLY_MARKUP_ERROR = "EDIT_MESSAGE_REPLY_MARKUP_ERROR";
+const EDIT_MESSAGE_REPLY_MARKUP_QUERY = "EDIT_MESSAGE_REPLY_MARKUP_QUERY";
+const EDIT_MESSAGE_REPLY_MARKUP_RESULT = "EDIT_MESSAGE_REPLY_MARKUP_RESULT";
 
 const error: (
   editMessageReplyMarkup: IStateEditMessageReplyMarkup

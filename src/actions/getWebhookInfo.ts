@@ -3,9 +3,9 @@ import { IStateGetWebhookInfo } from "../../types/iStateGetWebhookInfo";
 
 const initialState: IStateGetWebhookInfo = {};
 
-const GET_WEBHOOK_INFO_ERROR: string = "GET_WEBHOOK_INFO_ERROR";
-const GET_WEBHOOK_INFO_QUERY: string = "GET_WEBHOOK_INFO_QUERY";
-const GET_WEBHOOK_INFO_RESULT: string = "GET_WEBHOOK_INFO_RESULT";
+const GET_WEBHOOK_INFO_ERROR = "GET_WEBHOOK_INFO_ERROR";
+const GET_WEBHOOK_INFO_QUERY = "GET_WEBHOOK_INFO_QUERY";
+const GET_WEBHOOK_INFO_RESULT = "GET_WEBHOOK_INFO_RESULT";
 
 const error: (getWebhookInfo: IStateGetWebhookInfo) => IActionGetWebhookInfo = (
   getWebhookInfo: IStateGetWebhookInfo

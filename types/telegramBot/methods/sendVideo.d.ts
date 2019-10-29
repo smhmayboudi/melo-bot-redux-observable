@@ -22,6 +22,6 @@ export interface sendVideo {
     reply_to_message_id?: number,
     supports_streaming?: boolean,
     thumb?: IInputFile | string,
-    width?: number,
-  ): IMessage
+    width?: number
+  ): IMessage;
 }

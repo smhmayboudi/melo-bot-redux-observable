@@ -1,1 +1,1 @@
-export interface IInputFile { }
+export interface IInputFile {}

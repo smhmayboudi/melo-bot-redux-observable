@@ -15,6 +15,6 @@ export interface sendSticker {
       | IReplyKeyboardMarkup
       | IReplyKeyboardRemove
       | IForceReply,
-    reply_to_message_id?: number,
-  ): IMessage
+    reply_to_message_id?: number
+  ): IMessage;
 }

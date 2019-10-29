@@ -39,7 +39,7 @@ describe("answerInlineQuery epic", (): void => {
     switch_pm_parameter: "",
     switch_pm_text: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

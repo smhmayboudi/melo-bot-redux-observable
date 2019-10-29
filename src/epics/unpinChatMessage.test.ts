@@ -18,7 +18,7 @@ describe("unpinChatMessage epic", (): void => {
   const query: IStateUnpinChatMessageQuery = {
     chat_id: 0
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

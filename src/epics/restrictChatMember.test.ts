@@ -20,7 +20,7 @@ describe("restrictChatMember epic", (): void => {
     permissions: {},
     user_id: 0
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

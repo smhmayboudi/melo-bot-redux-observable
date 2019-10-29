@@ -3,9 +3,9 @@ import { IStateStopPoll } from "../../types/iStateStopPoll";
 
 const initialState: IStateStopPoll = {};
 
-const STOP_POLL_ERROR: string = "STOP_POLL_ERROR";
-const STOP_POLL_QUERY: string = "STOP_POLL_QUERY";
-const STOP_POLL_RESULT: string = "STOP_POLL_RESULT";
+const STOP_POLL_ERROR = "STOP_POLL_ERROR";
+const STOP_POLL_QUERY = "STOP_POLL_QUERY";
+const STOP_POLL_RESULT = "STOP_POLL_RESULT";
 
 const error: (stopPoll: IStateStopPoll) => IActionStopPoll = (
   stopPoll: IStateStopPoll

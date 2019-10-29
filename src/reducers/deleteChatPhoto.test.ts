@@ -8,7 +8,7 @@ describe("deleteChatPhoto reducer", (): void => {
   const query: IStateDeleteChatPhotoQuery = {
     chat_id: 0
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

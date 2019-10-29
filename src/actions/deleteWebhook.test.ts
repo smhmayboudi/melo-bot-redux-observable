@@ -5,7 +5,7 @@ import * as action from "./deleteWebhook";
 describe("deleteWebhook actions", (): void => {
   const error: Error = new Error("");
   const query: IStateDeleteWebhookQuery = {};
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

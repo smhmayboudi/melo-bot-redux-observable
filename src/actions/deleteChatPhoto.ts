@@ -3,9 +3,9 @@ import { IStateDeleteChatPhoto } from "../../types/iStateDeleteChatPhoto";
 
 const initialState: IStateDeleteChatPhoto = {};
 
-const DELETE_CHAT_PHOTO_ERROR: string = "DELETE_CHAT_PHOTO_ERROR";
-const DELETE_CHAT_PHOTO_QUERY: string = "DELETE_CHAT_PHOTO_QUERY";
-const DELETE_CHAT_PHOTO_RESULT: string = "DELETE_CHAT_PHOTO_RESULT";
+const DELETE_CHAT_PHOTO_ERROR = "DELETE_CHAT_PHOTO_ERROR";
+const DELETE_CHAT_PHOTO_QUERY = "DELETE_CHAT_PHOTO_QUERY";
+const DELETE_CHAT_PHOTO_RESULT = "DELETE_CHAT_PHOTO_RESULT";
 
 const error: (
   deleteChatPhoto: IStateDeleteChatPhoto

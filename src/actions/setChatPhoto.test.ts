@@ -10,7 +10,7 @@ describe("setChatPhoto actions", (): void => {
     chat_id: "",
     photo: fs.createReadStream("./asset/small.jpg")
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

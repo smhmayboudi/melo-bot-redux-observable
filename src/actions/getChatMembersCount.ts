@@ -3,9 +3,9 @@ import { IStateGetChatMembersCount } from "../../types/iStateGetChatMembersCount
 
 const initialState: IStateGetChatMembersCount = {};
 
-const GET_CHAT_MEMBERS_COUNT_ERROR: string = "GET_CHAT_MEMBERS_COUNT_ERROR";
-const GET_CHAT_MEMBERS_COUNT_QUERY: string = "GET_CHAT_MEMBERS_COUNT_QUERY";
-const GET_CHAT_MEMBERS_COUNT_RESULT: string = "GET_CHAT_MEMBERS_COUNT_RESULT";
+const GET_CHAT_MEMBERS_COUNT_ERROR = "GET_CHAT_MEMBERS_COUNT_ERROR";
+const GET_CHAT_MEMBERS_COUNT_QUERY = "GET_CHAT_MEMBERS_COUNT_QUERY";
+const GET_CHAT_MEMBERS_COUNT_RESULT = "GET_CHAT_MEMBERS_COUNT_RESULT";
 
 const error: (
   getChatMembersCount: IStateGetChatMembersCount

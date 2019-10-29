@@ -8,7 +8,7 @@ describe("sendChatAction actions", (): void => {
     action: "",
     chat_id: 0
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

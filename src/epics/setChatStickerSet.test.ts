@@ -19,7 +19,7 @@ describe("setChatStickerSet epic", (): void => {
     chat_id: 0,
     sticker_set_name: ""
   };
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };

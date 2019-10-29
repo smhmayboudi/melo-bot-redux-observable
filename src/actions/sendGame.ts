@@ -3,9 +3,9 @@ import { IStateSendGame } from "../../types/iStateSendGame";
 
 const initialState: IStateSendGame = {};
 
-const SEND_GAME_ERROR: string = "SEND_GAME_ERROR";
-const SEND_GAME_QUERY: string = "SEND_GAME_QUERY";
-const SEND_GAME_RESULT: string = "SEND_GAME_RESULT";
+const SEND_GAME_ERROR = "SEND_GAME_ERROR";
+const SEND_GAME_QUERY = "SEND_GAME_QUERY";
+const SEND_GAME_RESULT = "SEND_GAME_RESULT";
 
 const error: (sendGame: IStateSendGame) => IActionSendGame = (
   sendGame: IStateSendGame

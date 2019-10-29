@@ -3,9 +3,9 @@ import { IStateSendPhoto } from "../../types/iStateSendPhoto";
 
 const initialState: IStateSendPhoto = {};
 
-const SEND_PHOTO_ERROR: string = "SEND_PHOTO_ERROR";
-const SEND_PHOTO_QUERY: string = "SEND_PHOTO_QUERY";
-const SEND_PHOTO_RESULT: string = "SEND_PHOTO_RESULT";
+const SEND_PHOTO_ERROR = "SEND_PHOTO_ERROR";
+const SEND_PHOTO_QUERY = "SEND_PHOTO_QUERY";
+const SEND_PHOTO_RESULT = "SEND_PHOTO_RESULT";
 
 const error: (sendPhoto: IStateSendPhoto) => IActionSendPhoto = (
   sendPhoto: IStateSendPhoto

@@ -4,7 +4,7 @@ import * as action from "./youtubeDownload";
 
 describe("youtubeDownload actions", (): void => {
   const error: Error = new Error("");
-  const query: string = "";
+  const query = "";
   const result: IVideoInfo = {
     dur: 0,
     fmtList: {

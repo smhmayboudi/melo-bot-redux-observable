@@ -6,6 +6,6 @@ export interface stopMessageLiveLocation {
     chat_id?: number | string,
     inline_message_id?: string,
     message_id?: number,
-    reply_markup?: IInlineKeyboardMarkup,
-  ): boolean | IMessage
+    reply_markup?: IInlineKeyboardMarkup
+  ): boolean | IMessage;
 }

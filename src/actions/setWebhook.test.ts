@@ -7,7 +7,7 @@ describe("setWebhook actions", (): void => {
   const query: IStateSetWebhookQuery = {
     url: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

@@ -9,6 +9,6 @@ export interface promoteChatMember {
     can_pin_messages?: boolean,
     can_post_messages?: boolean,
     can_promote_members?: boolean,
-    can_restrict_members?: boolean,
-  ): boolean
+    can_restrict_members?: boolean
+  ): boolean;
 }

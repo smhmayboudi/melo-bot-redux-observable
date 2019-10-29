@@ -8,7 +8,7 @@ describe("exportChatInviteLink reducer", (): void => {
   const query: IStateExportChatInviteLinkQuery = {
     chat_id: 0
   };
-  const result: string = "";
+  const result = "";
 
   test("should handle initialState", (): void => {
     expect(

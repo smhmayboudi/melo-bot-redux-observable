@@ -3,9 +3,9 @@ import { IStateAnswerCallbackQuery } from "../../types/iStateAnswerCallbackQuery
 
 const initialState: IStateAnswerCallbackQuery = {};
 
-const ANSWER_CALLBACK_QUERY_ERROR: string = "ANSWER_CALLBACK_QUERY_ERROR";
-const ANSWER_CALLBACK_QUERY_QUERY: string = "ANSWER_CALLBACK_QUERY_QUERY";
-const ANSWER_CALLBACK_QUERY_RESULT: string = "ANSWER_CALLBACK_QUERY_RESULT";
+const ANSWER_CALLBACK_QUERY_ERROR = "ANSWER_CALLBACK_QUERY_ERROR";
+const ANSWER_CALLBACK_QUERY_QUERY = "ANSWER_CALLBACK_QUERY_QUERY";
+const ANSWER_CALLBACK_QUERY_RESULT = "ANSWER_CALLBACK_QUERY_RESULT";
 
 const error: (
   answerCallbackQuery: IStateAnswerCallbackQuery

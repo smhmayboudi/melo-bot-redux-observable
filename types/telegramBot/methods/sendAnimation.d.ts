@@ -21,6 +21,6 @@ export interface sendAnimation {
       | IReplyKeyboardRemove
       | IForceReply,
     reply_to_message_id?: number,
-    width?: number,
-  ): IMessage
+    width?: number
+  ): IMessage;
 }

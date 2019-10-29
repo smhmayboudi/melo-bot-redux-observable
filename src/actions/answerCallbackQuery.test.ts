@@ -7,7 +7,7 @@ describe("answerCallbackQuery actions", (): void => {
   const query: IStateAnswerCallbackQueryQuery = {
     callback_query_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

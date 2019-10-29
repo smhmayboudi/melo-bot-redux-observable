@@ -3,12 +3,9 @@ import { IStateSetStickerPositionInSet } from "../../types/iStateSetStickerPosit
 
 const initialState: IStateSetStickerPositionInSet = {};
 
-const SET_STICKER_POSITION_IN_SET_ERROR: string =
-  "SET_STICKER_POSITION_IN_SET_ERROR";
-const SET_STICKER_POSITION_IN_SET_QUERY: string =
-  "SET_STICKER_POSITION_IN_SET_QUERY";
-const SET_STICKER_POSITION_IN_SET_RESULT: string =
-  "SET_STICKER_POSITION_IN_SET_RESULT";
+const SET_STICKER_POSITION_IN_SET_ERROR = "SET_STICKER_POSITION_IN_SET_ERROR";
+const SET_STICKER_POSITION_IN_SET_QUERY = "SET_STICKER_POSITION_IN_SET_QUERY";
+const SET_STICKER_POSITION_IN_SET_RESULT = "SET_STICKER_POSITION_IN_SET_RESULT";
 
 const error: (
   setStickerPositionInSet: IStateSetStickerPositionInSet

@@ -5,6 +5,6 @@ export interface getUpdates {
     allowed_updates?: string[],
     limit?: number,
     offset?: number,
-    timeout?: number,
-  ): IUpdate[]
+    timeout?: number
+  ): IUpdate[];
 }

@@ -3,9 +3,9 @@ import { IStateRestrictChatMember } from "../../types/iStateRestrictChatMember";
 
 const initialState: IStateRestrictChatMember = {};
 
-const RESTRICT_CHAT_MEMBER_ERROR: string = "RESTRICT_CHAT_MEMBER_ERROR";
-const RESTRICT_CHAT_MEMBER_QUERY: string = "RESTRICT_CHAT_MEMBER_QUERY";
-const RESTRICT_CHAT_MEMBER_RESULT: string = "RESTRICT_CHAT_MEMBER_RESULT";
+const RESTRICT_CHAT_MEMBER_ERROR = "RESTRICT_CHAT_MEMBER_ERROR";
+const RESTRICT_CHAT_MEMBER_QUERY = "RESTRICT_CHAT_MEMBER_QUERY";
+const RESTRICT_CHAT_MEMBER_RESULT = "RESTRICT_CHAT_MEMBER_RESULT";
 
 const error: (
   restrictChatMember: IStateRestrictChatMember

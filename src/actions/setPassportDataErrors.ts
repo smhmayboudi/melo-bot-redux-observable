@@ -3,10 +3,9 @@ import { IStateSetPassportDataErrors } from "../../types/iStateSetPassportDataEr
 
 const initialState: IStateSetPassportDataErrors = {};
 
-const SET_PASSPORT_DATA_ERRORS_ERROR: string = "SET_PASSPORT_DATA_ERRORS_ERROR";
-const SET_PASSPORT_DATA_ERRORS_QUERY: string = "SET_PASSPORT_DATA_ERRORS_QUERY";
-const SET_PASSPORT_DATA_ERRORS_RESULT: string =
-  "SET_PASSPORT_DATA_ERRORS_RESULT";
+const SET_PASSPORT_DATA_ERRORS_ERROR = "SET_PASSPORT_DATA_ERRORS_ERROR";
+const SET_PASSPORT_DATA_ERRORS_QUERY = "SET_PASSPORT_DATA_ERRORS_QUERY";
+const SET_PASSPORT_DATA_ERRORS_RESULT = "SET_PASSPORT_DATA_ERRORS_RESULT";
 
 const error: (
   setPassportDataErrors: IStateSetPassportDataErrors

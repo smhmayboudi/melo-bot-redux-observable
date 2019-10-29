@@ -3,9 +3,9 @@ import { IStateSendDocument } from "../../types/iStateSendDocument";
 
 const initialState: IStateSendDocument = {};
 
-const SEND_DOCUMENT_ERROR: string = "SEND_DOCUMENT_ERROR";
-const SEND_DOCUMENT_QUERY: string = "SEND_DOCUMENT_QUERY";
-const SEND_DOCUMENT_RESULT: string = "SEND_DOCUMENT_RESULT";
+const SEND_DOCUMENT_ERROR = "SEND_DOCUMENT_ERROR";
+const SEND_DOCUMENT_QUERY = "SEND_DOCUMENT_QUERY";
+const SEND_DOCUMENT_RESULT = "SEND_DOCUMENT_RESULT";
 
 const error: (sendDocument: IStateSendDocument) => IActionSendDocument = (
   sendDocument: IStateSendDocument

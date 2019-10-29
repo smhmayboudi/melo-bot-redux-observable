@@ -18,7 +18,7 @@ describe("getChatMembersCount epic", (): void => {
   const query: IStateGetChatMembersCountQuery = {
     chat_id: 0
   };
-  const result: number = 0;
+  const result = 0;
   const responseOKF: IResponse = {
     ok: false
   };

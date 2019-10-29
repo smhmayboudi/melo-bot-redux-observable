@@ -3,9 +3,9 @@ import { IStateSendInvoice } from "../../types/iStateSendInvoice";
 
 const initialState: IStateSendInvoice = {};
 
-const SEND_INVOICE_ERROR: string = "SEND_INVOICE_ERROR";
-const SEND_INVOICE_QUERY: string = "SEND_INVOICE_QUERY";
-const SEND_INVOICE_RESULT: string = "SEND_INVOICE_RESULT";
+const SEND_INVOICE_ERROR = "SEND_INVOICE_ERROR";
+const SEND_INVOICE_QUERY = "SEND_INVOICE_QUERY";
+const SEND_INVOICE_RESULT = "SEND_INVOICE_RESULT";
 
 const error: (sendInvoice: IStateSendInvoice) => IActionSendInvoice = (
   sendInvoice: IStateSendInvoice

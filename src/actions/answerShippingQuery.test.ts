@@ -21,7 +21,7 @@ describe("answerShippingQuery actions", (): void => {
     ],
     shipping_query_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

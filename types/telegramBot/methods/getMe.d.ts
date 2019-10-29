@@ -16,6 +16,6 @@ export interface getMe {
       | IReplyKeyboardMarkup
       | IReplyKeyboardRemove
       | IForceReply,
-    reply_to_message_id?: number,
-  ): IUser
+    reply_to_message_id?: number
+  ): IUser;
 }

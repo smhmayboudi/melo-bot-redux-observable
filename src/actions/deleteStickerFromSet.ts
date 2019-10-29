@@ -3,9 +3,9 @@ import { IStateDeleteStickerFromSet } from "../../types/iStateDeleteStickerFromS
 
 const initialState: IStateDeleteStickerFromSet = {};
 
-const DELETE_STICKER_FROM_SET_ERROR: string = "DELETE_STICKER_FROM_SET_ERROR";
-const DELETE_STICKER_FROM_SET_QUERY: string = "DELETE_STICKER_FROM_SET_QUERY";
-const DELETE_STICKER_FROM_SET_RESULT: string = "DELETE_STICKER_FROM_SET_RESULT";
+const DELETE_STICKER_FROM_SET_ERROR = "DELETE_STICKER_FROM_SET_ERROR";
+const DELETE_STICKER_FROM_SET_QUERY = "DELETE_STICKER_FROM_SET_QUERY";
+const DELETE_STICKER_FROM_SET_RESULT = "DELETE_STICKER_FROM_SET_RESULT";
 
 const error: (
   deleteStickerFromSet: IStateDeleteStickerFromSet

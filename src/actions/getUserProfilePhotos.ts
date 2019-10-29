@@ -3,9 +3,9 @@ import { IStateGetUserProfilePhotos } from "../../types/iStateGetUserProfilePhot
 
 const initialState: IStateGetUserProfilePhotos = {};
 
-const GET_USER_PROFILE_PHOTOS_ERROR: string = "GET_USER_PROFILE_PHOTOS_ERROR";
-const GET_USER_PROFILE_PHOTOS_QUERY: string = "GET_USER_PROFILE_PHOTOS_QUERY";
-const GET_USER_PROFILE_PHOTOS_RESULT: string = "GET_USER_PROFILE_PHOTOS_RESULT";
+const GET_USER_PROFILE_PHOTOS_ERROR = "GET_USER_PROFILE_PHOTOS_ERROR";
+const GET_USER_PROFILE_PHOTOS_QUERY = "GET_USER_PROFILE_PHOTOS_QUERY";
+const GET_USER_PROFILE_PHOTOS_RESULT = "GET_USER_PROFILE_PHOTOS_RESULT";
 
 const error: (
   getUserProfilePhotos: IStateGetUserProfilePhotos

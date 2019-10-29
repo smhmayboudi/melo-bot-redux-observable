@@ -8,7 +8,7 @@ describe("setChatTitle actions", (): void => {
     chat_id: 0,
     title: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

@@ -3,9 +3,9 @@ import { IStateLeaveChat } from "../../types/iStateLeaveChat";
 
 const initialState: IStateLeaveChat = {};
 
-const LEAVE_CHAT_ERROR: string = "LEAVE_CHAT_ERROR";
-const LEAVE_CHAT_QUERY: string = "LEAVE_CHAT_QUERY";
-const LEAVE_CHAT_RESULT: string = "LEAVE_CHAT_RESULT";
+const LEAVE_CHAT_ERROR = "LEAVE_CHAT_ERROR";
+const LEAVE_CHAT_QUERY = "LEAVE_CHAT_QUERY";
+const LEAVE_CHAT_RESULT = "LEAVE_CHAT_RESULT";
 
 const error: (leaveChat: IStateLeaveChat) => IActionLeaveChat = (
   leaveChat: IStateLeaveChat

@@ -1,5 +1,3 @@
 export interface deleteStickerFromSet {
-  (
-    sticker: string,
-  ): boolean
+  (sticker: string): boolean;
 }

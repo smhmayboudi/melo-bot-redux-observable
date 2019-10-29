@@ -39,7 +39,7 @@ describe("chosenInline epic", (): void => {
     query: "",
     result_id: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   let testScheduler: TestScheduler;
 

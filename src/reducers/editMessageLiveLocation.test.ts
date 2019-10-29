@@ -9,7 +9,7 @@ describe("editMessageLiveLocation reducer", (): void => {
     latitude: 0,
     longitude: 0
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

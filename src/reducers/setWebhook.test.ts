@@ -8,7 +8,7 @@ describe("setWebhook reducer", (): void => {
   const query: IStateSetWebhookQuery = {
     url: ""
   };
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

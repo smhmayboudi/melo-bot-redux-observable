@@ -5,7 +5,7 @@ import * as action from "./stopMessageLiveLocation";
 describe("stopMessageLiveLocation actions", (): void => {
   const error: Error = new Error("");
   const query: IStateStopMessageLiveLocationQuery = {};
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

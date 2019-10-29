@@ -17,6 +17,6 @@ export interface sendContact {
       | IReplyKeyboardRemove
       | IForceReply,
     reply_to_message_id?: number,
-    vcard?: string,
-  ): IMessage
+    vcard?: string
+  ): IMessage;
 }
