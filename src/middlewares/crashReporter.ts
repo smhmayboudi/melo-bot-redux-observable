@@ -9,8 +9,9 @@ import {
 } from "@sentry/node";
 // Import { Integration } from "@sentry/types";
 import debug from "debug";
-import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
+import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 
+import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
@@ -41,9 +42,9 @@ init({
 
 const crashReporter: Middleware = (
   middlewareAPI: MiddlewareAPI
-): ((next: Dispatch) => (action: AnyAction) => AnyAction) => (
+): ((next: Dispatch) => (action: IAction) => IAction) => (
   next: Dispatch
-): ((action: AnyAction) => AnyAction) => (action: AnyAction): AnyAction => {
+): ((action: IAction) => IAction) => (action: IAction): IAction => {
   let message: IMessage = {
     chat: {
       id: 0,

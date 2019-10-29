@@ -1,3 +1,5 @@
+import { Action } from "redux";
+
 import { IStateDeleteMessage } from ".//iStateDeleteMessage";
 import { IStateEditMessageCaption } from ".//iStateEditMessageCaption";
 import { IStateEditMessageMedia } from ".//iStateEditMessageMedia";
@@ -69,7 +71,7 @@ import { IStateYoutubeDownload } from "./iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "./iStateYoutubeSearchList";
 import { IStateYoutubeVideoList } from "./iStateYoutubeVideoList";
 
-export interface IState {
+export interface IAction extends Action<string> {
   addStickerToSet: IStateAddStickerToSet;
   answerCallbackQuery: IStateAnswerCallbackQuery;
   answerInlineQuery: IStateAnswerInlineQuery;

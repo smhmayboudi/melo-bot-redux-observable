@@ -1,13 +1,14 @@
 import {
-  Action,
   applyMiddleware,
   createStore,
   DeepPartial,
-  Store
+  Store,
+  StoreEnhancer
 } from "redux";
 import { createEpicMiddleware, EpicMiddleware } from "redux-observable";
 import { composeWithDevTools } from "remote-redux-devtools";
 
+import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
@@ -95,11 +96,12 @@ const configureStore: (
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
   const epicMiddleware: EpicMiddleware<
-    Action<string>,
-    Action<string>,
+    IAction,
+    IAction,
     IState,
     IDependencies
   > = createEpicMiddleware({ dependencies: { ...dependencies } });
+  // TODO: fix it any to (...funcs: StoreEnhancer[]) => StoreEnhancer
   const composeEnhancers: any = composeWithDevTools({
     hostname: env.REMOTEDEV_HOSTNAME,
     name: env.REMOTEDEV_NAME,

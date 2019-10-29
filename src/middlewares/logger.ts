@@ -1,15 +1,17 @@
 import debug from "debug";
-import { AnyAction, Dispatch, Middleware, MiddlewareAPI } from "redux";
+import { Dispatch, Middleware, MiddlewareAPI } from "redux";
+
+import { IAction } from "../../types/iAction";
 
 const appDebug: debug.IDebugger = debug("app:middleware:logger");
 
 const logger: Middleware = (
   middlewareAPI: MiddlewareAPI
-): ((next: Dispatch) => (action: AnyAction) => AnyAction) => (
+): ((next: Dispatch) => (action: IAction) => IAction) => (
   next: Dispatch
-): ((action: AnyAction) => AnyAction) => (action: AnyAction): AnyAction => {
+): ((action: IAction) => IAction) => (action: IAction): IAction => {
   appDebug("dispatching", action);
-  const result: AnyAction = next(action);
+  const result: IAction = next(action);
   appDebug("next state", middlewareAPI.getState());
 
   return result;

@@ -1,13 +1,9 @@
 import debug from "debug";
 import { performance } from "perf_hooks";
-import {
-  Action,
-  DeepPartial,
-  Reducer,
-  StoreCreator,
-  StoreEnhancer
-} from "redux";
+import { DeepPartial, Reducer, StoreCreator, StoreEnhancer } from "redux";
 
+import { IAction } from "../../types/iAction";
+import { IState } from "../../types/iState";
 import * as env from "../configs/env";
 import { Prometheus } from "../configs/prometheus";
 
@@ -27,18 +23,24 @@ const gauge: Prometheus.Gauge = new Prometheus.Gauge({
 
 const monitorReducer: (
   next: StoreCreator
-) => (reducer: Reducer, preloadedState: DeepPartial<any>) => StoreEnhancer = (
+) => (
+  reducer: Reducer<IState, IAction>,
+  preloadedState?: DeepPartial<IState>
+) => StoreEnhancer = (
   next: StoreCreator
-): ((reducer: Reducer, preloadedState: DeepPartial<any>) => StoreEnhancer) => (
-  reducer: Reducer,
-  preloadedState: DeepPartial<any>
+): ((
+  reducer: Reducer<IState, IAction>,
+  preloadedState?: DeepPartial<IState>
+) => StoreEnhancer) => (
+  reducer: Reducer<IState, IAction>,
+  preloadedState?: DeepPartial<IState>
 ): StoreEnhancer => {
-  const monitoredReducer: (state: any, action: Action<string>) => any = (
-    state: any,
-    action: Action<string>
-  ): any => {
+  const monitoredReducer: (
+    state: IState | undefined,
+    action: IAction
+  ) => IState = (state: IState | undefined, action: IAction): IState => {
     const start: number = performance.now();
-    const newState: any = reducer(state, action);
+    const newState: IState = reducer(state, action);
     const end: number = performance.now();
     const diff: number = end - start;
     appDebug(`reducer process time ${diff}ms`);

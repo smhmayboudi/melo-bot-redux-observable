@@ -1,6 +1,6 @@
-import { Action } from "redux";
 import { combineEpics, Epic } from "redux-observable";
 
+import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 
@@ -74,12 +74,8 @@ import { uploadStickerFile } from "./uploadStickerFile";
 import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
-const index: Epic<
-  Action<string>,
-  Action<string>,
-  IState,
-  IDependencies
-> = combineEpics(
+
+const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   addStickerToSet,
   answerCallbackQuery,
   answerInlineQuery,
@@ -150,6 +146,6 @@ const index: Epic<
   youtubeDownload,
   youtubeSearchList,
   youtubeVideoList
-) as Epic<Action<string>, Action<string>, IState, IDependencies>;
+);
 
 export { index };
