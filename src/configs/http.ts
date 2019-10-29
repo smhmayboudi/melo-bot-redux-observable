@@ -12,7 +12,7 @@ import { operate } from "./telegramBot";
 const appDebug: debug.IDebugger = debug("app:config:http");
 
 const answer200: (
-  _request: http.IncomingMessage,
+  request: http.IncomingMessage,
   response: http.ServerResponse
 ) => void = (
   _request: http.IncomingMessage,
@@ -28,7 +28,7 @@ const answer200: (
 };
 
 const answer500: (
-  _request: http.IncomingMessage,
+  request: http.IncomingMessage,
   response: http.ServerResponse
 ) => void = (
   _request: http.IncomingMessage,
@@ -83,7 +83,7 @@ const answerBotToken: (
 };
 
 const answerMetrics: (
-  _request: http.IncomingMessage,
+  request: http.IncomingMessage,
   response: http.ServerResponse
 ) => void = (
   _request: http.IncomingMessage,

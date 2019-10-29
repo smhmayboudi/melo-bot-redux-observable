@@ -12,14 +12,14 @@ import * as texts from "../configs/texts";
 const appError: (
   action$: Observable<IAction>,
   state$: StateObservable<IState> | undefined,
-  _dependencies: IDependencies
+  dependencies: IDependencies
 ) => Observable<IActionSendMessage> = (
   action$: Observable<IAction>,
   state$: StateObservable<IState> | undefined,
   _dependencies: IDependencies
 ): Observable<IActionSendMessage> => {
   const actionObservable: (
-    _action: IAction
+    action: IAction
   ) => Observable<IActionSendMessage> = (
     _action: IAction
   ): Observable<IActionSendMessage> => {

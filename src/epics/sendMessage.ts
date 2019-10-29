@@ -12,7 +12,7 @@ import * as texts from "../configs/texts";
 
 const sendMessage: (
   action$: Observable<IActionSendMessage>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionSendMessage> = (
   action$: Observable<IActionSendMessage>,

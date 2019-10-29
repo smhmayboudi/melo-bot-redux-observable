@@ -13,7 +13,7 @@ import { transformStateSendAudioQuery } from "../utils/formData";
 
 const sendAudio: (
   action$: Observable<IActionSendAudio>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionSendAudio> = (
   action$: Observable<IActionSendAudio>,

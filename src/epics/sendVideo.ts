@@ -15,7 +15,7 @@ import { caption, decode } from "../utils/string";
 
 const sendVideo: (
   action$: Observable<IActionSendVideo>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<IActionSendVideo> = (
   action$: Observable<IActionSendVideo>,

@@ -2,8 +2,8 @@ import FormData from "form-data";
 import * as http from "http";
 
 const request: (
-  _options: http.RequestOptions,
-  _formData: FormData
+  options: http.RequestOptions,
+  formData: FormData
 ) => Promise<any> = async (
   _options: http.RequestOptions,
   _formData: FormData
