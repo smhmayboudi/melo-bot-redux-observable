@@ -4,12 +4,10 @@
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
+    "eslint:all",
+    "plugin:@typescript-eslint/all",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier",
+    "plugin:prettier/recommended",
     "prettier/standard",
     "prettier/@typescript-eslint"
   ],
@@ -24,11 +22,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "prettier",
     "@typescript-eslint"
   ],
-  "rules": {
-    "@typescript-eslint/restrict-plus-operands": "error",
-    "prettier/prettier": "error"
-  }
+  "rules": {}
 }
