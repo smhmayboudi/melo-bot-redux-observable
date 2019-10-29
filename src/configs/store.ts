@@ -1,9 +1,4 @@
-import {
-  applyMiddleware,
-  createStore,
-  DeepPartial,
-  Store
-} from "redux";
+import { applyMiddleware, createStore, DeepPartial, Store } from "redux";
 import { createEpicMiddleware, EpicMiddleware } from "redux-observable";
 import { composeWithDevTools } from "remote-redux-devtools";
 
