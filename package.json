@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -fr dist && tsc --project tsconfig.json; exit 0",
-    "lint": "tslint --config tslint.json --project tsconfig.tslint.json; exit 0",
-    "lint:check": "tslint-config-prettier-check ./tslint.json --project tsconfig.tslint.json; exit 0",
-    "lint:fix": "tslint --config tslint.json --fix --project tsconfig.tslint.json; exit 0",
+    "lint": "eslint --ext .js,.ts ./src ./types; exit 0",
+    "lint:check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check; exit 0",
+    "lint:fix": "eslint --ext .js,.ts --fix ./src ./types; exit 0",
     "remotedev": "remotedev --hostname=127.0.0.1 --port=8000",
     "start:app": "./start.app.sh",
     "start:polling": "./start.polling.sh",
@@ -53,6 +53,11 @@
     "@types/redux": "^3.6.0",
     "@types/remote-redux-devtools": "^0.5.3",
     "@types/source-map-support": "^0.5.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "husky": "^3.0.9",
     "hygen": "^5.0.1",
     "jest": "^24.9.0",
@@ -61,11 +66,7 @@
     "remote-redux-devtools": "^0.5.16",
     "remotedev-server": "^0.3.1",
     "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.6.4",
-    "typescript-tslint-plugin": "^0.5.4"
+    "typescript": "^3.6.4"
   },
   "husky": {
     "hooks": {
