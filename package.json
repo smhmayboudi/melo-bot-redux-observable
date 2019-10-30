@@ -40,13 +40,13 @@
     "redux": "^4.0.4",
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.3",
-    "source-map-support": "^0.5.13"
+    "source-map-support": "^0.5.16"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
     "@types/form-data": "^2.5.0",
-    "@types/jest": "^24.0.20",
-    "@types/mongodb": "^3.3.6",
+    "@types/jest": "^24.0.21",
+    "@types/mongodb": "^3.3.7",
     "@types/mongodb-memory-server": "^2.3.0",
     "@types/node-telegram-bot-api": "^0.31.1",
     "@types/prometheus-gc-stats": "^0.6.1",
