@@ -4,9 +4,10 @@
     "es6": true
   },
   "extends": [
-    "eslint:all",
-    "plugin:@typescript-eslint/all",
+    "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended",
     "prettier/standard",
     "prettier/@typescript-eslint"
