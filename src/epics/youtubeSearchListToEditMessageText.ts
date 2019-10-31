@@ -76,12 +76,16 @@ const transformObservable: (
       })
     );
   }
-  if (state$.value.youtubeSearchList.query.relatedToVideoId === undefined) {
+  const qUndefined = state$.value.youtubeSearchList.query.q === undefined;
+  const relatedToVideoIdUndefined =
+    state$.value.youtubeSearchList.query.relatedToVideoId === undefined;
+  if (
+    (!qUndefined || relatedToVideoIdUndefined) &&
+    (qUndefined || !relatedToVideoIdUndefined)
+  ) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(
-          texts.state$ValueYoutubeSearchListQueryRelatedToVideoIdUndefined
-        )
+        error: new Error(texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined)
       })
     );
   }

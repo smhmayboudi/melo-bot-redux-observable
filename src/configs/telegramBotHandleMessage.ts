@@ -97,7 +97,6 @@ const handleMessage: (
             maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
             part: "id,snippet",
             q: "youtube",
-            relatedToVideoId: "",
             type: env.GOOGLE_API_SEARCH_LIST_TYPE
           }
         })
@@ -208,7 +207,6 @@ const handleMessage: (
                 key: env.GOOGLE_API_KEY,
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
-                q: "",
                 relatedToVideoId: decode(
                   message.text
                     .replace(
@@ -229,7 +227,6 @@ const handleMessage: (
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
                 q: message.text.trim(),
-                relatedToVideoId: "",
                 type: env.GOOGLE_API_SEARCH_LIST_TYPE
               }
             })

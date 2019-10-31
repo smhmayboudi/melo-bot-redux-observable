@@ -60,19 +60,16 @@ const transformObservable: (
       })
     );
   }
-  if (state$.value.youtubeSearchList.query.q === undefined) {
+  const qUndefined = state$.value.youtubeSearchList.query.q === undefined;
+  const relatedToVideoIdUndefined =
+    state$.value.youtubeSearchList.query.relatedToVideoId === undefined;
+  if (
+    (!qUndefined || relatedToVideoIdUndefined) &&
+    (qUndefined || !relatedToVideoIdUndefined)
+  ) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
-      })
-    );
-  }
-  if (state$.value.youtubeSearchList.query.relatedToVideoId === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(
-          texts.state$ValueYoutubeSearchListQueryRelatedToVideoIdUndefined
-        )
+        error: new Error(texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined)
       })
     );
   }
@@ -110,7 +107,7 @@ const transformObservable: (
         reply_to_message_id: state$.value.message.query.message.message_id,
         text: transformSearchList(
           action.youtubeSearchList.result.items,
-          state$.value.youtubeSearchList.query.q
+          `${state$.value.youtubeSearchList.query.q}`
         )
       }
     })

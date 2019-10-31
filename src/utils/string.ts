@@ -58,9 +58,9 @@ const transformSearchList: (
   res.push(texts.messageResultQ(q));
   res.push(texts.messageSeparator);
   res.push(
-    `${findByCode("1F449").char} <a href='${
+    `${findByCode("1F449").char} <a href="${
       texts.messageAdvertisementChannelJoinLink
-    }'>${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+    }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
   );
 
   return res.join("\n");
@@ -101,9 +101,9 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
   res.push(texts.messageResultRelatedTo);
   res.push(texts.messageSeparator);
   res.push(
-    `${findByCode("1F449").char} <a href='${
+    `${findByCode("1F449").char} <a href="${
       texts.messageAdvertisementChannelJoinLink
-    }'>${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+    }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
   );
 
   return res.join("\n");
