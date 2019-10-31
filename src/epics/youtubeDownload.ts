@@ -22,7 +22,7 @@ import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
-import { caption, decode, pathThumb, pathVideo } from "../utils/string";
+import { caption, pathThumb, pathVideo } from "../utils/string";
 
 const youtubeDownload: (
   action$: Observable<IActionYoutubeDownload>,
@@ -67,9 +67,8 @@ const youtubeDownload: (
       );
     }
 
-    return youtubeDownloadObservable(
-      decode(action.youtubeDownload.query as string)
-    ).pipe(
+    return youtubeDownloadObservable(action.youtubeDownload
+      .query as string).pipe(
       map(
         (result: IVideoInfo): IActionYoutubeDownload =>
           actions.youtubeDownload.result({
@@ -137,7 +136,7 @@ const youtubeDownload: (
                 }
 
                 return findOneObservable(collection, {
-                  id: decode(action.youtubeDownload.query as string)
+                  id: action.youtubeDownload.query as string
                 }).pipe(
                   switchMap(
                     (

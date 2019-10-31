@@ -5,7 +5,7 @@ import { Store } from "redux";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import { caption } from "../utils/string";
+import { caption, decode } from "../utils/string";
 
 import * as env from "./env";
 import * as texts from "./texts";
@@ -97,6 +97,7 @@ const handleMessage: (
             maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
             part: "id,snippet",
             q: "youtube",
+            relatedToVideoId: "",
             type: env.GOOGLE_API_SEARCH_LIST_TYPE
           }
         })
@@ -186,12 +187,14 @@ const handleMessage: (
         ) {
           store.dispatch(
             actions.youtubeDownload.query({
-              query: message.text
-                .replace(
-                  `/${texts.commandDownload}${texts.commandSeparator}`,
-                  ""
-                )
-                .trim()
+              query: decode(
+                message.text
+                  .replace(
+                    `/${texts.commandDownload}${texts.commandSeparator}`,
+                    ""
+                  )
+                  .trim()
+              )
             })
           );
         } else if (
@@ -203,12 +206,18 @@ const handleMessage: (
             actions.youtubeSearchList.query({
               query: {
                 key: env.GOOGLE_API_KEY,
-                relatedToVideoId: message.text
-                  .replace(
-                    `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`,
-                    ""
-                  )
-                  .trim()
+                maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
+                part: "id,snippet",
+                q: "",
+                relatedToVideoId: decode(
+                  message.text
+                    .replace(
+                      `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`,
+                      ""
+                    )
+                    .trim()
+                ),
+                type: env.GOOGLE_API_SEARCH_LIST_TYPE
               }
             })
           );
@@ -220,6 +229,7 @@ const handleMessage: (
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
                 q: message.text.trim(),
+                relatedToVideoId: "",
                 type: env.GOOGLE_API_SEARCH_LIST_TYPE
               }
             })

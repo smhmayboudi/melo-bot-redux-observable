@@ -46,6 +46,11 @@ const transformSearchList: (
           texts.commandSeparator
         }${videoId}`
       );
+      msg.push(
+        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
+          texts.commandSeparator
+        }${videoId}`
+      );
     }
     msg.push(texts.messageSeparator);
     res.push(msg.join("\n"));
@@ -81,6 +86,11 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
         `${findByCode("1F4E5").char} /${texts.commandDownload}${
+          texts.commandSeparator
+        }${videoId}`
+      );
+      msg.push(
+        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
           texts.commandSeparator
         }${videoId}`
       );

@@ -76,6 +76,15 @@ const transformObservable: (
       })
     );
   }
+  if (state$.value.youtubeSearchList.query.relatedToVideoId === undefined) {
+    return of(
+      actions.youtubeSearchList.error({
+        error: new Error(
+          texts.state$ValueYoutubeSearchListQueryRelatedToVideoIdUndefined
+        )
+      })
+    );
+  }
 
   const inlineKeyboard = [];
   if (

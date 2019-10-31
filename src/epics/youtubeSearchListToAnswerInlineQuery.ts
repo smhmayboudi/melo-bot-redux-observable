@@ -60,6 +60,15 @@ const transformObservable: (
       })
     );
   }
+  if (state$.value.youtubeSearchList.query.relatedToVideoId === undefined) {
+    return of(
+      actions.youtubeSearchList.error({
+        error: new Error(
+          texts.state$ValueYoutubeSearchListQueryRelatedToVideoIdUndefined
+        )
+      })
+    );
+  }
 
   return of(
     actions.answerInlineQuery.query({
