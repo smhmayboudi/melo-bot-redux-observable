@@ -38,6 +38,7 @@ const inlineQuery: (
           key: env.GOOGLE_API_KEY,
           maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
           part: "id,snippet",
+          pageToken: action.inlineQuery.query.offset,
           q: action.inlineQuery.query.query.trim(),
           type: env.GOOGLE_API_SEARCH_LIST_TYPE
         }

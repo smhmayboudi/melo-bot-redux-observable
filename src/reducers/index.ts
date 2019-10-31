@@ -1,5 +1,6 @@
 import { combineReducers, Reducer } from "redux";
 
+import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 
 import { addStickerToSet } from "./addStickerToSet";
@@ -73,7 +74,7 @@ import { youtubeDownload } from "./youtubeDownload";
 import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
 
-const index: Reducer<IState> = combineReducers({
+const index: Reducer<IState, IAction> = combineReducers({
   addStickerToSet,
   answerCallbackQuery,
   answerInlineQuery,

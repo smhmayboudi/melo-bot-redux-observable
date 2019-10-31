@@ -177,11 +177,17 @@ const messageSeparator = "--------------------";
 const messageSetInlineGeo = "SETINLINEGEO";
 const messageSettings = "SETTINGS";
 const messageStart = `WELCOME ${findByCode("1F917").char}`;
+const messageWithPaginationNext = "NEXT";
+const messageWithPaginationPrev = "PREV";
 const state$Undefined = "state$ undefined.";
 const state$ValueGetChatMemberQueryUndefined =
   "state$ValueGetChatMemberQuery undefined.";
 const state$ValueInlineQueryQueryUndefined =
   "state$ValueInlineQueryQuery undefined.";
+const state$ValueMessageQueryCallbackQueryUndefined =
+  "state$ValueMessageQueryCallbackQuery undefined.";
+const state$ValueMessageQueryCallbackQueryMessageUndefined =
+  "state$ValueMessageQueryCallbackQueryMessageUndefined undefined.";
 const state$ValueMessageQueryMessageUndefined =
   "state$ValueMessageQueryMessage undefined.";
 const state$ValueMessageQueryUndefined = "state$ValueMessageQuery undefined.";
@@ -306,9 +312,13 @@ export {
   messageSetInlineGeo,
   messageSettings,
   messageStart,
+  messageWithPaginationNext,
+  messageWithPaginationPrev,
   state$Undefined,
   state$ValueGetChatMemberQueryUndefined,
   state$ValueInlineQueryQueryUndefined,
+  state$ValueMessageQueryCallbackQueryUndefined,
+  state$ValueMessageQueryCallbackQueryMessageUndefined,
   state$ValueMessageQueryMessageUndefined,
   state$ValueMessageQueryUndefined,
   state$ValueYoutubeSearchListQueryQUndefined,
