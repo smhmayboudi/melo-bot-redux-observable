@@ -144,7 +144,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: texts.messageHelp
+                text: texts.messageStart
               }
             })
           );
