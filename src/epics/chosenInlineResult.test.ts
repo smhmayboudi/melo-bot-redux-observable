@@ -28,7 +28,7 @@ import {
 
 import * as epic from "./chosenInlineResult";
 
-describe("chosenInline epic", (): void => {
+describe("chosenInlineResult epic", (): void => {
   const error: Error = new Error("");
   const query: IStateChosenInlineResultQuery = {
     from: {
