@@ -1,10 +1,13 @@
 import { Observable, of } from "rxjs";
 
-import { IActionEditMessageText } from "../../types/iActionEditMessageText";
+import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
-import { transformVideoList } from "../utils/string";
+import {
+  transformVideoCaption,
+  transformVideoThumbnailUrl
+} from "../utils/string";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { stringify } from "../utils/queryString";
@@ -12,10 +15,10 @@ import { stringify } from "../utils/queryString";
 const transformObservable: (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeVideoList
-) => Observable<IActionEditMessageText | IActionYoutubeVideoList> = (
+) => Observable<IActionEditMessageMedia | IActionYoutubeVideoList> = (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeVideoList
-): Observable<IActionEditMessageText | IActionYoutubeVideoList> => {
+): Observable<IActionEditMessageMedia | IActionYoutubeVideoList> => {
   if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
     return of(action);
   }
@@ -113,20 +116,28 @@ const transformObservable: (
   }
 
   return of(
-    actions.editMessageText.query({
+    actions.editMessageMedia.query({
       query: {
         chat_id: state$.value.message.query.callback_query.message.chat.id,
-        disable_web_page_preview: true,
         message_id:
           state$.value.message.query.callback_query.message.message_id,
-        parse_mode: "HTML",
+        media: {
+          caption: transformVideoCaption(
+            action.youtubeVideoList.result.items[0]
+          ),
+          media: transformVideoThumbnailUrl(
+            action.youtubeVideoList.result.items[0]
+          ),
+          parse_mode: "HTML",
+          type: "photo"
+        },
         reply_markup: {
           inline_keyboard: [inlineKeyboard]
-        },
-        text: transformVideoList(
-          action.youtubeVideoList.result.items,
-          state$.value.youtubeVideoList.query.chart
-        )
+        }
+        // text: transformVideos(
+        //   action.youtubeVideoList.result.items,
+        //   state$.value.youtubeVideoList.query.chart
+        // )
       }
     })
   );

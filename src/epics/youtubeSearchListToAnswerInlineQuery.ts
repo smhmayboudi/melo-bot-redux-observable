@@ -4,7 +4,7 @@ import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
-import { transformSearchList } from "../utils/inlineQueryResultArticle";
+import { transformSearchResults } from "../utils/inlineQueryResultArticle";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -82,7 +82,7 @@ const transformObservable: (
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
         next_offset: `${action.youtubeSearchList.result.nextPageToken}`,
-        results: transformSearchList(
+        results: transformSearchResults(
           action.youtubeSearchList.result.items,
           state$.value.youtubeSearchList.query.q
         ),

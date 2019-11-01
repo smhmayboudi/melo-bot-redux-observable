@@ -5,8 +5,8 @@ import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
-import { IActionEditMessageText } from "../../types/iActionEditMessageText";
-import { IActionSendMessage } from "../../types/iActionSendMessage";
+import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
+import { IActionSendPhoto } from "../../types/iActionSendPhoto";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
@@ -14,8 +14,8 @@ import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeVideoListToAnswerInlineQuery";
-import { transformObservable as transformObservableToEditMessageText } from "./youtubeVideoListToEditMessageText";
-import { transformObservable as transformObservableToSendMessage } from "./youtubeVideoListToSendMessage";
+import { transformObservable as transformObservableToEditMessageMedia } from "./youtubeVideoListToEditMessageMedia";
+import { transformObservable as transformObservableToSendPhoto } from "./youtubeVideoListToSendPhoto";
 
 const youtubeVideoList: (
   action$: Observable<IActionYoutubeVideoList>,
@@ -23,8 +23,8 @@ const youtubeVideoList: (
   dependencies: IDependencies
 ) => Observable<
   | IActionAnswerInlineQuery
-  | IActionEditMessageText
-  | IActionSendMessage
+  | IActionEditMessageMedia
+  | IActionSendPhoto
   | IActionYoutubeVideoList
 > = (
   action$: Observable<IActionYoutubeVideoList>,
@@ -32,8 +32,8 @@ const youtubeVideoList: (
   dependencies: IDependencies
 ): Observable<
   | IActionAnswerInlineQuery
-  | IActionEditMessageText
-  | IActionSendMessage
+  | IActionEditMessageMedia
+  | IActionSendPhoto
   | IActionYoutubeVideoList
 > => {
   const { requestsObservable } = dependencies;
@@ -97,9 +97,9 @@ const youtubeVideoList: (
           state$.value.message.query !== undefined &&
           state$.value.message.query.message !== undefined
         ) {
-          return transformObservableToSendMessage(state$, value);
+          return transformObservableToSendPhoto(state$, value);
         }
-        return transformObservableToEditMessageText(state$, value);
+        return transformObservableToEditMessageMedia(state$, value);
       }
     })
   );

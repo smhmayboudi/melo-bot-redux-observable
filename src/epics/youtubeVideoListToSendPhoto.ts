@@ -1,10 +1,13 @@
 import { Observable, of } from "rxjs";
 
-import { IActionSendMessage } from "../../types/iActionSendMessage";
+import { IActionSendPhoto } from "../../types/iActionSendPhoto";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
-import { transformVideoList } from "../utils/string";
+import {
+  transformVideoCaption,
+  transformVideoThumbnailUrl
+} from "../utils/string";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { stringify } from "../utils/queryString";
@@ -12,10 +15,10 @@ import { stringify } from "../utils/queryString";
 const transformObservable: (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeVideoList
-) => Observable<IActionSendMessage | IActionYoutubeVideoList> = (
+) => Observable<IActionSendPhoto | IActionYoutubeVideoList> = (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeVideoList
-): Observable<IActionSendMessage | IActionYoutubeVideoList> => {
+): Observable<IActionSendPhoto | IActionYoutubeVideoList> => {
   if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
     return of(action);
   }
@@ -104,20 +107,19 @@ const transformObservable: (
   }
 
   return of(
-    actions.sendMessage.query({
+    actions.sendPhoto.query({
       query: {
+        caption: transformVideoCaption(action.youtubeVideoList.result.items[0]),
         chat_id: state$.value.message.query.message.chat.id,
         disable_notification: true,
-        disable_web_page_preview: true,
         parse_mode: "HTML",
+        photo: transformVideoThumbnailUrl(
+          action.youtubeVideoList.result.items[0]
+        ),
         reply_markup: {
           inline_keyboard: [inlineKeyboard]
         },
-        reply_to_message_id: state$.value.message.query.message.message_id,
-        text: transformVideoList(
-          action.youtubeVideoList.result.items,
-          `${state$.value.youtubeVideoList.query.chart}`
-        )
+        reply_to_message_id: state$.value.message.query.message.message_id
       }
     })
   );

@@ -13,7 +13,7 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformVideoList } from "../utils/string";
+import { transformVideos } from "../utils/string";
 
 import * as epic from "./youtubeVideoList";
 
@@ -367,7 +367,7 @@ describe("youtubeVideoList epic", (): void => {
             disable_web_page_preview: true,
             parse_mode: "HTML",
             reply_to_message_id: 0,
-            text: transformVideoList(result.items as youtube_v3.Schema$Video[])
+            text: transformVideos(result.items as youtube_v3.Schema$Video[])
           }
         })
       });

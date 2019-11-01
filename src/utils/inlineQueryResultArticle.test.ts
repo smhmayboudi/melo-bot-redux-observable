@@ -1,15 +1,15 @@
 import { youtube_v3 } from "googleapis";
 
-import { transformSearchList } from "./inlineQueryResultArticle";
+import { transformSearchResults } from "./inlineQueryResultArticle";
 
 describe("inlineQueryResultArticle utils", (): void => {
-  test("should handle transformSearchList items length", (): void => {
+  test("should handle transformSearchResults items length", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList id undefined", (): void => {
+  test("should handle transformSearchResults id undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -22,10 +22,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList id videoId undefined", (): void => {
+  test("should handle transformSearchResults id videoId undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -40,10 +40,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList id videoId null", (): void => {
+  test("should handle transformSearchResults id videoId null", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -59,10 +59,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList snippet undefined", (): void => {
+  test("should handle transformSearchResults snippet undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -72,10 +72,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: undefined
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList snippet thumbnails undefined", (): void => {
+  test("should handle transformSearchResults snippet thumbnails undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -88,10 +88,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList snippet thumbnails default undefined", (): void => {
+  test("should handle transformSearchResults snippet thumbnails default undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -106,10 +106,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList snippet title undefined", (): void => {
+  test("should handle transformSearchResults snippet title undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -124,10 +124,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 
-  test("should handle transformSearchList", (): void => {
+  test("should handle transformSearchResults", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -142,6 +142,6 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchList(items, q)).toEqual([]);
+    expect(transformSearchResults(items, q)).toEqual([]);
   });
 });

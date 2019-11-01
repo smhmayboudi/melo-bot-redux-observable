@@ -9,8 +9,8 @@ import {
   encode,
   pathThumb,
   pathVideo,
-  transformSearchList,
-  transformVideoList
+  transformSearchResults,
+  transformVideos
 } from "./string";
 
 describe("string utils", (): void => {
@@ -37,13 +37,13 @@ describe("string utils", (): void => {
     expect(pathVideo(query)).toContain(`${result}.mp4`);
   });
 
-  test("should handle transformSearchList items length", (): void => {
+  test("should handle transformSearchResults items length", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [];
-    expect(transformSearchList(items, q)).toEqual(texts.messageNoResult);
+    expect(transformSearchResults(items, q)).toEqual(texts.messageNoResult);
   });
 
-  test("should handle transformSearchList id undefined", (): void => {
+  test("should handle transformSearchResults id undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -62,10 +62,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+    expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList id videoId undefined", (): void => {
+  test("should handle transformSearchResults id videoId undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -86,10 +86,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+    expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList id videoId null", (): void => {
+  test("should handle transformSearchResults id videoId null", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -111,10 +111,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+    expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList snippet undefined", (): void => {
+  test("should handle transformSearchResults snippet undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -133,10 +133,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+    expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList snippet title undefined", (): void => {
+  test("should handle transformSearchResults snippet title undefined", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -157,10 +157,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+    expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformSearchList", (): void => {
+  test("should handle transformSearchResults", (): void => {
     const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
@@ -189,15 +189,15 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformSearchList(items, q)).toEqual(res.join("\n"));
+    expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList items length", (): void => {
+  test("should handle transformVideos items length", (): void => {
     const items: youtube_v3.Schema$Video[] = [];
-    expect(transformVideoList(items)).toEqual(texts.messageNoResult);
+    expect(transformVideos(items)).toEqual(texts.messageNoResult);
   });
 
-  test("should handle transformVideoList id undefined", (): void => {
+  test("should handle transformVideos id undefined", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
         id: undefined,
@@ -215,10 +215,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
+    expect(transformVideos(items)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList id null", (): void => {
+  test("should handle transformVideos id null", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
         // tslint:disable-next-line: no-null-keyword
@@ -237,10 +237,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
+    expect(transformVideos(items)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList snippet undefined", (): void => {
+  test("should handle transformVideos snippet undefined", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
         id: "",
@@ -256,10 +256,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
+    expect(transformVideos(items)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList snippet title undefined", (): void => {
+  test("should handle transformVideos snippet title undefined", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
         id: "",
@@ -277,10 +277,10 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
+    expect(transformVideos(items)).toEqual(res.join("\n"));
   });
 
-  test("should handle transformVideoList", (): void => {
+  test("should handle transformVideos", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
         id: "",
@@ -306,6 +306,6 @@ describe("string utils", (): void => {
         texts.messageAdvertisementChannelJoinLink
       }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
     );
-    expect(transformVideoList(items)).toEqual(res.join("\n"));
+    expect(transformVideos(items)).toEqual(res.join("\n"));
   });
 });

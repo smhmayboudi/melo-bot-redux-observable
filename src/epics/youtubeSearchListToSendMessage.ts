@@ -4,7 +4,7 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
-import { transformSearchList } from "../utils/string";
+import { transformSearchResults } from "../utils/string";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { stringify } from "../utils/queryString";
@@ -122,7 +122,7 @@ const transformObservable: (
           inline_keyboard: [inlineKeyboard]
         },
         reply_to_message_id: state$.value.message.query.message.message_id,
-        text: transformSearchList(
+        text: transformSearchResults(
           action.youtubeSearchList.result.items,
           `${state$.value.youtubeSearchList.query.q}`
         )

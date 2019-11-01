@@ -15,8 +15,8 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformSearchList as inlineTransformSearchList } from "../utils/inlineQueryResultArticle";
-import { transformSearchList as stringTransformSearchList } from "../utils/string";
+import { transformSearchResults as inlineTransformSearchList } from "../utils/inlineQueryResultArticle";
+import { transformSearchResults as stringTransformSearchList } from "../utils/string";
 
 import * as epic from "./youtubeSearchList";
 

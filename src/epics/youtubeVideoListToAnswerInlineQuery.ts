@@ -4,7 +4,7 @@ import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
-import { transformVideoList } from "../utils/inlineQueryResultArticle";
+import { transformVideos } from "../utils/inlineQueryResultArticle";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -67,7 +67,7 @@ const transformObservable: (
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
         next_offset: `${action.youtubeVideoList.result.nextPageToken}`,
-        results: transformVideoList(
+        results: transformVideos(
           action.youtubeVideoList.result.items,
           state$.value.youtubeVideoList.query.chart
         ),

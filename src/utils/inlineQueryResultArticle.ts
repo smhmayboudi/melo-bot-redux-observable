@@ -5,7 +5,7 @@ import * as texts from "../configs/texts";
 
 import { encode } from "./string";
 
-const transformSearchList: (
+const transformSearchResults: (
   items: youtube_v3.Schema$SearchResult[],
   q: string
 ) => IInlineQueryResultArticle[] = (
@@ -61,7 +61,7 @@ const transformSearchList: (
   return res;
 };
 
-const transformVideoList: (
+const transformVideos: (
   items: youtube_v3.Schema$Video[],
   chart: string
 ) => IInlineQueryResultArticle[] = (
@@ -116,4 +116,4 @@ const transformVideoList: (
   return res;
 };
 
-export { transformSearchList, transformVideoList };
+export { transformSearchResults, transformVideos };
