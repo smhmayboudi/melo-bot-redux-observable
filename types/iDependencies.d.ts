@@ -8,8 +8,7 @@ import {
   FilterQuery,
   FindOneOptions,
   InsertOneWriteOpResult,
-  MongoClient,
-  MongoClientOptions
+  MongoClient
 } from "mongodb";
 import { Action } from "redux";
 import { Observable } from "rxjs";

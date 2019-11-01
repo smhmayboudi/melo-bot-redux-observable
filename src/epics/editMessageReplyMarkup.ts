@@ -60,7 +60,7 @@ const editMessageReplyMarkup: (
         (response: IResponse): IActionEditMessageReplyMarkup => {
           if (response.ok) {
             return actions.editMessageReplyMarkup.result({
-              result: response.result as IMessage
+              result: response.result as boolean | IMessage
             });
           }
 

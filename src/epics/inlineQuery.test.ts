@@ -73,6 +73,9 @@ describe("inlineQuery epic", (): void => {
             maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
             part: "id,snippet",
             q: query.query,
+            regionCode: env.GOOGLE_API_REGION_CODE,
+            relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+            safeSearch: env.GOOGLE_API_SAFE_SEARCH,
             type: env.GOOGLE_API_SEARCH_LIST_TYPE
           }
         })

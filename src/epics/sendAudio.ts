@@ -9,7 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformStateSendAudioQuery } from "../utils/formData";
+import { transformSendAudioQuery } from "../utils/formData";
 
 const sendAudio: (
   action$: Observable<IActionSendAudio>,
@@ -56,7 +56,7 @@ const sendAudio: (
         host: "api.telegram.org",
         path: `/bot${botToken}/sendAudio`
       },
-      transformStateSendAudioQuery(action.sendAudio.query)
+      transformSendAudioQuery(action.sendAudio.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendAudio => {

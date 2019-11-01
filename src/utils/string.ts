@@ -62,10 +62,10 @@ const transformSearchResults: (
   items: youtube_v3.Schema$SearchResult[],
   q: string
 ) => string = (items: youtube_v3.Schema$SearchResult[], q: string): string => {
+  const res: string[] = [];
   if (items.length === 0) {
     return texts.messageNoResult;
   }
-  const res: string[] = [];
   for (let index: number = items.length; index > 0; index = index - 1) {
     const value: youtube_v3.Schema$SearchResult = items[index - 1];
     const msg: string[] = [];
@@ -107,16 +107,36 @@ const transformSearchResultUrl: (
   item: youtube_v3.Schema$SearchResult
 ) => string = (item: youtube_v3.Schema$SearchResult): string => {
   if (item.snippet !== undefined && item.snippet.thumbnails !== undefined) {
-    if (item.snippet.thumbnails.maxres !== undefined) {
-      return item.snippet.thumbnails.maxres.url as string;
-    } else if (item.snippet.thumbnails.standard !== undefined) {
-      return item.snippet.thumbnails.standard.url as string;
-    } else if (item.snippet.thumbnails.high !== undefined) {
-      return item.snippet.thumbnails.high.url as string;
-    } else if (item.snippet.thumbnails.medium !== undefined) {
-      return item.snippet.thumbnails.medium.url as string;
-    } else if (item.snippet.thumbnails.default !== undefined) {
-      return item.snippet.thumbnails.default.url as string;
+    if (
+      item.snippet.thumbnails.maxres !== undefined &&
+      item.snippet.thumbnails.maxres.url !== null &&
+      item.snippet.thumbnails.maxres.url !== undefined
+    ) {
+      return item.snippet.thumbnails.maxres.url;
+    } else if (
+      item.snippet.thumbnails.standard !== undefined &&
+      item.snippet.thumbnails.standard.url !== null &&
+      item.snippet.thumbnails.standard.url !== undefined
+    ) {
+      return item.snippet.thumbnails.standard.url;
+    } else if (
+      item.snippet.thumbnails.high !== undefined &&
+      item.snippet.thumbnails.high.url !== null &&
+      item.snippet.thumbnails.high.url !== undefined
+    ) {
+      return item.snippet.thumbnails.high.url;
+    } else if (
+      item.snippet.thumbnails.medium !== undefined &&
+      item.snippet.thumbnails.medium.url !== null &&
+      item.snippet.thumbnails.medium.url !== undefined
+    ) {
+      return item.snippet.thumbnails.medium.url;
+    } else if (
+      item.snippet.thumbnails.default !== undefined &&
+      item.snippet.thumbnails.default.url !== null &&
+      item.snippet.thumbnails.default.url !== undefined
+    ) {
+      return item.snippet.thumbnails.default.url;
     }
   }
   return "";
@@ -206,16 +226,36 @@ const transformVideoThumbnailUrl: (item: youtube_v3.Schema$Video) => string = (
   item: youtube_v3.Schema$Video
 ): string => {
   if (item.snippet !== undefined && item.snippet.thumbnails !== undefined) {
-    if (item.snippet.thumbnails.maxres !== undefined) {
-      return item.snippet.thumbnails.maxres.url as string;
-    } else if (item.snippet.thumbnails.standard !== undefined) {
-      return item.snippet.thumbnails.standard.url as string;
-    } else if (item.snippet.thumbnails.high !== undefined) {
-      return item.snippet.thumbnails.high.url as string;
-    } else if (item.snippet.thumbnails.medium !== undefined) {
-      return item.snippet.thumbnails.medium.url as string;
-    } else if (item.snippet.thumbnails.default !== undefined) {
-      return item.snippet.thumbnails.default.url as string;
+    if (
+      item.snippet.thumbnails.maxres !== undefined &&
+      item.snippet.thumbnails.maxres.url !== null &&
+      item.snippet.thumbnails.maxres.url !== undefined
+    ) {
+      return item.snippet.thumbnails.maxres.url;
+    } else if (
+      item.snippet.thumbnails.standard !== undefined &&
+      item.snippet.thumbnails.standard.url !== null &&
+      item.snippet.thumbnails.standard.url !== undefined
+    ) {
+      return item.snippet.thumbnails.standard.url;
+    } else if (
+      item.snippet.thumbnails.high !== undefined &&
+      item.snippet.thumbnails.high.url !== null &&
+      item.snippet.thumbnails.high.url !== undefined
+    ) {
+      return item.snippet.thumbnails.high.url;
+    } else if (
+      item.snippet.thumbnails.medium !== undefined &&
+      item.snippet.thumbnails.medium.url !== null &&
+      item.snippet.thumbnails.medium.url !== undefined
+    ) {
+      return item.snippet.thumbnails.medium.url;
+    } else if (
+      item.snippet.thumbnails.default !== undefined &&
+      item.snippet.thumbnails.default.url !== null &&
+      item.snippet.thumbnails.default.url !== undefined
+    ) {
+      return item.snippet.thumbnails.default.url;
     }
   }
   return "";
@@ -227,9 +267,9 @@ export {
   encode,
   pathThumb,
   pathVideo,
-  transformSearchResultUrl,
   transformSearchResultCaption,
   transformSearchResults,
+  transformSearchResultUrl,
   transformVideoCaption,
   transformVideos,
   transformVideoThumbnailUrl

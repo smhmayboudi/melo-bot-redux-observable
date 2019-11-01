@@ -60,7 +60,7 @@ const editMessageCaption: (
         (response: IResponse): IActionEditMessageCaption => {
           if (response.ok) {
             return actions.editMessageCaption.result({
-              result: response.result as IMessage
+              result: response.result as boolean | IMessage
             });
           }
 

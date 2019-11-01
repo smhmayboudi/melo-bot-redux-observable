@@ -45,6 +45,9 @@ const handleCallbackQuery: (
               part: "id,snippet",
               pageToken: callbackQueryData.pt,
               q: callbackQueryData.q,
+              regionCode: env.GOOGLE_API_REGION_CODE,
+              relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+              safeSearch: env.GOOGLE_API_SAFE_SEARCH,
               type: env.GOOGLE_API_SEARCH_LIST_TYPE
             }
           })
@@ -54,10 +57,12 @@ const handleCallbackQuery: (
           actions.youtubeVideoList.query({
             query: {
               chart: callbackQueryData.c,
+              hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
               key: env.GOOGLE_API_KEY,
               maxResults: callbackQueryData.pirpp,
               part: "id,snippet",
-              pageToken: callbackQueryData.pt
+              pageToken: callbackQueryData.pt,
+              regionCode: env.GOOGLE_API_REGION_CODE
             }
           })
         );

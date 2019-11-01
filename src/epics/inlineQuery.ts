@@ -40,6 +40,9 @@ const inlineQuery: (
           part: "id,snippet",
           pageToken: action.inlineQuery.query.offset,
           q: action.inlineQuery.query.query.trim(),
+          regionCode: env.GOOGLE_API_REGION_CODE,
+          relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+          safeSearch: env.GOOGLE_API_SAFE_SEARCH,
           type: env.GOOGLE_API_SEARCH_LIST_TYPE
         }
       })

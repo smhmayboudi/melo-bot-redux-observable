@@ -73,7 +73,13 @@ const transformObservable: (
   }
 
   const inlineKeyboard = [];
-  if (action.youtubeVideoList.result.pageInfo !== undefined) {
+  if (
+    action.youtubeVideoList.result.pageInfo !== undefined &&
+    action.youtubeVideoList.result.pageInfo.resultsPerPage !== null &&
+    action.youtubeVideoList.result.pageInfo.resultsPerPage !== undefined &&
+    action.youtubeVideoList.result.pageInfo.totalResults !== null &&
+    action.youtubeVideoList.result.pageInfo.totalResults !== undefined
+  ) {
     if (
       action.youtubeVideoList.result.prevPageToken !== undefined &&
       action.youtubeVideoList.result.prevPageToken !== null
@@ -81,9 +87,8 @@ const transformObservable: (
       inlineKeyboard.push({
         callback_data: stringify({
           c: state$.value.youtubeVideoList.query.chart,
-          pirpp: action.youtubeVideoList.result.pageInfo
-            .resultsPerPage as number,
-          pitr: action.youtubeVideoList.result.pageInfo.totalResults as number,
+          pirpp: action.youtubeVideoList.result.pageInfo.resultsPerPage,
+          pitr: action.youtubeVideoList.result.pageInfo.totalResults,
           pt: action.youtubeVideoList.result.prevPageToken
         }),
         text: texts.messageWithPaginationPrev
@@ -96,9 +101,8 @@ const transformObservable: (
       inlineKeyboard.push({
         callback_data: stringify({
           c: state$.value.youtubeVideoList.query.chart,
-          pirpp: action.youtubeVideoList.result.pageInfo
-            .resultsPerPage as number,
-          pitr: action.youtubeVideoList.result.pageInfo.totalResults as number,
+          pirpp: action.youtubeVideoList.result.pageInfo.resultsPerPage,
+          pitr: action.youtubeVideoList.result.pageInfo.totalResults,
           pt: action.youtubeVideoList.result.nextPageToken
         }),
         text: texts.messageWithPaginationNext

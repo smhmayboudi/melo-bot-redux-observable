@@ -10,7 +10,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformStateSendVideoQuery } from "../utils/formData";
+import { transformSendVideoQuery } from "../utils/formData";
 import { caption } from "../utils/string";
 
 const sendVideo: (
@@ -65,7 +65,7 @@ const sendVideo: (
         host: "api.telegram.org",
         path: `/bot${botToken}/sendVideo`
       },
-      transformStateSendVideoQuery(action.sendVideo.query)
+      transformSendVideoQuery(action.sendVideo.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendVideo => {

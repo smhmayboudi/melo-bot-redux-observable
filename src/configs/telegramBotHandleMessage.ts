@@ -58,7 +58,21 @@ const handleMessage: (
             disable_web_page_preview: true,
             parse_mode: "HTML",
             reply_to_message_id: message.message_id,
-            text: texts.messageStart
+            text: caption("small")
+          }
+        })
+      );
+      break;
+    case "/sendPhoto":
+      store.dispatch(
+        actions.sendPhoto.query({
+          query: {
+            caption: caption("small"),
+            chat_id: message.chat.id,
+            disable_notification: true,
+            parse_mode: "HTML",
+            photo: fs.createReadStream("./asset/small.jpg"),
+            reply_to_message_id: message.message_id
           }
         })
       );
@@ -96,7 +110,10 @@ const handleMessage: (
             key: env.GOOGLE_API_KEY,
             maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
             part: "id,snippet",
-            q: "youtube",
+            q: "small",
+            regionCode: env.GOOGLE_API_REGION_CODE,
+            relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+            safeSearch: env.GOOGLE_API_SAFE_SEARCH,
             type: env.GOOGLE_API_SEARCH_LIST_TYPE
           }
         })
@@ -107,21 +124,11 @@ const handleMessage: (
         actions.youtubeVideoList.query({
           query: {
             chart: "mostPopular",
-            key: env.GOOGLE_API_KEY,
-            maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-            part: "id,snippet"
-          }
-        })
-      );
-      break;
-    case "/youtubeVideoList2":
-      store.dispatch(
-        actions.youtubeVideoList.query({
-          query: {
-            chart: "mostPopular",
+            hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
             key: env.GOOGLE_API_KEY,
             maxResults: 1,
-            part: "id,snippet"
+            part: "id,snippet",
+            regionCode: env.GOOGLE_API_REGION_CODE
           }
         })
       );
@@ -185,9 +192,11 @@ const handleMessage: (
             actions.youtubeVideoList.query({
               query: {
                 chart: "mostPopular",
+                hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
                 key: env.GOOGLE_API_KEY,
-                maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-                part: "id,snippet"
+                maxResults: 1,
+                part: "id,snippet",
+                regionCode: env.GOOGLE_API_REGION_CODE
               }
             })
           );
@@ -219,6 +228,7 @@ const handleMessage: (
                 key: env.GOOGLE_API_KEY,
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
+                regionCode: env.GOOGLE_API_REGION_CODE,
                 relatedToVideoId: decode(
                   message.text
                     .replace(
@@ -227,6 +237,8 @@ const handleMessage: (
                     )
                     .trim()
                 ),
+                relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+                safeSearch: env.GOOGLE_API_SAFE_SEARCH,
                 type: env.GOOGLE_API_SEARCH_LIST_TYPE
               }
             })
@@ -239,6 +251,9 @@ const handleMessage: (
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
                 q: message.text.trim(),
+                regionCode: env.GOOGLE_API_REGION_CODE,
+                relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+                safeSearch: env.GOOGLE_API_SAFE_SEARCH,
                 type: env.GOOGLE_API_SEARCH_LIST_TYPE
               }
             })

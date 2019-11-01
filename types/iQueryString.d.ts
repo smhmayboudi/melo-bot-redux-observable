@@ -1,7 +1,7 @@
 export interface IQueryString {
   c?: string;
-  pirpp?: number;
-  pitr?: number;
-  pt?: string;
+  pirpp: number;
+  pitr: number;
+  pt: string;
   q?: string;
 }

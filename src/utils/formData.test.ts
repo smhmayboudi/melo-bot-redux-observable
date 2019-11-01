@@ -1,10 +1,7 @@
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 
-import {
-  transformStateSendAudioQuery,
-  transformStateSendVideoQuery
-} from "./formData";
+import { transformSendAudioQuery, transformSendVideoQuery } from "./formData";
 
 describe("formData utils", (): void => {
   const sendAudioQueryNoCaption: IStateSendAudioQuery = {
@@ -229,87 +226,85 @@ describe("formData utils", (): void => {
     video: ""
   };
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoCaption", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoCaption)).toEqual("");
+  test("should handle transformSendVideoQuery sendAudioQueryNoCaption", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoCaption)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoDisableNotification", (): void => {
+  test("should handle transformSendVideoQuery sendAudioQueryNoDisableNotification", (): void => {
     expect(
-      transformStateSendAudioQuery(sendAudioQueryNoDisableNotification)
+      transformSendAudioQuery(sendAudioQueryNoDisableNotification)
     ).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoDuration", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoDuration)).toEqual("");
+  test("should handle transformSendVideoQuery sendAudioQueryNoDuration", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoDuration)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoParseMode", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoParseMode)).toEqual("");
+  test("should handle transformSendVideoQuery sendAudioQueryNoParseMode", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoParseMode)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoPerformer", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoPerformer)).toEqual("");
+  test("should handle transformSendVideoQuery sendAudioQueryNoPerformer", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoPerformer)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoReplyMarkup", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoReplyMarkup)).toEqual(
+  test("should handle transformSendVideoQuery sendAudioQueryNoReplyMarkup", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoReplyMarkup)).toEqual("");
+  });
+
+  test("should handle transformSendVideoQuery sendAudioQueryNoReplyToMessageId", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoReplyToMessageId)).toEqual(
       ""
     );
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoReplyToMessageId", (): void => {
+  test("should handle transformSendVideoQuery sendAudioQueryNoThumb", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoThumb)).toEqual("");
+  });
+
+  test("should handle transformSendVideoQuery sendAudioQueryNoTitle", (): void => {
+    expect(transformSendAudioQuery(sendAudioQueryNoTitle)).toEqual("");
+  });
+
+  test("should handle transformSendVideoQuery no caption", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoCaption)).toEqual("");
+  });
+
+  test("should handle transformSendVideoQuery no disableNotification", (): void => {
     expect(
-      transformStateSendAudioQuery(sendAudioQueryNoReplyToMessageId)
+      transformSendVideoQuery(sendVideoQueryNoDisableNotification)
     ).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoThumb", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoThumb)).toEqual("");
+  test("should handle transformSendVideoQuery no duration", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoDuration)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery sendAudioQueryNoTitle", (): void => {
-    expect(transformStateSendAudioQuery(sendAudioQueryNoTitle)).toEqual("");
+  test("should handle transformSendVideoQuery no parseMode", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoParseMode)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery no caption", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoCaption)).toEqual("");
+  test("should handle transformSendVideoQuery no height", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoHeight)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery no disableNotification", (): void => {
-    expect(
-      transformStateSendVideoQuery(sendVideoQueryNoDisableNotification)
-    ).toEqual("");
+  test("should handle transformSendVideoQuery no replyToMessageId", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoReplyToMessageId)).toEqual(
+      ""
+    );
   });
 
-  test("should handle transformStateSendVideoQuery no duration", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoDuration)).toEqual("");
+  test("should handle transformSendVideoQuery no supportsStreaming", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoSupportsStreaming)).toEqual(
+      ""
+    );
   });
 
-  test("should handle transformStateSendVideoQuery no parseMode", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoParseMode)).toEqual("");
+  test("should handle transformSendVideoQuery no thumb", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoThumb)).toEqual("");
   });
 
-  test("should handle transformStateSendVideoQuery no height", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoHeight)).toEqual("");
-  });
-
-  test("should handle transformStateSendVideoQuery no replyToMessageId", (): void => {
-    expect(
-      transformStateSendVideoQuery(sendVideoQueryNoReplyToMessageId)
-    ).toEqual("");
-  });
-
-  test("should handle transformStateSendVideoQuery no supportsStreaming", (): void => {
-    expect(
-      transformStateSendVideoQuery(sendVideoQueryNoSupportsStreaming)
-    ).toEqual("");
-  });
-
-  test("should handle transformStateSendVideoQuery no thumb", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoThumb)).toEqual("");
-  });
-
-  test("should handle transformStateSendVideoQuery no width", (): void => {
-    expect(transformStateSendVideoQuery(sendVideoQueryNoWidth)).toEqual("");
+  test("should handle transformSendVideoQuery no width", (): void => {
+    expect(transformSendVideoQuery(sendVideoQueryNoWidth)).toEqual("");
   });
 });

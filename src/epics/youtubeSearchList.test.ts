@@ -15,8 +15,8 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformSearchResults as inlineTransformSearchList } from "../utils/inlineQueryResultArticle";
-import { transformSearchResults as stringTransformSearchList } from "../utils/string";
+import { transformSearchResults as transformSearchListInlineQueryResultArticle } from "../utils/inlineQueryResultArticle";
+import { transformSearchResults as transformSearchListString } from "../utils/string";
 
 import * as epic from "./youtubeSearchList";
 
@@ -462,10 +462,9 @@ describe("youtubeSearchList epic", (): void => {
             inline_query_id: (stateInlineQueryResult.inlineQuery
               .query as IStateInlineQueryQuery).id,
             is_personal: true,
-            results: inlineTransformSearchList(
-              result.items as youtube_v3.Schema$SearchResult[],
-              (stateInlineQueryResult.youtubeSearchList
-                .query as IStateYoutubeSearchListQuery).q as string
+            results: transformSearchListInlineQueryResultArticle(
+              result.items,
+              stateInlineQueryResult.youtubeSearchList.query.q
             ),
             switch_pm_parameter: "string",
             switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
@@ -600,10 +599,9 @@ describe("youtubeSearchList epic", (): void => {
             disable_web_page_preview: true,
             parse_mode: "HTML",
             reply_to_message_id: 0,
-            text: stringTransformSearchList(
-              result.items as youtube_v3.Schema$SearchResult[],
-              (stateInlineQueryResult.youtubeSearchList
-                .query as IStateYoutubeSearchListQuery).q as string
+            text: transformSearchListString(
+              result.items,
+              stateInlineQueryResult.youtubeSearchList.query.q
             )
           }
         })

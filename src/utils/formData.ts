@@ -3,9 +3,9 @@ import FormData from "form-data";
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 
-const transformStateSendAudioQuery: (
+const transformSendAudioQuery: (query: IStateSendAudioQuery) => FormData = (
   query: IStateSendAudioQuery
-) => FormData = (query: IStateSendAudioQuery): FormData => {
+): FormData => {
   const formData: FormData = new FormData();
   formData.append("audio", query.audio);
   if (query.caption !== undefined) {
@@ -40,9 +40,9 @@ const transformStateSendAudioQuery: (
   return formData;
 };
 
-const transformStateSendVideoQuery: (
+const transformSendVideoQuery: (query: IStateSendVideoQuery) => FormData = (
   query: IStateSendVideoQuery
-) => FormData = (query: IStateSendVideoQuery): FormData => {
+): FormData => {
   const formData: FormData = new FormData();
   if (query.caption !== undefined) {
     formData.append("caption", query.caption);
@@ -80,4 +80,4 @@ const transformStateSendVideoQuery: (
   return formData;
 };
 
-export { transformStateSendAudioQuery, transformStateSendVideoQuery };
+export { transformSendAudioQuery, transformSendVideoQuery };

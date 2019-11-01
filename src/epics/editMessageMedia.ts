@@ -60,7 +60,7 @@ const editMessageMedia: (
         (response: IResponse): IActionEditMessageMedia => {
           if (response.ok) {
             return actions.editMessageMedia.result({
-              result: response.result as IMessage
+              result: response.result as boolean | IMessage
             });
           }
 
