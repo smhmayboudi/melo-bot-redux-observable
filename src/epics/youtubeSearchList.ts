@@ -1,7 +1,7 @@
 import { youtube_v3 } from "googleapis";
 import * as querystring from "querystring";
 import { ofType, StateObservable } from "redux-observable";
-import { iif, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
@@ -85,21 +85,23 @@ const youtubeSearchList: (
   return action$.pipe(
     ofType(actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_QUERY),
     switchMap(actionObservable),
-    switchMap((value: IActionYoutubeSearchList) =>
-      iif(
-        () =>
-          state$ !== undefined && state$.value.inlineQuery.query !== undefined,
-        transformObservableToAnswerInlineQuery(state$, value),
-        iif(
-          () =>
-            state$ !== undefined &&
-            state$.value.message.query !== undefined &&
-            state$.value.message.query.message !== undefined,
-          transformObservableToSendMessage(state$, value),
-          transformObservableToEditMessageText(state$, value)
-        )
-      )
-    )
+    switchMap((value: IActionYoutubeSearchList) => {
+      if (
+        state$ !== undefined &&
+        state$.value.inlineQuery.query !== undefined
+      ) {
+        return transformObservableToAnswerInlineQuery(state$, value);
+      } else {
+        if (
+          state$ !== undefined &&
+          state$.value.message.query !== undefined &&
+          state$.value.message.query.message !== undefined
+        ) {
+          return transformObservableToSendMessage(state$, value);
+        }
+        return transformObservableToEditMessageText(state$, value);
+      }
+    })
   );
 };
 

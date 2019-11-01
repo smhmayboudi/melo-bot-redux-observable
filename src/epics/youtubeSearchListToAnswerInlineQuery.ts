@@ -69,7 +69,9 @@ const transformObservable: (
   ) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined)
+        error: new Error(
+          texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
+        )
       })
     );
   }

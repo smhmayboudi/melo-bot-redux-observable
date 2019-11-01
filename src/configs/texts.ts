@@ -171,8 +171,10 @@ const messageJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
 } ${messageChannelJoinLink} ${findByCode("1F448").char}`;
 const messageNoResult = "NO RESULT";
 const messageResultQ: (q: string) => string = (q: string): string =>
-  `${findByCode("1F50E").char} RESULT(S) FOR ${q} QUERY`;
-const messageResultRelatedTo = `${findByCode("1F50E").char} RELATED RESULT(S)`;
+  `${findByCode("1F50E").char} QUERY RESULT(S) OF ${q}`;
+const messageResultRelatedTo: (chart: string) => string = (
+  chart: string
+): string => `${findByCode("1F50E").char} RESULT(S) RELATED TO ${chart}`;
 const messageSeparator = "--------------------";
 const messageSetInlineGeo = "SETINLINEGEO";
 const messageSettings = "SETTINGS";
@@ -199,6 +201,10 @@ const state$ValueYoutubeSearchListQueryUndefined =
   "state$ValueYoutubeSearchListQuery undefined.";
 const state$ValueYoutubeVideoListQueryQUndefined =
   "state$ValueYoutubeVideoListQueryQ undefined.";
+const state$ValueYoutubeVideoListQueryChartUndefined =
+  "state$ValueYoutubeVideoListQueryChart undefined.";
+const state$ValueYoutubeVideoListQueryUndefined =
+  "state$ValueYoutubeVideoListQuery undefined.";
 
 export {
   actionAddStickerToSetQueryUndefined,
@@ -326,5 +332,7 @@ export {
   state$ValueYoutubeSearchListQueryQUndefined,
   state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined,
   state$ValueYoutubeSearchListQueryUndefined,
-  state$ValueYoutubeVideoListQueryQUndefined
+  state$ValueYoutubeVideoListQueryQUndefined,
+  state$ValueYoutubeVideoListQueryChartUndefined,
+  state$ValueYoutubeVideoListQueryUndefined
 };

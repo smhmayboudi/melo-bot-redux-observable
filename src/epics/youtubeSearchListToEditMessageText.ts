@@ -4,9 +4,10 @@ import { IActionEditMessageText } from "../../types/iActionEditMessageText";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
-import { transformSearchList as transformSearchListToString } from "../utils/string";
+import { transformSearchList } from "../utils/string";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { stringify } from "../utils/queryString";
 
 const transformObservable: (
   state$: StateObservable<IState> | undefined,
@@ -85,29 +86,45 @@ const transformObservable: (
   ) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined)
+        error: new Error(
+          texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
+        )
       })
     );
   }
 
   const inlineKeyboard = [];
-  if (
-    action.youtubeSearchList.result.prevPageToken !== undefined &&
-    action.youtubeSearchList.result.prevPageToken !== null
-  ) {
-    inlineKeyboard.push({
-      callback_data: `${action.youtubeSearchList.result.prevPageToken}${texts.commandSeparator}${state$.value.youtubeSearchList.query.q}`,
-      text: texts.messageWithPaginationPrev
-    });
-  }
-  if (
-    action.youtubeSearchList.result.nextPageToken !== undefined &&
-    action.youtubeSearchList.result.nextPageToken !== null
-  ) {
-    inlineKeyboard.push({
-      callback_data: `${action.youtubeSearchList.result.nextPageToken}${texts.commandSeparator}${state$.value.youtubeSearchList.query.q}`,
-      text: texts.messageWithPaginationNext
-    });
+  if (action.youtubeSearchList.result.pageInfo !== undefined) {
+    if (
+      action.youtubeSearchList.result.prevPageToken !== undefined &&
+      action.youtubeSearchList.result.prevPageToken !== null
+    ) {
+      inlineKeyboard.push({
+        callback_data: stringify({
+          pt: action.youtubeSearchList.result.prevPageToken,
+          pirpp: action.youtubeSearchList.result.pageInfo
+            .resultsPerPage as number,
+          pitr: action.youtubeSearchList.result.pageInfo.totalResults as number,
+          q: state$.value.youtubeSearchList.query.q
+        }),
+        text: texts.messageWithPaginationPrev
+      });
+    }
+    if (
+      action.youtubeSearchList.result.nextPageToken !== undefined &&
+      action.youtubeSearchList.result.nextPageToken !== null
+    ) {
+      inlineKeyboard.push({
+        callback_data: stringify({
+          pt: action.youtubeSearchList.result.nextPageToken,
+          pirpp: action.youtubeSearchList.result.pageInfo
+            .resultsPerPage as number,
+          pitr: action.youtubeSearchList.result.pageInfo.totalResults as number,
+          q: state$.value.youtubeSearchList.query.q
+        }),
+        text: texts.messageWithPaginationNext
+      });
+    }
   }
 
   return of(
@@ -121,7 +138,7 @@ const transformObservable: (
         reply_markup: {
           inline_keyboard: [inlineKeyboard]
         },
-        text: transformSearchListToString(
+        text: transformSearchList(
           action.youtubeSearchList.result.items,
           state$.value.youtubeSearchList.query.q
         )

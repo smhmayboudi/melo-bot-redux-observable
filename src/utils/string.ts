@@ -66,9 +66,10 @@ const transformSearchList: (
   return res.join("\n");
 };
 
-const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
-  items: youtube_v3.Schema$Video[]
-): string => {
+const transformVideoList: (
+  items: youtube_v3.Schema$Video[],
+  chart: string
+) => string = (items: youtube_v3.Schema$Video[], chart: string): string => {
   if (items.length === 0) {
     return texts.messageNoResult;
   }
@@ -98,7 +99,7 @@ const transformVideoList: (items: youtube_v3.Schema$Video[]) => string = (
     msg.push(texts.messageSeparator);
     res.push(msg.join("\n"));
   }
-  res.push(texts.messageResultRelatedTo);
+  res.push(texts.messageResultRelatedTo(chart));
   res.push(texts.messageSeparator);
   res.push(
     `${findByCode("1F449").char} <a href="${

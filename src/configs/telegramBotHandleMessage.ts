@@ -114,6 +114,18 @@ const handleMessage: (
         })
       );
       break;
+    case "/youtubeVideoList2":
+      store.dispatch(
+        actions.youtubeVideoList.query({
+          query: {
+            chart: "mostPopular",
+            key: env.GOOGLE_API_KEY,
+            maxResults: 1,
+            part: "id,snippet"
+          }
+        })
+      );
+      break;
     default:
       if (message.text !== undefined) {
         if (message.text.includes(`/${texts.commandStart}`)) {
