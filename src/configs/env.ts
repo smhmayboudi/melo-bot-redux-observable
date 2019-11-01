@@ -28,7 +28,7 @@ const GOOGLE_API_LIST_MAX_RESULTS: number = parseInt(
   10
 );
 const GOOGLE_API_SAFE_SEARCH: string = getter(
-  "GOOGLE_API_SEARCH_LIST_TYPE",
+  "GOOGLE_API_SAFE_SEARCH",
   "string"
 );
 const GOOGLE_API_SEARCH_LIST_TYPE: string = getter(
@@ -36,11 +36,11 @@ const GOOGLE_API_SEARCH_LIST_TYPE: string = getter(
   "string"
 );
 const GOOGLE_API_RELEVANCE_LANGUAGE: string = getter(
-  "GOOGLE_API_SEARCH_LIST_TYPE",
+  "GOOGLE_API_RELEVANCE_LANGUAGE",
   "string"
 );
 const GOOGLE_API_REGION_CODE: string = getter(
-  "GOOGLE_API_SEARCH_LIST_TYPE",
+  "GOOGLE_API_REGION_CODE",
   "string"
 );
 const HOSTNAME: string = getter("HOSTNAME", "string");
