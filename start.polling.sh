@@ -1,4 +1,4 @@
-export DEBUG=*,-app:lib:*,-not_this
+export DEBUG=*,-not_this
 export BOT_TOKEN=520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc
 export GOOGLE_API_KEY=AIzaSyDw1FO0PiK1CUxpxMaTIrDGaEJRco4FBXg
 export GOOGLE_API_LIST_MAX_RESULTS=10
