@@ -96,6 +96,21 @@ const handleMessage: (
         })
       );
       break;
+    case "/sendVoice":
+      store.dispatch(
+        actions.sendVoice.query({
+          query: {
+            caption: caption("small"),
+            chat_id: message.chat.id,
+            disable_notification: true,
+            duration: 6,
+            parse_mode: "HTML",
+            reply_to_message_id: message.message_id,
+            voice: fs.createReadStream("./asset/small.ogg")
+          }
+        })
+      );
+      break;
     case "/youtubeDownload":
       store.dispatch(
         actions.youtubeDownload.query({

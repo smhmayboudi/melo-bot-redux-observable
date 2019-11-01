@@ -2,6 +2,7 @@ import FormData from "form-data";
 
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
+import { IStateSendVoiceQuery } from "../../types/iStateSendVoiceQuery";
 
 const transformSendAudioQuery: (query: IStateSendAudioQuery) => FormData = (
   query: IStateSendAudioQuery
@@ -80,4 +81,36 @@ const transformSendVideoQuery: (query: IStateSendVideoQuery) => FormData = (
   return formData;
 };
 
-export { transformSendAudioQuery, transformSendVideoQuery };
+const transformSendVoiceQuery: (query: IStateSendVoiceQuery) => FormData = (
+  query: IStateSendVoiceQuery
+): FormData => {
+  const formData: FormData = new FormData();
+  if (query.caption !== undefined) {
+    formData.append("caption", query.caption);
+  }
+  formData.append("chat_id", query.chat_id);
+  if (query.disable_notification !== undefined) {
+    formData.append("disable_notification", `${query.disable_notification}`);
+  }
+  if (query.duration !== undefined) {
+    formData.append("duration", `${query.duration}`);
+  }
+  if (query.parse_mode !== undefined) {
+    formData.append("parse_mode", `${query.parse_mode}`);
+  }
+  if (query.reply_markup !== undefined) {
+    formData.append("reply_markup", JSON.stringify(query.reply_markup));
+  }
+  if (query.reply_to_message_id !== undefined) {
+    formData.append("reply_to_message_id", query.reply_to_message_id);
+  }
+  formData.append("voice", query.voice);
+
+  return formData;
+};
+
+export {
+  transformSendAudioQuery,
+  transformSendVideoQuery,
+  transformSendVoiceQuery
+};
