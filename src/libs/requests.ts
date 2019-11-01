@@ -4,16 +4,16 @@ import * as https from "https";
 
 const appDebug: debug.IDebugger = debug("app:lib:requests");
 
-const requests: (
+const requests: <T>(
   options: https.RequestOptions,
   data?: any
-) => Promise<any> = async (
+) => Promise<T> = async <T>(
   options: https.RequestOptions,
   data?: any
-): Promise<any> =>
-  new Promise(
+): Promise<T> =>
+  new Promise<T>(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
+      resolve: (value?: T | PromiseLike<T>) => void,
       reject: (reason?: any) => void
     ): void => {
       const isMethodPost: boolean =
@@ -50,7 +50,7 @@ const requests: (
                 try {
                   const body: any = JSON.parse(chunks.join(""));
                   appDebug("body", body);
-                  resolve(body);
+                  resolve(body as T);
                 } catch (error) {
                   appDebug("error", error);
                   reject(error);

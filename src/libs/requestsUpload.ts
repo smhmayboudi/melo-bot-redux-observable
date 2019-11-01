@@ -5,16 +5,16 @@ import * as https from "https";
 
 const appDebug: debug.IDebugger = debug("app:lib:requestsUpload");
 
-const requestsUpload: (
+const requestsUpload: <T>(
   options: https.RequestOptions,
   formData: FormData
-) => Promise<any> = async (
+) => Promise<T> = async <T>(
   options: https.RequestOptions,
   formData: FormData
-): Promise<any> =>
+): Promise<T> =>
   new Promise(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
+      resolve: (value?: T | PromiseLike<T>) => void,
       reject: (reason?: any) => void
     ): void => {
       const httpClientRequest: http.ClientRequest = https
@@ -40,7 +40,7 @@ const requestsUpload: (
                 try {
                   const body: any = JSON.parse(chunks.join(""));
                   appDebug("body", body);
-                  resolve(body);
+                  resolve(body as T);
                 } catch (error) {
                   appDebug("error", error);
                   reject(error);

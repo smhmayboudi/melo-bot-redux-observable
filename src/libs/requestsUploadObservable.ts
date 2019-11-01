@@ -5,12 +5,12 @@ import { fromPromise } from "rxjs/internal/observable/fromPromise";
 
 import { requestsUpload } from "./requestsUpload";
 
-const requestsUploadObservable: (
+const requestsUploadObservable: <T>(
   options: http.RequestOptions,
   formData: FormData
-) => Observable<any> = (
+) => Observable<T> = <T>(
   options: http.RequestOptions,
   formData: FormData
-): Observable<any> => fromPromise(requestsUpload(options, formData));
+): Observable<T> => fromPromise<T>(requestsUpload<T>(options, formData));
 
 export { requestsUploadObservable };

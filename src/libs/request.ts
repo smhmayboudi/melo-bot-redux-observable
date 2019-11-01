@@ -3,16 +3,16 @@ import * as http from "http";
 
 const appDebug: debug.IDebugger = debug("app:lib:request");
 
-const request: (
+const request: <T>(
   options: http.RequestOptions,
   data?: any
-) => Promise<any> = async (
+) => Promise<T> = async <T>(
   options: http.RequestOptions,
   data?: any
-): Promise<any> =>
+): Promise<T> =>
   new Promise(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
+      resolve: (value?: T | PromiseLike<T>) => void,
       reject: (reason?: any) => void
     ): void => {
       const isMethodPost: boolean =
@@ -49,7 +49,7 @@ const request: (
                 try {
                   const body: any = JSON.parse(chunks.join(""));
                   appDebug("body", body);
-                  resolve(body);
+                  resolve(body as T);
                 } catch (error) {
                   appDebug("error", error);
                   reject(error);

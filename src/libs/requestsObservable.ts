@@ -4,12 +4,12 @@ import { fromPromise } from "rxjs/internal/observable/fromPromise";
 
 import { requests } from "./requests";
 
-const requestsObservable: (
+const requestsObservable: <T>(
   options: http.RequestOptions,
   data?: any
-) => Observable<any> = (
+) => Observable<T> = <T>(
   options: http.RequestOptions,
   data?: any
-): Observable<any> => fromPromise(requests(options, data));
+): Observable<T> => fromPromise<T>(requests<T>(options, data));
 
 export { requestsObservable };
