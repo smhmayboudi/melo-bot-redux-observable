@@ -21,12 +21,60 @@ const handleMessage: (
 ): void => {
   appDebug("telegramBot:handleMessage");
   switch (message.text) {
+    case "/addStickerToSet":
+      // TODO: check it
+      store.dispatch(
+        actions.addStickerToSet.query({
+          query: {
+            emojis: "small",
+            // mask_position?: IMaskPosition,
+            name: "small",
+            png_sticker: fs.createReadStream("./asset/small.png"),
+            user_id: message.chat.id
+          }
+        })
+      );
+      break;
+    case "/createNewStickerSet":
+      // TODO: check it
+      store.dispatch(
+        actions.createNewStickerSet.query({
+          query: {
+            contains_masks: true,
+            emojis: "SMALL",
+            // mask_position?: IMaskPosition,.
+            name: "small",
+            png_sticker: fs.createReadStream("./asset/small.png"),
+            title: "small",
+            user_id: message.chat.id
+          }
+        })
+      );
+      break;
     case "/getChatMember":
       store.dispatch(
         actions.getChatMember.query({
           query: {
             chat_id: "@melodio",
             user_id: message.chat.id
+          }
+        })
+      );
+      break;
+    case "/sendAnimation":
+      store.dispatch(
+        actions.sendAnimation.query({
+          query: {
+            animation: fs.createReadStream("./asset/small.gif"),
+            caption: caption(""),
+            chat_id: message.chat.id,
+            disable_notification: true,
+            duration: 6,
+            height: 320,
+            parse_mode: "HTML",
+            reply_to_message_id: message.message_id,
+            thumb: fs.createReadStream("./asset/small.jpg"),
+            width: 560
           }
         })
       );
@@ -64,6 +112,37 @@ const handleMessage: (
         })
       );
       break;
+    case "/sendMediaGroup":
+      // TODO: check it
+      store.dispatch(
+        actions.sendMediaGroup.query({
+          query: {
+            chat_id: message.chat.id,
+            disable_notification: true,
+            media: [
+              {
+                caption: caption(""),
+                media: fs.createReadStream("./asset/small.jpg"),
+                parse_mode: "HTML",
+                type: "photo"
+              },
+              {
+                caption: caption(""),
+                duration: 6,
+                height: 320,
+                media: fs.createReadStream("./asset/small.mp4"),
+                parse_mode: "HTML",
+                supports_streaming: true,
+                thumb: fs.createReadStream("./asset/small.jpg"),
+                type: "video",
+                width: 560
+              }
+            ],
+            reply_to_message_id: message.message_id
+          }
+        })
+      );
+      break;
     case "/sendMessage":
       store.dispatch(
         actions.sendMessage.query({
@@ -92,6 +171,19 @@ const handleMessage: (
         })
       );
       break;
+    case "/sendSticker":
+      // TODO: check it
+      store.dispatch(
+        actions.sendSticker.query({
+          query: {
+            chat_id: message.chat.id,
+            disable_notification: true,
+            reply_to_message_id: message.message_id,
+            sticker: fs.createReadStream("./asset/small.png")
+          }
+        })
+      );
+      break;
     case "/sendVideo":
       store.dispatch(
         actions.sendVideo.query({
@@ -107,6 +199,20 @@ const handleMessage: (
             thumb: fs.createReadStream("./asset/small.jpg"),
             video: fs.createReadStream("./asset/small.mp4"),
             width: 560
+          }
+        })
+      );
+      break;
+    case "/sendVideoNote":
+      store.dispatch(
+        actions.sendVideoNote.query({
+          query: {
+            chat_id: message.chat.id,
+            disable_notification: true,
+            duration: 61,
+            reply_to_message_id: message.message_id,
+            thumb: fs.createReadStream("./asset/small2.jpg"),
+            video_note: fs.createReadStream("./asset/small2.mp4")
           }
         })
       );

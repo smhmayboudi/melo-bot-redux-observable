@@ -7,12 +7,6 @@ import { IInputMediaVideo } from "./telegramBot/types/iInputMediaVideo";
 export interface IStateSendMediaGroupQuery {
   chat_id: number | string;
   disable_notification?: boolean;
-  media: Array<
-    | IInputMediaAnimation
-    | IInputMediaAudio
-    | IInputMediaDocument
-    | IInputMediaPhoto
-    | IInputMediaVideo
-  >;
+  media: Array<IInputMediaPhoto | IInputMediaVideo>;
   reply_to_message_id?: number;
 }
