@@ -61,7 +61,7 @@ const sendVoice: (
     ).pipe(
       map(
         (response: IResponse): IActionSendVoice => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendVoice.result({
               result: response.result as IMessage
             });

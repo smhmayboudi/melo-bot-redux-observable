@@ -60,7 +60,7 @@ const addStickerToSet: (
     ).pipe(
       map(
         (response: IResponse): IActionAddStickerToSet => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.addStickerToSet.result({
               result: response.result as boolean
             });

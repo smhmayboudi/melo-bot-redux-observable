@@ -61,7 +61,7 @@ const sendAnimation: (
     ).pipe(
       map(
         (response: IResponse): IActionSendAnimation => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendAnimation.result({
               result: response.result as IMessage
             });

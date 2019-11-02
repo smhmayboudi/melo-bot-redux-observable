@@ -61,7 +61,7 @@ const sendVideoNote: (
     ).pipe(
       map(
         (response: IResponse): IActionSendVideoNote => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendVideoNote.result({
               result: response.result as IMessage
             });

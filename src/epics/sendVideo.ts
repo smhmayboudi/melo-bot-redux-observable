@@ -69,7 +69,7 @@ const sendVideo: (
     ).pipe(
       map(
         (response: IResponse): IActionSendVideo => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendVideo.result({
               result: response.result as IMessage
             });

@@ -49,6 +49,21 @@ const handleMessage: (
         })
       );
       break;
+    case "/sendDocument":
+      store.dispatch(
+        actions.sendDocument.query({
+          query: {
+            caption: caption("small"),
+            chat_id: message.chat.id,
+            disable_notification: true,
+            document: fs.createReadStream("./asset/small.pdf"),
+            parse_mode: "HTML",
+            reply_to_message_id: message.message_id,
+            thumb: fs.createReadStream("./asset/small.jpg")
+          }
+        })
+      );
+      break;
     case "/sendMessage":
       store.dispatch(
         actions.sendMessage.query({

@@ -61,7 +61,7 @@ const sendDocument: (
     ).pipe(
       map(
         (response: IResponse): IActionSendDocument => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendDocument.result({
               result: response.result as IMessage
             });

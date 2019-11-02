@@ -61,7 +61,7 @@ const sendSticker: (
     ).pipe(
       map(
         (response: IResponse): IActionSendSticker => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendSticker.result({
               result: response.result as IMessage
             });

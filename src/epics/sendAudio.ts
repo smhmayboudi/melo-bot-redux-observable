@@ -60,7 +60,7 @@ const sendAudio: (
     ).pipe(
       map(
         (response: IResponse): IActionSendAudio => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendAudio.result({
               result: response.result as IMessage
             });

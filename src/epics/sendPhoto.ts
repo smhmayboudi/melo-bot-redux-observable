@@ -59,7 +59,7 @@ const sendPhoto: (
     ).pipe(
       map(
         (response: IResponse): IActionSendPhoto => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendPhoto.result({
               result: response.result as IMessage
             });

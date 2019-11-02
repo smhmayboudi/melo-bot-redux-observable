@@ -61,7 +61,7 @@ const sendMediaGroup: (
     ).pipe(
       map(
         (response: IResponse): IActionSendMediaGroup => {
-          if (response.ok && response.result !== undefined) {
+          if (response.ok) {
             return actions.sendMediaGroup.result({
               result: response.result as IMessage
             });
