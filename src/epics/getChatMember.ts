@@ -1,5 +1,5 @@
 import { ofType, StateObservable } from "redux-observable";
-import { iif, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
@@ -128,13 +128,12 @@ const getChatMember: (
   return action$.pipe(
     ofType(actions.getChatMember.GET_CHAT_MEMBER_QUERY),
     switchMap(actionObservable),
-    switchMap((value: IActionGetChatMember) =>
-      iif(
-        () => actionGetChatMemberResultStatus(value),
-        of(value),
-        transformObservable(value)
-      )
-    )
+    switchMap((value: IActionGetChatMember) => {
+      if (actionGetChatMemberResultStatus(value)) {
+        return of(value);
+      }
+      return transformObservable(value);
+    })
   );
 };
 
