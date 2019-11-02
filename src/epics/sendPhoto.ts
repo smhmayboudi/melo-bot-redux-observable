@@ -9,6 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformSendPhotoQuery } from "../utils/formData";
 
 const sendPhoto: (
   action$: Observable<IActionSendPhoto>,
@@ -19,7 +20,7 @@ const sendPhoto: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendPhoto> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendPhoto
@@ -33,7 +34,7 @@ const sendPhoto: (
         })
       );
     }
-    if (requestsObservable === undefined) {
+    if (requestsUploadObservable === undefined) {
       return of(
         actions.sendPhoto.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
@@ -48,17 +49,17 @@ const sendPhoto: (
       );
     }
 
-    return requestsObservable(
+    return requestsUploadObservable(
       {
         host: "api.telegram.org",
         method: "POST",
         path: `/bot${botToken}/sendPhoto`
       },
-      action.sendPhoto.query
+      transformSendPhotoQuery(action.sendPhoto.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendPhoto => {
-          if (response.ok) {
+          if (response.ok && response.result !== undefined) {
             return actions.sendPhoto.result({
               result: response.result as IMessage
             });

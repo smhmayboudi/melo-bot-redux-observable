@@ -9,6 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformSendMediaGroupQuery } from "../utils/formData";
 
 const sendMediaGroup: (
   action$: Observable<IActionSendMediaGroup>,
@@ -19,7 +20,7 @@ const sendMediaGroup: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMediaGroup> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendMediaGroup
@@ -33,10 +34,12 @@ const sendMediaGroup: (
         })
       );
     }
-    if (requestsObservable === undefined) {
+    if (requestsUploadObservable === undefined) {
       return of(
         actions.sendMediaGroup.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       );
     }
@@ -48,17 +51,17 @@ const sendMediaGroup: (
       );
     }
 
-    return requestsObservable(
+    return requestsUploadObservable(
       {
         host: "api.telegram.org",
         method: "POST",
         path: `/bot${botToken}/sendMediaGroup`
       },
-      action.sendMediaGroup.query
+      transformSendMediaGroupQuery(action.sendMediaGroup.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendMediaGroup => {
-          if (response.ok) {
+          if (response.ok && response.result !== undefined) {
             return actions.sendMediaGroup.result({
               result: response.result as IMessage
             });

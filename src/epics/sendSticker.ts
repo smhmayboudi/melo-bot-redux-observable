@@ -9,6 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformSendStickerQuery } from "../utils/formData";
 
 const sendSticker: (
   action$: Observable<IActionSendSticker>,
@@ -19,7 +20,7 @@ const sendSticker: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendSticker> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendSticker
@@ -33,10 +34,12 @@ const sendSticker: (
         })
       );
     }
-    if (requestsObservable === undefined) {
+    if (requestsUploadObservable === undefined) {
       return of(
         actions.sendSticker.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       );
     }
@@ -48,17 +51,17 @@ const sendSticker: (
       );
     }
 
-    return requestsObservable(
+    return requestsUploadObservable(
       {
         host: "api.telegram.org",
         method: "POST",
         path: `/bot${botToken}/sendSticker`
       },
-      action.sendSticker.query
+      transformSendStickerQuery(action.sendSticker.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendSticker => {
-          if (response.ok) {
+          if (response.ok && response.result !== undefined) {
             return actions.sendSticker.result({
               result: response.result as IMessage
             });

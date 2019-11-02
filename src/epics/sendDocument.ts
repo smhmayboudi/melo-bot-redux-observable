@@ -9,6 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformSendDocumentQuery } from "../utils/formData";
 
 const sendDocument: (
   action$: Observable<IActionSendDocument>,
@@ -19,7 +20,7 @@ const sendDocument: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendDocument> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendDocument
@@ -33,10 +34,12 @@ const sendDocument: (
         })
       );
     }
-    if (requestsObservable === undefined) {
+    if (requestsUploadObservable === undefined) {
       return of(
         actions.sendDocument.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       );
     }
@@ -48,17 +51,17 @@ const sendDocument: (
       );
     }
 
-    return requestsObservable(
+    return requestsUploadObservable(
       {
         host: "api.telegram.org",
         method: "POST",
         path: `/bot${botToken}/sendDocument`
       },
-      action.sendDocument.query
+      transformSendDocumentQuery(action.sendDocument.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendDocument => {
-          if (response.ok) {
+          if (response.ok && response.result !== undefined) {
             return actions.sendDocument.result({
               result: response.result as IMessage
             });

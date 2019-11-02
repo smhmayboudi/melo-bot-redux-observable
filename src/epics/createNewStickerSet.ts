@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformCreateNewStickerSetQuery } from "../utils/formData";
 
 const createNewStickerSet: (
   action$: Observable<IActionCreateNewStickerSet>,
@@ -18,7 +19,7 @@ const createNewStickerSet: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionCreateNewStickerSet> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionCreateNewStickerSet
@@ -32,10 +33,12 @@ const createNewStickerSet: (
         })
       );
     }
-    if (requestsObservable === undefined) {
+    if (requestsUploadObservable === undefined) {
       return of(
         actions.createNewStickerSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       );
     }
@@ -47,17 +50,17 @@ const createNewStickerSet: (
       );
     }
 
-    return requestsObservable(
+    return requestsUploadObservable(
       {
         host: "api.telegram.org",
         method: "POST",
         path: `/bot${botToken}/createNewStickerSet`
       },
-      action.createNewStickerSet.query
+      transformCreateNewStickerSetQuery(action.createNewStickerSet.query)
     ).pipe(
       map(
         (response: IResponse): IActionCreateNewStickerSet => {
-          if (response.ok) {
+          if (response.ok && response.result !== undefined) {
             return actions.createNewStickerSet.result({
               result: response.result as boolean
             });

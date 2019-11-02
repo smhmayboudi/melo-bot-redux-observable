@@ -9,6 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformSenAnimationQuery } from "../utils/formData";
 
 const sendAnimation: (
   action$: Observable<IActionSendAnimation>,
@@ -19,7 +20,7 @@ const sendAnimation: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendAnimation> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendAnimation
@@ -33,10 +34,12 @@ const sendAnimation: (
         })
       );
     }
-    if (requestsObservable === undefined) {
+    if (requestsUploadObservable === undefined) {
       return of(
         actions.sendAnimation.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       );
     }
@@ -48,17 +51,17 @@ const sendAnimation: (
       );
     }
 
-    return requestsObservable(
+    return requestsUploadObservable(
       {
         host: "api.telegram.org",
         method: "POST",
         path: `/bot${botToken}/sendAnimation`
       },
-      action.sendAnimation.query
+      transformSenAnimationQuery(action.sendAnimation.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendAnimation => {
-          if (response.ok) {
+          if (response.ok && response.result !== undefined) {
             return actions.sendAnimation.result({
               result: response.result as IMessage
             });
