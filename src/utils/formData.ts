@@ -121,22 +121,6 @@ const transformSendAudioQuery: (query: IStateSendAudioQuery) => FormData = (
 };
 
 const transformSendDocumentQuery: (
-  query: IStateSendMediaGroupQuery
-) => FormData = (query: IStateSendMediaGroupQuery): FormData => {
-  const formData: FormData = new FormData();
-  formData.append("chat_id", query.chat_id);
-  if (query.disable_notification !== undefined) {
-    formData.append("disable_notification", `${query.disable_notification}`);
-  }
-  formData.append("media", query.media);
-  if (query.reply_to_message_id !== undefined) {
-    formData.append("reply_to_message_id", query.reply_to_message_id);
-  }
-
-  return formData;
-};
-
-const transformSendMediaGroupQuery: (
   query: IStateSendDocumentQuery
 ) => FormData = (query: IStateSendDocumentQuery): FormData => {
   const formData: FormData = new FormData();
@@ -158,6 +142,22 @@ const transformSendMediaGroupQuery: (
     formData.append("reply_to_message_id", query.reply_to_message_id);
   }
   formData.append("thumb", query.thumb);
+
+  return formData;
+};
+
+const transformSendMediaGroupQuery: (
+  query: IStateSendMediaGroupQuery
+) => FormData = (query: IStateSendMediaGroupQuery): FormData => {
+  const formData: FormData = new FormData();
+  formData.append("chat_id", query.chat_id);
+  if (query.disable_notification !== undefined) {
+    formData.append("disable_notification", `${query.disable_notification}`);
+  }
+  formData.append("media", query.media);
+  if (query.reply_to_message_id !== undefined) {
+    formData.append("reply_to_message_id", query.reply_to_message_id);
+  }
 
   return formData;
 };

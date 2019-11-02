@@ -9,7 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformSendVideoNote } from "../utils/formData";
+import { transformSendVideoNoteQuery } from "../utils/formData";
 
 const sendVideoNote: (
   action$: Observable<IActionSendVideoNote>,
@@ -57,7 +57,7 @@ const sendVideoNote: (
         method: "POST",
         path: `/bot${botToken}/sendVideoNote`
       },
-      transformSendVideoNote(action.sendVideoNote.query)
+      transformSendVideoNoteQuery(action.sendVideoNote.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendVideoNote => {
