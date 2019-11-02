@@ -87,7 +87,7 @@ const transformObservable: (
           state$.value.youtubeSearchList.query.q
         ),
         switch_pm_parameter: "string",
-        switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
+        switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
       }
     })
   );

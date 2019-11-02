@@ -72,7 +72,7 @@ const transformObservable: (
           state$.value.youtubeVideoList.query.chart
         ),
         switch_pm_parameter: "string",
-        switch_pm_text: texts.epicInlineQueryConnectGoogleAccount
+        switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
       }
     })
   );

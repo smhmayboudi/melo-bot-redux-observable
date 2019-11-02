@@ -149,7 +149,7 @@ const youtubeDownload: (
                         return of(
                           actions.youtubeDownload.error({
                             error: new Error(
-                              texts.epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined
+                              texts.epicYoutubeDownloadValueMimeTypeUndefined
                             )
                           })
                         );
@@ -158,7 +158,7 @@ const youtubeDownload: (
                         return of(
                           actions.youtubeDownload.error({
                             error: new Error(
-                              texts.epicYoutubeFindOneObservableDownloadValueThumbUndefined
+                              texts.epicYoutubeDownloadValueThumbUndefined
                             )
                           })
                         );

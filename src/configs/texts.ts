@@ -4,6 +4,7 @@ const actionAddStickerToSetQueryUndefined =
   "actionAddStickerToSetQuery undefined.";
 const actionAnswerCallbackQueryQueryUndefined =
   "actionAnswerCallbackQueryQuery undefined.";
+const actionAnswerInlineQueryQuerySwitchPMText = "Connect your Google account";
 const actionAnswerInlineQueryQueryUndefined =
   "actionAnswerInlineQueryQuery undefined.";
 const actionAnswerPreCheckoutQueryQueryUndefined =
@@ -152,10 +153,9 @@ const epicDependencyRequestsUploadObservableUndefined =
   "epicDependencyRequestsUploadObservable undefined.";
 const epicDependencyYoutubeDownloadObservableUndefined =
   "epicDependencyYoutubeDownloadObservable undefined.";
-const epicInlineQueryConnectGoogleAccount = "Connect your Google account";
-const epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined =
+const epicYoutubeDownloadValueMimeTypeUndefined =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
-const epicYoutubeFindOneObservableDownloadValueThumbUndefined =
+const epicYoutubeDownloadValueThumbUndefined =
   "epicYoutubeFindOneObservableDownloadValueThumb undefined.";
 const messageAdvertisementChannel = `${findByCode("1F194").char} melobit`;
 const messageAdvertisementChannelJoinLink =
@@ -209,6 +209,7 @@ const state$ValueYoutubeVideoListQueryUndefined =
 export {
   actionAddStickerToSetQueryUndefined,
   actionAnswerCallbackQueryQueryUndefined,
+  actionAnswerInlineQueryQuerySwitchPMText,
   actionAnswerInlineQueryQueryUndefined,
   actionAnswerPreCheckoutQueryQueryUndefined,
   actionAnswerShippingQueryQueryUndefined,
@@ -303,9 +304,8 @@ export {
   epicDependencyRequestsUploadObservableUndefined,
   epicDependencyRequestUploadObservableUndefined,
   epicDependencyYoutubeDownloadObservableUndefined,
-  epicInlineQueryConnectGoogleAccount,
-  epicYoutubeFindOneObservableDownloadValueMimeTypeUndefined,
-  epicYoutubeFindOneObservableDownloadValueThumbUndefined,
+  epicYoutubeDownloadValueMimeTypeUndefined,
+  epicYoutubeDownloadValueThumbUndefined,
   messageAdvertisementChannel,
   messageAdvertisementChannelJoinLink,
   messageChannel,
