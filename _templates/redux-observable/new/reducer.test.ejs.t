@@ -13,7 +13,7 @@ describe("<%= h.changeCase.camel(name)%> reducer", (): void => {
     // TODO: fill it
   };
   // TODO: check it
-  const result: boolean = true;
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(

@@ -23,7 +23,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
     // TODO: fill it
   };
   // TODO: check it
-  const result: boolean = true;
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };
@@ -35,9 +35,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
-    testScheduler = new TestScheduler((actual: IState, expected: IState):
-      | boolean
-      | void => {
+    testScheduler = new TestScheduler((actual: IState, expected: IState): | boolean | void => {
       expect(actual).toEqual(expected);
     });
   });
@@ -45,21 +43,15 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
   test("should handle dependency botToken undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IAction<%= h.changeCase.pascal(name)%>> = cold("-a", {
-        a: actions.<%= h.changeCase.camel(name)%>.query({ query })
-      });
+      const action$: ColdObservable<IAction<%= h.changeCase.pascal(name)%>> = cold("-a", { a: actions.<%= h.changeCase.camel(name)%>.query({ query }) });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
-      const output$: Observable<
-        IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>
-      > = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.<%= h.changeCase.camel(name)%>.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
+        a: actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.epicDependencyBotTokenUndefined) })
       });
     });
   });
@@ -67,21 +59,15 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
   test("should handle dependency requestsObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IAction<%= h.changeCase.pascal(name)%>> = cold("-a", {
-        a: actions.<%= h.changeCase.camel(name)%>.query({ query })
-      });
+      const action$: ColdObservable<IAction<%= h.changeCase.pascal(name)%>> = cold("-a", { a: actions.<%= h.changeCase.camel(name)%>.query({ query }) });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: undefined
       };
-      const output$: Observable<
-        IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>
-      > = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.<%= h.changeCase.camel(name)%>.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
+        a: actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.epicDependencyRequestsObservableUndefined) })
       });
     });
   });
@@ -97,9 +83,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<
-        IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>
-      > = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.<%= h.changeCase.camel(name)%>.error({ error })
       });
@@ -117,13 +101,9 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
-      const output$: Observable<
-        IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>
-      > = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.<%= h.changeCase.camel(name)%>.error({
-          error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined)
-        })
+        a: actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined) })
       });
     });
   });
@@ -137,12 +117,9 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: responseOKF })
+        requestsObservable: (): ColdObservable<any> => cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IAction<%= h.changeCase.pascal(name)%>
-      > = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.<%= h.changeCase.camel(name)%>.error({ error: responseOKF })
       });
@@ -158,12 +135,9 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: responseOKT })
+        requestsObservable: (): ColdObservable<any> => cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IAction<%= h.changeCase.pascal(name)%>
-      > = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.<%= h.changeCase.camel(name)%>.result({ result })
       });

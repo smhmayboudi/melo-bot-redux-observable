@@ -1,6 +1,6 @@
 ---
 inject: true
 to: src/configs/store.ts
-after: DeepPartial\<\{
+after: DeepPartial\<
 ---
-    <%= h.changeCase.camel(name)%>: IState<%= h.changeCase.pascal(name)%>;
+    <%= h.changeCase.camel(name)%>: actions.<%= h.changeCase.camel(name)%>.initialState,

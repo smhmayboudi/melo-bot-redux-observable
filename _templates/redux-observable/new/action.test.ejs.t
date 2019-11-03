@@ -12,7 +12,7 @@ describe("<%= h.changeCase.camel(name)%> actions", (): void => {
     // TODO: fill it
   };
   // TODO: check it
-  const result: boolean = true;
+  const result = true;
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

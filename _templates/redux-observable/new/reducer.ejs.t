@@ -10,8 +10,7 @@ const <%= h.changeCase.camel(name)%>: (
   state: IState<%= h.changeCase.pascal(name)%> | undefined,
   action: IAction<%= h.changeCase.pascal(name)%>
 ) => IState<%= h.changeCase.pascal(name)%> = (
-  state: IState<%= h.changeCase.pascal(name)%> | undefined = actions.<%= h.changeCase.camel(name)%>
-    .initialState,
+  state: IState<%= h.changeCase.pascal(name)%> | undefined = actions.<%= h.changeCase.camel(name)%>.initialState,
   action: IAction<%= h.changeCase.pascal(name)%>
 ): IState<%= h.changeCase.pascal(name)%> => {
   switch (action.type) {

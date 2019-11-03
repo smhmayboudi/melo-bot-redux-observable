@@ -1,6 +1,6 @@
 ---
 inject: true
 to: src/reducers/index.ts
-after: Reducer\<\{
+after: combineReducers\(\{
 ---
-  <%= h.changeCase.camel(name)%>: IState<%= h.changeCase.pascal(name)%>;
+  <%= h.changeCase.camel(name)%>,
