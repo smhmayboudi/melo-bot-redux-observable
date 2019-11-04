@@ -105,16 +105,16 @@ const youtubeSearchList: (
     | IActionYoutubeSearchList
   > => {
     if (state$ !== undefined && state$.value.inlineQuery.query !== undefined) {
-      return transformObservableToAnswerInlineQuery(state$, action)(action2);
+      return transformObservableToAnswerInlineQuery(action, state$)(action2);
     } else {
       if (
         state$ !== undefined &&
         state$.value.message.query !== undefined &&
         state$.value.message.query.message !== undefined
       ) {
-        return transformObservableToSendMessage(state$, action)(action2);
+        return transformObservableToSendMessage(action, state$)(action2);
       }
-      return transformObservableToEditMessageText(state$, action)(action2);
+      return transformObservableToEditMessageText(action, state$)(action2);
     }
   };
 

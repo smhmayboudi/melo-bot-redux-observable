@@ -11,13 +11,13 @@ import * as texts from "../configs/texts";
 import { stringify } from "../utils/queryString";
 
 const transformObservable: (
-  state$: StateObservable<IState> | undefined,
-  action: IActionYoutubeSearchList
+  action: IActionYoutubeSearchList,
+  state$: StateObservable<IState> | undefined
 ) => (
   action2: IActionCallbackDataInsert
 ) => Observable<IActionEditMessageText | IActionYoutubeSearchList> = (
-  state$: StateObservable<IState> | undefined,
-  action: IActionYoutubeSearchList
+  action: IActionYoutubeSearchList,
+  state$: StateObservable<IState> | undefined
 ) => (
   action2: IActionCallbackDataInsert
 ): Observable<IActionEditMessageText | IActionYoutubeSearchList> => {
