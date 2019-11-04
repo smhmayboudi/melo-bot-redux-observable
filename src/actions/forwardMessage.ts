@@ -10,17 +10,13 @@ const FORWARD_MESSAGE_RESULT = "FORWARD_MESSAGE_RESULT";
 const error: (forwardMessage: IStateForwardMessage) => IActionForwardMessage = (
   forwardMessage: IStateForwardMessage
 ): IActionForwardMessage => ({
-  forwardMessage: {
-    error: forwardMessage.error
-  },
+  forwardMessage: { error: forwardMessage.error },
   type: FORWARD_MESSAGE_ERROR
 });
 const query: (forwardMessage: IStateForwardMessage) => IActionForwardMessage = (
   forwardMessage: IStateForwardMessage
 ): IActionForwardMessage => ({
-  forwardMessage: {
-    query: forwardMessage.query
-  },
+  forwardMessage: { query: forwardMessage.query },
   type: FORWARD_MESSAGE_QUERY
 });
 const result: (
@@ -28,9 +24,7 @@ const result: (
 ) => IActionForwardMessage = (
   forwardMessage: IStateForwardMessage
 ): IActionForwardMessage => ({
-  forwardMessage: {
-    result: forwardMessage.result
-  },
+  forwardMessage: { result: forwardMessage.result },
   type: FORWARD_MESSAGE_RESULT
 });
 

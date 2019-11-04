@@ -12,9 +12,7 @@ const error: (
 ) => IActionGetUserProfilePhotos = (
   getUserProfilePhotos: IStateGetUserProfilePhotos
 ): IActionGetUserProfilePhotos => ({
-  getUserProfilePhotos: {
-    error: getUserProfilePhotos.error
-  },
+  getUserProfilePhotos: { error: getUserProfilePhotos.error },
   type: GET_USER_PROFILE_PHOTOS_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionGetUserProfilePhotos = (
   getUserProfilePhotos: IStateGetUserProfilePhotos
 ): IActionGetUserProfilePhotos => ({
-  getUserProfilePhotos: {
-    query: getUserProfilePhotos.query
-  },
+  getUserProfilePhotos: { query: getUserProfilePhotos.query },
   type: GET_USER_PROFILE_PHOTOS_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionGetUserProfilePhotos = (
   getUserProfilePhotos: IStateGetUserProfilePhotos
 ): IActionGetUserProfilePhotos => ({
-  getUserProfilePhotos: {
-    result: getUserProfilePhotos.result
-  },
+  getUserProfilePhotos: { result: getUserProfilePhotos.result },
   type: GET_USER_PROFILE_PHOTOS_RESULT
 });
 

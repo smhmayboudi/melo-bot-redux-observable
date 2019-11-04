@@ -10,25 +10,19 @@ const SEND_VOICE_RESULT = "SEND_VOICE_RESULT";
 const error: (sendVoice: IStateSendVoice) => IActionSendVoice = (
   sendVoice: IStateSendVoice
 ): IActionSendVoice => ({
-  sendVoice: {
-    error: sendVoice.error
-  },
+  sendVoice: { error: sendVoice.error },
   type: SEND_VOICE_ERROR
 });
 const query: (sendVoice: IStateSendVoice) => IActionSendVoice = (
   sendVoice: IStateSendVoice
 ): IActionSendVoice => ({
-  sendVoice: {
-    query: sendVoice.query
-  },
+  sendVoice: { query: sendVoice.query },
   type: SEND_VOICE_QUERY
 });
 const result: (sendVoice: IStateSendVoice) => IActionSendVoice = (
   sendVoice: IStateSendVoice
 ): IActionSendVoice => ({
-  sendVoice: {
-    result: sendVoice.result
-  },
+  sendVoice: { result: sendVoice.result },
   type: SEND_VOICE_RESULT
 });
 

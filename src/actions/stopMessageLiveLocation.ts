@@ -12,9 +12,7 @@ const error: (
 ) => IActionStopMessageLiveLocation = (
   stopMessageLiveLocation: IStateStopMessageLiveLocation
 ): IActionStopMessageLiveLocation => ({
-  stopMessageLiveLocation: {
-    error: stopMessageLiveLocation.error
-  },
+  stopMessageLiveLocation: { error: stopMessageLiveLocation.error },
   type: STOP_MESSAGE_LIVE_LOCATION_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionStopMessageLiveLocation = (
   stopMessageLiveLocation: IStateStopMessageLiveLocation
 ): IActionStopMessageLiveLocation => ({
-  stopMessageLiveLocation: {
-    query: stopMessageLiveLocation.query
-  },
+  stopMessageLiveLocation: { query: stopMessageLiveLocation.query },
   type: STOP_MESSAGE_LIVE_LOCATION_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionStopMessageLiveLocation = (
   stopMessageLiveLocation: IStateStopMessageLiveLocation
 ): IActionStopMessageLiveLocation => ({
-  stopMessageLiveLocation: {
-    result: stopMessageLiveLocation.result
-  },
+  stopMessageLiveLocation: { result: stopMessageLiveLocation.result },
   type: STOP_MESSAGE_LIVE_LOCATION_RESULT
 });
 

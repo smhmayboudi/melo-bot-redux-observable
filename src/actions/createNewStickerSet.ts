@@ -12,9 +12,7 @@ const error: (
 ) => IActionCreateNewStickerSet = (
   createNewStickerSet: IStateCreateNewStickerSet
 ): IActionCreateNewStickerSet => ({
-  createNewStickerSet: {
-    error: createNewStickerSet.error
-  },
+  createNewStickerSet: { error: createNewStickerSet.error },
   type: CREATE_NEW_STICKER_SET_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionCreateNewStickerSet = (
   createNewStickerSet: IStateCreateNewStickerSet
 ): IActionCreateNewStickerSet => ({
-  createNewStickerSet: {
-    query: createNewStickerSet.query
-  },
+  createNewStickerSet: { query: createNewStickerSet.query },
   type: CREATE_NEW_STICKER_SET_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionCreateNewStickerSet = (
   createNewStickerSet: IStateCreateNewStickerSet
 ): IActionCreateNewStickerSet => ({
-  createNewStickerSet: {
-    result: createNewStickerSet.result
-  },
+  createNewStickerSet: { result: createNewStickerSet.result },
   type: CREATE_NEW_STICKER_SET_RESULT
 });
 

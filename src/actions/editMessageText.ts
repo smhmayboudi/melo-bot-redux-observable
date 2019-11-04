@@ -12,9 +12,7 @@ const error: (
 ) => IActionEditMessageText = (
   editMessageText: IStateEditMessageText
 ): IActionEditMessageText => ({
-  editMessageText: {
-    error: editMessageText.error
-  },
+  editMessageText: { error: editMessageText.error },
   type: EDIT_MESSAGE_TEXT_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionEditMessageText = (
   editMessageText: IStateEditMessageText
 ): IActionEditMessageText => ({
-  editMessageText: {
-    query: editMessageText.query
-  },
+  editMessageText: { query: editMessageText.query },
   type: EDIT_MESSAGE_TEXT_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionEditMessageText = (
   editMessageText: IStateEditMessageText
 ): IActionEditMessageText => ({
-  editMessageText: {
-    result: editMessageText.result
-  },
+  editMessageText: { result: editMessageText.result },
   type: EDIT_MESSAGE_TEXT_RESULT
 });
 

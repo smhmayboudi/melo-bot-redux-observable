@@ -12,9 +12,7 @@ const error: (
 ) => IActionSetPassportDataErrors = (
   setPassportDataErrors: IStateSetPassportDataErrors
 ): IActionSetPassportDataErrors => ({
-  setPassportDataErrors: {
-    error: setPassportDataErrors.error
-  },
+  setPassportDataErrors: { error: setPassportDataErrors.error },
   type: SET_PASSPORT_DATA_ERRORS_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionSetPassportDataErrors = (
   setPassportDataErrors: IStateSetPassportDataErrors
 ): IActionSetPassportDataErrors => ({
-  setPassportDataErrors: {
-    query: setPassportDataErrors.query
-  },
+  setPassportDataErrors: { query: setPassportDataErrors.query },
   type: SET_PASSPORT_DATA_ERRORS_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionSetPassportDataErrors = (
   setPassportDataErrors: IStateSetPassportDataErrors
 ): IActionSetPassportDataErrors => ({
-  setPassportDataErrors: {
-    result: setPassportDataErrors.result
-  },
+  setPassportDataErrors: { result: setPassportDataErrors.result },
   type: SET_PASSPORT_DATA_ERRORS_RESULT
 });
 

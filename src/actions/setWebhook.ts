@@ -10,25 +10,19 @@ const SET_WEBHOOK_RESULT = "SET_WEBHOOK_RESULT";
 const error: (setWebhook: IStateSetWebhook) => IActionSetWebhook = (
   setWebhook: IStateSetWebhook
 ): IActionSetWebhook => ({
-  setWebhook: {
-    error: setWebhook.error
-  },
+  setWebhook: { error: setWebhook.error },
   type: SET_WEBHOOK_ERROR
 });
 const query: (setWebhook: IStateSetWebhook) => IActionSetWebhook = (
   setWebhook: IStateSetWebhook
 ): IActionSetWebhook => ({
-  setWebhook: {
-    query: setWebhook.query
-  },
+  setWebhook: { query: setWebhook.query },
   type: SET_WEBHOOK_QUERY
 });
 const result: (setWebhook: IStateSetWebhook) => IActionSetWebhook = (
   setWebhook: IStateSetWebhook
 ): IActionSetWebhook => ({
-  setWebhook: {
-    result: setWebhook.result
-  },
+  setWebhook: { result: setWebhook.result },
   type: SET_WEBHOOK_RESULT
 });
 

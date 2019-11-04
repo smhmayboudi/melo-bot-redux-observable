@@ -12,9 +12,7 @@ const error: (
 ) => IActionExportChatInviteLink = (
   exportChatInviteLink: IStateExportChatInviteLink
 ): IActionExportChatInviteLink => ({
-  exportChatInviteLink: {
-    error: exportChatInviteLink.error
-  },
+  exportChatInviteLink: { error: exportChatInviteLink.error },
   type: EXPORT_CHAT_INVITE_LINK_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionExportChatInviteLink = (
   exportChatInviteLink: IStateExportChatInviteLink
 ): IActionExportChatInviteLink => ({
-  exportChatInviteLink: {
-    query: exportChatInviteLink.query
-  },
+  exportChatInviteLink: { query: exportChatInviteLink.query },
   type: EXPORT_CHAT_INVITE_LINK_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionExportChatInviteLink = (
   exportChatInviteLink: IStateExportChatInviteLink
 ): IActionExportChatInviteLink => ({
-  exportChatInviteLink: {
-    result: exportChatInviteLink.result
-  },
+  exportChatInviteLink: { result: exportChatInviteLink.result },
   type: EXPORT_CHAT_INVITE_LINK_RESULT
 });
 

@@ -10,25 +10,19 @@ const SEND_CONTACT_RESULT = "SEND_CONTACT_RESULT";
 const error: (sendContact: IStateSendContact) => IActionSendContact = (
   sendContact: IStateSendContact
 ): IActionSendContact => ({
-  sendContact: {
-    error: sendContact.error
-  },
+  sendContact: { error: sendContact.error },
   type: SEND_CONTACT_ERROR
 });
 const query: (sendContact: IStateSendContact) => IActionSendContact = (
   sendContact: IStateSendContact
 ): IActionSendContact => ({
-  sendContact: {
-    query: sendContact.query
-  },
+  sendContact: { query: sendContact.query },
   type: SEND_CONTACT_QUERY
 });
 const result: (sendContact: IStateSendContact) => IActionSendContact = (
   sendContact: IStateSendContact
 ): IActionSendContact => ({
-  sendContact: {
-    result: sendContact.result
-  },
+  sendContact: { result: sendContact.result },
   type: SEND_CONTACT_RESULT
 });
 

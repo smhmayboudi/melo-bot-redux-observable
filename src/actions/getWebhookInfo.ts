@@ -10,17 +10,13 @@ const GET_WEBHOOK_INFO_RESULT = "GET_WEBHOOK_INFO_RESULT";
 const error: (getWebhookInfo: IStateGetWebhookInfo) => IActionGetWebhookInfo = (
   getWebhookInfo: IStateGetWebhookInfo
 ): IActionGetWebhookInfo => ({
-  getWebhookInfo: {
-    error: getWebhookInfo.error
-  },
+  getWebhookInfo: { error: getWebhookInfo.error },
   type: GET_WEBHOOK_INFO_ERROR
 });
 const query: (getWebhookInfo: IStateGetWebhookInfo) => IActionGetWebhookInfo = (
   getWebhookInfo: IStateGetWebhookInfo
 ): IActionGetWebhookInfo => ({
-  getWebhookInfo: {
-    query: getWebhookInfo.query
-  },
+  getWebhookInfo: { query: getWebhookInfo.query },
   type: GET_WEBHOOK_INFO_QUERY
 });
 const result: (
@@ -28,9 +24,7 @@ const result: (
 ) => IActionGetWebhookInfo = (
   getWebhookInfo: IStateGetWebhookInfo
 ): IActionGetWebhookInfo => ({
-  getWebhookInfo: {
-    result: getWebhookInfo.result
-  },
+  getWebhookInfo: { result: getWebhookInfo.result },
   type: GET_WEBHOOK_INFO_RESULT
 });
 

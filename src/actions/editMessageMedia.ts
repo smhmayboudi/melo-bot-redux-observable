@@ -12,9 +12,7 @@ const error: (
 ) => IActionEditMessageMedia = (
   editMessageMedia: IStateEditMessageMedia
 ): IActionEditMessageMedia => ({
-  editMessageMedia: {
-    error: editMessageMedia.error
-  },
+  editMessageMedia: { error: editMessageMedia.error },
   type: EDIT_MESSAGE_MEDIA_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionEditMessageMedia = (
   editMessageMedia: IStateEditMessageMedia
 ): IActionEditMessageMedia => ({
-  editMessageMedia: {
-    query: editMessageMedia.query
-  },
+  editMessageMedia: { query: editMessageMedia.query },
   type: EDIT_MESSAGE_MEDIA_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionEditMessageMedia = (
   editMessageMedia: IStateEditMessageMedia
 ): IActionEditMessageMedia => ({
-  editMessageMedia: {
-    result: editMessageMedia.result
-  },
+  editMessageMedia: { result: editMessageMedia.result },
   type: EDIT_MESSAGE_MEDIA_RESULT
 });
 

@@ -12,9 +12,7 @@ const error: (
 ) => IActionEditMessageCaption = (
   editMessageCaption: IStateEditMessageCaption
 ): IActionEditMessageCaption => ({
-  editMessageCaption: {
-    error: editMessageCaption.error
-  },
+  editMessageCaption: { error: editMessageCaption.error },
   type: EDIT_MESSAGE_CAPTION_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionEditMessageCaption = (
   editMessageCaption: IStateEditMessageCaption
 ): IActionEditMessageCaption => ({
-  editMessageCaption: {
-    query: editMessageCaption.query
-  },
+  editMessageCaption: { query: editMessageCaption.query },
   type: EDIT_MESSAGE_CAPTION_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionEditMessageCaption = (
   editMessageCaption: IStateEditMessageCaption
 ): IActionEditMessageCaption => ({
-  editMessageCaption: {
-    result: editMessageCaption.result
-  },
+  editMessageCaption: { result: editMessageCaption.result },
   type: EDIT_MESSAGE_CAPTION_RESULT
 });
 

@@ -10,25 +10,19 @@ const GET_ME_RESULT = "GET_ME_RESULT";
 const error: (getMe: IStateGetMe) => IActionGetMe = (
   getMe: IStateGetMe
 ): IActionGetMe => ({
-  getMe: {
-    error: getMe.error
-  },
+  getMe: { error: getMe.error },
   type: GET_ME_ERROR
 });
 const query: (getMe: IStateGetMe) => IActionGetMe = (
   getMe: IStateGetMe
 ): IActionGetMe => ({
-  getMe: {
-    query: getMe.query
-  },
+  getMe: { query: getMe.query },
   type: GET_ME_QUERY
 });
 const result: (getMe: IStateGetMe) => IActionGetMe = (
   getMe: IStateGetMe
 ): IActionGetMe => ({
-  getMe: {
-    result: getMe.result
-  },
+  getMe: { result: getMe.result },
   type: GET_ME_RESULT
 });
 

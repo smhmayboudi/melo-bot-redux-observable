@@ -10,25 +10,19 @@ const DELETE_MESSAGE_RESULT = "DELETE_MESSAGE_RESULT";
 const error: (deleteMessage: IStateDeleteMessage) => IActionDeleteMessage = (
   deleteMessage: IStateDeleteMessage
 ): IActionDeleteMessage => ({
-  deleteMessage: {
-    error: deleteMessage.error
-  },
+  deleteMessage: { error: deleteMessage.error },
   type: DELETE_MESSAGE_ERROR
 });
 const query: (deleteMessage: IStateDeleteMessage) => IActionDeleteMessage = (
   deleteMessage: IStateDeleteMessage
 ): IActionDeleteMessage => ({
-  deleteMessage: {
-    query: deleteMessage.query
-  },
+  deleteMessage: { query: deleteMessage.query },
   type: DELETE_MESSAGE_QUERY
 });
 const result: (deleteMessage: IStateDeleteMessage) => IActionDeleteMessage = (
   deleteMessage: IStateDeleteMessage
 ): IActionDeleteMessage => ({
-  deleteMessage: {
-    result: deleteMessage.result
-  },
+  deleteMessage: { result: deleteMessage.result },
   type: DELETE_MESSAGE_RESULT
 });
 

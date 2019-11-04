@@ -12,9 +12,7 @@ const error: (
 ) => IActionSetChatDescription = (
   setChatDescription: IStateSetChatDescription
 ): IActionSetChatDescription => ({
-  setChatDescription: {
-    error: setChatDescription.error
-  },
+  setChatDescription: { error: setChatDescription.error },
   type: SET_CHAT_DESCRIPTION_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionSetChatDescription = (
   setChatDescription: IStateSetChatDescription
 ): IActionSetChatDescription => ({
-  setChatDescription: {
-    query: setChatDescription.query
-  },
+  setChatDescription: { query: setChatDescription.query },
   type: SET_CHAT_DESCRIPTION_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionSetChatDescription = (
   setChatDescription: IStateSetChatDescription
 ): IActionSetChatDescription => ({
-  setChatDescription: {
-    result: setChatDescription.result
-  },
+  setChatDescription: { result: setChatDescription.result },
   type: SET_CHAT_DESCRIPTION_RESULT
 });
 

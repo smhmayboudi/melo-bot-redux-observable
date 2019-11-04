@@ -10,17 +10,13 @@ const KICK_CHAT_MEMBER_RESULT = "KICK_CHAT_MEMBER_RESULT";
 const error: (kickChatMember: IStateKickChatMember) => IActionKickChatMember = (
   kickChatMember: IStateKickChatMember
 ): IActionKickChatMember => ({
-  kickChatMember: {
-    error: kickChatMember.error
-  },
+  kickChatMember: { error: kickChatMember.error },
   type: KICK_CHAT_MEMBER_ERROR
 });
 const query: (kickChatMember: IStateKickChatMember) => IActionKickChatMember = (
   kickChatMember: IStateKickChatMember
 ): IActionKickChatMember => ({
-  kickChatMember: {
-    query: kickChatMember.query
-  },
+  kickChatMember: { query: kickChatMember.query },
   type: KICK_CHAT_MEMBER_QUERY
 });
 const result: (
@@ -28,9 +24,7 @@ const result: (
 ) => IActionKickChatMember = (
   kickChatMember: IStateKickChatMember
 ): IActionKickChatMember => ({
-  kickChatMember: {
-    result: kickChatMember.result
-  },
+  kickChatMember: { result: kickChatMember.result },
   type: KICK_CHAT_MEMBER_RESULT
 });
 

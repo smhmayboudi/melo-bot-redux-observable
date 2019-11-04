@@ -12,9 +12,7 @@ const error: (
 ) => IActionSetChatStickerSet = (
   setChatStickerSet: IStateSetChatStickerSet
 ): IActionSetChatStickerSet => ({
-  setChatStickerSet: {
-    error: setChatStickerSet.error
-  },
+  setChatStickerSet: { error: setChatStickerSet.error },
   type: SET_CHAT_STICKER_SET_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionSetChatStickerSet = (
   setChatStickerSet: IStateSetChatStickerSet
 ): IActionSetChatStickerSet => ({
-  setChatStickerSet: {
-    query: setChatStickerSet.query
-  },
+  setChatStickerSet: { query: setChatStickerSet.query },
   type: SET_CHAT_STICKER_SET_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionSetChatStickerSet = (
   setChatStickerSet: IStateSetChatStickerSet
 ): IActionSetChatStickerSet => ({
-  setChatStickerSet: {
-    result: setChatStickerSet.result
-  },
+  setChatStickerSet: { result: setChatStickerSet.result },
   type: SET_CHAT_STICKER_SET_RESULT
 });
 

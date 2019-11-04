@@ -10,25 +10,19 @@ const SET_CHAT_TITLE_RESULT = "SET_CHAT_TITLE_RESULT";
 const error: (setChatTitle: IStateSetChatTitle) => IActionSetChatTitle = (
   setChatTitle: IStateSetChatTitle
 ): IActionSetChatTitle => ({
-  setChatTitle: {
-    error: setChatTitle.error
-  },
+  setChatTitle: { error: setChatTitle.error },
   type: SET_CHAT_TITLE_ERROR
 });
 const query: (setChatTitle: IStateSetChatTitle) => IActionSetChatTitle = (
   setChatTitle: IStateSetChatTitle
 ): IActionSetChatTitle => ({
-  setChatTitle: {
-    query: setChatTitle.query
-  },
+  setChatTitle: { query: setChatTitle.query },
   type: SET_CHAT_TITLE_QUERY
 });
 const result: (setChatTitle: IStateSetChatTitle) => IActionSetChatTitle = (
   setChatTitle: IStateSetChatTitle
 ): IActionSetChatTitle => ({
-  setChatTitle: {
-    result: setChatTitle.result
-  },
+  setChatTitle: { result: setChatTitle.result },
   type: SET_CHAT_TITLE_RESULT
 });
 

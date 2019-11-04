@@ -10,17 +10,13 @@ const PIN_CHAT_MESSAGE_RESULT = "PIN_CHAT_MESSAGE_RESULT";
 const error: (pinChatMessage: IStatePinChatMessage) => IActionPinChatMessage = (
   pinChatMessage: IStatePinChatMessage
 ): IActionPinChatMessage => ({
-  pinChatMessage: {
-    error: pinChatMessage.error
-  },
+  pinChatMessage: { error: pinChatMessage.error },
   type: PIN_CHAT_MESSAGE_ERROR
 });
 const query: (pinChatMessage: IStatePinChatMessage) => IActionPinChatMessage = (
   pinChatMessage: IStatePinChatMessage
 ): IActionPinChatMessage => ({
-  pinChatMessage: {
-    query: pinChatMessage.query
-  },
+  pinChatMessage: { query: pinChatMessage.query },
   type: PIN_CHAT_MESSAGE_QUERY
 });
 const result: (
@@ -28,9 +24,7 @@ const result: (
 ) => IActionPinChatMessage = (
   pinChatMessage: IStatePinChatMessage
 ): IActionPinChatMessage => ({
-  pinChatMessage: {
-    result: pinChatMessage.result
-  },
+  pinChatMessage: { result: pinChatMessage.result },
   type: PIN_CHAT_MESSAGE_RESULT
 });
 

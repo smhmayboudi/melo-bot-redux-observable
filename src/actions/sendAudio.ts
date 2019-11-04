@@ -10,25 +10,19 @@ const SEND_AUDIO_RESULT = "SEND_AUDIO_RESULT";
 const error: (sendAudio: IStateSendAudio) => IActionSendAudio = (
   sendAudio: IStateSendAudio
 ): IActionSendAudio => ({
-  sendAudio: {
-    error: sendAudio.error
-  },
+  sendAudio: { error: sendAudio.error },
   type: SEND_AUDIO_ERROR
 });
 const query: (sendAudio: IStateSendAudio) => IActionSendAudio = (
   sendAudio: IStateSendAudio
 ): IActionSendAudio => ({
-  sendAudio: {
-    query: sendAudio.query
-  },
+  sendAudio: { query: sendAudio.query },
   type: SEND_AUDIO_QUERY
 });
 const result: (sendAudio: IStateSendAudio) => IActionSendAudio = (
   sendAudio: IStateSendAudio
 ): IActionSendAudio => ({
-  sendAudio: {
-    result: sendAudio.result
-  },
+  sendAudio: { result: sendAudio.result },
   type: SEND_AUDIO_RESULT
 });
 

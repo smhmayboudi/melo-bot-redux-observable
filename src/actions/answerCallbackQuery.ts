@@ -12,9 +12,7 @@ const error: (
 ) => IActionAnswerCallbackQuery = (
   answerCallbackQuery: IStateAnswerCallbackQuery
 ): IActionAnswerCallbackQuery => ({
-  answerCallbackQuery: {
-    error: answerCallbackQuery.error
-  },
+  answerCallbackQuery: { error: answerCallbackQuery.error },
   type: ANSWER_CALLBACK_QUERY_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionAnswerCallbackQuery = (
   answerCallbackQuery: IStateAnswerCallbackQuery
 ): IActionAnswerCallbackQuery => ({
-  answerCallbackQuery: {
-    query: answerCallbackQuery.query
-  },
+  answerCallbackQuery: { query: answerCallbackQuery.query },
   type: ANSWER_CALLBACK_QUERY_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionAnswerCallbackQuery = (
   answerCallbackQuery: IStateAnswerCallbackQuery
 ): IActionAnswerCallbackQuery => ({
-  answerCallbackQuery: {
-    result: answerCallbackQuery.result
-  },
+  answerCallbackQuery: { result: answerCallbackQuery.result },
   type: ANSWER_CALLBACK_QUERY_RESULT
 });
 

@@ -12,9 +12,7 @@ const error: (
 ) => IActionDeleteStickerFromSet = (
   deleteStickerFromSet: IStateDeleteStickerFromSet
 ): IActionDeleteStickerFromSet => ({
-  deleteStickerFromSet: {
-    error: deleteStickerFromSet.error
-  },
+  deleteStickerFromSet: { error: deleteStickerFromSet.error },
   type: DELETE_STICKER_FROM_SET_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionDeleteStickerFromSet = (
   deleteStickerFromSet: IStateDeleteStickerFromSet
 ): IActionDeleteStickerFromSet => ({
-  deleteStickerFromSet: {
-    query: deleteStickerFromSet.query
-  },
+  deleteStickerFromSet: { query: deleteStickerFromSet.query },
   type: DELETE_STICKER_FROM_SET_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionDeleteStickerFromSet = (
   deleteStickerFromSet: IStateDeleteStickerFromSet
 ): IActionDeleteStickerFromSet => ({
-  deleteStickerFromSet: {
-    result: deleteStickerFromSet.result
-  },
+  deleteStickerFromSet: { result: deleteStickerFromSet.result },
   type: DELETE_STICKER_FROM_SET_RESULT
 });
 

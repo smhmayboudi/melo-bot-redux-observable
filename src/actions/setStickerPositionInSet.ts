@@ -12,9 +12,7 @@ const error: (
 ) => IActionSetStickerPositionInSet = (
   setStickerPositionInSet: IStateSetStickerPositionInSet
 ): IActionSetStickerPositionInSet => ({
-  setStickerPositionInSet: {
-    error: setStickerPositionInSet.error
-  },
+  setStickerPositionInSet: { error: setStickerPositionInSet.error },
   type: SET_STICKER_POSITION_IN_SET_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionSetStickerPositionInSet = (
   setStickerPositionInSet: IStateSetStickerPositionInSet
 ): IActionSetStickerPositionInSet => ({
-  setStickerPositionInSet: {
-    query: setStickerPositionInSet.query
-  },
+  setStickerPositionInSet: { query: setStickerPositionInSet.query },
   type: SET_STICKER_POSITION_IN_SET_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionSetStickerPositionInSet = (
   setStickerPositionInSet: IStateSetStickerPositionInSet
 ): IActionSetStickerPositionInSet => ({
-  setStickerPositionInSet: {
-    result: setStickerPositionInSet.result
-  },
+  setStickerPositionInSet: { result: setStickerPositionInSet.result },
   type: SET_STICKER_POSITION_IN_SET_RESULT
 });
 

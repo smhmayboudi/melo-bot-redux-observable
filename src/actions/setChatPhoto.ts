@@ -10,25 +10,19 @@ const SET_CHAT_PHOTO_RESULT = "SET_CHAT_PHOTO_RESULT";
 const error: (setChatPhoto: IStateSetChatPhoto) => IActionSetChatPhoto = (
   setChatPhoto: IStateSetChatPhoto
 ): IActionSetChatPhoto => ({
-  setChatPhoto: {
-    error: setChatPhoto.error
-  },
+  setChatPhoto: { error: setChatPhoto.error },
   type: SET_CHAT_PHOTO_ERROR
 });
 const query: (setChatPhoto: IStateSetChatPhoto) => IActionSetChatPhoto = (
   setChatPhoto: IStateSetChatPhoto
 ): IActionSetChatPhoto => ({
-  setChatPhoto: {
-    query: setChatPhoto.query
-  },
+  setChatPhoto: { query: setChatPhoto.query },
   type: SET_CHAT_PHOTO_QUERY
 });
 const result: (setChatPhoto: IStateSetChatPhoto) => IActionSetChatPhoto = (
   setChatPhoto: IStateSetChatPhoto
 ): IActionSetChatPhoto => ({
-  setChatPhoto: {
-    result: setChatPhoto.result
-  },
+  setChatPhoto: { result: setChatPhoto.result },
   type: SET_CHAT_PHOTO_RESULT
 });
 

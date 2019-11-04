@@ -12,9 +12,7 @@ const error: (
 ) => IActionAddStickerToSet = (
   addStickerToSet: IStateAddStickerToSet
 ): IActionAddStickerToSet => ({
-  addStickerToSet: {
-    error: addStickerToSet.error
-  },
+  addStickerToSet: { error: addStickerToSet.error },
   type: ADD_STICKER_TO_SET_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionAddStickerToSet = (
   addStickerToSet: IStateAddStickerToSet
 ): IActionAddStickerToSet => ({
-  addStickerToSet: {
-    query: addStickerToSet.query
-  },
+  addStickerToSet: { query: addStickerToSet.query },
   type: ADD_STICKER_TO_SET_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionAddStickerToSet = (
   addStickerToSet: IStateAddStickerToSet
 ): IActionAddStickerToSet => ({
-  addStickerToSet: {
-    result: addStickerToSet.result
-  },
+  addStickerToSet: { result: addStickerToSet.result },
   type: ADD_STICKER_TO_SET_RESULT
 });
 

@@ -12,9 +12,7 @@ const error: (
 ) => IActionGetChatAdministrators = (
   getChatAdministrators: IStateGetChatAdministrators
 ): IActionGetChatAdministrators => ({
-  getChatAdministrators: {
-    error: getChatAdministrators.error
-  },
+  getChatAdministrators: { error: getChatAdministrators.error },
   type: GET_CHAT_ADMINISTRATORS_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionGetChatAdministrators = (
   getChatAdministrators: IStateGetChatAdministrators
 ): IActionGetChatAdministrators => ({
-  getChatAdministrators: {
-    query: getChatAdministrators.query
-  },
+  getChatAdministrators: { query: getChatAdministrators.query },
   type: GET_CHAT_ADMINISTRATORS_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionGetChatAdministrators = (
   getChatAdministrators: IStateGetChatAdministrators
 ): IActionGetChatAdministrators => ({
-  getChatAdministrators: {
-    result: getChatAdministrators.result
-  },
+  getChatAdministrators: { result: getChatAdministrators.result },
   type: GET_CHAT_ADMINISTRATORS_RESULT
 });
 

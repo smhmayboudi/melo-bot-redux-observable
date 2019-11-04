@@ -10,25 +10,19 @@ const SEND_LOCATION_RESULT = "SEND_LOCATION_RESULT";
 const error: (sendLocation: IStateSendLocation) => IActionSendLocation = (
   sendLocation: IStateSendLocation
 ): IActionSendLocation => ({
-  sendLocation: {
-    error: sendLocation.error
-  },
+  sendLocation: { error: sendLocation.error },
   type: SEND_LOCATION_ERROR
 });
 const query: (sendLocation: IStateSendLocation) => IActionSendLocation = (
   sendLocation: IStateSendLocation
 ): IActionSendLocation => ({
-  sendLocation: {
-    query: sendLocation.query
-  },
+  sendLocation: { query: sendLocation.query },
   type: SEND_LOCATION_QUERY
 });
 const result: (sendLocation: IStateSendLocation) => IActionSendLocation = (
   sendLocation: IStateSendLocation
 ): IActionSendLocation => ({
-  sendLocation: {
-    result: sendLocation.result
-  },
+  sendLocation: { result: sendLocation.result },
   type: SEND_LOCATION_RESULT
 });
 

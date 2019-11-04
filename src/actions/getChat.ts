@@ -10,25 +10,19 @@ const GET_CHAT_RESULT = "GET_CHAT_RESULT";
 const error: (getChat: IStateGetChat) => IActionGetChat = (
   getChat: IStateGetChat
 ): IActionGetChat => ({
-  getChat: {
-    error: getChat.error
-  },
+  getChat: { error: getChat.error },
   type: GET_CHAT_ERROR
 });
 const query: (getChat: IStateGetChat) => IActionGetChat = (
   getChat: IStateGetChat
 ): IActionGetChat => ({
-  getChat: {
-    query: getChat.query
-  },
+  getChat: { query: getChat.query },
   type: GET_CHAT_QUERY
 });
 const result: (getChat: IStateGetChat) => IActionGetChat = (
   getChat: IStateGetChat
 ): IActionGetChat => ({
-  getChat: {
-    result: getChat.result
-  },
+  getChat: { result: getChat.result },
   type: GET_CHAT_RESULT
 });
 

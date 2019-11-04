@@ -10,17 +10,13 @@ const SEND_CHAT_ACTION_RESULT = "SEND_CHAT_ACTION_RESULT";
 const error: (sendChatAction: IStateSendChatAction) => IActionSendChatAction = (
   sendChatAction: IStateSendChatAction
 ): IActionSendChatAction => ({
-  sendChatAction: {
-    error: sendChatAction.error
-  },
+  sendChatAction: { error: sendChatAction.error },
   type: SEND_CHAT_ACTION_ERROR
 });
 const query: (sendChatAction: IStateSendChatAction) => IActionSendChatAction = (
   sendChatAction: IStateSendChatAction
 ): IActionSendChatAction => ({
-  sendChatAction: {
-    query: sendChatAction.query
-  },
+  sendChatAction: { query: sendChatAction.query },
   type: SEND_CHAT_ACTION_QUERY
 });
 const result: (
@@ -28,9 +24,7 @@ const result: (
 ) => IActionSendChatAction = (
   sendChatAction: IStateSendChatAction
 ): IActionSendChatAction => ({
-  sendChatAction: {
-    result: sendChatAction.result
-  },
+  sendChatAction: { result: sendChatAction.result },
   type: SEND_CHAT_ACTION_RESULT
 });
 

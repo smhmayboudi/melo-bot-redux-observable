@@ -10,25 +10,19 @@ const GET_FILE_RESULT = "GET_FILE_RESULT";
 const error: (getFile: IStateGetFile) => IActionGetFile = (
   getFile: IStateGetFile
 ): IActionGetFile => ({
-  getFile: {
-    error: getFile.error
-  },
+  getFile: { error: getFile.error },
   type: GET_FILE_ERROR
 });
 const query: (getFile: IStateGetFile) => IActionGetFile = (
   getFile: IStateGetFile
 ): IActionGetFile => ({
-  getFile: {
-    query: getFile.query
-  },
+  getFile: { query: getFile.query },
   type: GET_FILE_QUERY
 });
 const result: (getFile: IStateGetFile) => IActionGetFile = (
   getFile: IStateGetFile
 ): IActionGetFile => ({
-  getFile: {
-    result: getFile.result
-  },
+  getFile: { result: getFile.result },
   type: GET_FILE_RESULT
 });
 

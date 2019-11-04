@@ -12,9 +12,7 @@ const error: (
 ) => IActionAnswerShippingQuery = (
   answerShippingQuery: IStateAnswerShippingQuery
 ): IActionAnswerShippingQuery => ({
-  answerShippingQuery: {
-    error: answerShippingQuery.error
-  },
+  answerShippingQuery: { error: answerShippingQuery.error },
   type: ANSWER_SHIPPING_QUERY_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionAnswerShippingQuery = (
   answerShippingQuery: IStateAnswerShippingQuery
 ): IActionAnswerShippingQuery => ({
-  answerShippingQuery: {
-    query: answerShippingQuery.query
-  },
+  answerShippingQuery: { query: answerShippingQuery.query },
   type: ANSWER_SHIPPING_QUERY_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionAnswerShippingQuery = (
   answerShippingQuery: IStateAnswerShippingQuery
 ): IActionAnswerShippingQuery => ({
-  answerShippingQuery: {
-    result: answerShippingQuery.result
-  },
+  answerShippingQuery: { result: answerShippingQuery.result },
   type: ANSWER_SHIPPING_QUERY_RESULT
 });
 

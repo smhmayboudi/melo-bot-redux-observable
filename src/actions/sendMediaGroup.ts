@@ -10,17 +10,13 @@ const SEND_MEDIA_GROUP_RESULT = "SEND_MEDIA_GROUP_RESULT";
 const error: (sendMediaGroup: IStateSendMediaGroup) => IActionSendMediaGroup = (
   sendMediaGroup: IStateSendMediaGroup
 ): IActionSendMediaGroup => ({
-  sendMediaGroup: {
-    error: sendMediaGroup.error
-  },
+  sendMediaGroup: { error: sendMediaGroup.error },
   type: SEND_MEDIA_GROUP_ERROR
 });
 const query: (sendMediaGroup: IStateSendMediaGroup) => IActionSendMediaGroup = (
   sendMediaGroup: IStateSendMediaGroup
 ): IActionSendMediaGroup => ({
-  sendMediaGroup: {
-    query: sendMediaGroup.query
-  },
+  sendMediaGroup: { query: sendMediaGroup.query },
   type: SEND_MEDIA_GROUP_QUERY
 });
 const result: (
@@ -28,9 +24,7 @@ const result: (
 ) => IActionSendMediaGroup = (
   sendMediaGroup: IStateSendMediaGroup
 ): IActionSendMediaGroup => ({
-  sendMediaGroup: {
-    result: sendMediaGroup.result
-  },
+  sendMediaGroup: { result: sendMediaGroup.result },
   type: SEND_MEDIA_GROUP_RESULT
 });
 

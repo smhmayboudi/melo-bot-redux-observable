@@ -10,25 +10,19 @@ const GET_UPDATES_RESULT = "GET_UPDATES_RESULT";
 const error: (getUpdates: IStateGetUpdates) => IActionGetUpdates = (
   getUpdates: IStateGetUpdates
 ): IActionGetUpdates => ({
-  getUpdates: {
-    error: getUpdates.error
-  },
+  getUpdates: { error: getUpdates.error },
   type: GET_UPDATES_ERROR
 });
 const query: (getUpdates: IStateGetUpdates) => IActionGetUpdates = (
   getUpdates: IStateGetUpdates
 ): IActionGetUpdates => ({
-  getUpdates: {
-    query: getUpdates.query
-  },
+  getUpdates: { query: getUpdates.query },
   type: GET_UPDATES_QUERY
 });
 const result: (getUpdates: IStateGetUpdates) => IActionGetUpdates = (
   getUpdates: IStateGetUpdates
 ): IActionGetUpdates => ({
-  getUpdates: {
-    result: getUpdates.result
-  },
+  getUpdates: { result: getUpdates.result },
   type: GET_UPDATES_RESULT
 });
 

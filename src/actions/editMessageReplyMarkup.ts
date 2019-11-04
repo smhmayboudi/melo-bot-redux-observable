@@ -12,9 +12,7 @@ const error: (
 ) => IActionEditMessageReplyMarkup = (
   editMessageReplyMarkup: IStateEditMessageReplyMarkup
 ): IActionEditMessageReplyMarkup => ({
-  editMessageReplyMarkup: {
-    error: editMessageReplyMarkup.error
-  },
+  editMessageReplyMarkup: { error: editMessageReplyMarkup.error },
   type: EDIT_MESSAGE_REPLY_MARKUP_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionEditMessageReplyMarkup = (
   editMessageReplyMarkup: IStateEditMessageReplyMarkup
 ): IActionEditMessageReplyMarkup => ({
-  editMessageReplyMarkup: {
-    query: editMessageReplyMarkup.query
-  },
+  editMessageReplyMarkup: { query: editMessageReplyMarkup.query },
   type: EDIT_MESSAGE_REPLY_MARKUP_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionEditMessageReplyMarkup = (
   editMessageReplyMarkup: IStateEditMessageReplyMarkup
 ): IActionEditMessageReplyMarkup => ({
-  editMessageReplyMarkup: {
-    result: editMessageReplyMarkup.result
-  },
+  editMessageReplyMarkup: { result: editMessageReplyMarkup.result },
   type: EDIT_MESSAGE_REPLY_MARKUP_RESULT
 });
 

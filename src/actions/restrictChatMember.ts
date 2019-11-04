@@ -12,9 +12,7 @@ const error: (
 ) => IActionRestrictChatMember = (
   restrictChatMember: IStateRestrictChatMember
 ): IActionRestrictChatMember => ({
-  restrictChatMember: {
-    error: restrictChatMember.error
-  },
+  restrictChatMember: { error: restrictChatMember.error },
   type: RESTRICT_CHAT_MEMBER_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionRestrictChatMember = (
   restrictChatMember: IStateRestrictChatMember
 ): IActionRestrictChatMember => ({
-  restrictChatMember: {
-    query: restrictChatMember.query
-  },
+  restrictChatMember: { query: restrictChatMember.query },
   type: RESTRICT_CHAT_MEMBER_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionRestrictChatMember = (
   restrictChatMember: IStateRestrictChatMember
 ): IActionRestrictChatMember => ({
-  restrictChatMember: {
-    result: restrictChatMember.result
-  },
+  restrictChatMember: { result: restrictChatMember.result },
   type: RESTRICT_CHAT_MEMBER_RESULT
 });
 

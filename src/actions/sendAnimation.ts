@@ -10,25 +10,19 @@ const SEND_ANIMATION_RESULT = "SEND_ANIMATION_RESULT";
 const error: (sendAnimation: IStateSendAnimation) => IActionSendAnimation = (
   sendAnimation: IStateSendAnimation
 ): IActionSendAnimation => ({
-  sendAnimation: {
-    error: sendAnimation.error
-  },
+  sendAnimation: { error: sendAnimation.error },
   type: SEND_ANIMATION_ERROR
 });
 const query: (sendAnimation: IStateSendAnimation) => IActionSendAnimation = (
   sendAnimation: IStateSendAnimation
 ): IActionSendAnimation => ({
-  sendAnimation: {
-    query: sendAnimation.query
-  },
+  sendAnimation: { query: sendAnimation.query },
   type: SEND_ANIMATION_QUERY
 });
 const result: (sendAnimation: IStateSendAnimation) => IActionSendAnimation = (
   sendAnimation: IStateSendAnimation
 ): IActionSendAnimation => ({
-  sendAnimation: {
-    result: sendAnimation.result
-  },
+  sendAnimation: { result: sendAnimation.result },
   type: SEND_ANIMATION_RESULT
 });
 

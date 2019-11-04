@@ -10,25 +10,19 @@ const GET_STICKER_SET_RESULT = "GET_STICKER_SET_RESULT";
 const error: (getStickerSet: IStateGetStickerSet) => IActionGetStickerSet = (
   getStickerSet: IStateGetStickerSet
 ): IActionGetStickerSet => ({
-  getStickerSet: {
-    error: getStickerSet.error
-  },
+  getStickerSet: { error: getStickerSet.error },
   type: GET_STICKER_SET_ERROR
 });
 const query: (getStickerSet: IStateGetStickerSet) => IActionGetStickerSet = (
   getStickerSet: IStateGetStickerSet
 ): IActionGetStickerSet => ({
-  getStickerSet: {
-    query: getStickerSet.query
-  },
+  getStickerSet: { query: getStickerSet.query },
   type: GET_STICKER_SET_QUERY
 });
 const result: (getStickerSet: IStateGetStickerSet) => IActionGetStickerSet = (
   getStickerSet: IStateGetStickerSet
 ): IActionGetStickerSet => ({
-  getStickerSet: {
-    result: getStickerSet.result
-  },
+  getStickerSet: { result: getStickerSet.result },
   type: GET_STICKER_SET_RESULT
 });
 

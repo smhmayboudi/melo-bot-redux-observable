@@ -12,9 +12,7 @@ const error: (
 ) => IActionChosenInlineResult = (
   chosenInlineResult: IStateChosenInlineResult
 ): IActionChosenInlineResult => ({
-  chosenInlineResult: {
-    error: chosenInlineResult.error
-  },
+  chosenInlineResult: { error: chosenInlineResult.error },
   type: CHOSEN_INLINE_RESULT_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionChosenInlineResult = (
   chosenInlineResult: IStateChosenInlineResult
 ): IActionChosenInlineResult => ({
-  chosenInlineResult: {
-    query: chosenInlineResult.query
-  },
+  chosenInlineResult: { query: chosenInlineResult.query },
   type: CHOSEN_INLINE_RESULT_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionChosenInlineResult = (
   chosenInlineResult: IStateChosenInlineResult
 ): IActionChosenInlineResult => ({
-  chosenInlineResult: {
-    result: chosenInlineResult.result
-  },
+  chosenInlineResult: { result: chosenInlineResult.result },
   type: CHOSEN_INLINE_RESULT_RESULT
 });
 

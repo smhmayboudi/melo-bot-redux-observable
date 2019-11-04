@@ -12,9 +12,7 @@ const error: (
 ) => IActionPromoteChatMember = (
   promoteChatMember: IStatePromoteChatMember
 ): IActionPromoteChatMember => ({
-  promoteChatMember: {
-    error: promoteChatMember.error
-  },
+  promoteChatMember: { error: promoteChatMember.error },
   type: PROMOTE_CHAT_MEMBER_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionPromoteChatMember = (
   promoteChatMember: IStatePromoteChatMember
 ): IActionPromoteChatMember => ({
-  promoteChatMember: {
-    query: promoteChatMember.query
-  },
+  promoteChatMember: { query: promoteChatMember.query },
   type: PROMOTE_CHAT_MEMBER_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionPromoteChatMember = (
   promoteChatMember: IStatePromoteChatMember
 ): IActionPromoteChatMember => ({
-  promoteChatMember: {
-    result: promoteChatMember.result
-  },
+  promoteChatMember: { result: promoteChatMember.result },
   type: PROMOTE_CHAT_MEMBER_RESULT
 });
 

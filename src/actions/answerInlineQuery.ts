@@ -12,9 +12,7 @@ const error: (
 ) => IActionAnswerInlineQuery = (
   answerInlineQuery: IStateAnswerInlineQuery
 ): IActionAnswerInlineQuery => ({
-  answerInlineQuery: {
-    error: answerInlineQuery.error
-  },
+  answerInlineQuery: { error: answerInlineQuery.error },
   type: ANSWER_INLINE_QUERY_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionAnswerInlineQuery = (
   answerInlineQuery: IStateAnswerInlineQuery
 ): IActionAnswerInlineQuery => ({
-  answerInlineQuery: {
-    query: answerInlineQuery.query
-  },
+  answerInlineQuery: { query: answerInlineQuery.query },
   type: ANSWER_INLINE_QUERY_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionAnswerInlineQuery = (
   answerInlineQuery: IStateAnswerInlineQuery
 ): IActionAnswerInlineQuery => ({
-  answerInlineQuery: {
-    result: answerInlineQuery.result
-  },
+  answerInlineQuery: { result: answerInlineQuery.result },
   type: ANSWER_INLINE_QUERY_RESULT
 });
 

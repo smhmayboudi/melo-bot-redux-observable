@@ -12,9 +12,7 @@ const error: (
 ) => IActionEditMessageLiveLocation = (
   editMessageLiveLocation: IStateEditMessageLiveLocation
 ): IActionEditMessageLiveLocation => ({
-  editMessageLiveLocation: {
-    error: editMessageLiveLocation.error
-  },
+  editMessageLiveLocation: { error: editMessageLiveLocation.error },
   type: EDIT_MESSAGE_LIVE_LOCATION_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionEditMessageLiveLocation = (
   editMessageLiveLocation: IStateEditMessageLiveLocation
 ): IActionEditMessageLiveLocation => ({
-  editMessageLiveLocation: {
-    query: editMessageLiveLocation.query
-  },
+  editMessageLiveLocation: { query: editMessageLiveLocation.query },
   type: EDIT_MESSAGE_LIVE_LOCATION_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionEditMessageLiveLocation = (
   editMessageLiveLocation: IStateEditMessageLiveLocation
 ): IActionEditMessageLiveLocation => ({
-  editMessageLiveLocation: {
-    result: editMessageLiveLocation.result
-  },
+  editMessageLiveLocation: { result: editMessageLiveLocation.result },
   type: EDIT_MESSAGE_LIVE_LOCATION_RESULT
 });
 

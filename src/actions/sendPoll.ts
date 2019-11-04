@@ -10,25 +10,19 @@ const SEND_POLL_RESULT = "SEND_POLL_RESULT";
 const error: (sendPoll: IStateSendPoll) => IActionSendPoll = (
   sendPoll: IStateSendPoll
 ): IActionSendPoll => ({
-  sendPoll: {
-    error: sendPoll.error
-  },
+  sendPoll: { error: sendPoll.error },
   type: SEND_POLL_ERROR
 });
 const query: (sendPoll: IStateSendPoll) => IActionSendPoll = (
   sendPoll: IStateSendPoll
 ): IActionSendPoll => ({
-  sendPoll: {
-    query: sendPoll.query
-  },
+  sendPoll: { query: sendPoll.query },
   type: SEND_POLL_QUERY
 });
 const result: (sendPoll: IStateSendPoll) => IActionSendPoll = (
   sendPoll: IStateSendPoll
 ): IActionSendPoll => ({
-  sendPoll: {
-    result: sendPoll.result
-  },
+  sendPoll: { result: sendPoll.result },
   type: SEND_POLL_RESULT
 });
 

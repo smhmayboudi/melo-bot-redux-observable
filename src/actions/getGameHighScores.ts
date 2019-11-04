@@ -12,9 +12,7 @@ const error: (
 ) => IActionGetGameHighScores = (
   getGameHighScores: IStateGetGameHighScores
 ): IActionGetGameHighScores => ({
-  getGameHighScores: {
-    error: getGameHighScores.error
-  },
+  getGameHighScores: { error: getGameHighScores.error },
   type: GET_GAME_HIGH_SCORES_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionGetGameHighScores = (
   getGameHighScores: IStateGetGameHighScores
 ): IActionGetGameHighScores => ({
-  getGameHighScores: {
-    query: getGameHighScores.query
-  },
+  getGameHighScores: { query: getGameHighScores.query },
   type: GET_GAME_HIGH_SCORES_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionGetGameHighScores = (
   getGameHighScores: IStateGetGameHighScores
 ): IActionGetGameHighScores => ({
-  getGameHighScores: {
-    result: getGameHighScores.result
-  },
+  getGameHighScores: { result: getGameHighScores.result },
   type: GET_GAME_HIGH_SCORES_RESULT
 });
 

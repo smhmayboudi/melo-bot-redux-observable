@@ -12,9 +12,7 @@ const error: (
 ) => IActionGetChatMembersCount = (
   getChatMembersCount: IStateGetChatMembersCount
 ): IActionGetChatMembersCount => ({
-  getChatMembersCount: {
-    error: getChatMembersCount.error
-  },
+  getChatMembersCount: { error: getChatMembersCount.error },
   type: GET_CHAT_MEMBERS_COUNT_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionGetChatMembersCount = (
   getChatMembersCount: IStateGetChatMembersCount
 ): IActionGetChatMembersCount => ({
-  getChatMembersCount: {
-    query: getChatMembersCount.query
-  },
+  getChatMembersCount: { query: getChatMembersCount.query },
   type: GET_CHAT_MEMBERS_COUNT_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionGetChatMembersCount = (
   getChatMembersCount: IStateGetChatMembersCount
 ): IActionGetChatMembersCount => ({
-  getChatMembersCount: {
-    result: getChatMembersCount.result
-  },
+  getChatMembersCount: { result: getChatMembersCount.result },
   type: GET_CHAT_MEMBERS_COUNT_RESULT
 });
 

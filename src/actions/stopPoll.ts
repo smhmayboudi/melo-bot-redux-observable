@@ -10,25 +10,19 @@ const STOP_POLL_RESULT = "STOP_POLL_RESULT";
 const error: (stopPoll: IStateStopPoll) => IActionStopPoll = (
   stopPoll: IStateStopPoll
 ): IActionStopPoll => ({
-  stopPoll: {
-    error: stopPoll.error
-  },
+  stopPoll: { error: stopPoll.error },
   type: STOP_POLL_ERROR
 });
 const query: (stopPoll: IStateStopPoll) => IActionStopPoll = (
   stopPoll: IStateStopPoll
 ): IActionStopPoll => ({
-  stopPoll: {
-    query: stopPoll.query
-  },
+  stopPoll: { query: stopPoll.query },
   type: STOP_POLL_QUERY
 });
 const result: (stopPoll: IStateStopPoll) => IActionStopPoll = (
   stopPoll: IStateStopPoll
 ): IActionStopPoll => ({
-  stopPoll: {
-    result: stopPoll.result
-  },
+  stopPoll: { result: stopPoll.result },
   type: STOP_POLL_RESULT
 });
 

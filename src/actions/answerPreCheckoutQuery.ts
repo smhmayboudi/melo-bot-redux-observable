@@ -12,9 +12,7 @@ const error: (
 ) => IActionAnswerPreCheckoutQuery = (
   answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery
 ): IActionAnswerPreCheckoutQuery => ({
-  answerPreCheckoutQuery: {
-    error: answerPreCheckoutQuery.error
-  },
+  answerPreCheckoutQuery: { error: answerPreCheckoutQuery.error },
   type: ANSWER_PRE_CHECKOUT_QUERY_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionAnswerPreCheckoutQuery = (
   answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery
 ): IActionAnswerPreCheckoutQuery => ({
-  answerPreCheckoutQuery: {
-    query: answerPreCheckoutQuery.query
-  },
+  answerPreCheckoutQuery: { query: answerPreCheckoutQuery.query },
   type: ANSWER_PRE_CHECKOUT_QUERY_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionAnswerPreCheckoutQuery = (
   answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery
 ): IActionAnswerPreCheckoutQuery => ({
-  answerPreCheckoutQuery: {
-    result: answerPreCheckoutQuery.result
-  },
+  answerPreCheckoutQuery: { result: answerPreCheckoutQuery.result },
   type: ANSWER_PRE_CHECKOUT_QUERY_RESULT
 });
 

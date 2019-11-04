@@ -10,25 +10,19 @@ const LEAVE_CHAT_RESULT = "LEAVE_CHAT_RESULT";
 const error: (leaveChat: IStateLeaveChat) => IActionLeaveChat = (
   leaveChat: IStateLeaveChat
 ): IActionLeaveChat => ({
-  leaveChat: {
-    error: leaveChat.error
-  },
+  leaveChat: { error: leaveChat.error },
   type: LEAVE_CHAT_ERROR
 });
 const query: (leaveChat: IStateLeaveChat) => IActionLeaveChat = (
   leaveChat: IStateLeaveChat
 ): IActionLeaveChat => ({
-  leaveChat: {
-    query: leaveChat.query
-  },
+  leaveChat: { query: leaveChat.query },
   type: LEAVE_CHAT_QUERY
 });
 const result: (leaveChat: IStateLeaveChat) => IActionLeaveChat = (
   leaveChat: IStateLeaveChat
 ): IActionLeaveChat => ({
-  leaveChat: {
-    result: leaveChat.result
-  },
+  leaveChat: { result: leaveChat.result },
   type: LEAVE_CHAT_RESULT
 });
 

@@ -12,9 +12,7 @@ const error: (
 ) => IActionDeleteChatPhoto = (
   deleteChatPhoto: IStateDeleteChatPhoto
 ): IActionDeleteChatPhoto => ({
-  deleteChatPhoto: {
-    error: deleteChatPhoto.error
-  },
+  deleteChatPhoto: { error: deleteChatPhoto.error },
   type: DELETE_CHAT_PHOTO_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionDeleteChatPhoto = (
   deleteChatPhoto: IStateDeleteChatPhoto
 ): IActionDeleteChatPhoto => ({
-  deleteChatPhoto: {
-    query: deleteChatPhoto.query
-  },
+  deleteChatPhoto: { query: deleteChatPhoto.query },
   type: DELETE_CHAT_PHOTO_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionDeleteChatPhoto = (
   deleteChatPhoto: IStateDeleteChatPhoto
 ): IActionDeleteChatPhoto => ({
-  deleteChatPhoto: {
-    result: deleteChatPhoto.result
-  },
+  deleteChatPhoto: { result: deleteChatPhoto.result },
   type: DELETE_CHAT_PHOTO_RESULT
 });
 

@@ -10,25 +10,19 @@ const SEND_MESSAGE_RESULT = "SEND_MESSAGE_RESULT";
 const error: (sendMessage: IStateSendMessage) => IActionSendMessage = (
   sendMessage: IStateSendMessage
 ): IActionSendMessage => ({
-  sendMessage: {
-    error: sendMessage.error
-  },
+  sendMessage: { error: sendMessage.error },
   type: SEND_MESSAGE_ERROR
 });
 const query: (sendMessage: IStateSendMessage) => IActionSendMessage = (
   sendMessage: IStateSendMessage
 ): IActionSendMessage => ({
-  sendMessage: {
-    query: sendMessage.query
-  },
+  sendMessage: { query: sendMessage.query },
   type: SEND_MESSAGE_QUERY
 });
 const result: (sendMessage: IStateSendMessage) => IActionSendMessage = (
   sendMessage: IStateSendMessage
 ): IActionSendMessage => ({
-  sendMessage: {
-    result: sendMessage.result
-  },
+  sendMessage: { result: sendMessage.result },
   type: SEND_MESSAGE_RESULT
 });
 

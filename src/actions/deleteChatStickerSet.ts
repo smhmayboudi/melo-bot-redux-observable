@@ -12,9 +12,7 @@ const error: (
 ) => IActionDeleteChatStickerSet = (
   deleteChatStickerSet: IStateDeleteChatStickerSet
 ): IActionDeleteChatStickerSet => ({
-  deleteChatStickerSet: {
-    error: deleteChatStickerSet.error
-  },
+  deleteChatStickerSet: { error: deleteChatStickerSet.error },
   type: DELETE_CHAT_STICKER_SET_ERROR
 });
 const query: (
@@ -22,9 +20,7 @@ const query: (
 ) => IActionDeleteChatStickerSet = (
   deleteChatStickerSet: IStateDeleteChatStickerSet
 ): IActionDeleteChatStickerSet => ({
-  deleteChatStickerSet: {
-    query: deleteChatStickerSet.query
-  },
+  deleteChatStickerSet: { query: deleteChatStickerSet.query },
   type: DELETE_CHAT_STICKER_SET_QUERY
 });
 const result: (
@@ -32,9 +28,7 @@ const result: (
 ) => IActionDeleteChatStickerSet = (
   deleteChatStickerSet: IStateDeleteChatStickerSet
 ): IActionDeleteChatStickerSet => ({
-  deleteChatStickerSet: {
-    result: deleteChatStickerSet.result
-  },
+  deleteChatStickerSet: { result: deleteChatStickerSet.result },
   type: DELETE_CHAT_STICKER_SET_RESULT
 });
 
