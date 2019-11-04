@@ -1,19 +1,25 @@
 import { Observable, of } from "rxjs";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
+import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
 import { transformVideos } from "../utils/inlineQueryResultArticle";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { stringify } from "../utils/queryString";
 
 const transformObservable: (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeVideoList
+) => (
+  action2: IActionCallbackDataInsert
 ) => Observable<IActionAnswerInlineQuery | IActionYoutubeVideoList> = (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeVideoList
+) => (
+  action2: IActionCallbackDataInsert
 ): Observable<IActionAnswerInlineQuery | IActionYoutubeVideoList> => {
   if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
     return of(action);
@@ -29,6 +35,13 @@ const transformObservable: (
     return of(
       actions.youtubeVideoList.error({
         error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
+      })
+    );
+  }
+  if (action2.callbackDataInsert.result === undefined) {
+    return of(
+      actions.youtubeVideoList.error({
+        error: new Error(texts.actionCallbackDataInsertResultUndefined)
       })
     );
   }
@@ -61,12 +74,24 @@ const transformObservable: (
     );
   }
 
+  let nextOffset = "";
+  if (
+    action.youtubeVideoList.result.nextPageToken !== undefined &&
+    action.youtubeVideoList.result.nextPageToken !== null
+  ) {
+    nextOffset = stringify({
+      id: action2.callbackDataInsert.result,
+      pageToken: action.youtubeVideoList.result.nextPageToken
+    });
+  }
+
   return of(
     actions.answerInlineQuery.query({
       query: {
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
-        next_offset: `${action.youtubeVideoList.result.nextPageToken}`,
+        // next_offset: action2.callbackDataInsert.result,
+        next_offset: nextOffset,
         results: transformVideos(
           action.youtubeVideoList.result.items,
           state$.value.youtubeVideoList.query.chart

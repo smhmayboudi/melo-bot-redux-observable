@@ -128,12 +128,11 @@ const getChatMember: (
   return action$.pipe(
     ofType(actions.getChatMember.GET_CHAT_MEMBER_QUERY),
     switchMap(actionObservable),
-    switchMap((value: IActionGetChatMember) => {
-      if (actionGetChatMemberResultStatus(value)) {
-        return of(value);
-      }
-      return transformObservable(value);
-    })
+    switchMap((action: IActionGetChatMember) =>
+      actionGetChatMemberResultStatus(action)
+        ? of(action)
+        : transformObservable(action)
+    )
   );
 };
 

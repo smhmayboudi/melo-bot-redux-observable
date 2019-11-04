@@ -8,6 +8,8 @@ import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
 import { answerPreCheckoutQuery } from "./answerPreCheckoutQuery";
 import { answerShippingQuery } from "./answerShippingQuery";
+import { callbackDataFind } from "./callbackDataFind";
+import { callbackDataInsert } from "./callbackDataInsert";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { createNewStickerSet } from "./createNewStickerSet";
 import { deleteChatPhoto } from "./deleteChatPhoto";
@@ -80,6 +82,8 @@ const index: Reducer<IState, IAction> = combineReducers({
   answerInlineQuery,
   answerPreCheckoutQuery,
   answerShippingQuery,
+  callbackDataFind,
+  callbackDataInsert,
   chosenInlineResult,
   createNewStickerSet,
   deleteChatPhoto,

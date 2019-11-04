@@ -6,12 +6,12 @@ import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import * as env from "./env";
 import { index as enhancers } from "../enhancers";
 import { index as epics } from "../epics";
 import { index as middlewares } from "../middlewares";
 import { index as reducers } from "../reducers";
 
-import * as env from "./env";
 const configureStore: (
   dependencies?: IDependencies
 ) => Store<IState> & { dispatch: {} } = (
@@ -23,6 +23,8 @@ const configureStore: (
     answerInlineQuery: actions.answerInlineQuery.initialState,
     answerPreCheckoutQuery: actions.answerPreCheckoutQuery.initialState,
     answerShippingQuery: actions.answerShippingQuery.initialState,
+    callbackDataFind: actions.callbackDataFind.initialState,
+    callbackDataInsert: actions.callbackDataInsert.initialState,
     chosenInlineResult: actions.chosenInlineResult.initialState,
     createNewStickerSet: actions.createNewStickerSet.initialState,
     deleteChatPhoto: actions.deleteChatPhoto.initialState,

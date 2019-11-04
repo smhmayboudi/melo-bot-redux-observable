@@ -10,6 +10,8 @@ import { answerInlineQuery } from "./answerInlineQuery";
 import { answerPreCheckoutQuery } from "./answerPreCheckoutQuery";
 import { answerShippingQuery } from "./answerShippingQuery";
 import { appError } from "./appError";
+import { callbackDataFind } from "./callbackDataFind";
+import { callbackDataInsert } from "./callbackDataInsert";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { createNewStickerSet } from "./createNewStickerSet";
 import { deleteChatPhoto } from "./deleteChatPhoto";
@@ -82,6 +84,8 @@ const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   answerPreCheckoutQuery,
   answerShippingQuery,
   appError,
+  callbackDataFind,
+  callbackDataInsert,
   chosenInlineResult,
   createNewStickerSet,
   deleteChatPhoto,

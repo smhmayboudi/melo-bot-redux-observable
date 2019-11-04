@@ -11,6 +11,12 @@ const actionAnswerPreCheckoutQueryQueryUndefined =
   "actionAnswerPreCheckoutQueryQuery undefined.";
 const actionAnswerShippingQueryQueryUndefined =
   "actionAnswerShippingQueryQuery undefined.";
+const actionCallbackDataFindQueryUndefined =
+  "actionCallbackDataFindQuery undefined.";
+const actionCallbackDataInsertQueryUndefined =
+  "actionCallbackDataInsertQuery undefined.";
+const actionCallbackDataInsertResultUndefined =
+  "actionCallbackDataInsertResult undefined.";
 const actionChosenInlineResultQueryUndefined =
   "actionChosenInlineResultQuery undefined.";
 const actionCreateNewStickerSetQueryUndefined =
@@ -119,12 +125,32 @@ const actionYoutubeSearchListQueryUndefined =
   "actionYoutubeSearchListQuery undefined.";
 const actionYoutubeSearchListResultItemsUndefined =
   "actionYoutubeSearchListResultItems undefined.";
+const actionYoutubeSearchListResultNextPageTokenUndefined =
+  "actionYoutubeSearchListResultNextPageTokenUndefined undefined.";
+const actionYoutubeSearchListResultPageInfoUndefined =
+  "actionYoutubeSearchListResultPageInfoUndefined undefined.";
+const actionYoutubeSearchListResultPageInfoResultsPerPageUndefined =
+  "actionYoutubeSearchListResultPageInfoResultsPerPageUndefined undefined.";
+const actionYoutubeSearchListResultPageInfoTotalResultsUndefined =
+  "actionYoutubeSearchListResultPageInfoTotalResultsUndefined undefined.";
+const actionYoutubeSearchListResultPrevPageTokenUndefined =
+  "actionYoutubeSearchListResultPrevPageTokenUndefined undefined.";
 const actionYoutubeSearchListResultUndefined =
   "actionYoutubeSearchListResult undefined.";
 const actionYoutubeVideoListQueryUndefined =
   "actionYoutubeVideoListQuery undefined.";
 const actionYoutubeVideoListResultItemsUndefined =
   "actionYoutubeVideoListResultItems undefined.";
+const actionYoutubeVideoListResultNextPageTokenUndefined =
+  "actionYoutubeVideoListResultNextPageToken undefined.";
+const actionYoutubeVideoListResultPageInfoUndefined =
+  "actionYoutubeVideoListResultPageInfo undefined.";
+const actionYoutubeVideoListResultPageInfoResultsPerPageUndefined =
+  "actionYoutubeVideoListResultPageInfoResultsPerPage undefined.";
+const actionYoutubeVideoListResultPageInfoTotalResultsUndefined =
+  "actionYoutubeVideoListResultPageInfoTotalResults undefined.";
+const actionYoutubeVideoListResultPrevPageTokenUndefined =
+  "actionYoutubeVideoListResultPrevPageToken undefined.";
 const actionYoutubeVideoListResultUndefined =
   "actionYoutubeVideoListResult undefined.";
 const commandDownload = "dl";
@@ -192,6 +218,8 @@ const state$ValueMessageQueryCallbackQueryMessageUndefined =
   "state$ValueMessageQueryCallbackQueryMessageUndefined undefined.";
 const state$ValueMessageQueryMessageUndefined =
   "state$ValueMessageQueryMessage undefined.";
+const state$ValueMessageQueryMessageTextUndefined =
+  "state$ValueMessageQueryMessageText undefined.";
 const state$ValueMessageQueryUndefined = "state$ValueMessageQuery undefined.";
 const state$ValueYoutubeSearchListQueryQUndefined =
   "state$ValueYoutubeSearchListQueryQ undefined.";
@@ -213,6 +241,9 @@ export {
   actionAnswerInlineQueryQueryUndefined,
   actionAnswerPreCheckoutQueryQueryUndefined,
   actionAnswerShippingQueryQueryUndefined,
+  actionCallbackDataFindQueryUndefined,
+  actionCallbackDataInsertQueryUndefined,
+  actionCallbackDataInsertResultUndefined,
   actionChosenInlineResultQueryUndefined,
   actionCreateNewStickerSetQueryUndefined,
   actionDeleteChatPhotoQueryUndefined,
@@ -282,9 +313,19 @@ export {
   actionYoutubeDownloadResultUndefined,
   actionYoutubeSearchListQueryUndefined,
   actionYoutubeSearchListResultItemsUndefined,
+  actionYoutubeSearchListResultNextPageTokenUndefined,
+  actionYoutubeSearchListResultPageInfoUndefined,
+  actionYoutubeSearchListResultPageInfoResultsPerPageUndefined,
+  actionYoutubeSearchListResultPageInfoTotalResultsUndefined,
+  actionYoutubeSearchListResultPrevPageTokenUndefined,
   actionYoutubeSearchListResultUndefined,
   actionYoutubeVideoListQueryUndefined,
   actionYoutubeVideoListResultItemsUndefined,
+  actionYoutubeVideoListResultNextPageTokenUndefined,
+  actionYoutubeVideoListResultPageInfoUndefined,
+  actionYoutubeVideoListResultPageInfoResultsPerPageUndefined,
+  actionYoutubeVideoListResultPageInfoTotalResultsUndefined,
+  actionYoutubeVideoListResultPrevPageTokenUndefined,
   actionYoutubeVideoListResultUndefined,
   commandDownload,
   commandHelp,
@@ -328,6 +369,7 @@ export {
   state$ValueMessageQueryCallbackQueryUndefined,
   state$ValueMessageQueryCallbackQueryMessageUndefined,
   state$ValueMessageQueryMessageUndefined,
+  state$ValueMessageQueryMessageTextUndefined,
   state$ValueMessageQueryUndefined,
   state$ValueYoutubeSearchListQueryQUndefined,
   state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined,

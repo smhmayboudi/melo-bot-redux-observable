@@ -1,10 +1,13 @@
 import * as querystring from "querystring";
-import { IQueryString } from "../../types/iQueryString";
+import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
 
-const parse: (str: string) => IQueryString = (str: string): IQueryString =>
-  querystring.parse<IQueryString>(str, "&", "=");
+const parse: (str: string) => IStateCallbackDataFindQuery = (
+  str: string
+): IStateCallbackDataFindQuery =>
+  querystring.parse<IStateCallbackDataFindQuery>(str, "&", "=");
 
-const stringify: (obj: IQueryString) => string = (obj: IQueryString): string =>
-  querystring.stringify<IQueryString>(obj, "&", "=");
+const stringify: (obj: IStateCallbackDataFindQuery) => string = (
+  obj: IStateCallbackDataFindQuery
+): string => querystring.stringify<IStateCallbackDataFindQuery>(obj, "&", "=");
 
 export { parse, stringify };

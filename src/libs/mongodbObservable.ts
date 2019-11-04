@@ -1,6 +1,5 @@
 import {
   Collection,
-  CollectionCreateOptions,
   CollectionInsertOneOptions,
   Db,
   DbCollectionOptions,
@@ -55,31 +54,7 @@ const collectionObservable: (
 ): Observable<Collection<any>> =>
   bindNodeCallback(collectionObs)(db, name, options);
 
-const createCollectionObs: (
-  db: Db,
-  name: string,
-  options: CollectionCreateOptions,
-  callback: MongoCallback<Collection<any>>
-) => void = (
-  db: Db,
-  name: string,
-  options: CollectionCreateOptions,
-  callback: MongoCallback<Collection<any>>
-): void => {
-  db.createCollection(name, options, callback);
-};
-const createCollectionObservable: (
-  db: Db,
-  name: string,
-  options: CollectionCreateOptions
-) => Observable<Collection<{}>> = (
-  db: Db,
-  name: string,
-  options: CollectionCreateOptions
-): Observable<Collection<{}>> =>
-  bindNodeCallback(createCollectionObs)(db, name, options);
-
-const findOneCollectionObs: (
+const findOneObs: (
   collection: Collection,
   filter: FilterQuery<any>,
   callback: MongoCallback<any>
@@ -96,8 +71,7 @@ const findOneObservable: (
 ) => Observable<any> = (
   collection: Collection,
   filter: FilterQuery<any>
-): Observable<any> =>
-  bindNodeCallback(findOneCollectionObs)(collection, filter);
+): Observable<any> => bindNodeCallback(findOneObs)(collection, filter);
 
 const insertOneObs: (
   collection: Collection,
@@ -126,7 +100,6 @@ const insertOneObservable: (
 export {
   connectObservable,
   collectionObservable,
-  createCollectionObservable,
   findOneObservable,
   insertOneObservable
 };

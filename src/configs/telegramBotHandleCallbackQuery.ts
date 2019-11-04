@@ -2,11 +2,10 @@ import debug from "debug";
 import { Store } from "redux";
 
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
-import { IQueryString } from "../../types/iQueryString";
 import { IState } from "../../types/iState";
+import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
 import { parse } from "../utils/queryString";
 import * as actions from "../actions";
-import * as env from "./env";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -35,38 +34,17 @@ const handleCallbackQuery: (
       })
     );
     if (callbackQuery.data !== undefined) {
-      const callbackQueryData: IQueryString = parse(callbackQuery.data);
-      if (callbackQueryData.q !== undefined) {
-        store.dispatch(
-          actions.youtubeSearchList.query({
-            query: {
-              key: env.GOOGLE_API_KEY,
-              maxResults: callbackQueryData.pirpp,
-              part: "id,snippet",
-              pageToken: callbackQueryData.pt,
-              q: callbackQueryData.q,
-              regionCode: env.GOOGLE_API_REGION_CODE,
-              relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-              safeSearch: env.GOOGLE_API_SAFE_SEARCH,
-              type: env.GOOGLE_API_SEARCH_LIST_TYPE
-            }
-          })
-        );
-      } else if (callbackQueryData.c !== undefined) {
-        store.dispatch(
-          actions.youtubeVideoList.query({
-            query: {
-              chart: callbackQueryData.c,
-              hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-              key: env.GOOGLE_API_KEY,
-              maxResults: callbackQueryData.pirpp,
-              part: "id,snippet",
-              pageToken: callbackQueryData.pt,
-              regionCode: env.GOOGLE_API_REGION_CODE
-            }
-          })
-        );
-      }
+      const callbackQueryData: IStateCallbackDataFindQuery = parse(
+        callbackQuery.data
+      );
+      store.dispatch(
+        actions.callbackDataFind.query({
+          query: {
+            id: callbackQueryData.id,
+            pageToken: callbackQueryData.pageToken
+          }
+        })
+      );
     }
   }
 };

@@ -9,6 +9,8 @@ import { caption, decode } from "../utils/string";
 
 import * as env from "./env";
 import * as texts from "./texts";
+// import { parse } from "../utils/queryString";
+// import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -235,7 +237,7 @@ const handleMessage: (
     case "/youtubeDownload":
       store.dispatch(
         actions.youtubeDownload.query({
-          query: "/dl_RTB5eGxxZlhmRVk".replace("/dl_", "").trim()
+          query: decode("/dl_RTB5eGxxZlhmRVk".replace("/dl_", "").trim())
         })
       );
       break;
@@ -271,6 +273,10 @@ const handleMessage: (
       break;
     default:
       if (message.text !== undefined) {
+        // if (message.text.startsWith("/")) {
+        //   const command: IStateCallbackDataFindQuery = parse(message.text.substr(1));
+        //   console.log("command", command);
+        // }
         if (message.text.includes(`/${texts.commandStart}`)) {
           store.dispatch(
             actions.sendMessage.query({

@@ -3,6 +3,8 @@ import * as answerCallbackQuery from "./answerCallbackQuery";
 import * as answerInlineQuery from "./answerInlineQuery";
 import * as answerPreCheckoutQuery from "./answerPreCheckoutQuery";
 import * as answerShippingQuery from "./answerShippingQuery";
+import * as callbackDataFind from "./callbackDataFind";
+import * as callbackDataInsert from "./callbackDataInsert";
 import * as chosenInlineResult from "./chosenInlineResult";
 import * as createNewStickerSet from "./createNewStickerSet";
 import * as deleteChatPhoto from "./deleteChatPhoto";
@@ -75,6 +77,8 @@ export {
   answerInlineQuery,
   answerPreCheckoutQuery,
   answerShippingQuery,
+  callbackDataFind,
+  callbackDataInsert,
   chosenInlineResult,
   createNewStickerSet,
   deleteChatPhoto,

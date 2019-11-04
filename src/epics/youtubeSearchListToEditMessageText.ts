@@ -1,5 +1,6 @@
 import { Observable, of } from "rxjs";
 
+import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
 import { IActionEditMessageText } from "../../types/iActionEditMessageText";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
@@ -12,9 +13,13 @@ import { stringify } from "../utils/queryString";
 const transformObservable: (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeSearchList
+) => (
+  action2: IActionCallbackDataInsert
 ) => Observable<IActionEditMessageText | IActionYoutubeSearchList> = (
   state$: StateObservable<IState> | undefined,
   action: IActionYoutubeSearchList
+) => (
+  action2: IActionCallbackDataInsert
 ): Observable<IActionEditMessageText | IActionYoutubeSearchList> => {
   if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
     return of(action);
@@ -30,6 +35,13 @@ const transformObservable: (
     return of(
       actions.youtubeSearchList.error({
         error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
+      })
+    );
+  }
+  if (action2.callbackDataInsert.result === undefined) {
+    return of(
+      actions.youtubeSearchList.error({
+        error: new Error(texts.actionCallbackDataInsertResultUndefined)
       })
     );
   }
@@ -77,6 +89,7 @@ const transformObservable: (
       })
     );
   }
+  // TODO: why?
   const qUndefined = state$.value.youtubeSearchList.query.q === undefined;
   const relatedToVideoIdUndefined =
     state$.value.youtubeSearchList.query.relatedToVideoId === undefined;
@@ -95,40 +108,28 @@ const transformObservable: (
 
   const inlineKeyboard = [];
   if (
-    action.youtubeSearchList.result.pageInfo !== undefined &&
-    action.youtubeSearchList.result.pageInfo.resultsPerPage !== null &&
-    action.youtubeSearchList.result.pageInfo.resultsPerPage !== undefined &&
-    action.youtubeSearchList.result.pageInfo.totalResults !== null &&
-    action.youtubeSearchList.result.pageInfo.totalResults !== undefined
+    action.youtubeSearchList.result.prevPageToken !== undefined &&
+    action.youtubeSearchList.result.prevPageToken !== null
   ) {
-    if (
-      action.youtubeSearchList.result.prevPageToken !== undefined &&
-      action.youtubeSearchList.result.prevPageToken !== null
-    ) {
-      inlineKeyboard.push({
-        callback_data: stringify({
-          pt: action.youtubeSearchList.result.prevPageToken,
-          pirpp: action.youtubeSearchList.result.pageInfo.resultsPerPage,
-          pitr: action.youtubeSearchList.result.pageInfo.totalResults,
-          q: state$.value.youtubeSearchList.query.q
-        }),
-        text: texts.messageWithPaginationPrev
-      });
-    }
-    if (
-      action.youtubeSearchList.result.nextPageToken !== undefined &&
-      action.youtubeSearchList.result.nextPageToken !== null
-    ) {
-      inlineKeyboard.push({
-        callback_data: stringify({
-          pt: action.youtubeSearchList.result.nextPageToken,
-          pirpp: action.youtubeSearchList.result.pageInfo.resultsPerPage,
-          pitr: action.youtubeSearchList.result.pageInfo.totalResults,
-          q: state$.value.youtubeSearchList.query.q
-        }),
-        text: texts.messageWithPaginationNext
-      });
-    }
+    inlineKeyboard.push({
+      callback_data: stringify({
+        id: action2.callbackDataInsert.result,
+        pageToken: action.youtubeSearchList.result.prevPageToken
+      }),
+      text: texts.messageWithPaginationPrev
+    });
+  }
+  if (
+    action.youtubeSearchList.result.nextPageToken !== undefined &&
+    action.youtubeSearchList.result.nextPageToken !== null
+  ) {
+    inlineKeyboard.push({
+      callback_data: stringify({
+        id: action2.callbackDataInsert.result,
+        pageToken: action.youtubeSearchList.result.nextPageToken
+      }),
+      text: texts.messageWithPaginationNext
+    });
   }
 
   return of(
