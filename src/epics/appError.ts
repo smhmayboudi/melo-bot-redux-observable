@@ -1,5 +1,5 @@
 import { ofType, StateObservable } from "redux-observable";
-import { Observable, of } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
 import { IAction } from "../../types/iAction";
@@ -7,7 +7,6 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const appError: (
   action$: Observable<IAction>,
@@ -15,51 +14,10 @@ const appError: (
   dependencies: IDependencies
 ) => Observable<IActionSendMessage> = (
   action$: Observable<IAction>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   _dependencies: IDependencies
-): Observable<IActionSendMessage> => {
-  const actionObservable: (
-    action: IAction
-  ) => Observable<IActionSendMessage> = (
-    _action: IAction
-  ): Observable<IActionSendMessage> => {
-    if (state$ === undefined) {
-      return of(
-        actions.sendMessage.error({
-          error: new Error(texts.state$Undefined)
-        })
-      );
-    }
-    if (state$.value.message.query === undefined) {
-      return of(
-        actions.sendMessage.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
-        })
-      );
-    }
-    if (state$.value.message.query.message === undefined) {
-      return of(
-        actions.sendMessage.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
-        })
-      );
-    }
-
-    return of(
-      actions.sendMessage.query({
-        query: {
-          chat_id: state$.value.message.query.message.chat.id,
-          disable_notification: true,
-          disable_web_page_preview: true,
-          parse_mode: "HTML",
-          reply_to_message_id: state$.value.message.query.message.message_id,
-          text: texts.messageError
-        }
-      })
-    );
-  };
-
-  return action$.pipe(
+): Observable<IActionSendMessage> =>
+  action$.pipe(
     ofType(
       actions.addStickerToSet.ADD_STICKER_TO_SET_ERROR,
       actions.answerCallbackQuery.ANSWER_CALLBACK_QUERY_ERROR,
@@ -131,8 +89,7 @@ const appError: (
       actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR,
       actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR
     ),
-    switchMap(actionObservable)
+    switchMap((action: IAction) => throwError(action))
   );
-};
 
 export { appError };

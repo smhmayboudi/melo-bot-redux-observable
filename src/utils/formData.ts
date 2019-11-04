@@ -181,6 +181,37 @@ const transformSendStickerQuery: (query: IStateSendStickerQuery) => FormData = (
   return formData;
 };
 
+const transformSendVideoNoteQuery: (
+  query: IStateSendVideoNoteQuery
+) => FormData = (query: IStateSendVideoNoteQuery): FormData => {
+  const formData: FormData = new FormData();
+  formData.append("chat_id", query.chat_id);
+  if (query.disable_notification !== undefined) {
+    formData.append("disable_notification", `${query.disable_notification}`);
+  }
+  if (query.duration !== undefined) {
+    formData.append("duration", query.duration);
+  }
+  if (query.duration !== undefined) {
+    formData.append("duration", `${query.duration}`);
+  }
+  if (query.length !== undefined) {
+    formData.append("length", query.length);
+  }
+  if (query.reply_markup !== undefined) {
+    formData.append("reply_markup", JSON.stringify(query.reply_markup));
+  }
+  if (query.reply_to_message_id !== undefined) {
+    formData.append("reply_to_message_id", query.reply_to_message_id);
+  }
+  if (query.thumb !== undefined) {
+    formData.append("thumb", query.thumb);
+  }
+  formData.append("video_note", query.video_note);
+
+  return formData;
+};
+
 const transformSendVideoQuery: (query: IStateSendVideoQuery) => FormData = (
   query: IStateSendVideoQuery
 ): FormData => {
@@ -217,37 +248,6 @@ const transformSendVideoQuery: (query: IStateSendVideoQuery) => FormData = (
   if (query.width !== undefined) {
     formData.append("width", query.width);
   }
-
-  return formData;
-};
-
-const transformSendVideoNoteQuery: (
-  query: IStateSendVideoNoteQuery
-) => FormData = (query: IStateSendVideoNoteQuery): FormData => {
-  const formData: FormData = new FormData();
-  formData.append("chat_id", query.chat_id);
-  if (query.disable_notification !== undefined) {
-    formData.append("disable_notification", `${query.disable_notification}`);
-  }
-  if (query.duration !== undefined) {
-    formData.append("duration", query.duration);
-  }
-  if (query.duration !== undefined) {
-    formData.append("duration", `${query.duration}`);
-  }
-  if (query.length !== undefined) {
-    formData.append("length", query.length);
-  }
-  if (query.reply_markup !== undefined) {
-    formData.append("reply_markup", JSON.stringify(query.reply_markup));
-  }
-  if (query.reply_to_message_id !== undefined) {
-    formData.append("reply_to_message_id", query.reply_to_message_id);
-  }
-  if (query.thumb !== undefined) {
-    formData.append("thumb", query.thumb);
-  }
-  formData.append("video_note", query.video_note);
 
   return formData;
 };
@@ -313,8 +313,8 @@ export {
   transformSendDocumentQuery,
   transformSendMediaGroupQuery,
   transformSendStickerQuery,
-  transformSendVideoQuery,
   transformSendVideoNoteQuery,
+  transformSendVideoQuery,
   transformSendVoiceQuery,
   transformSendPhotoQuery
 };

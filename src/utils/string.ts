@@ -30,12 +30,14 @@ const transformSearchResultCaption: (
     item.id.videoId !== undefined &&
     item.id.videoId !== null &&
     item.snippet !== undefined &&
+    item.snippet.title !== null &&
     item.snippet.title !== undefined &&
+    item.snippet.description !== null &&
     item.snippet.description !== undefined
   ) {
     const videoId: string = encode(item.id.videoId);
-    res.push(`${item.snippet.title}`);
-    res.push(`${item.snippet.description}`);
+    res.push(item.snippet.title);
+    res.push(item.snippet.description);
     res.push("");
     res.push(
       `${findByCode("1F4E5").char} /${texts.commandDownload}${
@@ -74,6 +76,7 @@ const transformSearchResults: (
       value.id.videoId !== undefined &&
       value.id.videoId !== null &&
       value.snippet !== undefined &&
+      value.snippet.title !== null &&
       value.snippet.title !== undefined
     ) {
       const videoId: string = encode(value.id.videoId);
@@ -150,12 +153,14 @@ const transformVideoCaption: (item: youtube_v3.Schema$Video) => string = (
     item.id !== undefined &&
     item.id !== null &&
     item.snippet !== undefined &&
+    item.snippet.title !== null &&
     item.snippet.title !== undefined &&
+    item.snippet.description !== null &&
     item.snippet.description !== undefined
   ) {
     const videoId: string = encode(item.id);
-    res.push(`${item.snippet.title}`);
-    res.push(`${item.snippet.description}`);
+    res.push(item.snippet.title);
+    res.push(item.snippet.description);
     res.push("");
     res.push(
       `${findByCode("1F4E5").char} /${texts.commandDownload}${
@@ -193,6 +198,7 @@ const transformVideos: (
       value.id !== undefined &&
       value.id !== null &&
       value.snippet !== undefined &&
+      value.snippet.title !== null &&
       value.snippet.title !== undefined
     ) {
       const videoId: string = encode(value.id);

@@ -13,6 +13,8 @@ import {
 import { Action } from "redux";
 import { Observable } from "rxjs";
 
+import { IAction } from "./iAction";
+
 export interface IDependencies {
   botToken?: string;
   collectionObservable?(
@@ -44,6 +46,6 @@ export interface IDependencies {
     options: http.RequestOptions,
     formData: FormData
   ): Observable<any>;
-  testAction$?(): Observable<Action<string>>;
+  testAction$?: Observable<IAction>;
   youtubeDownloadObservable?(videoId: string): Observable<any>;
 }

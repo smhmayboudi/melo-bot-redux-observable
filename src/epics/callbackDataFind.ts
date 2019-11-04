@@ -127,59 +127,90 @@ const callbackDataFind: (
     );
   };
 
-  const xxx = (
+  const transformObservable = (
     action: IActionCallbackDataFind
   ): Observable<
     IActionCallbackDataFind | IActionYoutubeSearchList | IActionYoutubeVideoList
   > => {
-    if (
-      state$ !== undefined &&
-      state$.value.callbackDataFind.query !== undefined &&
-      action.callbackDataFind.result !== undefined &&
-      action.callbackDataFind.result.pageInfo !== undefined &&
-      action.callbackDataFind.result.pageInfo.resultsPerPage !== null
-    ) {
-      if (action.callbackDataFind.result.q !== undefined) {
-        return of(
-          actions.youtubeSearchList.query({
-            query: {
-              key: env.GOOGLE_API_KEY,
-              maxResults:
-                action.callbackDataFind.result.pageInfo.resultsPerPage,
-              part: "id,snippet",
-              pageToken: state$.value.callbackDataFind.query.pageToken,
-              q: action.callbackDataFind.result.q,
-              regionCode: env.GOOGLE_API_REGION_CODE,
-              relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-              safeSearch: env.GOOGLE_API_SAFE_SEARCH,
-              type: env.GOOGLE_API_SEARCH_LIST_TYPE
-            }
-          })
-        );
-      } else if (action.callbackDataFind.result.chart !== undefined) {
-        return of(
-          actions.youtubeVideoList.query({
-            query: {
-              chart: action.callbackDataFind.result.chart,
-              hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-              key: env.GOOGLE_API_KEY,
-              maxResults:
-                action.callbackDataFind.result.pageInfo.resultsPerPage,
-              part: "id,snippet",
-              pageToken: state$.value.callbackDataFind.query.pageToken,
-              regionCode: env.GOOGLE_API_REGION_CODE
-            }
-          })
-        );
-      }
+    if (state$ === undefined) {
+      return of(
+        actions.callbackDataFind.error({
+          error: new Error(texts.state$Undefined)
+        })
+      );
     }
+    if (state$.value.callbackDataFind.query === undefined) {
+      return of(
+        actions.youtubeVideoList.error({
+          error: new Error(texts.state$ValueCallbackDataFindQueryUndefined)
+        })
+      );
+    }
+    if (action.callbackDataFind.result === undefined) {
+      return of(
+        actions.youtubeVideoList.error({
+          error: new Error(texts.actionCallbackDataFindResultUndefined)
+        })
+      );
+    }
+    if (action.callbackDataFind.result.pageInfo === undefined) {
+      return of(
+        actions.youtubeVideoList.error({
+          error: new Error(texts.actionCallbackDataFindResultPageInfoUndefined)
+        })
+      );
+    }
+    if (
+      action.callbackDataFind.result.pageInfo.resultsPerPage === null ||
+      action.callbackDataFind.result.pageInfo.resultsPerPage === undefined
+    ) {
+      return of(
+        actions.youtubeVideoList.error({
+          error: new Error(
+            texts.actionCallbackDataFindResultPageInfoResultsPerPageUndefined
+          )
+        })
+      );
+    }
+    if (action.callbackDataFind.result.q !== undefined) {
+      return of(
+        actions.youtubeSearchList.query({
+          query: {
+            key: env.GOOGLE_API_KEY,
+            maxResults: action.callbackDataFind.result.pageInfo.resultsPerPage,
+            part: "id,snippet",
+            pageToken: state$.value.callbackDataFind.query.pageToken,
+            q: action.callbackDataFind.result.q,
+            regionCode: env.GOOGLE_API_REGION_CODE,
+            relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+            safeSearch: env.GOOGLE_API_SAFE_SEARCH,
+            type: env.GOOGLE_API_SEARCH_LIST_TYPE
+          }
+        })
+      );
+    } else if (action.callbackDataFind.result.chart !== undefined) {
+      return of(
+        actions.youtubeVideoList.query({
+          query: {
+            chart: action.callbackDataFind.result.chart,
+            hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+            key: env.GOOGLE_API_KEY,
+            maxResults: action.callbackDataFind.result.pageInfo.resultsPerPage,
+            part: "id,snippet",
+            pageToken: state$.value.callbackDataFind.query.pageToken,
+            regionCode: env.GOOGLE_API_REGION_CODE
+          }
+        })
+      );
+    }
+
     return of(action);
   };
 
   return action$.pipe(
     ofType(actions.callbackDataFind.CALLBACK_DATA_FIND_QUERY),
     switchMap(actionObservable),
-    switchMap(xxx)
+    switchMap(transformObservable)
   );
 };
 

@@ -138,6 +138,7 @@ const youtubeVideoList: (
         error: new Error(texts.actionYoutubeVideoListResultPageInfoUndefined)
       });
     }
+
     if (
       action.youtubeVideoList.result.pageInfo.resultsPerPage === null ||
       action.youtubeVideoList.result.pageInfo.resultsPerPage === undefined
@@ -183,7 +184,7 @@ const youtubeVideoList: (
         | IActionYoutubeVideoList
       > =>
         ((): Observable<any> =>
-          testAction$ === undefined ? action$ : testAction$())().pipe(
+          testAction$ !== undefined ? testAction$ : action$)().pipe(
           ofType(actions.callbackDataInsert.CALLBACK_DATA_INSERT_RESULT),
           take(1),
           switchMap(transformObservable(action)),

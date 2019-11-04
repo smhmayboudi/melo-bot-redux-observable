@@ -13,6 +13,12 @@ const actionAnswerShippingQueryQueryUndefined =
   "actionAnswerShippingQueryQuery undefined.";
 const actionCallbackDataFindQueryUndefined =
   "actionCallbackDataFindQuery undefined.";
+const actionCallbackDataFindResultPageInfoResultsPerPageUndefined =
+  "actionCallbackDataFindResultPageInfoResultsPerPage undefined.";
+const actionCallbackDataFindResultPageInfoUndefined =
+  "actionCallbackDataFindResultPageInfo undefined.";
+const actionCallbackDataFindResultUndefined =
+  "actionCallbackDataFindResult undefined.";
 const actionCallbackDataInsertQueryUndefined =
   "actionCallbackDataInsertQuery undefined.";
 const actionCallbackDataInsertResultUndefined =
@@ -208,6 +214,8 @@ const messageStart = `WELCOME ${findByCode("1F917").char}`;
 const messageWithPaginationNext = "NEXT";
 const messageWithPaginationPrev = "PREV";
 const state$Undefined = "state$ undefined.";
+const state$ValueCallbackDataFindQueryUndefined =
+  "state$ValueCallbackDataFindQuery undefined.";
 const state$ValueGetChatMemberQueryUndefined =
   "state$ValueGetChatMemberQuery undefined.";
 const state$ValueInlineQueryQueryUndefined =
@@ -242,6 +250,9 @@ export {
   actionAnswerPreCheckoutQueryQueryUndefined,
   actionAnswerShippingQueryQueryUndefined,
   actionCallbackDataFindQueryUndefined,
+  actionCallbackDataFindResultPageInfoResultsPerPageUndefined,
+  actionCallbackDataFindResultPageInfoUndefined,
+  actionCallbackDataFindResultUndefined,
   actionCallbackDataInsertQueryUndefined,
   actionCallbackDataInsertResultUndefined,
   actionChosenInlineResultQueryUndefined,
@@ -364,6 +375,7 @@ export {
   messageWithPaginationNext,
   messageWithPaginationPrev,
   state$Undefined,
+  state$ValueCallbackDataFindQueryUndefined,
   state$ValueGetChatMemberQueryUndefined,
   state$ValueInlineQueryQueryUndefined,
   state$ValueMessageQueryCallbackQueryUndefined,

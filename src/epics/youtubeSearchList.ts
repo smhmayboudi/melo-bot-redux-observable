@@ -133,6 +133,17 @@ const youtubeSearchList: (
         error: new Error(texts.state$ValueMessageQueryUndefined)
       });
     }
+    if (action.youtubeSearchList.result === undefined) {
+      return actions.youtubeSearchList.error({
+        error: new Error(texts.actionYoutubeSearchListResultUndefined)
+      });
+    }
+    if (action.youtubeSearchList.result.pageInfo === undefined) {
+      return actions.youtubeSearchList.error({
+        error: new Error(texts.actionYoutubeSearchListResultPageInfoUndefined)
+      });
+    }
+
     let q = "";
     if (
       state$.value.message.query.message !== undefined &&
@@ -151,16 +162,7 @@ const youtubeSearchList: (
       q =
         state$.value.message.query.callback_query.message.reply_to_message.text;
     }
-    if (action.youtubeSearchList.result === undefined) {
-      return actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultUndefined)
-      });
-    }
-    if (action.youtubeSearchList.result.pageInfo === undefined) {
-      return actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultPageInfoUndefined)
-      });
-    }
+
     if (
       action.youtubeSearchList.result.pageInfo.resultsPerPage === null ||
       action.youtubeSearchList.result.pageInfo.resultsPerPage === undefined
@@ -206,7 +208,7 @@ const youtubeSearchList: (
         | IActionYoutubeSearchList
       > =>
         ((): Observable<any> =>
-          testAction$ === undefined ? action$ : testAction$())().pipe(
+          testAction$ !== undefined ? testAction$ : action$)().pipe(
           ofType(actions.callbackDataInsert.CALLBACK_DATA_INSERT_RESULT),
           take(1),
           switchMap(transformObservable(action)),

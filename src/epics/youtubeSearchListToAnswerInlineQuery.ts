@@ -73,7 +73,7 @@ const transformObservable: (
       })
     );
   }
-  // TODO: why?
+
   const qUndefined = state$.value.youtubeSearchList.query.q === undefined;
   const relatedToVideoIdUndefined =
     state$.value.youtubeSearchList.query.relatedToVideoId === undefined;

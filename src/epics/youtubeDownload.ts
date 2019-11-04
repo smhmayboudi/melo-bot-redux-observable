@@ -334,7 +334,7 @@ const youtubeDownload: (
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > =>
         ((): Observable<any> =>
-          testAction$ === undefined ? action$ : testAction$())().pipe(
+          testAction$ !== undefined ? testAction$ : action$)().pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take(1),
           filter(actionGetChatMemberResultStatus),
