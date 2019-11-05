@@ -1,7 +1,5 @@
-import * as fs from "fs";
-import { MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
-import { NEVER, Observable, ObservableInput, of, race } from "rxjs";
+import { Observable, ObservableInput, of, race } from "rxjs";
 import {
   catchError,
   filter,
@@ -18,11 +16,13 @@ import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IVideoInfo } from "../../types/libs/iVideoInfo";
-import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
-import { caption, pathThumb, pathVideo } from "../utils/string";
+
+import { cache } from "./youtubeDownloadCache";
+// import { transformObservable as transformObservableToSendMessage } from "./youtubeDownloadToSendMessage";
+import { transformObservable as transformObservableToSendVideo } from "./youtubeDownloadToSendVideo";
 
 const youtubeDownload: (
   action$: Observable<IActionYoutubeDownload>,
@@ -37,13 +37,7 @@ const youtubeDownload: (
 ): Observable<
   IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
 > => {
-  const {
-    collectionObservable,
-    findOneObservable,
-    mongoClientObservable,
-    testAction$,
-    youtubeDownloadObservable
-  } = dependencies;
+  const { testAction$, youtubeDownloadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionYoutubeDownload
@@ -82,219 +76,6 @@ const youtubeDownload: (
           })
         )
       )
-    );
-  };
-
-  const cache: (
-    action: IActionYoutubeDownload
-  ) => Observable<IActionYoutubeDownload> = (
-    action: IActionYoutubeDownload
-  ): Observable<IActionYoutubeDownload> => {
-    if (mongoClientObservable === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
-        })
-      );
-    }
-
-    return mongoClientObservable().pipe(
-      switchMap(
-        (client: MongoClient): Observable<IActionYoutubeDownload> => {
-          if (collectionObservable === undefined) {
-            return of(
-              actions.youtubeDownload.error({
-                error: new Error(
-                  texts.epicDependencyCollectionObservableUndefined
-                )
-              })
-            );
-          }
-
-          return collectionObservable(client.db("melodio"), "cache", {}).pipe(
-            switchMap(
-              (collection: any): Observable<IActionYoutubeDownload> => {
-                if (findOneObservable === undefined) {
-                  return of(
-                    actions.youtubeDownload.error({
-                      error: new Error(
-                        texts.epicDependencyFindOneObservableUndefined
-                      )
-                    })
-                  );
-                }
-                if (action.youtubeDownload.query === undefined) {
-                  return of(
-                    actions.youtubeDownload.error({
-                      error: new Error(
-                        texts.actionYoutubeDownloadQueryUndefined
-                      )
-                    })
-                  );
-                }
-
-                return findOneObservable(collection, {
-                  id: action.youtubeDownload.query as string
-                }).pipe(
-                  switchMap(
-                    (
-                      value: IVideo & { id: string; title: string } | null
-                    ): Observable<IActionYoutubeDownload> => {
-                      if (value === null) {
-                        return NEVER;
-                      }
-                      if (value.mime_type === undefined) {
-                        return of(
-                          actions.youtubeDownload.error({
-                            error: new Error(
-                              texts.epicYoutubeDownloadValueMimeTypeUndefined
-                            )
-                          })
-                        );
-                      }
-                      if (value.thumb === undefined) {
-                        return of(
-                          actions.youtubeDownload.error({
-                            error: new Error(
-                              texts.epicYoutubeDownloadValueThumbUndefined
-                            )
-                          })
-                        );
-                      }
-
-                      const videoInfo: IVideoInfo = {
-                        dur: value.duration,
-                        fileId: value.file_id,
-                        fmtList: {
-                          height: value.height,
-                          itag: 0,
-                          width: value.width
-                        },
-                        id: value.id,
-                        itag: 0,
-                        mime: value.mime_type,
-                        thumbnailFileId: value.thumb.file_id,
-                        thumbnailUrl: "",
-                        title: value.title,
-                        url: ""
-                      };
-
-                      return of(
-                        actions.youtubeDownload.result({
-                          result: videoInfo
-                        })
-                      );
-                    }
-                  ),
-                  catchError((error: any) =>
-                    of(
-                      actions.youtubeDownload.error({
-                        error
-                      })
-                    )
-                  )
-                );
-              }
-            ),
-            catchError((error: any) =>
-              of(
-                actions.youtubeDownload.error({
-                  error
-                })
-              )
-            )
-          );
-        }
-      ),
-      catchError((error: any) =>
-        of(
-          actions.youtubeDownload.error({
-            error
-          })
-        )
-      )
-    );
-  };
-
-  const transformObservable: (
-    action: IActionYoutubeDownload
-  ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
-    action: IActionYoutubeDownload
-  ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
-    if (action.type === actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR) {
-      return of(action);
-    }
-    if (action.youtubeDownload.result === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.actionYoutubeDownloadResultUndefined)
-        })
-      );
-    }
-    if (state$ === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.state$Undefined)
-        })
-      );
-    }
-    if (state$.value.message.query === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
-        })
-      );
-    }
-    if (state$.value.message.query.message === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
-        })
-      );
-    }
-
-    const videoInfo: IVideoInfo = action.youtubeDownload.result;
-    const thumb: string | fs.ReadStream =
-      videoInfo.thumbnailFileId !== undefined
-        ? videoInfo.thumbnailFileId
-        : fs.createReadStream(pathThumb(videoInfo.id));
-    const video: string | fs.ReadStream =
-      videoInfo.fileId !== undefined
-        ? videoInfo.fileId
-        : fs.createReadStream(pathVideo(videoInfo.id));
-
-    return of(
-      actions.sendVideo.query({
-        query: {
-          caption: caption(videoInfo.title),
-          chat_id: state$.value.message.query.message.chat.id,
-          disable_notification: true,
-          duration: videoInfo.dur,
-          height: videoInfo.fmtList.height,
-          parse_mode: "HTML",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  callback_data: "callback_data:OK",
-                  text: "OK"
-                },
-                {
-                  callback_data: "callback_data:NOK",
-                  text: "NOK"
-                }
-              ]
-            ]
-          },
-          reply_to_message_id: state$.value.message.query.message.message_id,
-          supports_streaming: true,
-          thumb,
-          video,
-          width: videoInfo.fmtList.width
-        }
-      })
     );
   };
 
@@ -337,8 +118,10 @@ const youtubeDownload: (
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take<IActionGetChatMember & IActionYoutubeDownload>(1),
           filter(actionGetChatMemberResultStatus),
-          switchMapTo(race(actionObservable(action), cache(action))),
-          switchMap(transformObservable),
+          switchMapTo(
+            race(actionObservable(action), cache(action, dependencies))
+          ),
+          switchMap(transformObservableToSendVideo(state$)),
           startWith(startAction())
         )
     )

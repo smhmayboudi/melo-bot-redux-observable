@@ -1,0 +1,97 @@
+import * as fs from "fs";
+import { StateObservable } from "redux-observable";
+import { Observable, of } from "rxjs";
+
+import { IActionSendVideo } from "../../types/iActionSendVideo";
+import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IState } from "../../types/iState";
+import { IVideoInfo } from "../../types/libs/iVideoInfo";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { caption, pathThumb, pathVideo } from "../utils/string";
+
+const transformObservable: (
+  state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeDownload
+) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
+  state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeDownload
+): Observable<IActionYoutubeDownload | IActionSendVideo> => {
+  if (action.type === actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR) {
+    return of(action);
+  }
+  if (action.youtubeDownload.result === undefined) {
+    return of(
+      actions.youtubeDownload.error({
+        error: new Error(texts.actionYoutubeDownloadResultUndefined)
+      })
+    );
+  }
+  if (state$ === undefined) {
+    return of(
+      actions.youtubeDownload.error({
+        error: new Error(texts.state$Undefined)
+      })
+    );
+  }
+  if (state$.value.message.query === undefined) {
+    return of(
+      actions.youtubeDownload.error({
+        error: new Error(texts.state$ValueMessageQueryUndefined)
+      })
+    );
+  }
+  if (state$.value.message.query.message === undefined) {
+    return of(
+      actions.youtubeDownload.error({
+        error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+      })
+    );
+  }
+
+  const videoInfo: IVideoInfo = action.youtubeDownload.result;
+  const thumb: string | fs.ReadStream =
+    videoInfo.thumbnailFileId !== undefined
+      ? videoInfo.thumbnailFileId
+      : fs.createReadStream(pathThumb(videoInfo.id));
+  const video: string | fs.ReadStream =
+    videoInfo.fileId !== undefined
+      ? videoInfo.fileId
+      : fs.createReadStream(pathVideo(videoInfo.id));
+
+  return of(
+    actions.sendVideo.query({
+      query: {
+        caption: caption(videoInfo.title),
+        chat_id: state$.value.message.query.message.chat.id,
+        disable_notification: true,
+        duration: videoInfo.dur,
+        height: videoInfo.fmtList.height,
+        parse_mode: "HTML",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                callback_data: "callback_data:OK",
+                text: "OK"
+              },
+              {
+                callback_data: "callback_data:NOK",
+                text: "NOK"
+              }
+            ]
+          ]
+        },
+        reply_to_message_id: state$.value.message.query.message.message_id,
+        supports_streaming: true,
+        thumb,
+        video,
+        width: videoInfo.fmtList.width
+      }
+    })
+  );
+};
+
+export { transformObservable };
