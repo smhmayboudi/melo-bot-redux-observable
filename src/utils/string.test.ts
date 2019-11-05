@@ -94,7 +94,6 @@ describe("string utils", (): void => {
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
-          // tslint:disable-next-line: no-null-keyword
           videoId: null
         },
         snippet: {
@@ -221,7 +220,6 @@ describe("string utils", (): void => {
   test("should handle transformVideos id null", (): void => {
     const items: youtube_v3.Schema$Video[] = [
       {
-        // tslint:disable-next-line: no-null-keyword
         id: null,
         snippet: {
           title: ""

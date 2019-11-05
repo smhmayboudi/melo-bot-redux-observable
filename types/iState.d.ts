@@ -71,7 +71,11 @@ import { IStateYoutubeDownload } from "./iStateYoutubeDownload";
 import { IStateYoutubeSearchList } from "./iStateYoutubeSearchList";
 import { IStateYoutubeVideoList } from "./iStateYoutubeVideoList";
 
+import { IStateYoutubeDownloadResultFind } from "./iStateYoutubeDownloadResultFind";
+import { IStateYoutubeDownloadResultInsert } from "./iStateYoutubeDownloadResultInsert";
 export interface IState {
+  youtubeDownloadResultInsert: IStateYoutubeDownloadResultInsert;
+  youtubeDownloadResultFind: IStateYoutubeDownloadResultFind;
   addStickerToSet: IStateAddStickerToSet;
   answerCallbackQuery: IStateAnswerCallbackQuery;
   answerInlineQuery: IStateAnswerInlineQuery;

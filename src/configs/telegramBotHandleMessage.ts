@@ -237,7 +237,9 @@ const handleMessage: (
     case "/youtubeDownload":
       store.dispatch(
         actions.youtubeDownload.query({
-          query: decode("/dl_RTB5eGxxZlhmRVk".replace("/dl_", "").trim())
+          query: {
+            id: decode("/dl_RTB5eGxxZlhmRVk".replace("/dl_", "").trim())
+          }
         })
       );
       break;
@@ -349,14 +351,16 @@ const handleMessage: (
         ) {
           store.dispatch(
             actions.youtubeDownload.query({
-              query: decode(
-                message.text
-                  .replace(
-                    `/${texts.commandDownload}${texts.commandSeparator}`,
-                    ""
-                  )
-                  .trim()
-              )
+              query: {
+                id: decode(
+                  message.text
+                    .replace(
+                      `/${texts.commandDownload}${texts.commandSeparator}`,
+                      ""
+                    )
+                    .trim()
+                )
+              }
             })
           );
         } else if (

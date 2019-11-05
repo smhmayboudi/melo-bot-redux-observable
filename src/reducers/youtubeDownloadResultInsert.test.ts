@@ -1,37 +1,28 @@
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
-import * as action from "../actions/youtubeDownload";
+import * as action from "../actions/youtubeDownloadResultInsert";
 
-import * as reducer from "./youtubeDownload";
+import * as reducer from "./youtubeDownloadResultInsert";
 
-describe("youtubeDownload reducer", (): void => {
+describe("youtubeDownloadResultInsert reducer", (): void => {
   const error: Error = new Error("");
-  const query = "";
-  const result: IStateYoutubeDownloadResultInsertQuery = {
-    duration: 0,
-    file_id: "",
-    file_size: 0,
-    height: 0,
-    id: "",
-    mime_type: "",
-    thumb: {
-      file_id: "",
-      file_size: 0,
-      height: 0,
-      width: 0
-    },
-    title: "",
-    width: 0
+  const query: IStateYoutubeDownloadResultInsertQuery = {
+    // TODO: fill it
   };
+  // TODO: check it
+  const result = true;
 
   test("should handle initialState", (): void => {
     expect(
-      reducer.youtubeDownload(undefined, { youtubeDownload: {}, type: "" })
+      reducer.youtubeDownloadResultInsert(undefined, {
+        youtubeDownloadResultInsert: {},
+        type: ""
+      })
     ).toEqual(action.initialState);
   });
 
   test("should handle error", (): void => {
     expect(
-      reducer.youtubeDownload(
+      reducer.youtubeDownloadResultInsert(
         { ...action.initialState, query },
         action.error({ error })
       )
@@ -40,13 +31,16 @@ describe("youtubeDownload reducer", (): void => {
 
   test("should handle query", (): void => {
     expect(
-      reducer.youtubeDownload(action.initialState, action.query({ query }))
+      reducer.youtubeDownloadResultInsert(
+        action.initialState,
+        action.query({ query })
+      )
     ).toEqual({ query });
   });
 
   test("should handle result", (): void => {
     expect(
-      reducer.youtubeDownload(
+      reducer.youtubeDownloadResultInsert(
         { ...action.initialState, query },
         action.result({ result })
       )

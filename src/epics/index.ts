@@ -74,6 +74,8 @@ import { unbanChatMember } from "./unbanChatMember";
 import { unpinChatMessage } from "./unpinChatMessage";
 import { uploadStickerFile } from "./uploadStickerFile";
 import { youtubeDownload } from "./youtubeDownload";
+import { youtubeDownloadResultFind } from "./youtubeDownloadResultFind";
+import { youtubeDownloadResultInsert } from "./youtubeDownloadResultInsert";
 import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
 
@@ -148,6 +150,8 @@ const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   unpinChatMessage,
   uploadStickerFile,
   youtubeDownload,
+  youtubeDownloadResultInsert,
+  youtubeDownloadResultFind,
   youtubeSearchList,
   youtubeVideoList
 );

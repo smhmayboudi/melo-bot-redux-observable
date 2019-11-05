@@ -125,6 +125,12 @@ const actionUploadStickerFileQueryUndefined =
   "actionUploadStickerFileQuery undefined.";
 const actionYoutubeDownloadQueryUndefined =
   "actionYoutubeDownloadQuery undefined.";
+const actionYoutubeDownloadResultFindQueryUndefined =
+  "actionYoutubeDownloadResultFindQuery undefined.";
+const actionYoutubeDownloadResultFindResultUndefined =
+  "actionYoutubeDownloadResultFindResult undefined.";
+const actionYoutubeDownloadResultInsertQueryUndefined =
+  "actionYoutubeDownloadResultInsertQuery undefined.";
 const actionYoutubeDownloadResultUndefined =
   "actionYoutubeDownloadResult undefined.";
 const actionYoutubeSearchListQueryUndefined =
@@ -321,6 +327,9 @@ export {
   actionUnpinChatMessageQueryUndefined,
   actionUploadStickerFileQueryUndefined,
   actionYoutubeDownloadQueryUndefined,
+  actionYoutubeDownloadResultInsertQueryUndefined,
+  actionYoutubeDownloadResultFindQueryUndefined,
+  actionYoutubeDownloadResultFindResultUndefined,
   actionYoutubeDownloadResultUndefined,
   actionYoutubeSearchListQueryUndefined,
   actionYoutubeSearchListResultItemsUndefined,

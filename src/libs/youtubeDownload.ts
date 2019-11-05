@@ -3,9 +3,8 @@ import * as fs from "fs";
 import * as http from "http";
 import * as https from "https";
 
-import { IFmtList } from "../../types/libs/iFmtList";
-import { IVideoInfo } from "../../types/libs/iVideoInfo";
 import { pathThumb, pathVideo } from "../utils/string";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 
 const appDebug: debug.IDebugger = debug("app:lib:youtubeDownload");
 
@@ -31,9 +30,11 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
         return a;
       };
 
-      const parseVideoInfo: (videoInfo: string) => IVideoInfo[] = (
+      const parseVideoInfo: (
         videoInfo: string
-      ): IVideoInfo[] => {
+      ) => IStateYoutubeDownloadResultInsertQuery[] = (
+        videoInfo: string
+      ): IStateYoutubeDownloadResultInsertQuery[] => {
         const rxFmtList = /fmt_list=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
         const fmtListmap: string = unescape(
           (videoInfo.match(rxFmtList) as RegExpMatchArray)[1]
@@ -43,7 +44,11 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
         const fmtListNums: RegExpMatchArray = fmtListmap.match(
           rxFmtListNumG
         ) as RegExpMatchArray;
-        const fmtList: IFmtList[] = [];
+        const fmtList: {
+          height: number;
+          itag: number;
+          width: number;
+        }[] = [];
         const add = 3;
         for (let index = 0; index < fmtListNums.length; index += add) {
           fmtList.push({
@@ -110,34 +115,52 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
         );
         urls = map(urls, unescape);
 
-        const videoInfos: IVideoInfo[] = [];
+        const videoInfos: IStateYoutubeDownloadResultInsertQuery[] = [];
         for (let index = 0; index < durs.length; index = index + 1) {
           videoInfos.push({
-            dur: parseFloat(durs[index]),
-            fmtList: fmtList[index],
+            duration: parseFloat(durs[index]),
+            file_id: urls[index],
+            file_size: 0,
+            height: fmtList[index].height,
             id: videoId,
-            itag: parseInt(itags[index], 10),
-            mime: mimes[index],
-            thumbnailUrl,
+            mime_type: mimes[index],
+            thumb: {
+              file_id: thumbnailUrl,
+              file_size: 0,
+              // TODO: check it
+              height: 0,
+              // TODO: check it
+              width: 0
+            },
             title: decodeURIComponent(title).replace(/\+/g, " "),
-            url: urls[index]
+            width: fmtList[index].width
           });
         }
 
         return videoInfos;
       };
 
-      const downloadVideo: (videoInfos: IVideoInfo[]) => void = (
-        videoInfos: IVideoInfo[]
+      const downloadVideo: (
+        videoInfos: IStateYoutubeDownloadResultInsertQuery[]
+      ) => void = (
+        videoInfos: IStateYoutubeDownloadResultInsertQuery[]
       ): void => {
-        const videoInfo: IVideoInfo = videoInfos
-          .filter((value: IVideoInfo): boolean => value.mime === "video/mp4")
+        const videoInfo: IStateYoutubeDownloadResultInsertQuery = videoInfos
+          .filter(
+            (value: IStateYoutubeDownloadResultInsertQuery): boolean =>
+              value.mime_type === "video/mp4"
+          )
           .sort(
-            (a: IVideoInfo, b: IVideoInfo) => a.fmtList.width - b.fmtList.width
+            (
+              a: IStateYoutubeDownloadResultInsertQuery,
+              b: IStateYoutubeDownloadResultInsertQuery
+            ) => a.width - b.width
           )[0];
 
-        const thumbDownload: (vi: IVideoInfo) => Promise<any> = async (
-          vi: IVideoInfo
+        const thumbDownload: (
+          vi: IStateYoutubeDownloadResultInsertQuery
+        ) => Promise<any> = async (
+          vi: IStateYoutubeDownloadResultInsertQuery
         ): Promise<any> =>
           new Promise(
             (
@@ -148,15 +171,18 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
               fs.stat(
                 thumbPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
-                  // tslint:disable-next-line: strict-type-predicates
                   if (err === null && stats.size > 0) {
                     appDebug("thumbnail serve cache", thumbPath);
                     res();
                   } else {
                     appDebug("thumbnail start download", thumbPath);
+                    // TODO: check it
+                    if (vi.thumb === undefined) {
+                      return;
+                    }
                     https
                       .request(
-                        vi.thumbnailUrl,
+                        vi.thumb.file_id,
                         (response: http.IncomingMessage): void => {
                           appDebug(
                             "thumbnail response.statusCode",
@@ -186,8 +212,10 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
             }
           );
 
-        const videoDownload: (vi: IVideoInfo) => Promise<any> = async (
-          vi: IVideoInfo
+        const videoDownload: (
+          vi: IStateYoutubeDownloadResultInsertQuery
+        ) => Promise<any> = async (
+          vi: IStateYoutubeDownloadResultInsertQuery
         ): Promise<any> =>
           new Promise(
             (
@@ -198,7 +226,6 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
               fs.stat(
                 videoPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
-                  // tslint:disable-next-line: strict-type-predicates
                   if (err === null && stats.size > 0) {
                     appDebug("video serve cache", videoPath);
                     res();
@@ -206,7 +233,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
                     appDebug("video start download", videoPath);
                     https
                       .request(
-                        vi.url,
+                        vi.file_id,
                         (response: http.IncomingMessage): void => {
                           appDebug(
                             "video response.statusCode",
@@ -259,7 +286,9 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
               .on("end", (): void => {
                 const body: string = Buffer.concat(chunks).toString();
                 appDebug("body", body);
-                const videoInfos: IVideoInfo[] = parseVideoInfo(body);
+                const videoInfos: IStateYoutubeDownloadResultInsertQuery[] = parseVideoInfo(
+                  body
+                );
                 downloadVideo(videoInfos);
               });
           }

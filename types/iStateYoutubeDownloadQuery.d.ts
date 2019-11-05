@@ -1,1 +1,3 @@
-export interface IStateYoutubeDownloadQuery extends String {}
+export interface IStateYoutubeDownloadQuery {
+  id: string;
+}

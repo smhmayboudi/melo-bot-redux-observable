@@ -1,6 +1,5 @@
 declare global {
   namespace NodeJS {
-    // tslint:disable-next-line: interface-name
     interface Global {
       __MONGO_DB_NAME__: string;
       __MONGO_URI__: string;
@@ -24,7 +23,7 @@ import { IState } from "../../types/iState";
 import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
-import { IVideoInfo } from "../../types/libs/iVideoInfo";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
@@ -147,21 +146,23 @@ describe("youtubeDownload epic", (): void => {
   };
   const error: Error = new Error("");
   const query: string = encode("small");
-  const result: IVideoInfo = {
-    dur: 0,
-    fmtList: {
+  const result: IStateYoutubeDownloadResultInsertQuery = {
+    duration: 0,
+    file_id: "",
+    file_size: 0,
+    height: 0,
+    id: "",
+    mime_type: "",
+    thumb: {
+      file_id: "",
+      file_size: 0,
       height: 0,
-      itag: 0,
       width: 0
     },
-    id: "small",
-    itag: 0,
-    mime: "video/mp4",
-    thumbnailUrl: "",
     title: "",
-    url: ""
+    width: 0
   };
-  const resultCache: IVideo & { id: string; title: string } = {
+  const resultCache: IStateYoutubeDownloadResultInsertQuery = {
     duration: 0,
     file_id: "small",
     file_size: 0,
@@ -177,7 +178,7 @@ describe("youtubeDownload epic", (): void => {
     title: "",
     width: 0
   };
-  const resultCacheMimeType: IVideo & { id: string; title: string } = {
+  const resultCacheMimeType: IStateYoutubeDownloadResultInsertQuery = {
     duration: 0,
     file_id: "small",
     file_size: 0,
@@ -193,7 +194,7 @@ describe("youtubeDownload epic", (): void => {
     title: "",
     width: 0
   };
-  const resultCacheThumb: IVideo & { id: string; title: string } = {
+  const resultCacheThumb: IStateYoutubeDownloadResultInsertQuery = {
     duration: 0,
     file_id: "small",
     file_size: 0,

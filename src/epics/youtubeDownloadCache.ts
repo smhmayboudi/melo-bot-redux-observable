@@ -4,9 +4,9 @@ import { catchError, switchMap } from "rxjs/operators";
 
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IDependencies } from "../../types/iDependencies";
-import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 
 const cache: (
   action: IActionYoutubeDownload,
@@ -65,11 +65,11 @@ const cache: (
               }
 
               return findOneObservable(collection, {
-                id: action.youtubeDownload.query as string
+                id: action.youtubeDownload.query.id
               }).pipe(
                 switchMap(
                   (
-                    value: IVideo & { id: string; title: string } | null
+                    value: IStateYoutubeDownloadResultInsertQuery | null
                   ): Observable<IActionYoutubeDownload> => {
                     if (value === null) {
                       return NEVER;
@@ -95,22 +95,7 @@ const cache: (
 
                     return of(
                       actions.youtubeDownload.result({
-                        result: {
-                          dur: value.duration,
-                          fileId: value.file_id,
-                          fmtList: {
-                            height: value.height,
-                            itag: 0,
-                            width: value.width
-                          },
-                          id: value.id,
-                          itag: 0,
-                          mime: value.mime_type,
-                          thumbnailFileId: value.thumb.file_id,
-                          thumbnailUrl: "",
-                          title: value.title,
-                          url: ""
-                        }
+                        result: value
                       })
                     );
                   }

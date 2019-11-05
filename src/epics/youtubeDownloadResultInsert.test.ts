@@ -4,39 +4,22 @@ import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { IActionSendVideo } from "../../types/iActionSendVideo";
+import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDownloadResultInsert";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
-import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import * as epic from "../epics/sendVideo";
+import * as epic from "../epics/youtubeDownloadResultInsert";
 
-describe("sendVideo epic", (): void => {
+describe("youtubeDownloadResultInsert epic", (): void => {
   const error: Error = new Error("");
-  const query: IStateSendVideoQuery = {
-    caption: "",
-    chat_id: 0,
-    disable_notification: true,
-    duration: 0,
-    height: 0,
-    parse_mode: "HTML",
-    reply_to_message_id: 0,
-    supports_streaming: true,
-    thumb: "",
-    video: "",
-    width: 0
+  const query: IStateYoutubeDownloadResultInsertQuery = {
+    // TODO: fill it
   };
-  const result: IMessage = {
-    chat: {
-      id: 0,
-      type: "private"
-    },
-    date: 0,
-    message_id: 0
-  };
+  // TODO: check it
+  const result = true;
   const responseOKF: IResponse = {
     ok: false
   };
@@ -58,19 +41,20 @@ describe("sendVideo epic", (): void => {
   test("should handle dependency botToken undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({ query })
-      });
+      const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
+        "-a",
+        { a: actions.youtubeDownloadResultInsert.query({ query }) }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionSendVideo | IActionSendVideo
-      > = epic.sendVideo(action$, state$, dependencies);
+        IActionYoutubeDownloadResultInsert | IActionYoutubeDownloadResultInsert
+      > = epic.youtubeDownloadResultInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.sendVideo.error({
+        a: actions.youtubeDownloadResultInsert.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       });
@@ -80,19 +64,20 @@ describe("sendVideo epic", (): void => {
   test("should handle dependency requestsObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({ query })
-      });
+      const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
+        "-a",
+        { a: actions.youtubeDownloadResultInsert.query({ query }) }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: undefined
       };
       const output$: Observable<
-        IActionSendVideo | IActionSendVideo
-      > = epic.sendVideo(action$, state$, dependencies);
+        IActionYoutubeDownloadResultInsert | IActionYoutubeDownloadResultInsert
+      > = epic.youtubeDownloadResultInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.sendVideo.error({
+        a: actions.youtubeDownloadResultInsert.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       });
@@ -102,40 +87,48 @@ describe("sendVideo epic", (): void => {
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({ query })
-      });
+      const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
-        IActionSendVideo | IActionSendVideo
-      > = epic.sendVideo(action$, state$, dependencies);
+        IActionYoutubeDownloadResultInsert | IActionYoutubeDownloadResultInsert
+      > = epic.youtubeDownloadResultInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.error({ error })
+        a: actions.youtubeDownloadResultInsert.error({ error })
       });
     });
   });
 
-  test("should handle error actionSendVideoQuery undefined", (): void => {
+  test("should handle error actionYoutubeDownloadResultInsertQuery undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: Observable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({})
-      });
+      const action$: Observable<IActionYoutubeDownloadResultInsert> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultInsert.query({})
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionSendVideo | IActionSendVideo
-      > = epic.sendVideo(action$, state$, dependencies);
+        IActionYoutubeDownloadResultInsert | IActionYoutubeDownloadResultInsert
+      > = epic.youtubeDownloadResultInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.sendVideo.error({
-          error: new Error(texts.actionSendVideoQueryUndefined)
+        a: actions.youtubeDownloadResultInsert.error({
+          error: new Error(
+            texts.actionYoutubeDownloadResultInsertQueryUndefined
+          )
         })
       });
     });
@@ -144,22 +137,23 @@ describe("sendVideo epic", (): void => {
   test("should handle result ok false", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({ query })
-      });
+      const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeDownloadResultInsert
+      > = epic.youtubeDownloadResultInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.error({ error: responseOKF })
+        a: actions.youtubeDownloadResultInsert.error({ error: responseOKF })
       });
     });
   });
@@ -167,22 +161,23 @@ describe("sendVideo epic", (): void => {
   test("should handle result ok true", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendVideo> = cold("-a", {
-        a: actions.sendVideo.query({ query })
-      });
+      const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<IActionSendVideo> = epic.sendVideo(
-        action$,
-        state$,
-        dependencies
-      );
+      const output$: Observable<
+        IActionYoutubeDownloadResultInsert
+      > = epic.youtubeDownloadResultInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.sendVideo.result({ result })
+        a: actions.youtubeDownloadResultInsert.result({ result })
       });
     });
   });

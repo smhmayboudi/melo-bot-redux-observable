@@ -13,7 +13,7 @@ import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IVideoInfo } from "../../types/libs/iVideoInfo";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
@@ -66,10 +66,11 @@ const youtubeDownload: (
       );
     }
 
-    return youtubeDownloadObservable(action.youtubeDownload
-      .query as string).pipe(
+    return youtubeDownloadObservable(action.youtubeDownload.query.id).pipe(
       map(
-        (result: IVideoInfo): IActionYoutubeDownload =>
+        (
+          result: IStateYoutubeDownloadResultInsertQuery
+        ): IActionYoutubeDownload =>
           actions.youtubeDownload.result({
             result
           })
@@ -82,6 +83,34 @@ const youtubeDownload: (
         )
       )
     );
+  };
+
+  const transformObservable: (
+    action: IActionYoutubeDownload
+  ) => (
+    action2: any
+  ) => Observable<
+    | IActionGetChatMember
+    | IActionSendMessage
+    | IActionSendVideo
+    | IActionYoutubeDownload
+  > = (action: IActionYoutubeDownload) => (
+    action2: any
+  ): Observable<
+    | IActionGetChatMember
+    | IActionSendMessage
+    | IActionSendVideo
+    | IActionYoutubeDownload
+  > => {
+    if (actionGetChatMemberResultStatus(action2)) {
+      return of(action).pipe(
+        switchMapTo(
+          race(actionObservable(action), cache(action, dependencies))
+        ),
+        switchMap(transformObservableToSendVideo(state$))
+      );
+    }
+    return transformObservableToSendMessage(action, state$);
   };
 
   const startAction: () => IActionGetChatMember | IActionYoutubeDownload = ():
@@ -124,17 +153,7 @@ const youtubeDownload: (
       > =>
         (testAction$ !== undefined ? testAction$ : action$).pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
-          switchMap((action1: any) => {
-            if (actionGetChatMemberResultStatus(action1) === true) {
-              return of(action).pipe(
-                switchMapTo(
-                  race(actionObservable(action), cache(action, dependencies))
-                ),
-                switchMap(transformObservableToSendVideo(state$))
-              );
-            }
-            return transformObservableToSendMessage(action, state$);
-          }),
+          switchMap(transformObservable(action)),
           startWith(startAction())
         )
     )

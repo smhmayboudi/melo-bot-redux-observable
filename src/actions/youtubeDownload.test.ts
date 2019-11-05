@@ -1,23 +1,25 @@
-import { IVideoInfo } from "../../types/libs/iVideoInfo";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 
 import * as action from "./youtubeDownload";
 
 describe("youtubeDownload actions", (): void => {
   const error: Error = new Error("");
   const query = "";
-  const result: IVideoInfo = {
-    dur: 0,
-    fmtList: {
+  const result: IStateYoutubeDownloadResultInsertQuery = {
+    duration: 0,
+    file_id: "",
+    file_size: 0,
+    height: 0,
+    id: "",
+    mime_type: "",
+    thumb: {
+      file_id: "",
+      file_size: 0,
       height: 0,
-      itag: 0,
       width: 0
     },
-    id: "",
-    itag: 0,
-    mime: "",
-    thumbnailUrl: "",
     title: "",
-    url: ""
+    width: 0
   };
 
   test("should handle error", (): void => {

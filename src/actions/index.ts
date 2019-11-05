@@ -68,6 +68,8 @@ import * as unbanChatMember from "./unbanChatMember";
 import * as unpinChatMessage from "./unpinChatMessage";
 import * as uploadStickerFile from "./uploadStickerFile";
 import * as youtubeDownload from "./youtubeDownload";
+import * as youtubeDownloadResultFind from "./youtubeDownloadResultFind";
+import * as youtubeDownloadResultInsert from "./youtubeDownloadResultInsert";
 import * as youtubeSearchList from "./youtubeSearchList";
 import * as youtubeVideoList from "./youtubeVideoList";
 
@@ -142,6 +144,8 @@ export {
   unpinChatMessage,
   uploadStickerFile,
   youtubeDownload,
+  youtubeDownloadResultInsert,
+  youtubeDownloadResultFind,
   youtubeSearchList,
   youtubeVideoList
 };

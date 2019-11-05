@@ -48,7 +48,6 @@ describe("inlineQueryResultArticle utils", (): void => {
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         id: {
-          // tslint:disable-next-line: no-null-keyword
           videoId: null
         },
         snippet: {

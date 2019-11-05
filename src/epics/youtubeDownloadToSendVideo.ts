@@ -5,7 +5,7 @@ import { Observable, of } from "rxjs";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
-import { IVideoInfo } from "../../types/libs/iVideoInfo";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { caption, pathThumb, pathVideo } from "../utils/string";
@@ -51,14 +51,17 @@ const transformObservable: (
     );
   }
 
-  const videoInfo: IVideoInfo = action.youtubeDownload.result;
+  const videoInfo: IStateYoutubeDownloadResultInsertQuery =
+    action.youtubeDownload.result;
+  // TODO: check it file_id
   const thumb: string | fs.ReadStream =
-    videoInfo.thumbnailFileId !== undefined
-      ? videoInfo.thumbnailFileId
+    videoInfo.thumb !== undefined
+      ? videoInfo.thumb.file_id
       : fs.createReadStream(pathThumb(videoInfo.id));
+  // TODO: check it file_id
   const video: string | fs.ReadStream =
-    videoInfo.fileId !== undefined
-      ? videoInfo.fileId
+    videoInfo.file_id !== undefined
+      ? videoInfo.file_id
       : fs.createReadStream(pathVideo(videoInfo.id));
 
   return of(
@@ -67,8 +70,8 @@ const transformObservable: (
         caption: caption(videoInfo.title),
         chat_id: state$.value.message.query.message.chat.id,
         disable_notification: true,
-        duration: videoInfo.dur,
-        height: videoInfo.fmtList.height,
+        duration: videoInfo.duration,
+        height: videoInfo.height,
         parse_mode: "HTML",
         reply_markup: {
           inline_keyboard: [
@@ -88,7 +91,7 @@ const transformObservable: (
         supports_streaming: true,
         thumb,
         video,
-        width: videoInfo.fmtList.width
+        width: videoInfo.width
       }
     })
   );

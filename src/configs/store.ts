@@ -88,6 +88,9 @@ const configureStore: (
     unpinChatMessage: actions.unpinChatMessage.initialState,
     uploadStickerFile: actions.uploadStickerFile.initialState,
     youtubeDownload: actions.youtubeDownload.initialState,
+    youtubeDownloadResultInsert:
+      actions.youtubeDownloadResultInsert.initialState,
+    youtubeDownloadResultFind: actions.youtubeDownloadResultFind.initialState,
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
