@@ -4,18 +4,18 @@ import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { IActionCallbackDataFind } from "../../types/iActionCallbackDataFind";
+import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
-import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
+import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import * as epic from "../epics/callbackDataFind";
+import * as epic from "../epics/callbackQueryDataFind";
 
-describe("callbackDataFind epic", (): void => {
+describe("callbackQueryDataFind epic", (): void => {
   const error: Error = new Error("");
-  const query: IStateCallbackDataFindQuery = {
+  const query: IStateCallbackQueryDataFindQuery = {
     id: "",
     pageToken: ""
   };
@@ -41,8 +41,8 @@ describe("callbackDataFind epic", (): void => {
   test("should handle dependency botToken undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataFind> = cold("-a", {
-        a: actions.callbackDataFind.query({ query })
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -50,10 +50,10 @@ describe("callbackDataFind epic", (): void => {
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionCallbackDataFind | IActionCallbackDataFind
-      > = epic.callbackDataFind(action$, state$, dependencies);
+        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.callbackDataFind.error({
+        a: actions.callbackQueryDataFind.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       });
@@ -63,8 +63,8 @@ describe("callbackDataFind epic", (): void => {
   test("should handle dependency requestsObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataFind> = cold("-a", {
-        a: actions.callbackDataFind.query({ query })
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -72,10 +72,10 @@ describe("callbackDataFind epic", (): void => {
         requestsObservable: undefined
       };
       const output$: Observable<
-        IActionCallbackDataFind | IActionCallbackDataFind
-      > = epic.callbackDataFind(action$, state$, dependencies);
+        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.callbackDataFind.error({
+        a: actions.callbackQueryDataFind.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       });
@@ -85,8 +85,8 @@ describe("callbackDataFind epic", (): void => {
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataFind> = cold("-a", {
-        a: actions.callbackDataFind.query({ query })
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -94,19 +94,19 @@ describe("callbackDataFind epic", (): void => {
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
-        IActionCallbackDataFind | IActionCallbackDataFind
-      > = epic.callbackDataFind(action$, state$, dependencies);
+        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.callbackDataFind.error({ error })
+        a: actions.callbackQueryDataFind.error({ error })
       });
     });
   });
 
-  test("should handle error actionCallbackDataFindQuery undefined", (): void => {
+  test("should handle error actionCallbackQueryDataFindQuery undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: Observable<IActionCallbackDataFind> = cold("-a", {
-        a: actions.callbackDataFind.query({})
+      const action$: Observable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -114,11 +114,11 @@ describe("callbackDataFind epic", (): void => {
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionCallbackDataFind | IActionCallbackDataFind
-      > = epic.callbackDataFind(action$, state$, dependencies);
+        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.callbackDataFind.error({
-          error: new Error(texts.actionCallbackDataFindQueryUndefined)
+        a: actions.callbackQueryDataFind.error({
+          error: new Error(texts.actionCallbackQueryDataFindQueryUndefined)
         })
       });
     });
@@ -127,8 +127,8 @@ describe("callbackDataFind epic", (): void => {
   test("should handle result ok false", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataFind> = cold("-a", {
-        a: actions.callbackDataFind.query({ query })
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -137,10 +137,10 @@ describe("callbackDataFind epic", (): void => {
           cold("--a", { a: responseOKF })
       };
       const output$: Observable<
-        IActionCallbackDataFind
-      > = epic.callbackDataFind(action$, state$, dependencies);
+        IActionCallbackQueryDataFind
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.callbackDataFind.error({ error: responseOKF })
+        a: actions.callbackQueryDataFind.error({ error: responseOKF })
       });
     });
   });
@@ -148,8 +148,8 @@ describe("callbackDataFind epic", (): void => {
   test("should handle result ok true", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataFind> = cold("-a", {
-        a: actions.callbackDataFind.query({ query })
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -158,10 +158,10 @@ describe("callbackDataFind epic", (): void => {
           cold("--a", { a: responseOKT })
       };
       const output$: Observable<
-        IActionCallbackDataFind
-      > = epic.callbackDataFind(action$, state$, dependencies);
+        IActionCallbackQueryDataFind
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.callbackDataFind.result({ result })
+        a: actions.callbackQueryDataFind.result({ result })
       });
     });
   });

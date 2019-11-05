@@ -10,7 +10,7 @@ import { caption, decode } from "../utils/string";
 import * as env from "./env";
 import * as texts from "./texts";
 // import { parse } from "../utils/queryString";
-// import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
+// import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -274,7 +274,7 @@ const handleMessage: (
     default:
       if (message.text !== undefined) {
         // if (message.text.startsWith("/")) {
-        //   const command: IStateCallbackDataFindQuery = parse(message.text.substr(1));
+        //   const command: IStateCallbackQueryDataFindQuery = parse(message.text.substr(1));
         //   console.log("command", command);
         // }
         if (message.text.includes(`/${texts.commandStart}`)) {

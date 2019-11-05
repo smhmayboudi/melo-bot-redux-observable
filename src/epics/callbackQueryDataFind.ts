@@ -3,28 +3,32 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
 
-import { IActionCallbackDataFind } from "../../types/iActionCallbackDataFind";
+import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IStateCallbackDataInsertQuery } from "../../types/iStateCallbackDataInsertQuery";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
-const callbackDataFind: (
-  action$: Observable<IActionCallbackDataFind>,
+const callbackQueryDataFind: (
+  action$: Observable<IActionCallbackQueryDataFind>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<
-  IActionCallbackDataFind | IActionYoutubeSearchList | IActionYoutubeVideoList
+  | IActionCallbackQueryDataFind
+  | IActionYoutubeSearchList
+  | IActionYoutubeVideoList
 > = (
-  action$: Observable<IActionCallbackDataFind>,
+  action$: Observable<IActionCallbackQueryDataFind>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<
-  IActionCallbackDataFind | IActionYoutubeSearchList | IActionYoutubeVideoList
+  | IActionCallbackQueryDataFind
+  | IActionYoutubeSearchList
+  | IActionYoutubeVideoList
 > => {
   const {
     collectionObservable,
@@ -33,13 +37,13 @@ const callbackDataFind: (
   } = dependencies;
 
   const actionObservable: (
-    action: IActionCallbackDataFind
-  ) => Observable<IActionCallbackDataFind> = (
-    action: IActionCallbackDataFind
-  ): Observable<IActionCallbackDataFind> => {
+    action: IActionCallbackQueryDataFind
+  ) => Observable<IActionCallbackQueryDataFind> = (
+    action: IActionCallbackQueryDataFind
+  ): Observable<IActionCallbackQueryDataFind> => {
     if (mongoClientObservable === undefined) {
       return of(
-        actions.callbackDataFind.error({
+        actions.callbackQueryDataFind.error({
           error: new Error(
             texts.epicDependencyMongoClientObservableObservableUndefined
           )
@@ -49,10 +53,10 @@ const callbackDataFind: (
 
     return mongoClientObservable().pipe(
       switchMap(
-        (client: MongoClient): Observable<IActionCallbackDataFind> => {
+        (client: MongoClient): Observable<IActionCallbackQueryDataFind> => {
           if (collectionObservable === undefined) {
             return of(
-              actions.callbackDataFind.error({
+              actions.callbackQueryDataFind.error({
                 error: new Error(
                   texts.epicDependencyCollectionObservableUndefined
                 )
@@ -62,44 +66,44 @@ const callbackDataFind: (
 
           return collectionObservable(
             client.db("melodio"),
-            "callbackData",
+            "callbackQueryData",
             {}
           ).pipe(
             switchMap(
-              (collection: any): Observable<IActionCallbackDataFind> => {
+              (collection: any): Observable<IActionCallbackQueryDataFind> => {
                 if (findOneObservable === undefined) {
                   return of(
-                    actions.callbackDataFind.error({
+                    actions.callbackQueryDataFind.error({
                       error: new Error(
                         texts.epicDependencyFindOneObservableUndefined
                       )
                     })
                   );
                 }
-                if (action.callbackDataFind.query === undefined) {
+                if (action.callbackQueryDataFind.query === undefined) {
                   return of(
-                    actions.callbackDataFind.error({
+                    actions.callbackQueryDataFind.error({
                       error: new Error(
-                        texts.actionCallbackDataFindQueryUndefined
+                        texts.actionCallbackQueryDataFindQueryUndefined
                       )
                     })
                   );
                 }
 
                 return findOneObservable(collection, {
-                  _id: new ObjectId(action.callbackDataFind.query.id)
+                  _id: new ObjectId(action.callbackQueryDataFind.query.id)
                 }).pipe(
-                  switchMap((value: IStateCallbackDataInsertQuery) => {
+                  switchMap((value: IStateCallbackQueryDataInsertQuery) => {
                     console.log("value", value);
                     return of(
-                      actions.callbackDataFind.result({
+                      actions.callbackQueryDataFind.result({
                         result: value
                       })
                     );
                   }),
                   catchError((error: any) =>
                     of(
-                      actions.callbackDataFind.error({
+                      actions.callbackQueryDataFind.error({
                         error
                       })
                     )
@@ -109,7 +113,7 @@ const callbackDataFind: (
             ),
             catchError((error: any) =>
               of(
-                actions.callbackDataFind.error({
+                actions.callbackQueryDataFind.error({
                   error
                 })
               )
@@ -119,7 +123,7 @@ const callbackDataFind: (
       ),
       catchError((error: any) =>
         of(
-          actions.callbackDataFind.error({
+          actions.callbackQueryDataFind.error({
             error
           })
         )
@@ -128,59 +132,64 @@ const callbackDataFind: (
   };
 
   const transformObservable = (
-    action: IActionCallbackDataFind
+    action: IActionCallbackQueryDataFind
   ): Observable<
-    IActionCallbackDataFind | IActionYoutubeSearchList | IActionYoutubeVideoList
+    | IActionCallbackQueryDataFind
+    | IActionYoutubeSearchList
+    | IActionYoutubeVideoList
   > => {
     if (state$ === undefined) {
       return of(
-        actions.callbackDataFind.error({
+        actions.callbackQueryDataFind.error({
           error: new Error(texts.state$Undefined)
         })
       );
     }
-    if (state$.value.callbackDataFind.query === undefined) {
+    if (state$.value.callbackQueryDataFind.query === undefined) {
       return of(
         actions.youtubeVideoList.error({
-          error: new Error(texts.state$ValueCallbackDataFindQueryUndefined)
+          error: new Error(texts.state$ValueCallbackQueryDataFindQueryUndefined)
         })
       );
     }
-    if (action.callbackDataFind.result === undefined) {
+    if (action.callbackQueryDataFind.result === undefined) {
       return of(
         actions.youtubeVideoList.error({
-          error: new Error(texts.actionCallbackDataFindResultUndefined)
+          error: new Error(texts.actionCallbackQueryDataFindResultUndefined)
         })
       );
     }
-    if (action.callbackDataFind.result.pageInfo === undefined) {
-      return of(
-        actions.youtubeVideoList.error({
-          error: new Error(texts.actionCallbackDataFindResultPageInfoUndefined)
-        })
-      );
-    }
-    if (
-      action.callbackDataFind.result.pageInfo.resultsPerPage === null ||
-      action.callbackDataFind.result.pageInfo.resultsPerPage === undefined
-    ) {
+    if (action.callbackQueryDataFind.result.pageInfo === undefined) {
       return of(
         actions.youtubeVideoList.error({
           error: new Error(
-            texts.actionCallbackDataFindResultPageInfoResultsPerPageUndefined
+            texts.actionCallbackQueryDataFindResultPageInfoUndefined
           )
         })
       );
     }
-    if (action.callbackDataFind.result.q !== undefined) {
+    if (
+      action.callbackQueryDataFind.result.pageInfo.resultsPerPage === null ||
+      action.callbackQueryDataFind.result.pageInfo.resultsPerPage === undefined
+    ) {
+      return of(
+        actions.youtubeVideoList.error({
+          error: new Error(
+            texts.actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined
+          )
+        })
+      );
+    }
+    if (action.callbackQueryDataFind.result.q !== undefined) {
       return of(
         actions.youtubeSearchList.query({
           query: {
             key: env.GOOGLE_API_KEY,
-            maxResults: action.callbackDataFind.result.pageInfo.resultsPerPage,
+            maxResults:
+              action.callbackQueryDataFind.result.pageInfo.resultsPerPage,
             part: "id,snippet",
-            pageToken: state$.value.callbackDataFind.query.pageToken,
-            q: action.callbackDataFind.result.q,
+            pageToken: state$.value.callbackQueryDataFind.query.pageToken,
+            q: action.callbackQueryDataFind.result.q,
             regionCode: env.GOOGLE_API_REGION_CODE,
             relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
             safeSearch: env.GOOGLE_API_SAFE_SEARCH,
@@ -188,16 +197,17 @@ const callbackDataFind: (
           }
         })
       );
-    } else if (action.callbackDataFind.result.chart !== undefined) {
+    } else if (action.callbackQueryDataFind.result.chart !== undefined) {
       return of(
         actions.youtubeVideoList.query({
           query: {
-            chart: action.callbackDataFind.result.chart,
+            chart: action.callbackQueryDataFind.result.chart,
             hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
             key: env.GOOGLE_API_KEY,
-            maxResults: action.callbackDataFind.result.pageInfo.resultsPerPage,
+            maxResults:
+              action.callbackQueryDataFind.result.pageInfo.resultsPerPage,
             part: "id,snippet",
-            pageToken: state$.value.callbackDataFind.query.pageToken,
+            pageToken: state$.value.callbackQueryDataFind.query.pageToken,
             regionCode: env.GOOGLE_API_REGION_CODE
           }
         })
@@ -208,10 +218,10 @@ const callbackDataFind: (
   };
 
   return action$.pipe(
-    ofType(actions.callbackDataFind.CALLBACK_DATA_FIND_QUERY),
+    ofType(actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_QUERY),
     switchMap(actionObservable),
     switchMap(transformObservable)
   );
 };
 
-export { callbackDataFind };
+export { callbackQueryDataFind };

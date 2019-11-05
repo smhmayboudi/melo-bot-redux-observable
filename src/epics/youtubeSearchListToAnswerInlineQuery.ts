@@ -1,7 +1,7 @@
 import { Observable, of } from "rxjs";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
-import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
+import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
 import { StateObservable } from "redux-observable";
@@ -14,12 +14,12 @@ const transformObservable: (
   action: IActionYoutubeSearchList,
   state$: StateObservable<IState> | undefined
 ) => (
-  action2: IActionCallbackDataInsert
+  action2: IActionCallbackQueryDataInsert
 ) => Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> = (
   action: IActionYoutubeSearchList,
   state$: StateObservable<IState> | undefined
 ) => (
-  action2: IActionCallbackDataInsert
+  action2: IActionCallbackQueryDataInsert
 ): Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> => {
   if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
     return of(action);
@@ -38,10 +38,10 @@ const transformObservable: (
       })
     );
   }
-  if (action2.callbackDataInsert.result === undefined) {
+  if (action2.callbackQueryDataInsert.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionCallbackDataInsertResultUndefined)
+        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
       })
     );
   }
@@ -96,7 +96,7 @@ const transformObservable: (
     action.youtubeSearchList.result.nextPageToken !== null
   ) {
     nextOffset = stringify({
-      id: action2.callbackDataInsert.result,
+      id: action2.callbackQueryDataInsert.result,
       pageToken: action.youtubeSearchList.result.nextPageToken
     });
   }
@@ -106,7 +106,7 @@ const transformObservable: (
       query: {
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
-        // next_offset: action2.callbackDataInsert.result,
+        // next_offset: action2.callbackQueryDataInsert.result,
         next_offset: nextOffset,
         results: transformSearchResults(
           action.youtubeSearchList.result.items,

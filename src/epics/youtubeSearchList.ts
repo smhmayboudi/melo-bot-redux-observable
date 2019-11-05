@@ -5,7 +5,7 @@ import { Observable, ObservableInput, of } from "rxjs";
 import { catchError, map, startWith, switchMap, take } from "rxjs/operators";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
-import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
+import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageText } from "../../types/iActionEditMessageText";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
@@ -24,7 +24,7 @@ const youtubeSearchList: (
   dependencies: IDependencies
 ) => Observable<
   | IActionAnswerInlineQuery
-  | IActionCallbackDataInsert
+  | IActionCallbackQueryDataInsert
   | IActionEditMessageText
   | IActionSendMessage
   | IActionYoutubeSearchList
@@ -34,7 +34,7 @@ const youtubeSearchList: (
   dependencies: IDependencies
 ): Observable<
   | IActionAnswerInlineQuery
-  | IActionCallbackDataInsert
+  | IActionCallbackQueryDataInsert
   | IActionEditMessageText
   | IActionSendMessage
   | IActionYoutubeSearchList
@@ -88,18 +88,18 @@ const youtubeSearchList: (
   const transformObservable: (
     action: IActionYoutubeSearchList
   ) => (
-    action2: IActionCallbackDataInsert
+    action2: IActionCallbackQueryDataInsert
   ) => Observable<
     | IActionAnswerInlineQuery
-    | IActionCallbackDataInsert
+    | IActionCallbackQueryDataInsert
     | IActionEditMessageText
     | IActionSendMessage
     | IActionYoutubeSearchList
   > = (action: IActionYoutubeSearchList) => (
-    action2: IActionCallbackDataInsert
+    action2: IActionCallbackQueryDataInsert
   ): Observable<
     | IActionAnswerInlineQuery
-    | IActionCallbackDataInsert
+    | IActionCallbackQueryDataInsert
     | IActionEditMessageText
     | IActionSendMessage
     | IActionYoutubeSearchList
@@ -120,9 +120,9 @@ const youtubeSearchList: (
 
   const startAction: (
     action: IActionYoutubeSearchList
-  ) => IActionCallbackDataInsert | IActionYoutubeSearchList = (
+  ) => IActionCallbackQueryDataInsert | IActionYoutubeSearchList = (
     action: IActionYoutubeSearchList
-  ): IActionCallbackDataInsert | IActionYoutubeSearchList => {
+  ): IActionCallbackQueryDataInsert | IActionYoutubeSearchList => {
     if (state$ === undefined) {
       return actions.youtubeSearchList.error({
         error: new Error(texts.state$Undefined)
@@ -184,7 +184,7 @@ const youtubeSearchList: (
       });
     }
 
-    return actions.callbackDataInsert.query({
+    return actions.callbackQueryDataInsert.query({
       query: {
         nextPageToken: action.youtubeSearchList.result.nextPageToken,
         pageInfo: action.youtubeSearchList.result.pageInfo,
@@ -202,14 +202,16 @@ const youtubeSearchList: (
         action: IActionYoutubeSearchList
       ): ObservableInput<
         | IActionAnswerInlineQuery
-        | IActionCallbackDataInsert
+        | IActionCallbackQueryDataInsert
         | IActionEditMessageText
         | IActionSendMessage
         | IActionYoutubeSearchList
       > =>
         (testAction$ !== undefined ? testAction$ : action$).pipe(
-          ofType(actions.callbackDataInsert.CALLBACK_DATA_INSERT_RESULT),
-          take<IActionCallbackDataInsert & IActionYoutubeSearchList>(1),
+          ofType(
+            actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_RESULT
+          ),
+          take<IActionCallbackQueryDataInsert & IActionYoutubeSearchList>(1),
           switchMap(transformObservable(action)),
           startWith(startAction(action))
         )

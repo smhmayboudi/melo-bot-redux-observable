@@ -4,18 +4,18 @@ import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
+import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
-import { IStateCallbackDataInsertQuery } from "../../types/iStateCallbackDataInsertQuery";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import * as epic from "../epics/callbackDataInsert";
+import * as epic from "./callbackQueryDataInsert";
 
-describe("callbackDataInsert epic", (): void => {
+describe("callbackQueryDataInsert epic", (): void => {
   const error: Error = new Error("");
-  const query: IStateCallbackDataInsertQuery = {};
+  const query: IStateCallbackQueryDataInsertQuery = {};
   const result = "";
   const responseOKF: IResponse = {
     ok: false
@@ -38,19 +38,22 @@ describe("callbackDataInsert epic", (): void => {
   test("should handle dependency botToken undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataInsert> = cold("-a", {
-        a: actions.callbackDataInsert.query({ query })
-      });
+      const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
+        "-a",
+        {
+          a: actions.callbackQueryDataInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionCallbackDataInsert | IActionCallbackDataInsert
-      > = epic.callbackDataInsert(action$, state$, dependencies);
+        IActionCallbackQueryDataInsert | IActionCallbackQueryDataInsert
+      > = epic.callbackQueryDataInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.callbackDataInsert.error({
+        a: actions.callbackQueryDataInsert.error({
           error: new Error(texts.epicDependencyBotTokenUndefined)
         })
       });
@@ -60,19 +63,22 @@ describe("callbackDataInsert epic", (): void => {
   test("should handle dependency requestsObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataInsert> = cold("-a", {
-        a: actions.callbackDataInsert.query({ query })
-      });
+      const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
+        "-a",
+        {
+          a: actions.callbackQueryDataInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: undefined
       };
       const output$: Observable<
-        IActionCallbackDataInsert | IActionCallbackDataInsert
-      > = epic.callbackDataInsert(action$, state$, dependencies);
+        IActionCallbackQueryDataInsert | IActionCallbackQueryDataInsert
+      > = epic.callbackQueryDataInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.callbackDataInsert.error({
+        a: actions.callbackQueryDataInsert.error({
           error: new Error(texts.epicDependencyRequestsObservableUndefined)
         })
       });
@@ -82,28 +88,31 @@ describe("callbackDataInsert epic", (): void => {
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataInsert> = cold("-a", {
-        a: actions.callbackDataInsert.query({ query })
-      });
+      const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
+        "-a",
+        {
+          a: actions.callbackQueryDataInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
-        IActionCallbackDataInsert | IActionCallbackDataInsert
-      > = epic.callbackDataInsert(action$, state$, dependencies);
+        IActionCallbackQueryDataInsert | IActionCallbackQueryDataInsert
+      > = epic.callbackQueryDataInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.callbackDataInsert.error({ error })
+        a: actions.callbackQueryDataInsert.error({ error })
       });
     });
   });
 
-  test("should handle error actionCallbackDataInsertQuery undefined", (): void => {
+  test("should handle error actionCallbackQueryDataInsertQuery undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: Observable<IActionCallbackDataInsert> = cold("-a", {
-        a: actions.callbackDataInsert.query({})
+      const action$: Observable<IActionCallbackQueryDataInsert> = cold("-a", {
+        a: actions.callbackQueryDataInsert.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
@@ -111,11 +120,11 @@ describe("callbackDataInsert epic", (): void => {
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
-        IActionCallbackDataInsert | IActionCallbackDataInsert
-      > = epic.callbackDataInsert(action$, state$, dependencies);
+        IActionCallbackQueryDataInsert | IActionCallbackQueryDataInsert
+      > = epic.callbackQueryDataInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.callbackDataInsert.error({
-          error: new Error(texts.actionCallbackDataInsertQueryUndefined)
+        a: actions.callbackQueryDataInsert.error({
+          error: new Error(texts.actionCallbackQueryDataInsertQueryUndefined)
         })
       });
     });
@@ -124,9 +133,12 @@ describe("callbackDataInsert epic", (): void => {
   test("should handle result ok false", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataInsert> = cold("-a", {
-        a: actions.callbackDataInsert.query({ query })
-      });
+      const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
+        "-a",
+        {
+          a: actions.callbackQueryDataInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
@@ -134,10 +146,10 @@ describe("callbackDataInsert epic", (): void => {
           cold("--a", { a: responseOKF })
       };
       const output$: Observable<
-        IActionCallbackDataInsert
-      > = epic.callbackDataInsert(action$, state$, dependencies);
+        IActionCallbackQueryDataInsert
+      > = epic.callbackQueryDataInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.callbackDataInsert.error({ error: responseOKF })
+        a: actions.callbackQueryDataInsert.error({ error: responseOKF })
       });
     });
   });
@@ -145,9 +157,12 @@ describe("callbackDataInsert epic", (): void => {
   test("should handle result ok true", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackDataInsert> = cold("-a", {
-        a: actions.callbackDataInsert.query({ query })
-      });
+      const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
+        "-a",
+        {
+          a: actions.callbackQueryDataInsert.query({ query })
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
@@ -155,10 +170,10 @@ describe("callbackDataInsert epic", (): void => {
           cold("--a", { a: responseOKT })
       };
       const output$: Observable<
-        IActionCallbackDataInsert
-      > = epic.callbackDataInsert(action$, state$, dependencies);
+        IActionCallbackQueryDataInsert
+      > = epic.callbackQueryDataInsert(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
-        a: actions.callbackDataInsert.result({ result })
+        a: actions.callbackQueryDataInsert.result({ result })
       });
     });
   });

@@ -1,6 +1,6 @@
 import { Observable, of } from "rxjs";
 
-import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
+import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
@@ -17,12 +17,12 @@ const transformObservable: (
   action: IActionYoutubeVideoList,
   state$: StateObservable<IState> | undefined
 ) => (
-  action2: IActionCallbackDataInsert
+  action2: IActionCallbackQueryDataInsert
 ) => Observable<IActionEditMessageMedia | IActionYoutubeVideoList> = (
   action: IActionYoutubeVideoList,
   state$: StateObservable<IState> | undefined
 ) => (
-  action2: IActionCallbackDataInsert
+  action2: IActionCallbackQueryDataInsert
 ): Observable<IActionEditMessageMedia | IActionYoutubeVideoList> => {
   if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
     return of(action);
@@ -41,10 +41,10 @@ const transformObservable: (
       })
     );
   }
-  if (action2.callbackDataInsert.result === undefined) {
+  if (action2.callbackQueryDataInsert.result === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.actionCallbackDataInsertResultUndefined)
+        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
       })
     );
   }
@@ -100,7 +100,7 @@ const transformObservable: (
   ) {
     inlineKeyboard.push({
       callback_data: stringify({
-        id: action2.callbackDataInsert.result,
+        id: action2.callbackQueryDataInsert.result,
         pageToken: action.youtubeVideoList.result.prevPageToken
       }),
       text: texts.messageWithPaginationPrev
@@ -112,7 +112,7 @@ const transformObservable: (
   ) {
     inlineKeyboard.push({
       callback_data: stringify({
-        id: action2.callbackDataInsert.result,
+        id: action2.callbackQueryDataInsert.result,
         pageToken: action.youtubeVideoList.result.nextPageToken
       }),
       text: texts.messageWithPaginationNext

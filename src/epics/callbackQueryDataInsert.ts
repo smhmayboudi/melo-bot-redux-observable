@@ -3,21 +3,21 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
 
-import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
+import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
-const callbackDataInsert: (
-  action$: Observable<IActionCallbackDataInsert>,
+const callbackQueryDataInsert: (
+  action$: Observable<IActionCallbackQueryDataInsert>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionCallbackDataInsert> = (
-  action$: Observable<IActionCallbackDataInsert>,
+) => Observable<IActionCallbackQueryDataInsert> = (
+  action$: Observable<IActionCallbackQueryDataInsert>,
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionCallbackDataInsert> => {
+): Observable<IActionCallbackQueryDataInsert> => {
   const {
     collectionObservable,
     insertOneObservable,
@@ -25,13 +25,13 @@ const callbackDataInsert: (
   } = dependencies;
 
   const actionObservable: (
-    action: IActionCallbackDataInsert
-  ) => Observable<IActionCallbackDataInsert> = (
-    action: IActionCallbackDataInsert
-  ): Observable<IActionCallbackDataInsert> => {
+    action: IActionCallbackQueryDataInsert
+  ) => Observable<IActionCallbackQueryDataInsert> = (
+    action: IActionCallbackQueryDataInsert
+  ): Observable<IActionCallbackQueryDataInsert> => {
     if (mongoClientObservable === undefined) {
       return of(
-        actions.callbackDataInsert.error({
+        actions.callbackQueryDataInsert.error({
           error: new Error(
             texts.epicDependencyMongoClientObservableObservableUndefined
           )
@@ -41,10 +41,10 @@ const callbackDataInsert: (
 
     return mongoClientObservable().pipe(
       switchMap(
-        (client: MongoClient): Observable<IActionCallbackDataInsert> => {
+        (client: MongoClient): Observable<IActionCallbackQueryDataInsert> => {
           if (collectionObservable === undefined) {
             return of(
-              actions.callbackDataInsert.error({
+              actions.callbackQueryDataInsert.error({
                 error: new Error(
                   texts.epicDependencyCollectionObservableUndefined
                 )
@@ -54,25 +54,25 @@ const callbackDataInsert: (
 
           return collectionObservable(
             client.db("melodio"),
-            "callbackData",
+            "callbackQueryData",
             {}
           ).pipe(
             switchMap(
-              (collection: any): Observable<IActionCallbackDataInsert> => {
+              (collection: any): Observable<IActionCallbackQueryDataInsert> => {
                 if (insertOneObservable === undefined) {
                   return of(
-                    actions.callbackDataInsert.error({
+                    actions.callbackQueryDataInsert.error({
                       error: new Error(
                         texts.epicDependencyInsertOneObservableUndefined
                       )
                     })
                   );
                 }
-                if (action.callbackDataInsert.query === undefined) {
+                if (action.callbackQueryDataInsert.query === undefined) {
                   return of(
-                    actions.callbackDataInsert.error({
+                    actions.callbackQueryDataInsert.error({
                       error: new Error(
-                        texts.actionCallbackDataInsertQueryUndefined
+                        texts.actionCallbackQueryDataInsertQueryUndefined
                       )
                     })
                   );
@@ -80,19 +80,19 @@ const callbackDataInsert: (
 
                 return insertOneObservable(
                   collection,
-                  action.callbackDataInsert.query,
+                  action.callbackQueryDataInsert.query,
                   {}
                 ).pipe(
                   switchMap((value: InsertOneWriteOpResult<any>) =>
                     of(
-                      actions.callbackDataInsert.result({
+                      actions.callbackQueryDataInsert.result({
                         result: value.insertedId.toString()
                       })
                     )
                   ),
                   catchError((error: any) =>
                     of(
-                      actions.callbackDataInsert.error({
+                      actions.callbackQueryDataInsert.error({
                         error
                       })
                     )
@@ -102,7 +102,7 @@ const callbackDataInsert: (
             ),
             catchError((error: any) =>
               of(
-                actions.callbackDataInsert.error({
+                actions.callbackQueryDataInsert.error({
                   error
                 })
               )
@@ -112,7 +112,7 @@ const callbackDataInsert: (
       ),
       catchError((error: any) =>
         of(
-          actions.callbackDataInsert.error({
+          actions.callbackQueryDataInsert.error({
             error
           })
         )
@@ -121,9 +121,9 @@ const callbackDataInsert: (
   };
 
   return action$.pipe(
-    ofType(actions.callbackDataInsert.CALLBACK_DATA_INSERT_QUERY),
+    ofType(actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_QUERY),
     switchMap(actionObservable)
   );
 };
 
-export { callbackDataInsert };
+export { callbackQueryDataInsert };

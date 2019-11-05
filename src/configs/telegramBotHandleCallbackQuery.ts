@@ -3,7 +3,7 @@ import { Store } from "redux";
 
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import { IState } from "../../types/iState";
-import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
+import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 import { parse } from "../utils/queryString";
 import * as actions from "../actions";
 
@@ -34,11 +34,11 @@ const handleCallbackQuery: (
       })
     );
     if (callbackQuery.data !== undefined) {
-      const callbackQueryData: IStateCallbackDataFindQuery = parse(
+      const callbackQueryData: IStateCallbackQueryDataFindQuery = parse(
         callbackQuery.data
       );
       store.dispatch(
-        actions.callbackDataFind.query({
+        actions.callbackQueryDataFind.query({
           query: {
             id: callbackQueryData.id,
             pageToken: callbackQueryData.pageToken

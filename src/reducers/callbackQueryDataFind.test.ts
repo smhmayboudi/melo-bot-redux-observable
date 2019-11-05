@@ -1,11 +1,11 @@
-import { IStateCallbackDataFindQuery } from "../../types/iStateCallbackDataFindQuery";
-import * as action from "../actions/callbackDataFind";
+import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
+import * as action from "../actions/callbackQueryDataFind";
 
-import * as reducer from "./callbackDataFind";
+import * as reducer from "./callbackQueryDataFind";
 
-describe("callbackDataFind reducer", (): void => {
+describe("callbackQueryDataFind reducer", (): void => {
   const error: Error = new Error("");
-  const query: IStateCallbackDataFindQuery = {
+  const query: IStateCallbackQueryDataFindQuery = {
     id: "",
     pageToken: ""
   };
@@ -13,8 +13,8 @@ describe("callbackDataFind reducer", (): void => {
 
   test("should handle initialState", (): void => {
     expect(
-      reducer.callbackDataFind(undefined, {
-        callbackDataFind: {},
+      reducer.callbackQueryDataFind(undefined, {
+        callbackQueryDataFind: {},
         type: ""
       })
     ).toEqual(action.initialState);
@@ -22,7 +22,7 @@ describe("callbackDataFind reducer", (): void => {
 
   test("should handle error", (): void => {
     expect(
-      reducer.callbackDataFind(
+      reducer.callbackQueryDataFind(
         { ...action.initialState, query },
         action.error({ error })
       )
@@ -31,13 +31,16 @@ describe("callbackDataFind reducer", (): void => {
 
   test("should handle query", (): void => {
     expect(
-      reducer.callbackDataFind(action.initialState, action.query({ query }))
+      reducer.callbackQueryDataFind(
+        action.initialState,
+        action.query({ query })
+      )
     ).toEqual({ query });
   });
 
   test("should handle result", (): void => {
     expect(
-      reducer.callbackDataFind(
+      reducer.callbackQueryDataFind(
         { ...action.initialState, query },
         action.result({ result })
       )

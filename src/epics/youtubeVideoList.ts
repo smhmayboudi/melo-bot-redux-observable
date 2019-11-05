@@ -5,7 +5,7 @@ import { Observable, ObservableInput, of } from "rxjs";
 import { catchError, map, startWith, switchMap, take } from "rxjs/operators";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
-import { IActionCallbackDataInsert } from "../../types/iActionCallbackDataInsert";
+import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
 import { IActionSendPhoto } from "../../types/iActionSendPhoto";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
@@ -24,7 +24,7 @@ const youtubeVideoList: (
   dependencies: IDependencies
 ) => Observable<
   | IActionAnswerInlineQuery
-  | IActionCallbackDataInsert
+  | IActionCallbackQueryDataInsert
   | IActionEditMessageMedia
   | IActionSendPhoto
   | IActionYoutubeVideoList
@@ -34,7 +34,7 @@ const youtubeVideoList: (
   dependencies: IDependencies
 ): Observable<
   | IActionAnswerInlineQuery
-  | IActionCallbackDataInsert
+  | IActionCallbackQueryDataInsert
   | IActionEditMessageMedia
   | IActionSendPhoto
   | IActionYoutubeVideoList
@@ -88,18 +88,18 @@ const youtubeVideoList: (
   const transformObservable: (
     action: IActionYoutubeVideoList
   ) => (
-    action2: IActionCallbackDataInsert
+    action2: IActionCallbackQueryDataInsert
   ) => Observable<
     | IActionAnswerInlineQuery
-    | IActionCallbackDataInsert
+    | IActionCallbackQueryDataInsert
     | IActionEditMessageMedia
     | IActionSendPhoto
     | IActionYoutubeVideoList
   > = (action: IActionYoutubeVideoList) => (
-    action2: IActionCallbackDataInsert
+    action2: IActionCallbackQueryDataInsert
   ): Observable<
     | IActionAnswerInlineQuery
-    | IActionCallbackDataInsert
+    | IActionCallbackQueryDataInsert
     | IActionEditMessageMedia
     | IActionSendPhoto
     | IActionYoutubeVideoList
@@ -120,9 +120,9 @@ const youtubeVideoList: (
 
   const startAction: (
     action: IActionYoutubeVideoList
-  ) => IActionCallbackDataInsert | IActionYoutubeVideoList = (
+  ) => IActionCallbackQueryDataInsert | IActionYoutubeVideoList = (
     action: IActionYoutubeVideoList
-  ): IActionCallbackDataInsert | IActionYoutubeVideoList => {
+  ): IActionCallbackQueryDataInsert | IActionYoutubeVideoList => {
     if (state$ === undefined) {
       return actions.youtubeVideoList.error({
         error: new Error(texts.state$Undefined)
@@ -160,7 +160,7 @@ const youtubeVideoList: (
       });
     }
 
-    return actions.callbackDataInsert.query({
+    return actions.callbackQueryDataInsert.query({
       query: {
         chart: "mostPopular",
         nextPageToken: action.youtubeVideoList.result.nextPageToken,
@@ -178,14 +178,16 @@ const youtubeVideoList: (
         action: IActionYoutubeVideoList
       ): ObservableInput<
         | IActionAnswerInlineQuery
-        | IActionCallbackDataInsert
+        | IActionCallbackQueryDataInsert
         | IActionEditMessageMedia
         | IActionSendPhoto
         | IActionYoutubeVideoList
       > =>
         (testAction$ !== undefined ? testAction$ : action$).pipe(
-          ofType(actions.callbackDataInsert.CALLBACK_DATA_INSERT_RESULT),
-          take<IActionCallbackDataInsert & IActionYoutubeVideoList>(1),
+          ofType(
+            actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_RESULT
+          ),
+          take<IActionCallbackQueryDataInsert & IActionYoutubeVideoList>(1),
           switchMap(transformObservable(action)),
           startWith(startAction(action))
         )
