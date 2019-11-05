@@ -333,10 +333,9 @@ const youtubeDownload: (
       ): ObservableInput<
         IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
       > =>
-        ((): Observable<any> =>
-          testAction$ !== undefined ? testAction$ : action$)().pipe(
+        (testAction$ !== undefined ? testAction$ : action$).pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
-          take(1),
+          take<IActionGetChatMember & IActionYoutubeDownload>(1),
           filter(actionGetChatMemberResultStatus),
           switchMapTo(race(actionObservable(action), cache(action))),
           switchMap(transformObservable),
