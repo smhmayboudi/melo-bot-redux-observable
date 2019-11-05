@@ -3,24 +3,22 @@ import { Observable, of } from "rxjs";
 import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
-import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { actionGetChatMemberResultStatus } from "../utils/boolean";
 
 const getChatMember: (
   action$: Observable<IActionGetChatMember>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionGetChatMember | IActionSendMessage> = (
+) => Observable<IActionGetChatMember> = (
   action$: Observable<IActionGetChatMember>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionGetChatMember | IActionSendMessage> => {
+): Observable<IActionGetChatMember> => {
   const { botToken, requestsObservable } = dependencies;
 
   const actionObservable: (
@@ -81,58 +79,9 @@ const getChatMember: (
     );
   };
 
-  const transformObservable: (
-    action: IActionGetChatMember
-  ) => Observable<IActionGetChatMember | IActionSendMessage> = (
-    action: IActionGetChatMember
-  ): Observable<IActionGetChatMember | IActionSendMessage> => {
-    if (action.type === actions.getChatMember.GET_CHAT_MEMBER_ERROR) {
-      return of(action);
-    }
-    if (state$ === undefined) {
-      return of(
-        actions.getChatMember.error({
-          error: new Error(texts.state$Undefined)
-        })
-      );
-    }
-    if (state$.value.message.query === undefined) {
-      return of(
-        actions.getChatMember.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
-        })
-      );
-    }
-    if (state$.value.message.query.message === undefined) {
-      return of(
-        actions.getChatMember.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
-        })
-      );
-    }
-
-    return of(
-      actions.sendMessage.query({
-        query: {
-          chat_id: state$.value.message.query.message.chat.id,
-          disable_notification: true,
-          disable_web_page_preview: true,
-          parse_mode: "HTML",
-          reply_to_message_id: state$.value.message.query.message.message_id,
-          text: texts.messageJoin
-        }
-      })
-    );
-  };
-
   return action$.pipe(
     ofType(actions.getChatMember.GET_CHAT_MEMBER_QUERY),
-    switchMap(actionObservable),
-    switchMap((action: IActionGetChatMember) =>
-      actionGetChatMemberResultStatus(action)
-        ? of(action)
-        : transformObservable(action)
-    )
+    switchMap(actionObservable)
   );
 };
 

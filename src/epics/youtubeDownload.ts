@@ -2,12 +2,10 @@ import { ofType, StateObservable } from "redux-observable";
 import { Observable, ObservableInput, of, race } from "rxjs";
 import {
   catchError,
-  filter,
   map,
   startWith,
   switchMap,
-  switchMapTo,
-  take
+  switchMapTo
 } from "rxjs/operators";
 
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
@@ -21,21 +19,28 @@ import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
 
 import { cache } from "./youtubeDownloadCache";
-// import { transformObservable as transformObservableToSendMessage } from "./youtubeDownloadToSendMessage";
+import { transformObservable as transformObservableToSendMessage } from "./youtubeDownloadToSendMessage";
 import { transformObservable as transformObservableToSendVideo } from "./youtubeDownloadToSendVideo";
+import { IActionSendMessage } from "../../types/iActionSendMessage";
 
 const youtubeDownload: (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ) => Observable<
-  IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+  | IActionGetChatMember
+  | IActionSendMessage
+  | IActionSendVideo
+  | IActionYoutubeDownload
 > = (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<
-  IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+  | IActionGetChatMember
+  | IActionSendMessage
+  | IActionSendVideo
+  | IActionYoutubeDownload
 > => {
   const { testAction$, youtubeDownloadObservable } = dependencies;
 
@@ -112,16 +117,24 @@ const youtubeDownload: (
       (
         action: IActionYoutubeDownload
       ): ObservableInput<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
       > =>
         (testAction$ !== undefined ? testAction$ : action$).pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
-          take<IActionGetChatMember & IActionYoutubeDownload>(1),
-          filter(actionGetChatMemberResultStatus),
-          switchMapTo(
-            race(actionObservable(action), cache(action, dependencies))
-          ),
-          switchMap(transformObservableToSendVideo(state$)),
+          switchMap((action1: any) => {
+            if (actionGetChatMemberResultStatus(action1) === true) {
+              return of(action).pipe(
+                switchMapTo(
+                  race(actionObservable(action), cache(action, dependencies))
+                ),
+                switchMap(transformObservableToSendVideo(state$))
+              );
+            }
+            return transformObservableToSendMessage(action, state$);
+          }),
           startWith(startAction())
         )
     )
