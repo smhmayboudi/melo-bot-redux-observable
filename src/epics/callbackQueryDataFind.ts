@@ -138,6 +138,12 @@ const callbackQueryDataFind: (
     | IActionYoutubeSearchList
     | IActionYoutubeVideoList
   > => {
+    if (
+      action.type ===
+      actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_ERROR
+    ) {
+      return of(action);
+    }
     if (state$ === undefined) {
       return of(
         actions.callbackQueryDataFind.error({

@@ -129,6 +129,12 @@ Observable<IActionYoutubeDownloadResultFind> = (
   // const transformObservable = (
   //   action: IActionYoutubeDownloadResultFind
   // ): Observable<IActionSendVideo | IActionYoutubeDownloadResultFind> => {
+  //   if (
+  //     action.type ===
+  //     actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_ERROR
+  //   ) {
+  //     return of(action);
+  //   }
   //   if (state$ === undefined) {
   //     return of(
   //       actions.youtubeDownloadResultFind.error({
