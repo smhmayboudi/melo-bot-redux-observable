@@ -11,7 +11,7 @@ import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { transformSendVideoQuery } from "../utils/formData";
-import { caption } from "../utils/string";
+import { caption, decode } from "../utils/string";
 
 const sendVideo: (
   action$: Observable<IActionSendVideo>,
@@ -159,12 +159,14 @@ const sendVideo: (
                   );
                 }
 
-                const id: string = action.sendVideo.result.reply_to_message.text
-                  .replace(
-                    `/${texts.commandDownload}${texts.commandSeparator}`,
-                    ""
-                  )
-                  .trim();
+                const id: string = decode(
+                  action.sendVideo.result.reply_to_message.text
+                    .replace(
+                      `/${texts.commandDownload}${texts.commandSeparator}`,
+                      ""
+                    )
+                    .trim()
+                );
 
                 return findOneObservable(collection, {
                   id
