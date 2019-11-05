@@ -183,10 +183,9 @@ const youtubeVideoList: (
         | IActionSendPhoto
         | IActionYoutubeVideoList
       > =>
-        ((): Observable<any> =>
-          testAction$ !== undefined ? testAction$ : action$)().pipe(
+        (testAction$ !== undefined ? testAction$ : action$).pipe(
           ofType(actions.callbackDataInsert.CALLBACK_DATA_INSERT_RESULT),
-          take(1),
+          take<IActionCallbackDataInsert & IActionYoutubeVideoList>(1),
           switchMap(transformObservable(action)),
           startWith(startAction(action))
         )
