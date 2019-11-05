@@ -24,27 +24,6 @@ const transformObservable: (
   if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
     return of(action);
   }
-  if (action.youtubeSearchList.result === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultUndefined)
-      })
-    );
-  }
-  if (action.youtubeSearchList.result.items === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
-      })
-    );
-  }
-  if (action2.callbackQueryDataInsert.result === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
-      })
-    );
-  }
   if (state$ === undefined) {
     return of(
       actions.youtubeSearchList.error({
@@ -77,6 +56,27 @@ const transformObservable: (
     return of(
       actions.youtubeSearchList.error({
         error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
+      })
+    );
+  }
+  if (action.youtubeSearchList.result === undefined) {
+    return of(
+      actions.youtubeSearchList.error({
+        error: new Error(texts.actionYoutubeSearchListResultUndefined)
+      })
+    );
+  }
+  if (action.youtubeSearchList.result.items === undefined) {
+    return of(
+      actions.youtubeSearchList.error({
+        error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
+      })
+    );
+  }
+  if (action2.callbackQueryDataInsert.result === undefined) {
+    return of(
+      actions.youtubeSearchList.error({
+        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
       })
     );
   }

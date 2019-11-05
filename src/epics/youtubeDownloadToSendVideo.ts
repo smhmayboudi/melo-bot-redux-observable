@@ -22,13 +22,6 @@ const transformObservable: (
   if (action.type === actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR) {
     return of(action);
   }
-  if (action.youtubeDownload.result === undefined) {
-    return of(
-      actions.youtubeDownload.error({
-        error: new Error(texts.actionYoutubeDownloadResultUndefined)
-      })
-    );
-  }
   if (state$ === undefined) {
     return of(
       actions.youtubeDownload.error({
@@ -47,6 +40,13 @@ const transformObservable: (
     return of(
       actions.youtubeDownload.error({
         error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+      })
+    );
+  }
+  if (action.youtubeDownload.result === undefined) {
+    return of(
+      actions.youtubeDownload.error({
+        error: new Error(texts.actionYoutubeDownloadResultUndefined)
       })
     );
   }

@@ -27,27 +27,6 @@ const transformObservable: (
   if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
     return of(action);
   }
-  if (action.youtubeVideoList.result === undefined) {
-    return of(
-      actions.youtubeVideoList.error({
-        error: new Error(texts.actionYoutubeVideoListResultUndefined)
-      })
-    );
-  }
-  if (action.youtubeVideoList.result.items === undefined) {
-    return of(
-      actions.youtubeVideoList.error({
-        error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
-      })
-    );
-  }
-  if (action2.callbackQueryDataInsert.result === undefined) {
-    return of(
-      actions.youtubeVideoList.error({
-        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
-      })
-    );
-  }
   if (state$ === undefined) {
     return of(
       actions.youtubeVideoList.error({
@@ -80,6 +59,27 @@ const transformObservable: (
     return of(
       actions.youtubeVideoList.error({
         error: new Error(texts.state$ValueYoutubeVideoListQueryChartUndefined)
+      })
+    );
+  }
+  if (action.youtubeVideoList.result === undefined) {
+    return of(
+      actions.youtubeVideoList.error({
+        error: new Error(texts.actionYoutubeVideoListResultUndefined)
+      })
+    );
+  }
+  if (action.youtubeVideoList.result.items === undefined) {
+    return of(
+      actions.youtubeVideoList.error({
+        error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
+      })
+    );
+  }
+  if (action2.callbackQueryDataInsert.result === undefined) {
+    return of(
+      actions.youtubeVideoList.error({
+        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
       })
     );
   }
