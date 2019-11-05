@@ -5,10 +5,22 @@ import * as action from "./youtubeDownloadResultInsert";
 describe("youtubeDownloadResultInsert actions", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultInsertQuery = {
-    // TODO: fill it
+    duration: 0,
+    file_id: "",
+    file_size: 0,
+    height: 0,
+    id: "",
+    mime_type: "",
+    thumb: {
+      file_id: "",
+      file_size: 0,
+      height: 0,
+      width: 0
+    },
+    title: "",
+    width: 0
   };
-  // TODO: check it
-  const result = true;
+  const result = "";
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

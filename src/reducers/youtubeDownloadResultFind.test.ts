@@ -6,10 +6,9 @@ import * as reducer from "./youtubeDownloadResultFind";
 describe("youtubeDownloadResultFind reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultFindQuery = {
-    // TODO: fill it
+    id: ""
   };
-  // TODO: check it
-  const result = true;
+  const result = "";
 
   test("should handle initialState", (): void => {
     expect(

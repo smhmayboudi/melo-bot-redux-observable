@@ -16,10 +16,22 @@ import * as epic from "../epics/youtubeDownloadResultInsert";
 describe("youtubeDownloadResultInsert epic", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultInsertQuery = {
-    // TODO: fill it
+    duration: 0,
+    file_id: "",
+    file_size: 0,
+    height: 0,
+    id: "",
+    mime_type: "",
+    thumb: {
+      file_id: "",
+      file_size: 0,
+      height: 0,
+      width: 0
+    },
+    title: "",
+    width: 0
   };
-  // TODO: check it
-  const result = true;
+  const result = "";
   const responseOKF: IResponse = {
     ok: false
   };

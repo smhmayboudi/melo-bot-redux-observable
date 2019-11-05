@@ -16,10 +16,9 @@ import * as epic from "../epics/youtubeDownloadResultFind";
 describe("youtubeDownloadResultFind epic", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultFindQuery = {
-    // TODO: fill it
+    id: ""
   };
-  // TODO: check it
-  const result = true;
+  const result = "";
   const responseOKF: IResponse = {
     ok: false
   };

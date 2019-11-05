@@ -106,7 +106,6 @@ const transformObservable: (
       query: {
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
-        // next_offset: action2.callbackQueryDataInsert.result,
         next_offset: nextOffset,
         results: transformSearchResults(
           action.youtubeSearchList.result.items,

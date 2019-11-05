@@ -5,10 +5,9 @@ import * as action from "./youtubeDownloadResultFind";
 describe("youtubeDownloadResultFind actions", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultFindQuery = {
-    // TODO: fill it
+    id: ""
   };
-  // TODO: check it
-  const result = true;
+  const result = "";
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

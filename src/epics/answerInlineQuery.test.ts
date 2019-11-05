@@ -27,7 +27,6 @@ describe("answerInlineQuery epic", (): void => {
           message_text: "",
           parse_mode: ""
         },
-        // Reply_markup?: IInlineKeyboardMarkup,
         thumb_height: 0,
         thumb_url: "",
         thumb_width: 0,
