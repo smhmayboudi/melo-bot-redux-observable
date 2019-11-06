@@ -1,9 +1,6 @@
 import * as http from "http";
 
-const request: (
-  options: http.RequestOptions,
-  data?: any
-) => Promise<any> = async (
+const request: (options: http.RequestOptions, data?: any) => Promise<any> = (
   _options: http.RequestOptions,
   _data?: any
 ): Promise<any> =>

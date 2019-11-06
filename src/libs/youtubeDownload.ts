@@ -8,13 +8,19 @@ import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutub
 
 const appDebug: debug.IDebugger = debug("app:lib:youtubeDownload");
 
-const youtubeDownload: (videoId: string) => Promise<any> = async (
+const youtubeDownload: (
   videoId: string
-): Promise<any> =>
+) => Promise<IStateYoutubeDownloadResultInsertQuery> = (
+  videoId: string
+): Promise<IStateYoutubeDownloadResultInsertQuery> =>
   new Promise(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
-      reject: (reason?: any) => void
+      resolve: (
+        value?:
+          | IStateYoutubeDownloadResultInsertQuery
+          | PromiseLike<IStateYoutubeDownloadResultInsertQuery>
+      ) => void,
+      reject: (reason?: Error) => void
     ): void => {
       const map: (
         a: RegExpMatchArray,
@@ -159,13 +165,13 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
 
         const thumbDownload: (
           vi: IStateYoutubeDownloadResultInsertQuery
-        ) => Promise<any> = async (
+        ) => Promise<null> = (
           vi: IStateYoutubeDownloadResultInsertQuery
-        ): Promise<any> =>
+        ): Promise<null> =>
           new Promise(
             (
-              res: (value?: any | PromiseLike<any>) => void,
-              rej: (reason?: any) => void
+              res: (value?: null | PromiseLike<null>) => void,
+              rej: (reason?: Error) => void
             ): void => {
               const thumbPath: string = pathThumb(vi.id);
               fs.stat(
@@ -214,13 +220,13 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
 
         const videoDownload: (
           vi: IStateYoutubeDownloadResultInsertQuery
-        ) => Promise<any> = async (
+        ) => Promise<null> = (
           vi: IStateYoutubeDownloadResultInsertQuery
-        ): Promise<any> =>
+        ): Promise<null> =>
           new Promise(
             (
-              res: (value?: any | PromiseLike<any>) => void,
-              rej: (reason?: any) => void
+              res: (value?: null | PromiseLike<null>) => void,
+              rej: (reason?: Error) => void
             ): void => {
               const videoPath: string = pathVideo(vi.id);
               fs.stat(
@@ -267,7 +273,7 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
           .then(() => {
             resolve(videoInfo);
           })
-          .catch((reason: any) => {
+          .catch((reason: Error) => {
             reject(reason);
           });
       };
@@ -277,9 +283,9 @@ const youtubeDownload: (videoId: string) => Promise<any> = async (
           `https://www.youtube.com/get_video_info?video_id=${videoId}`,
           (response: http.IncomingMessage): void => {
             appDebug("response.statusCode", response.statusCode);
-            const chunks: any[] = [];
+            const chunks: Uint8Array[] = [];
             response
-              .on("data", (chunk: any): void => {
+              .on("data", (chunk: Uint8Array): void => {
                 appDebug("data", chunk);
                 chunks.push(chunk);
               })

@@ -8,7 +8,7 @@ const appDebug: debug.IDebugger = debug("app:lib:requestsUpload");
 const requestsUpload: <T>(
   options: https.RequestOptions,
   formData: FormData
-) => Promise<T> = async <T>(
+) => Promise<T> = <T>(
   options: https.RequestOptions,
   formData: FormData
 ): Promise<T> =>
@@ -29,10 +29,10 @@ const requestsUpload: <T>(
           },
           (response: http.IncomingMessage): void => {
             appDebug("response.statusCode", response.statusCode);
-            const chunks: any[] = [];
+            const chunks: Uint8Array[] = [];
             response
               .setEncoding("utf8")
-              .on("data", (chunk: any): void => {
+              .on("data", (chunk: Uint8Array): void => {
                 appDebug("data", chunk);
                 chunks.push(chunk);
               })

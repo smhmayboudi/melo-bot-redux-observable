@@ -14,6 +14,7 @@ import { Action } from "redux";
 import { Observable } from "rxjs";
 
 import { IAction } from "./iAction";
+import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadResultInsertQuery";
 
 export interface IDependencies {
   botToken?: string;
@@ -47,5 +48,7 @@ export interface IDependencies {
     formData: FormData
   ): Observable<any>;
   testAction$?: Observable<IAction>;
-  youtubeDownloadObservable?(videoId: string): Observable<any>;
+  youtubeDownloadObservable?(
+    videoId: string
+  ): Observable<IStateYoutubeDownloadResultInsertQuery>;
 }

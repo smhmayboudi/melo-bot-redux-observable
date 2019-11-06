@@ -3,10 +3,9 @@ import * as http from "http";
 
 const appDebug: debug.IDebugger = debug("app:lib:request");
 
-const request: <T>(
-  options: http.RequestOptions,
-  data?: any
-) => Promise<T> = async <T>(
+const request: <T>(options: http.RequestOptions, data?: any) => Promise<T> = <
+  T
+>(
   options: http.RequestOptions,
   data?: any
 ): Promise<T> =>
@@ -38,10 +37,10 @@ const request: <T>(
           },
           (response: http.IncomingMessage): void => {
             appDebug("response.statusCode", response.statusCode);
-            const chunks: any[] = [];
+            const chunks: Uint8Array[] = [];
             response
               .setEncoding("utf8")
-              .on("data", (chunk: any): void => {
+              .on("data", (chunk: Uint8Array): void => {
                 appDebug("data", chunk);
                 chunks.push(chunk);
               })

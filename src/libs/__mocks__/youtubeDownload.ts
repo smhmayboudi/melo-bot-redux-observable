@@ -1,4 +1,4 @@
-const requests: (_videoId: string) => Promise<any> = async (
+const requests: (_videoId: string) => Promise<any> = (
   _videoId: string
 ): Promise<any> =>
   new Promise(

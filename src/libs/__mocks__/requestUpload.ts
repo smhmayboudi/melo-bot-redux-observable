@@ -4,7 +4,7 @@ import * as http from "http";
 const request: (
   options: http.RequestOptions,
   formData: FormData
-) => Promise<any> = async (
+) => Promise<any> = (
   _options: http.RequestOptions,
   _formData: FormData
 ): Promise<any> =>

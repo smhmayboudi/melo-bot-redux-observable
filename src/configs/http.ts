@@ -50,9 +50,9 @@ const answerBotToken: (
   request: http.IncomingMessage,
   response: http.ServerResponse
 ): void => {
-  const chunks: any[] = [];
+  const chunks: Uint8Array[] = [];
   request
-    .on("data", (chunk: any): void => {
+    .on("data", (chunk: Uint8Array): void => {
       appDebug("data", chunk);
       chunks.push(chunk);
     })
