@@ -27,11 +27,21 @@ const youtubeDownload: (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionYoutubeDownload> = (
+) => Observable<
+  | IActionGetChatMember
+  | IActionSendMessage
+  | IActionSendVideo
+  | IActionYoutubeDownload
+> = (
   action$: Observable<IActionYoutubeDownload>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<IActionYoutubeDownload> => {
+): Observable<
+  | IActionGetChatMember
+  | IActionSendMessage
+  | IActionSendVideo
+  | IActionYoutubeDownload
+> => {
   const { testAction$, youtubeDownloadObservable } = dependencies;
 
   const actionObservable: (
