@@ -20,11 +20,8 @@
     "target": "es6",
     "strict": true
   },
-  "exclude": [
-    "./src/**/__mocks__"
-  ],
   "include": [
     "./src/**/*.ts",
-    "./types/**/*.d.ts"
+    "./types/**/*.ts"
   ]
 }
