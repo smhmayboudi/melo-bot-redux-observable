@@ -271,6 +271,10 @@ const youtubeDownload: (
 
         Promise.all([thumbDownload(videoInfo), videoDownload(videoInfo)])
           .then(() => {
+            videoInfo.file_id = pathVideo(videoInfo.id);
+            if (videoInfo.thumb !== undefined) {
+              videoInfo.thumb.file_id = pathThumb(videoInfo.id);
+            }
             resolve(videoInfo);
           })
           .catch((reason: Error) => {

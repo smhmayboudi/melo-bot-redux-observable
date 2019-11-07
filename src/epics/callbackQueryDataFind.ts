@@ -93,14 +93,13 @@ const callbackQueryDataFind: (
                 return findOneObservable(collection, {
                   _id: new ObjectId(action.callbackQueryDataFind.query.id)
                 }).pipe(
-                  switchMap((value: IStateCallbackQueryDataInsertQuery) => {
-                    console.log("value", value);
-                    return of(
+                  switchMap((value: IStateCallbackQueryDataInsertQuery) =>
+                    of(
                       actions.callbackQueryDataFind.result({
                         result: value
                       })
-                    );
-                  }),
+                    )
+                  ),
                   catchError((error: any) =>
                     of(
                       actions.callbackQueryDataFind.error({

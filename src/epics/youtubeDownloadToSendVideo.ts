@@ -8,7 +8,8 @@ import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { caption, pathThumb, pathVideo } from "../utils/string";
+// import { caption, pathThumb, pathVideo } from "../utils/string";
+import { caption } from "../utils/string";
 
 const transformObservable: (
   state$: StateObservable<IState> | undefined
@@ -53,16 +54,10 @@ const transformObservable: (
 
   const videoInfo: IStateYoutubeDownloadResultInsertQuery =
     action.youtubeDownload.result;
-  // TODO: check it file_id
-  const thumb: string | fs.ReadStream =
-    videoInfo.thumb !== undefined
-      ? videoInfo.thumb.file_id
-      : fs.createReadStream(pathThumb(videoInfo.id));
-  // TODO: check it file_id
-  const video: string | fs.ReadStream =
-    videoInfo.file_id !== undefined
-      ? videoInfo.file_id
-      : fs.createReadStream(pathVideo(videoInfo.id));
+  const thumb = fs.createReadStream(
+    videoInfo.thumb !== undefined ? videoInfo.thumb.file_id : ""
+  );
+  const video = fs.createReadStream(videoInfo.file_id);
 
   return of(
     actions.sendVideo.query({
