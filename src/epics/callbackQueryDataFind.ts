@@ -96,7 +96,7 @@ const callbackQueryDataFind: (
                   switchMap((value: IStateCallbackQueryDataInsertQuery) =>
                     of(
                       actions.callbackQueryDataFind.result({
-                        result: value
+                        result: value === null ? undefined : value
                       })
                     )
                   ),

@@ -84,14 +84,13 @@ const youtubeDownloadResultFind: (
                 return findOneObservable(collection, {
                   id: action.youtubeDownloadResultFind.query.id
                 }).pipe(
-                  switchMap((value: IStateYoutubeDownloadResultInsertQuery) => {
-                    console.log("value", value);
-                    return of(
+                  switchMap((value: IStateYoutubeDownloadResultInsertQuery) =>
+                    of(
                       actions.youtubeDownloadResultFind.result({
-                        result: value
+                        result: value === null ? undefined : value
                       })
-                    );
-                  }),
+                    )
+                  ),
                   catchError((error: any) =>
                     of(
                       actions.youtubeDownloadResultFind.error({
