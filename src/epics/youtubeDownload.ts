@@ -2,15 +2,8 @@ import * as fs from "fs";
 // import { caption, pathThumb, pathVideo } from "../utils/string";
 
 import { ofType, StateObservable } from "redux-observable";
-import { Observable, ObservableInput, of, race } from "rxjs";
-import {
-  catchError,
-  map,
-  startWith,
-  switchMap,
-  switchMapTo,
-  take
-} from "rxjs/operators";
+import { Observable, ObservableInput, of } from "rxjs";
+import { catchError, map, startWith, switchMap, take } from "rxjs/operators";
 
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
@@ -93,116 +86,6 @@ const youtubeDownload: (
       )
     );
   };
-
-  const transformObservableYoutubeDownloadResultFind: (
-    action: IActionYoutubeDownloadResultFind
-  ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
-    action: IActionYoutubeDownloadResultFind
-  ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
-    if (state$ === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.state$Undefined)
-        })
-      );
-    }
-    if (state$.value.message.query === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
-        })
-      );
-    }
-    if (state$.value.message.query.message === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
-        })
-      );
-    }
-    if (action.youtubeDownloadResultFind.result === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(texts.actionYoutubeDownloadResultUndefined)
-        })
-      );
-    }
-    if (action.youtubeDownloadResultFind.result.thumb === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error("texts.actionYoutubeDownloadResultThumbUndefined")
-        })
-      );
-    }
-
-    return of(
-      actions.sendVideo.query({
-        query: {
-          caption: caption(action.youtubeDownloadResultFind.result.title),
-          chat_id: state$.value.message.query.message.chat.id,
-          disable_notification: true,
-          duration: action.youtubeDownloadResultFind.result.duration,
-          height: action.youtubeDownloadResultFind.result.height,
-          parse_mode: "HTML",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  callback_data: "callback_data:OK",
-                  text: "OK"
-                },
-                {
-                  callback_data: "callback_data:NOK",
-                  text: "NOK"
-                }
-              ]
-            ]
-          },
-          reply_to_message_id: state$.value.message.query.message.message_id,
-          supports_streaming: true,
-          thumb: action.youtubeDownloadResultFind.result.thumb.file_id,
-          video: action.youtubeDownloadResultFind.result.file_id,
-          width: action.youtubeDownloadResultFind.result.width
-        }
-      })
-    );
-  };
-
-  const startActionYoutubeDownloadResultFind: (
-    action: IActionYoutubeDownload
-  ) => IActionYoutubeDownload | IActionYoutubeDownloadResultFind = (
-    action: IActionYoutubeDownload
-  ): IActionYoutubeDownload | IActionYoutubeDownloadResultFind => {
-    if (action.youtubeDownload.query === undefined) {
-      return actions.youtubeDownload.error({
-        error: new Error(texts.actionYoutubeDownloadQueryUndefined)
-      });
-    }
-
-    return actions.youtubeDownloadResultFind.query({
-      query: {
-        id: action.youtubeDownload.query.id
-      }
-    });
-  };
-
-  const youtubeDownloadResultFind: (
-    action: IActionYoutubeDownload
-  ) => Observable<
-    IActionYoutubeDownload | IActionYoutubeDownloadResultFind | IActionSendVideo
-  > = (
-    action: IActionYoutubeDownload
-  ): Observable<
-    IActionYoutubeDownload | IActionYoutubeDownloadResultFind | IActionSendVideo
-  > =>
-    (testAction$ !== undefined ? testAction$ : action$).pipe(
-      ofType(
-        actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_RESULT
-      ),
-      take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
-      switchMap(transformObservableYoutubeDownloadResultFind),
-      startWith(startActionYoutubeDownloadResultFind(action))
-    );
 
   const transformObservableSendVideo: (
     action: IActionYoutubeDownload
@@ -335,6 +218,129 @@ const youtubeDownload: (
       startWith(startActionSendVideo(action))
     );
 
+  const transformObservableYoutubeDownloadResultFind: (
+    action: IActionYoutubeDownloadResultFind
+  ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
+    action: IActionYoutubeDownloadResultFind
+  ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
+    if (state$ === undefined) {
+      return of(
+        actions.youtubeDownload.error({
+          error: new Error(texts.state$Undefined)
+        })
+      );
+    }
+    if (state$.value.message.query === undefined) {
+      return of(
+        actions.youtubeDownload.error({
+          error: new Error(texts.state$ValueMessageQueryUndefined)
+        })
+      );
+    }
+    if (state$.value.message.query.message === undefined) {
+      return of(
+        actions.youtubeDownload.error({
+          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+        })
+      );
+    }
+    if (action.youtubeDownloadResultFind.result === undefined) {
+      return of(
+        actions.youtubeDownload.error({
+          error: new Error(texts.actionYoutubeDownloadResultUndefined)
+        })
+      );
+    }
+    if (action.youtubeDownloadResultFind.result.thumb === undefined) {
+      return of(
+        actions.youtubeDownload.error({
+          error: new Error("texts.actionYoutubeDownloadResultThumbUndefined")
+        })
+      );
+    }
+
+    return of(
+      actions.sendVideo.query({
+        query: {
+          caption: caption(action.youtubeDownloadResultFind.result.title),
+          chat_id: state$.value.message.query.message.chat.id,
+          disable_notification: true,
+          duration: action.youtubeDownloadResultFind.result.duration,
+          height: action.youtubeDownloadResultFind.result.height,
+          parse_mode: "HTML",
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  callback_data: "callback_data:OK",
+                  text: "OK"
+                },
+                {
+                  callback_data: "callback_data:NOK",
+                  text: "NOK"
+                }
+              ]
+            ]
+          },
+          reply_to_message_id: state$.value.message.query.message.message_id,
+          supports_streaming: true,
+          thumb: action.youtubeDownloadResultFind.result.thumb.file_id,
+          video: action.youtubeDownloadResultFind.result.file_id,
+          width: action.youtubeDownloadResultFind.result.width
+        }
+      })
+    );
+  };
+
+  const startActionYoutubeDownloadResultFind: (
+    action: IActionYoutubeDownload
+  ) => IActionYoutubeDownload | IActionYoutubeDownloadResultFind = (
+    action: IActionYoutubeDownload
+  ): IActionYoutubeDownload | IActionYoutubeDownloadResultFind => {
+    if (action.youtubeDownload.query === undefined) {
+      return actions.youtubeDownload.error({
+        error: new Error(texts.actionYoutubeDownloadQueryUndefined)
+      });
+    }
+
+    return actions.youtubeDownloadResultFind.query({
+      query: {
+        id: action.youtubeDownload.query.id
+      }
+    });
+  };
+
+  const youtubeDownloadResultFind: (
+    action: IActionYoutubeDownload
+  ) => Observable<
+    | IActionSendVideo
+    | IActionYoutubeDownload
+    | IActionYoutubeDownloadResultFind
+    | IActionYoutubeDownloadResultInsert
+  > = (
+    action: IActionYoutubeDownload
+  ): Observable<
+    | IActionSendVideo
+    | IActionYoutubeDownload
+    | IActionYoutubeDownloadResultFind
+    | IActionYoutubeDownloadResultInsert
+  > =>
+    (testAction$ !== undefined ? testAction$ : action$).pipe(
+      ofType(
+        actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_RESULT
+      ),
+      take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
+      switchMap((act: IActionYoutubeDownloadResultFind) => {
+        if (act.youtubeDownloadResultFind.result !== undefined) {
+          return transformObservableYoutubeDownloadResultFind(act);
+        }
+        return actionObservable(action).pipe(
+          switchMap((act2: IActionYoutubeDownload) => sendVideo(act2))
+        );
+      }),
+      startWith(startActionYoutubeDownloadResultFind(action))
+    );
+
   const transformObservableGetChatMember: (
     action: IActionYoutubeDownload
   ) => (
@@ -357,15 +363,7 @@ const youtubeDownload: (
     | IActionYoutubeDownloadResultInsert
   > => {
     if (actionGetChatMemberResultStatus(action2)) {
-      // return (testAction$ !== undefined ? testAction$ : action$).pipe(
-      return of(action).pipe(
-        switchMapTo(
-          race(
-            actionObservable(action).pipe(switchMap(sendVideo)),
-            youtubeDownloadResultFind(action)
-          )
-        )
-      );
+      return youtubeDownloadResultFind(action);
     }
     return transformObservableToSendMessage(action, state$);
   };
