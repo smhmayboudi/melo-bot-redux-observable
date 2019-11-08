@@ -198,7 +198,7 @@ const epicYoutubeDownloadValueThumbUndefined =
 const messageAdvertisementChannel = `${findByCode("1F194").char} melobit`;
 const messageAdvertisementChannelJoinLink =
   "https://t.me/joinchat/AAAAADu2QGw8mAt1RjY3nw";
-const messageChannel = `${findByCode("1F194").char} melodio`;
+const messageChannel = `${findByCode("1F194").char} @melodio`;
 const messageChannelJoinLink = "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
 const messageError = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
   findByCode("1F915").char
