@@ -10,12 +10,9 @@ import * as actions from "../actions";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleCallbackQuery: (
-  store: Store<IState> & { dispatch: {} },
+  store: Store<IState>,
   callbackQuery: ICallbackQuery
-) => void = (
-  store: Store<IState> & { dispatch: {} },
-  callbackQuery: ICallbackQuery
-): void => {
+) => void = (store: Store<IState>, callbackQuery: ICallbackQuery): void => {
   appDebug("telegramBot:handleCallbackQuery");
   if (callbackQuery.inline_message_id !== undefined) {
     store.dispatch(

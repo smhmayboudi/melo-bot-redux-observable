@@ -14,11 +14,8 @@ import * as texts from "./texts";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
-const handleMessage: (
-  store: Store<IState> & { dispatch: {} },
-  message: IMessage
-) => void = (
-  store: Store<IState> & { dispatch: {} },
+const handleMessage: (store: Store<IState>, message: IMessage) => void = (
+  store: Store<IState>,
   message: IMessage
 ): void => {
   appDebug("telegramBot:handleMessage");

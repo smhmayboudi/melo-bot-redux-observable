@@ -12,11 +12,9 @@ import { index as epics } from "../epics";
 import { index as middlewares } from "../middlewares";
 import { index as reducers } from "../reducers";
 
-const configureStore: (
+const configureStore: (dependencies?: IDependencies) => Store<IState> = (
   dependencies?: IDependencies
-) => Store<IState> & { dispatch: {} } = (
-  dependencies?: IDependencies
-): Store<IState> & { dispatch: {} } => {
+): Store<IState> => {
   const preloadedState: DeepPartial<IState> = {
     addStickerToSet: actions.addStickerToSet.initialState,
     answerCallbackQuery: actions.answerCallbackQuery.initialState,
@@ -107,7 +105,7 @@ const configureStore: (
     port: env.REMOTEDEV_PORT,
     realtime: env.REMOTEDEV_REALTIME
   });
-  const store: Store<IState> & { dispatch: {} } = createStore(
+  const store: Store<IState> = createStore(
     reducers,
     preloadedState,
     composeEnhancers(applyMiddleware(epicMiddleware), enhancers, middlewares)

@@ -6,11 +6,8 @@ import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
-const handleEditedMessage: (
-  store: Store<IState> & { dispatch: {} },
-  message: IMessage
-) => void = (
-  _store: Store<IState> & { dispatch: {} },
+const handleEditedMessage: (store: Store<IState>, message: IMessage) => void = (
+  _store: Store<IState>,
   _message: IMessage
 ): void => {
   appDebug("telegramBot:handleEditedMessage");

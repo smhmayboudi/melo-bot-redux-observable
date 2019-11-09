@@ -7,12 +7,9 @@ import { IShippingQuery } from "../../types/telegramBot/payments/iShippingQuery"
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleShippingQuery: (
-  store: Store<IState> & { dispatch: {} },
+  store: Store<IState>,
   shippingQuery: IShippingQuery
-) => void = (
-  _store: Store<IState> & { dispatch: {} },
-  _shippingQuery: IShippingQuery
-): void => {
+) => void = (_store: Store<IState>, _shippingQuery: IShippingQuery): void => {
   appDebug("telegramBot:handleShippingQuery");
 };
 

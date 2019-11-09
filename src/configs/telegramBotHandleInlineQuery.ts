@@ -8,12 +8,9 @@ import * as actions from "../actions";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleInlineQuery: (
-  store: Store<IState> & { dispatch: {} },
+  store: Store<IState>,
   inlineQuery: IInlineQuery
-) => void = (
-  store: Store<IState> & { dispatch: {} },
-  inlineQuery: IInlineQuery
-): void => {
+) => void = (store: Store<IState>, inlineQuery: IInlineQuery): void => {
   appDebug("telegramBot:handleInlineQuery");
   store.dispatch(actions.inlineQuery.query({ query: inlineQuery }));
 };

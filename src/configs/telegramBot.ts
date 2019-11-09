@@ -53,7 +53,7 @@ const operate: (message: IStateMessageQuery) => void = (
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-  const store: Store<IState> & { dispatch: {} } = configureStore({
+  const store: Store<IState> = configureStore({
     botToken: env.BOT_TOKEN,
     collectionObservable,
     findOneObservable,

@@ -8,10 +8,10 @@ import * as actions from "../actions";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleChosenInlineResult: (
-  store: Store<IState> & { dispatch: {} },
+  store: Store<IState>,
   chosenInlineResult: IChosenInlineResult
 ) => void = (
-  store: Store<IState> & { dispatch: {} },
+  store: Store<IState>,
   chosenInlineResult: IChosenInlineResult
 ): void => {
   appDebug("telegramBot:handleChosenInlineResult");
