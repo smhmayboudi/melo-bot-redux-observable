@@ -130,7 +130,13 @@ const callbackQueryDataFind: (
     );
   };
 
-  const transformObservable = (
+  const transformObservable: (
+    action: IActionCallbackQueryDataFind
+  ) => Observable<
+    | IActionCallbackQueryDataFind
+    | IActionYoutubeSearchList
+    | IActionYoutubeVideoList
+  > = (
     action: IActionCallbackQueryDataFind
   ): Observable<
     | IActionCallbackQueryDataFind
@@ -152,21 +158,21 @@ const callbackQueryDataFind: (
     }
     if (state$.value.callbackQueryDataFind.query === undefined) {
       return of(
-        actions.youtubeVideoList.error({
+        actions.callbackQueryDataFind.error({
           error: new Error(texts.state$ValueCallbackQueryDataFindQueryUndefined)
         })
       );
     }
     if (action.callbackQueryDataFind.result === undefined) {
       return of(
-        actions.youtubeVideoList.error({
+        actions.callbackQueryDataFind.error({
           error: new Error(texts.actionCallbackQueryDataFindResultUndefined)
         })
       );
     }
     if (action.callbackQueryDataFind.result.pageInfo === undefined) {
       return of(
-        actions.youtubeVideoList.error({
+        actions.callbackQueryDataFind.error({
           error: new Error(
             texts.actionCallbackQueryDataFindResultPageInfoUndefined
           )
@@ -178,7 +184,7 @@ const callbackQueryDataFind: (
       action.callbackQueryDataFind.result.pageInfo.resultsPerPage === undefined
     ) {
       return of(
-        actions.youtubeVideoList.error({
+        actions.callbackQueryDataFind.error({
           error: new Error(
             texts.actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined
           )
