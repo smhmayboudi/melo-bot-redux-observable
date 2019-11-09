@@ -40,11 +40,16 @@ jest.mock("fs");
 
 describe("youtubeDownload epic", (): void => {
   const initialState: IState = {
+    youtubeDownloadResultInsert:
+      actions.youtubeDownloadResultInsert.initialState,
+    youtubeDownloadResultFind: actions.youtubeDownloadResultFind.initialState,
     addStickerToSet: actions.addStickerToSet.initialState,
     answerCallbackQuery: actions.answerCallbackQuery.initialState,
     answerInlineQuery: actions.answerInlineQuery.initialState,
     answerPreCheckoutQuery: actions.answerPreCheckoutQuery.initialState,
     answerShippingQuery: actions.answerShippingQuery.initialState,
+    callbackQueryDataFind: actions.callbackQueryDataFind.initialState,
+    callbackQueryDataInsert: actions.callbackQueryDataInsert.initialState,
     chosenInlineResult: actions.chosenInlineResult.initialState,
     createNewStickerSet: actions.createNewStickerSet.initialState,
     deleteChatPhoto: actions.deleteChatPhoto.initialState,
