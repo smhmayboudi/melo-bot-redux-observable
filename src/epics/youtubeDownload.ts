@@ -1,5 +1,4 @@
 import * as fs from "fs";
-// import { caption, pathThumb, pathVideo } from "../utils/string";
 
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, ObservableInput, of } from "rxjs";
@@ -115,7 +114,7 @@ const youtubeDownload: (
     if (action2.sendVideo.result.video === undefined) {
       return of(
         actions.youtubeDownload.error({
-          error: new Error("texts.actionYoutubeDownloadResultVideoUndefined")
+          error: new Error(texts.actionYoutubeDownloadResultVideoUndefined)
         })
       );
     }
@@ -164,7 +163,7 @@ const youtubeDownload: (
     }
     if (action.youtubeDownload.result.thumb === undefined) {
       return actions.youtubeDownload.error({
-        error: new Error("texts.actionYoutubeDownloadResultThumbUndefined")
+        error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
       });
     }
 
@@ -254,7 +253,7 @@ const youtubeDownload: (
     if (action.youtubeDownloadResultFind.result.thumb === undefined) {
       return of(
         actions.youtubeDownload.error({
-          error: new Error("texts.actionYoutubeDownloadResultThumbUndefined")
+          error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
         })
       );
     }
@@ -330,13 +329,11 @@ const youtubeDownload: (
         actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_RESULT
       ),
       take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
-      switchMap((act: IActionYoutubeDownloadResultFind) => {
-        if (act.youtubeDownloadResultFind.result !== undefined) {
-          return transformObservableYoutubeDownloadResultFind(act);
+      switchMap((action2: IActionYoutubeDownloadResultFind) => {
+        if (action2.youtubeDownloadResultFind.result !== undefined) {
+          return transformObservableYoutubeDownloadResultFind(action2);
         }
-        return actionObservable(action).pipe(
-          switchMap((act2: IActionYoutubeDownload) => sendVideo(act2))
-        );
+        return actionObservable(action).pipe(switchMap(sendVideo));
       }),
       startWith(startActionYoutubeDownloadResultFind(action))
     );

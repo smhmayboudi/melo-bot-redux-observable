@@ -131,8 +131,12 @@ const actionYoutubeDownloadResultFindResultUndefined =
   "actionYoutubeDownloadResultFindResult undefined.";
 const actionYoutubeDownloadResultInsertQueryUndefined =
   "actionYoutubeDownloadResultInsertQuery undefined.";
+const actionYoutubeDownloadResultThumbUndefined =
+  "actionYoutubeDownloadResultThumb undefined.";
 const actionYoutubeDownloadResultUndefined =
   "actionYoutubeDownloadResult undefined.";
+const actionYoutubeDownloadResultVideoUndefined =
+  "actionYoutubeDownloadResultVideo undefined.";
 const actionYoutubeSearchListQueryUndefined =
   "actionYoutubeSearchListQuery undefined.";
 const actionYoutubeSearchListResultItemsUndefined =
@@ -330,7 +334,9 @@ export {
   actionYoutubeDownloadResultInsertQueryUndefined,
   actionYoutubeDownloadResultFindQueryUndefined,
   actionYoutubeDownloadResultFindResultUndefined,
+  actionYoutubeDownloadResultThumbUndefined,
   actionYoutubeDownloadResultUndefined,
+  actionYoutubeDownloadResultVideoUndefined,
   actionYoutubeSearchListQueryUndefined,
   actionYoutubeSearchListResultItemsUndefined,
   actionYoutubeSearchListResultNextPageTokenUndefined,
