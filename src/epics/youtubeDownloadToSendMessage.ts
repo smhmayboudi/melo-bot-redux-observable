@@ -7,7 +7,7 @@ import { StateObservable } from "redux-observable";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
-const transformObservable: (
+const transformObservableSendMessage: (
   action: IActionYoutubeDownload,
   state$: StateObservable<IState> | undefined
 ) => Observable<IActionSendMessage | IActionYoutubeDownload> = (
@@ -53,4 +53,4 @@ const transformObservable: (
   );
 };
 
-export { transformObservable };
+export { transformObservableSendMessage };
