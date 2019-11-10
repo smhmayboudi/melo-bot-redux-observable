@@ -92,8 +92,8 @@ const transformObservable: (
 
   let nextOffset = "";
   if (
-    action.youtubeSearchList.result.nextPageToken !== undefined &&
-    action.youtubeSearchList.result.nextPageToken !== null
+    action.youtubeSearchList.result.nextPageToken !== null &&
+    action.youtubeSearchList.result.nextPageToken !== undefined
   ) {
     nextOffset = stringify({
       id: action2.callbackQueryDataInsert.result,

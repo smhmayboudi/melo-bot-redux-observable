@@ -18,7 +18,7 @@ const transformAddStickerToSetQuery: (
   const formData: FormData = new FormData();
   formData.append("emojis", query.emojis);
   if (query.mask_position !== undefined) {
-    formData.append("mask_position", query.mask_position);
+    formData.append("mask_position", JSON.stringify(query.mask_position));
   }
   formData.append("name", query.name);
   formData.append("png_sticker", `${query.png_sticker}`);
@@ -33,7 +33,7 @@ const transformCreateNewStickerSetQuery: (
   const formData: FormData = new FormData();
   formData.append("emojis", query.emojis);
   if (query.mask_position !== undefined) {
-    formData.append("mask_position", query.mask_position);
+    formData.append("mask_position", JSON.stringify(query.mask_position));
   }
   formData.append("name", query.name);
   formData.append("png_sticker", `${query.png_sticker}`);
@@ -42,7 +42,7 @@ const transformCreateNewStickerSetQuery: (
   return formData;
 };
 
-const transformSenAnimationQuery: (
+const transformSendAnimationQuery: (
   query: IStateSendAnimationQuery
 ) => FormData = (query: IStateSendAnimationQuery): FormData => {
   const formData: FormData = new FormData();
@@ -141,7 +141,9 @@ const transformSendDocumentQuery: (
   if (query.reply_to_message_id !== undefined) {
     formData.append("reply_to_message_id", query.reply_to_message_id);
   }
-  formData.append("thumb", query.thumb);
+  if (query.thumb !== undefined) {
+    formData.append("thumb", query.thumb);
+  }
 
   return formData;
 };
@@ -154,7 +156,7 @@ const transformSendMediaGroupQuery: (
   if (query.disable_notification !== undefined) {
     formData.append("disable_notification", `${query.disable_notification}`);
   }
-  formData.append("media", query.media);
+  formData.append("media", JSON.stringify(query.media));
   if (query.reply_to_message_id !== undefined) {
     formData.append("reply_to_message_id", query.reply_to_message_id);
   }
@@ -308,7 +310,7 @@ const transformSendPhotoQuery: (query: IStateSendPhotoQuery) => FormData = (
 export {
   transformAddStickerToSetQuery,
   transformCreateNewStickerSetQuery,
-  transformSenAnimationQuery,
+  transformSendAnimationQuery,
   transformSendAudioQuery,
   transformSendDocumentQuery,
   transformSendMediaGroupQuery,

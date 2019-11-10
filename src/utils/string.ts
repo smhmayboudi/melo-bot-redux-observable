@@ -27,8 +27,8 @@ const transformSearchResultCaption: (
   const res: string[] = [];
   if (
     item.id !== undefined &&
-    item.id.videoId !== undefined &&
     item.id.videoId !== null &&
+    item.id.videoId !== undefined &&
     item.snippet !== undefined &&
     item.snippet.title !== null &&
     item.snippet.title !== undefined &&
@@ -73,8 +73,8 @@ const transformSearchResults: (
     const msg: string[] = [];
     if (
       value.id !== undefined &&
-      value.id.videoId !== undefined &&
       value.id.videoId !== null &&
+      value.id.videoId !== undefined &&
       value.snippet !== undefined &&
       value.snippet.title !== null &&
       value.snippet.title !== undefined

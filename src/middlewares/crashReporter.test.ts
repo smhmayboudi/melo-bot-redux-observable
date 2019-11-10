@@ -183,9 +183,12 @@ describe("crashReporter middleware", (): void => {
 
   test("should handle exception action", (): void => {
     const error: Error = new Error("");
-    const { next, invoke } = create(jest.fn(() => initialState), (): void => {
-      throw error;
-    });
+    const { next, invoke } = create(
+      jest.fn(() => initialState),
+      (): void => {
+        throw error;
+      }
+    );
     const action: Action<string> = actions.message.query({ query });
     try {
       invoke(action);

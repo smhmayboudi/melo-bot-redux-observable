@@ -7,7 +7,14 @@ describe("youtubeDownloadResultFind actions", (): void => {
   const query: IStateYoutubeDownloadResultFindQuery = {
     id: ""
   };
-  const result = "";
+  const result = {
+    duration: 0,
+    file_id: "",
+    height: 0,
+    id: "",
+    title: "",
+    width: 0
+  };
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

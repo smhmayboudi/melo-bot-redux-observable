@@ -5,7 +5,9 @@ import * as reducer from "./youtubeDownload";
 
 describe("youtubeDownload reducer", (): void => {
   const error: Error = new Error("");
-  const query = "";
+  const query = {
+    id: ""
+  };
   const result: IStateYoutubeDownloadResultInsertQuery = {
     duration: 0,
     file_id: "",

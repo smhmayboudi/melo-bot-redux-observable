@@ -78,6 +78,7 @@ const SENTRY_RELEASE: string = getter("SENTRY_RELEASE", "string");
 const SENTRY_SERVERNAME: string = getter("SENTRY_SERVERNAME", "string");
 
 export {
+  getter,
   BOT_TOKEN,
   GOOGLE_API_KEY,
   GOOGLE_API_LIST_MAX_RESULTS,

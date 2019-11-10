@@ -6,7 +6,6 @@ import { TestScheduler } from "rxjs/testing";
 import {
   collectionObservable,
   connectObservable,
-  createCollectionObservable,
   findOneObservable,
   insertOneObservable
 } from "./mongodbObservable";
@@ -37,16 +36,6 @@ describe("mongodbObservable lib", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
         a: collectionObservable(new MongoClient("").db(""), "", {})
-      });
-      expectObservable(action$).toBe("-a", { a: [] });
-    });
-  });
-
-  test("should create an createCollectionObservable", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<any> = cold("-a", {
-        a: createCollectionObservable(new MongoClient("").db(""), "", {})
       });
       expectObservable(action$).toBe("-a", { a: [] });
     });

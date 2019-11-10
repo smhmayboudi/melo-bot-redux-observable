@@ -10,7 +10,7 @@ describe("emoji configs", (): void => {
   });
 
   test("should handle findByName", (): void => {
-    expect(findByCode("1F447").codes).toEqual("1F447");
+    expect(findByName("backhand index pointing down").codes).toEqual("1F447");
   });
 
   test("should handle not findByName", (): void => {

@@ -111,7 +111,7 @@ describe("monitorReducer middleware", (): void => {
 
   test("should handle", (): void => {
     const { next } = create();
-    const action: Action<string> = { type: "" };
+    const action: Action<string> = { ...initialState, type: "" };
     expect(next).toHaveBeenCalledWith(action);
   });
 });

@@ -9,7 +9,7 @@ import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { transformSenAnimationQuery } from "../utils/formData";
+import { transformSendAnimationQuery } from "../utils/formData";
 
 const sendAnimation: (
   action$: Observable<IActionSendAnimation>,
@@ -57,7 +57,7 @@ const sendAnimation: (
         method: "POST",
         path: `/bot${botToken}/sendAnimation`
       },
-      transformSenAnimationQuery(action.sendAnimation.query)
+      transformSendAnimationQuery(action.sendAnimation.query)
     ).pipe(
       map(
         (response: IResponse): IActionSendAnimation => {

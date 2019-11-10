@@ -95,8 +95,8 @@ const transformObservable: (
 
   const inlineKeyboard = [];
   if (
-    action.youtubeVideoList.result.prevPageToken !== undefined &&
-    action.youtubeVideoList.result.prevPageToken !== null
+    action.youtubeVideoList.result.prevPageToken !== null &&
+    action.youtubeVideoList.result.prevPageToken !== undefined
   ) {
     inlineKeyboard.push({
       callback_data: stringify({
@@ -107,8 +107,8 @@ const transformObservable: (
     });
   }
   if (
-    action.youtubeVideoList.result.nextPageToken !== undefined &&
-    action.youtubeVideoList.result.nextPageToken !== null
+    action.youtubeVideoList.result.nextPageToken !== null &&
+    action.youtubeVideoList.result.nextPageToken !== undefined
   ) {
     inlineKeyboard.push({
       callback_data: stringify({

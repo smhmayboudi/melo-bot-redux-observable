@@ -17,8 +17,20 @@ describe("env configs", (): void => {
     expect(env.GOOGLE_API_LIST_MAX_RESULTS).toEqual(10);
   });
 
+  test("should handle GOOGLE_API_SAFE_SEARCH", (): void => {
+    expect(env.GOOGLE_API_SAFE_SEARCH).toEqual("strict");
+  });
+
   test("should handle GOOGLE_API_SEARCH_LIST_TYPE", (): void => {
     expect(env.GOOGLE_API_SEARCH_LIST_TYPE).toEqual("video");
+  });
+
+  test("should handle GOOGLE_API_RELEVANCE_LANGUAGE", (): void => {
+    expect(env.GOOGLE_API_RELEVANCE_LANGUAGE).toEqual("fa");
+  });
+
+  test("should handle GOOGLE_API_REGION_CODE", (): void => {
+    expect(env.GOOGLE_API_REGION_CODE).toEqual("ir");
   });
 
   test("should handle HOSTNAME", (): void => {
@@ -89,5 +101,25 @@ describe("env configs", (): void => {
 
   test("should handle SENTRY_SERVERNAME", (): void => {
     expect(env.SENTRY_SERVERNAME).toEqual("OSX");
+  });
+
+  test("should handle TEST_NUMBER_UNDEFINED", (): void => {
+    try {
+      expect(env.getter("TEST_NUMBER_UNDEFINED", "number")).toEqual("");
+    } catch (error) {
+      expect(error.message).toBe("{ [TEST_NUMBER_UNDEFINED: string]: number }");
+    }
+  });
+
+  test("should handle TEST_STRING_UNDEFINED", (): void => {
+    try {
+      expect(env.getter("TEST_STRING_UNDEFINED", "string")).toEqual("");
+    } catch (error) {
+      expect(error.message).toBe("{ [TEST_STRING_UNDEFINED: string]: string }");
+    }
+  });
+
+  test("should handle TEST_TYPE_UNDEFINED", (): void => {
+    expect(env.getter("TEST_TYPE_UNDEFINED", "")).toEqual("");
   });
 });

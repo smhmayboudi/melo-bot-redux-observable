@@ -23,7 +23,6 @@ describe("answerShippingQuery reducer", (): void => {
     shipping_query_id: ""
   };
   const result = true;
-  const result = true;
 
   test("should handle initialState", (): void => {
     expect(
