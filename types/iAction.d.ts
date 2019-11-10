@@ -1,23 +1,24 @@
 import { Action } from "redux";
 
-import { IStateDeleteMessage } from ".//iStateDeleteMessage";
-import { IStateEditMessageCaption } from ".//iStateEditMessageCaption";
-import { IStateEditMessageMedia } from ".//iStateEditMessageMedia";
-import { IStateEditMessageReplyMarkup } from ".//iStateEditMessageReplyMarkup";
-import { IStateEditMessageText } from ".//iStateEditMessageText";
-import { IStateStopPoll } from ".//iStateStopPoll";
 import { IStateAddStickerToSet } from "./iStateAddStickerToSet";
 import { IStateAnswerCallbackQuery } from "./iStateAnswerCallbackQuery";
 import { IStateAnswerInlineQuery } from "./iStateAnswerInlineQuery";
 import { IStateAnswerPreCheckoutQuery } from "./iStateAnswerPreCheckoutQuery";
 import { IStateAnswerShippingQuery } from "./iStateAnswerShippingQuery";
+import { IStateCallbackQueryDataFind } from "./iStateCallbackQueryDataFind";
+import { IStateCallbackQueryDataInsert } from "./iStateCallbackQueryDataInsert";
 import { IStateChosenInlineResult } from "./iStateChosenInlineResult";
 import { IStateCreateNewStickerSet } from "./iStateCreateNewStickerSet";
 import { IStateDeleteChatPhoto } from "./iStateDeleteChatPhoto";
 import { IStateDeleteChatStickerSet } from "./iStateDeleteChatStickerSet";
+import { IStateDeleteMessage } from "./iStateDeleteMessage";
 import { IStateDeleteStickerFromSet } from "./iStateDeleteStickerFromSet";
 import { IStateDeleteWebhook } from "./iStateDeleteWebhook";
+import { IStateEditMessageCaption } from "./iStateEditMessageCaption";
 import { IStateEditMessageLiveLocation } from "./iStateEditMessageLiveLocation";
+import { IStateEditMessageMedia } from "./iStateEditMessageMedia";
+import { IStateEditMessageReplyMarkup } from "./iStateEditMessageReplyMarkup";
+import { IStateEditMessageText } from "./iStateEditMessageText";
 import { IStateExportChatInviteLink } from "./iStateExportChatInviteLink";
 import { IStateForwardMessage } from "./iStateForwardMessage";
 import { IStateGetChat } from "./iStateGetChat";
@@ -64,10 +65,13 @@ import { IStateSetPassportDataErrors } from "./iStateSetPassportDataErrors";
 import { IStateSetStickerPositionInSet } from "./iStateSetStickerPositionInSet";
 import { IStateSetWebhook } from "./iStateSetWebhook";
 import { IStateStopMessageLiveLocation } from "./iStateStopMessageLiveLocation";
+import { IStateStopPoll } from "./iStateStopPoll";
 import { IStateUnbanChatMember } from "./iStateUnbanChatMember";
 import { IStateUnpinChatMessage } from "./iStateUnpinChatMessage";
 import { IStateUploadStickerFile } from "./iStateUploadStickerFile";
 import { IStateYoutubeDownload } from "./iStateYoutubeDownload";
+import { IStateYoutubeDownloadResultFind } from "./iStateYoutubeDownloadResultFind";
+import { IStateYoutubeDownloadResultInsert } from "./iStateYoutubeDownloadResultInsert";
 import { IStateYoutubeSearchList } from "./iStateYoutubeSearchList";
 import { IStateYoutubeVideoList } from "./iStateYoutubeVideoList";
 
@@ -77,6 +81,8 @@ export interface IAction extends Action<string> {
   answerInlineQuery: IStateAnswerInlineQuery;
   answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery;
   answerShippingQuery: IStateAnswerShippingQuery;
+  callbackQueryDataFind: IStateCallbackQueryDataFind;
+  callbackQueryDataInsert: IStateCallbackQueryDataInsert;
   chosenInlineResult: IStateChosenInlineResult;
   createNewStickerSet: IStateCreateNewStickerSet;
   deleteChatPhoto: IStateDeleteChatPhoto;
@@ -140,6 +146,8 @@ export interface IAction extends Action<string> {
   unpinChatMessage: IStateUnpinChatMessage;
   uploadStickerFile: IStateUploadStickerFile;
   youtubeDownload: IStateYoutubeDownload;
+  youtubeDownloadResultFind: IStateYoutubeDownloadResultFind;
+  youtubeDownloadResultInsert: IStateYoutubeDownloadResultInsert;
   youtubeSearchList: IStateYoutubeSearchList;
   youtubeVideoList: IStateYoutubeVideoList;
 }
