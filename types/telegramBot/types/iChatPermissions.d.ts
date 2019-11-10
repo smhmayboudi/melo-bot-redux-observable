@@ -1,5 +1,3 @@
-import { IChatPermissions } from "../types/iChatPermissions";
-
 export interface IChatPermissions {
   can_add_web_page_previews?: boolean;
   can_change_info?: boolean;
