@@ -22,6 +22,9 @@ const getter: (key: string, type: string) => string = (
 };
 
 const BOT_TOKEN: string = getter("BOT_TOKEN", "string");
+const CHANNEL: string = getter("CHANNEL", "string");
+const CHANNEL_JOIN_LINK: string = getter("CHANNEL_JOIN_LINK", "string");
+const DB_NAME: string = getter("DB_NAME", "string");
 const GOOGLE_API_KEY: string = getter("GOOGLE_API_KEY", "string");
 const GOOGLE_API_LIST_MAX_RESULTS: number = parseInt(
   getter("GOOGLE_API_LIST_MAX_RESULTS", "number"),
@@ -80,6 +83,9 @@ const SENTRY_SERVERNAME: string = getter("SENTRY_SERVERNAME", "string");
 export {
   getter,
   BOT_TOKEN,
+  CHANNEL,
+  CHANNEL_JOIN_LINK,
+  DB_NAME,
   GOOGLE_API_KEY,
   GOOGLE_API_LIST_MAX_RESULTS,
   GOOGLE_API_SAFE_SEARCH,

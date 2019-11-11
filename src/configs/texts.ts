@@ -1,4 +1,5 @@
 import { findByCode } from "./emojis";
+import * as env from "./env";
 
 const actionAddStickerToSetQueryUndefined =
   "actionAddStickerToSetQuery undefined.";
@@ -199,16 +200,13 @@ const epicYoutubeDownloadValueMimeTypeUndefined =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
 const epicYoutubeDownloadValueThumbUndefined =
   "epicYoutubeFindOneObservableDownloadValueThumb undefined.";
-const messageAdvertisementChannel = `${findByCode("1F194").char} melobit`;
-const messageAdvertisementChannelJoinLink =
-  "https://t.me/joinchat/AAAAADu2QGw8mAt1RjY3nw";
-const messageChannel = `${findByCode("1F194").char} @melodio`;
+const messageChannel = `${findByCode("1F194").char} @${env.CHANNEL}`;
 const messageChannelJoinLink = "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
 const messageError = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
   findByCode("1F915").char
 }`;
 const messageHelp = "HELP";
-const messageJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
+const messageChannelJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
   findByCode("1F449").char
 } ${messageChannelJoinLink} ${findByCode("1F448").char}`;
 const messageNoResult = "NO RESULT";
@@ -373,13 +371,11 @@ export {
   epicDependencyYoutubeDownloadObservableUndefined,
   epicYoutubeDownloadValueMimeTypeUndefined,
   epicYoutubeDownloadValueThumbUndefined,
-  messageAdvertisementChannel,
-  messageAdvertisementChannelJoinLink,
   messageChannel,
   messageChannelJoinLink,
   messageError,
   messageHelp,
-  messageJoin,
+  messageChannelJoin,
   messageNoResult,
   messageResultQ,
   messageResultRelatedTo,

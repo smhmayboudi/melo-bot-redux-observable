@@ -7,6 +7,7 @@ import { IActionChosenInlineResult } from "../../types/iActionChosenInlineResult
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
 const chosenInlineResult: (
@@ -53,7 +54,7 @@ const chosenInlineResult: (
           }
 
           return collectionObservable(
-            client.db("melodio"),
+            client.db(env.DB_NAME),
             "chosenInlineResult",
             {}
           ).pipe(

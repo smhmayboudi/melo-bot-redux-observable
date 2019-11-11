@@ -7,6 +7,7 @@ import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDo
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
 const youtubeDownloadResultInsert: (
@@ -55,7 +56,7 @@ const youtubeDownloadResultInsert: (
           }
 
           return collectionObservable(
-            client.db("melodio"),
+            client.db(env.DB_NAME),
             "youtubeDownloadResult",
             {}
           ).pipe(

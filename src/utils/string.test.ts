@@ -119,9 +119,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -137,9 +137,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -155,9 +155,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -170,9 +170,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -188,9 +188,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -206,9 +206,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -224,9 +224,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -242,9 +242,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -269,9 +269,9 @@ describe("string utils", (): void => {
     );
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
   });
@@ -535,9 +535,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultQ(q));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
@@ -558,9 +558,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultQ(q));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
@@ -581,9 +581,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultQ(q));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
@@ -601,9 +601,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultQ(q));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
@@ -624,9 +624,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultQ(q));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
@@ -654,9 +654,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultQ(q));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformSearchResults(items, q)).toEqual(res.join("\n"));
   });
@@ -748,9 +748,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -763,9 +763,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -778,9 +778,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -796,9 +796,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -814,9 +814,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -832,9 +832,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -850,9 +850,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -877,9 +877,9 @@ describe("string utils", (): void => {
     );
     res.push("");
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideoCaption(item)).toEqual(res.join("\n"));
   });
@@ -901,9 +901,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultRelatedTo(""));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideos(items, "")).toEqual(res.join("\n"));
   });
@@ -920,9 +920,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultRelatedTo(""));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideos(items, "")).toEqual(res.join("\n"));
   });
@@ -939,9 +939,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultRelatedTo(""));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideos(items, "")).toEqual(res.join("\n"));
   });
@@ -961,9 +961,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultRelatedTo(""));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideos(items, "")).toEqual(res.join("\n"));
   });
@@ -990,9 +990,9 @@ describe("string utils", (): void => {
     res.push(texts.messageResultRelatedTo(""));
     res.push(texts.messageSeparator);
     res.push(
-      `${findByCode("1F449").char} <a href="${
-        texts.messageAdvertisementChannelJoinLink
-      }">${texts.messageAdvertisementChannel}</a> ${findByCode("1F448").char}`
+      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
+        texts.messageChannel
+      }</a> ${findByCode("1F448").char}`
     );
     expect(transformVideos(items, "")).toEqual(res.join("\n"));
   });

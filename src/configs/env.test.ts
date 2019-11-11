@@ -7,6 +7,20 @@ describe("env configs", (): void => {
     );
   });
 
+  test("should handle CHANNEL", (): void => {
+    expect(env.CHANNEL).toEqual("melodio");
+  });
+
+  test("should handle CHANNEL_JOIN_LINK", (): void => {
+    expect(env.CHANNEL_JOIN_LINK).toEqual(
+      "520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc"
+    );
+  });
+
+  test("should handle DB_NAME", (): void => {
+    expect(env.DB_NAME).toEqual("melodio");
+  });
+
   test("should handle GOOGLE_API_KEY", (): void => {
     expect(env.GOOGLE_API_KEY).toEqual(
       "AIzaSyDw1FO0PiK1CUxpxMaTIrDGaEJRco4FBXg"

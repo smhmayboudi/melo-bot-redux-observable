@@ -9,13 +9,13 @@ const mongodb = new MongodbMemoryServer.default({
     skipMD5: true
   },
   instance: {
-    dbName: "melodio"
+    dbName: process.env["DB_NAME"]
   }
 });
 
 module.exports = async function() {
   const mongoConfig = {
-    mongoDBName: "melodio",
+    mongoDBName: process.env["DB_NAME"],
     mongoUri: await mongodb.getConnectionString()
   };
 

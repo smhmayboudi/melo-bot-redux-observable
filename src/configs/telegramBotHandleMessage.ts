@@ -54,7 +54,7 @@ const handleMessage: (store: Store<IState>, message: IMessage) => void = (
       store.dispatch(
         actions.getChatMember.query({
           query: {
-            chat_id: "@melodio",
+            chat_id: `@${env.CHANNEL}`,
             user_id: message.chat.id
           }
         })

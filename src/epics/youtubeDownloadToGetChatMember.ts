@@ -4,6 +4,7 @@ import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
 const startActionGetChatMember: (
@@ -29,7 +30,7 @@ const startActionGetChatMember: (
 
   return actions.getChatMember.query({
     query: {
-      chat_id: "@melodio",
+      chat_id: `@${env.CHANNEL}`,
       user_id: state$.value.message.query.message.chat.id
     }
   });

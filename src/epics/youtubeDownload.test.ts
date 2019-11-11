@@ -25,7 +25,6 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
-import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import {
