@@ -851,7 +851,7 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error value undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // Const { cold, expectObservable } = runHelpers;
+        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -880,11 +880,11 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toEqual("-a---b", {
-        //   A: actions.getChatMember.query({
+        // expectObservable(output$).toBe("-a---b", {
+        // a: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
-        //   B: actions.sendVideo.query({
+        // b: actions.sendVideo.query({
         //     Query: sendVideoQueryCache
         //   })
         // });
@@ -923,7 +923,7 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error mime_type undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // Const { cold, expectObservable } = runHelpers;
+        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -955,11 +955,11 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toEqual("-a---b", {
-        //   A: actions.getChatMember.query({
+        // expectObservable(output$).toBe("-a---b", {
+        // a: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
-        //   B: actions.sendVideo.query({
+        // b: actions.sendVideo.query({
         //     Query: sendVideoQueryCache
         //   })
         // });
@@ -998,7 +998,7 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error thumb undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // Const { cold, expectObservable } = runHelpers;
+        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -1030,11 +1030,11 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toEqual("-a---b", {
-        //   A: actions.getChatMember.query({
+        // expectObservable(output$).toBe("-a---b", {
+        // a: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
-        //   B: actions.sendVideo.query({
+        // b: actions.sendVideo.query({
         //     Query: sendVideoQueryCache
         //   })
         // });
@@ -1073,7 +1073,7 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle result with cache", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // Const { cold, expectObservable } = runHelpers;
+        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -1102,11 +1102,11 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toEqual("-a---b", {
-        //   A: actions.getChatMember.query({
+        // expectObservable(output$).toBe("-a---b", {
+        // a: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
-        //   B: actions.sendVideo.query({
+        // b: actions.sendVideo.query({
         //     Query: sendVideoQueryCache
         //   })
         // });

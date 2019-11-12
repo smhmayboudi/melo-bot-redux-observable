@@ -21,7 +21,7 @@ describe("requestObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: youtubeDownloadObservable("")
       });
-      expectObservable(action$).toEqual("-a", { a: [] });
+      expectObservable(action$).toBe("-a", { a: [] });
     });
   });
 });

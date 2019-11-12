@@ -4,5 +4,5 @@ import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadR
 export interface IStateYoutubeDownloadResultFind {
   error?: any;
   query?: IStateYoutubeDownloadResultFindQuery;
-  result?: IStateYoutubeDownloadResultInsertQuery;
+  result?: IStateYoutubeDownloadResultInsertQuery | null;
 }

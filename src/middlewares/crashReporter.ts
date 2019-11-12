@@ -33,7 +33,7 @@ init({
 });
 
 // Global.process.on("uncaughtException", (error: Error): void => {
-//   Const hub: Hub = getCurrentHub();
+// const hub: Hub = getCurrentHub();
 //   Hub.withScope((scope: Scope): void => {
 //     Scope.setLevel(Severity.Fatal);
 //     Hub.captureException(error);

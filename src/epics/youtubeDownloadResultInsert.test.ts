@@ -268,7 +268,7 @@ describe("youtubeDownloadResultInsert epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
+      // const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
         "-a",
@@ -287,8 +287,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         state$,
         dependencies
       );
-      // ExpectObservable(output$).toEqual("-a", {
-      //   A: actions.youtubeDownloadResultInsert.result({ result })
+      // expectObservable(output$).toBe("-a", {
+      // a: actions.youtubeDownloadResultInsert.result({ result })
       // });
       output$
         .toPromise()

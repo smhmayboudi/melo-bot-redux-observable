@@ -45,13 +45,6 @@ const transformObservable: (
       })
     );
   }
-  if (state$.value.youtubeSearchList.query.q === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
-      })
-    );
-  }
   if (action.youtubeSearchList.result === undefined) {
     return of(
       actions.youtubeSearchList.error({

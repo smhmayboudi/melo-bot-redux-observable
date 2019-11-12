@@ -21,17 +21,14 @@ import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeD
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import {
-  collectionObservable,
-  findOneObservable
-} from "../libs/mongodbObservable";
+import { collectionObservable } from "../libs/mongodbObservable";
 
 import * as epic from "./youtubeDownloadResultFind";
 
 describe("youtubeDownloadResultFind epic", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultFindQuery = {
-    id: ""
+    id: "000000000000000000000000"
   };
   const result: IStateYoutubeDownloadResultInsertQuery = {
     duration: 0,
@@ -89,7 +86,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         collectionObservable,
-        findOneObservable,
+        findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: undefined
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -117,7 +114,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         collectionObservable,
-        findOneObservable,
+        findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -143,7 +140,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         collectionObservable: undefined,
-        findOneObservable,
+        findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -171,7 +168,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
-        findOneObservable,
+        findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -251,7 +248,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         collectionObservable,
-        findOneObservable,
+        findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -267,10 +264,9 @@ describe("youtubeDownloadResultFind epic", (): void => {
     });
   });
 
-  test("should handle result", (): void => {
+  test("should handle actionYoutubeDownloadResultFindResult null", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
-      const { cold } = runHelpers;
+      const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
         "-a",
         {
@@ -280,7 +276,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         collectionObservable,
-        findOneObservable,
+        findOneObservable: () => cold("-a", { a: null }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -288,23 +284,35 @@ describe("youtubeDownloadResultFind epic", (): void => {
         state$,
         dependencies
       );
-      // ExpectObservable(output$).toEqual("-a", {
-      //   A: actions.youtubeDownloadResultFind.result({ result })
-      // });
-      output$
-        .toPromise()
-        .then((actual: IActionYoutubeDownloadResultFind): void => {
-          cold("---a", {
-            a: actions.youtubeDownloadResultFind.result({
-              result
-            })
-          })
-            .toPromise()
-            .then(
-              (expected: IActionYoutubeDownloadResultFind): boolean =>
-                actual === expected
-            );
-        });
+      expectObservable(output$).toBe("--a", {
+        a: actions.youtubeDownloadResultFind.result({ result: undefined })
+      });
+    });
+  });
+
+  test("should handle result", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({ query })
+        }
+      );
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable,
+        findOneObservable: () => cold("-a", { a: result }),
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("--a", {
+        a: actions.youtubeDownloadResultFind.result({ result })
+      });
     });
   });
 });

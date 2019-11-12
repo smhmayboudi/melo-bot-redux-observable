@@ -259,7 +259,7 @@ describe("callbackQueryDataInsert epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
+      // const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
         "-a",
@@ -278,8 +278,8 @@ describe("callbackQueryDataInsert epic", (): void => {
         state$,
         dependencies
       );
-      // ExpectObservable(output$).toEqual("-a", {
-      //   A: actions.callbackQueryDataInsert.result({ result })
+      // expectObservable(output$).toBe("-a", {
+      //   a: actions.callbackQueryDataInsert.result({ result })
       // });
       output$
         .toPromise()

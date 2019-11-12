@@ -246,7 +246,7 @@ describe("chosenInlineResult epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // Const { cold, expectObservable } = runHelpers;
+      // const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
         a: actions.chosenInlineResult.query({ query })
@@ -262,8 +262,8 @@ describe("chosenInlineResult epic", (): void => {
         state$,
         dependencies
       );
-      // ExpectObservable(output$).toEqual("-a", {
-      //   A: actions.chosenInlineResult.result({ result })
+      // expectObservable(output$).toBe("-a", {
+      // a: actions.chosenInlineResult.result({ result })
       // });
       output$.toPromise().then((actual: IActionChosenInlineResult): void => {
         cold("---a", {

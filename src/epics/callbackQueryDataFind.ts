@@ -189,7 +189,22 @@ const callbackQueryDataFind: (
         })
       );
     }
-    if (action.callbackQueryDataFind.result.q !== undefined) {
+    if (action.callbackQueryDataFind.result.chart !== undefined) {
+      return of(
+        actions.youtubeVideoList.query({
+          query: {
+            chart: action.callbackQueryDataFind.result.chart,
+            hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+            key: env.GOOGLE_API_KEY,
+            maxResults:
+              action.callbackQueryDataFind.result.pageInfo.resultsPerPage,
+            part: "id,snippet",
+            pageToken: state$.value.callbackQueryDataFind.query.pageToken,
+            regionCode: env.GOOGLE_API_REGION_CODE
+          }
+        })
+      );
+    } else if (action.callbackQueryDataFind.result.q !== undefined) {
       return of(
         actions.youtubeSearchList.query({
           query: {
@@ -203,21 +218,6 @@ const callbackQueryDataFind: (
             relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
             safeSearch: env.GOOGLE_API_SAFE_SEARCH,
             type: env.GOOGLE_API_SEARCH_LIST_TYPE
-          }
-        })
-      );
-    } else if (action.callbackQueryDataFind.result.chart !== undefined) {
-      return of(
-        actions.youtubeVideoList.query({
-          query: {
-            chart: action.callbackQueryDataFind.result.chart,
-            hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-            key: env.GOOGLE_API_KEY,
-            maxResults:
-              action.callbackQueryDataFind.result.pageInfo.resultsPerPage,
-            part: "id,snippet",
-            pageToken: state$.value.callbackQueryDataFind.query.pageToken,
-            regionCode: env.GOOGLE_API_REGION_CODE
           }
         })
       );

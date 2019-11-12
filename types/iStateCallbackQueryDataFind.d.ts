@@ -4,5 +4,5 @@ import { IStateCallbackQueryDataInsertQuery } from "./iStateCallbackQueryDataIns
 export interface IStateCallbackQueryDataFind {
   error?: any;
   query?: IStateCallbackQueryDataFindQuery;
-  result?: IStateCallbackQueryDataInsertQuery;
+  result?: IStateCallbackQueryDataInsertQuery | null;
 }
