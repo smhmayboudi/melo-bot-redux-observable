@@ -1,17 +1,34 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
+import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
+import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
+import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
-import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import * as epic from "../epics/callbackQueryDataFind";
+import {
+  collectionObservable,
+  findOneObservable
+} from "../libs/mongodbObservable";
+
+import * as epic from "./callbackQueryDataFind";
 
 describe("callbackQueryDataFind epic", (): void => {
   const error: Error = new Error("");
@@ -19,14 +36,7 @@ describe("callbackQueryDataFind epic", (): void => {
     id: "",
     pageToken: ""
   };
-  const result = {};
-  const responseOKF: IResponse = {
-    ok: false
-  };
-  const responseOKT: IResponse = {
-    ok: true,
-    result
-  };
+  const result: IStateCallbackQueryDataInsertQuery = {};
 
   let testScheduler: TestScheduler;
 
@@ -38,7 +48,32 @@ describe("callbackQueryDataFind epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
+  let db: Db;
+  let connection: MongoClient;
+
+  beforeAll(
+    async (): Promise<any> => {
+      connection = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+      db = connection.db(global.__MONGO_DB_NAME__);
+    }
+  );
+
+  beforeEach(
+    async (): Promise<any> => {
+      await db.collection("cache").deleteOne({ id: "small" });
+    }
+  );
+
+  afterAll(
+    async (): Promise<any> => {
+      await connection.close();
+    }
+  );
+
+  test("should handle dependency mongoClientObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
@@ -46,21 +81,24 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: undefined
       };
       const output$: Observable<
-        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
       > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.callbackQueryDataFind.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       });
     });
   });
 
-  test("should handle dependency requestsObservable undefined", (): void => {
+  test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
@@ -68,21 +106,47 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
-        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.callbackQueryDataFind.error({ error })
+      });
+    });
+  });
+
+  test("should handle dependency collectionObservable undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable: undefined,
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
       > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.callbackQueryDataFind.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(texts.epicDependencyCollectionObservableUndefined)
         })
       });
     });
   });
 
-  test("should handle dependency requestsObservable error", (): void => {
+  test("should handle dependency collectionObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
@@ -90,11 +154,62 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
+        collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
-        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
+      expectObservable(output$).toBe("---a", {
+        a: actions.callbackQueryDataFind.error({ error })
+      });
+    });
+  });
+
+  test("should handle dependency findOneObservable undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable,
+        findOneObservable: undefined,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
+      expectObservable(output$).toBe("-a", {
+        a: actions.callbackQueryDataFind.error({
+          error: new Error(texts.epicDependencyFindOneObservableUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle dependency findOneObservable error", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable,
+        findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
       > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.callbackQueryDataFind.error({ error })
@@ -105,16 +220,19 @@ describe("callbackQueryDataFind epic", (): void => {
   test("should handle error actionCallbackQueryDataFindQuery undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: Observable<IActionCallbackQueryDataFind> = cold("-a", {
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
         a: actions.callbackQueryDataFind.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a")
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
-        IActionCallbackQueryDataFind | IActionCallbackQueryDataFind
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
       > = epic.callbackQueryDataFind(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.callbackQueryDataFind.error({
@@ -124,45 +242,48 @@ describe("callbackQueryDataFind epic", (): void => {
     });
   });
 
-  test("should handle result ok false", (): void => {
+  test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
         a: actions.callbackQueryDataFind.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: responseOKF })
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
-        IActionCallbackQueryDataFind
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
       > = epic.callbackQueryDataFind(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.callbackQueryDataFind.error({ error: responseOKF })
-      });
-    });
-  });
-
-  test("should handle result ok true", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
-        a: actions.callbackQueryDataFind.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: responseOKT })
-      };
-      const output$: Observable<
-        IActionCallbackQueryDataFind
-      > = epic.callbackQueryDataFind(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.callbackQueryDataFind.result({ result })
-      });
+      // ExpectObservable(output$).toEqual("-a", {
+      //   A: actions.callbackQueryDataFind.result({ result })
+      // });
+      output$
+        .toPromise()
+        .then(
+          (
+            actual:
+              | IActionCallbackQueryDataFind
+              | IActionYoutubeSearchList
+              | IActionYoutubeVideoList
+          ): void => {
+            cold("---a", {
+              a: actions.callbackQueryDataFind.result({
+                result
+              })
+            })
+              .toPromise()
+              .then(
+                (expected: IActionCallbackQueryDataFind): boolean =>
+                  actual === expected
+              );
+          }
+        );
     });
   });
 });

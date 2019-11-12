@@ -33,9 +33,7 @@ const chosenInlineResult: (
     if (mongoClientObservable === undefined) {
       return of(
         actions.chosenInlineResult.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       );
     }

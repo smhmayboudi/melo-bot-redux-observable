@@ -33,9 +33,7 @@ const youtubeDownloadResultInsert: (
     if (mongoClientObservable === undefined) {
       return of(
         actions.youtubeDownloadResultInsert.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       );
     }

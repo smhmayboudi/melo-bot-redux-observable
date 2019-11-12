@@ -55,7 +55,7 @@ describe("sendDocument epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
+        requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
         IActionSendDocument | IActionSendDocument
@@ -68,7 +68,7 @@ describe("sendDocument epic", (): void => {
     });
   });
 
-  test("should handle dependency requestsObservable undefined", (): void => {
+  test("should handle dependency requestsUploadObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendDocument> = cold("-a", {
@@ -77,20 +77,22 @@ describe("sendDocument epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: undefined
+        requestsUploadObservable: undefined
       };
       const output$: Observable<
         IActionSendDocument | IActionSendDocument
       > = epic.sendDocument(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.sendDocument.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       });
     });
   });
 
-  test("should handle dependency requestsObservable error", (): void => {
+  test("should handle dependency requestsUploadObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionSendDocument> = cold("-a", {
@@ -99,7 +101,8 @@ describe("sendDocument epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
+        requestsUploadObservable: (): ColdObservable<any> =>
+          cold("--#", {}, error)
       };
       const output$: Observable<
         IActionSendDocument | IActionSendDocument
@@ -119,7 +122,7 @@ describe("sendDocument epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a")
+        requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<
         IActionSendDocument | IActionSendDocument
@@ -141,7 +144,7 @@ describe("sendDocument epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
+        requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
       const output$: Observable<IActionSendDocument> = epic.sendDocument(
@@ -164,7 +167,7 @@ describe("sendDocument epic", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
         botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
+        requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
       const output$: Observable<IActionSendDocument> = epic.sendDocument(

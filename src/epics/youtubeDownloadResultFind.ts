@@ -34,9 +34,7 @@ const youtubeDownloadResultFind: (
     if (mongoClientObservable === undefined) {
       return of(
         actions.youtubeDownloadResultFind.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       );
     }

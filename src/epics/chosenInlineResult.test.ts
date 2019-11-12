@@ -87,14 +87,14 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable,
         mongoClientObservable: undefined
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("-a", {
         a: actions.chosenInlineResult.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       });
     });
@@ -112,9 +112,11 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.chosenInlineResult.error({ error })
       });
@@ -133,9 +135,11 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("-a", {
         a: actions.chosenInlineResult.error({
           error: new Error(texts.epicDependencyCollectionObservableUndefined)
@@ -156,9 +160,11 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.chosenInlineResult.error({ error })
       });
@@ -177,9 +183,11 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable: undefined,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("-a", {
         a: actions.chosenInlineResult.error({
           error: new Error(texts.epicDependencyInsertOneObservableUndefined)
@@ -200,9 +208,11 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.chosenInlineResult.error({ error })
       });
@@ -221,9 +231,11 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("-a", {
         a: actions.chosenInlineResult.error({
           error: new Error(texts.actionChosenInlineResultQueryUndefined)
@@ -245,10 +257,12 @@ describe("chosenInlineResult epic", (): void => {
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionChosenInlineResult
-      > = epic.chosenInlineResult(action$, state$, dependencies);
-      // ExpectObservable(output$).toBe("-a", {
+      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
+        action$,
+        state$,
+        dependencies
+      );
+      // ExpectObservable(output$).toEqual("-a", {
       //   A: actions.chosenInlineResult.result({ result })
       // });
       output$.toPromise().then((actual: IActionChosenInlineResult): void => {

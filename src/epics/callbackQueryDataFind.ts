@@ -44,9 +44,7 @@ const callbackQueryDataFind: (
     if (mongoClientObservable === undefined) {
       return of(
         actions.callbackQueryDataFind.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       );
     }

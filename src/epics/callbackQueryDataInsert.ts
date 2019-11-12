@@ -33,9 +33,7 @@ const callbackQueryDataInsert: (
     if (mongoClientObservable === undefined) {
       return of(
         actions.callbackQueryDataInsert.error({
-          error: new Error(
-            texts.epicDependencyMongoClientObservableObservableUndefined
-          )
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
         })
       );
     }

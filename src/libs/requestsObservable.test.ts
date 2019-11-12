@@ -21,7 +21,7 @@ describe("requestsObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: requestsObservable({})
       });
-      expectObservable(action$).toBe("-a", { a: [] });
+      expectObservable(action$).toEqual("-a", { a: [] });
     });
   });
 });

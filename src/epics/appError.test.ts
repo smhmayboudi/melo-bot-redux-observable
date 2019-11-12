@@ -1,17 +1,13 @@
-import { Action } from "redux";
 import { StateObservable } from "redux-observable";
-import { Observable, Subject } from "rxjs";
-import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
+import { Observable } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
+import { IAction } from "../../types/iAction";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IStateMessageQuery } from "../../types/iStateMessageQuery";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/appError";
 
 describe("appError epic", (): void => {
@@ -92,31 +88,7 @@ describe("appError epic", (): void => {
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
-  const state$ValueMessageQueryMessageUndefined: IState = {
-    ...initialState,
-    message: {
-      query: {
-        message: undefined,
-        update_id: 0
-      }
-    }
-  };
-  const stateResult: IState = {
-    ...initialState,
-    message: {
-      query: {
-        message: {
-          chat: {
-            id: 0,
-            type: ""
-          },
-          date: 0,
-          message_id: 0
-        },
-        update_id: 0
-      }
-    }
-  };
+  const error: Error = new Error("");
 
   let testScheduler: TestScheduler;
 
@@ -128,11 +100,11 @@ describe("appError epic", (): void => {
     });
   });
 
-  test("should handle error state$ undefined", (): void => {
+  test("should handle error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
+      const action$: Observable<IAction> = cold("-a", {
+        a: { ...initialState, ...actions.answerInlineQuery.error({ error }) }
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {};
@@ -141,92 +113,14 @@ describe("appError epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("-a", {
-        a: actions.sendMessage.error({
-          error: new Error(texts.state$Undefined)
-        })
-      });
-    });
-  });
-
-  test("should handle error state$ValueMessageQuery undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        initialState
+      expectObservable(output$).toBe(
+        "-#",
+        {},
+        {
+          ...initialState,
+          ...actions.answerInlineQuery.error({ error })
+        }
       );
-      const dependencies: IDependencies = {};
-      const output$: Observable<IActionSendMessage> = epic.appError(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.sendMessage.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle error state$ValueMessageQueryMessage undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueMessageQueryMessageUndefined
-      );
-      const dependencies: IDependencies = {};
-      const output$: Observable<IActionSendMessage> = epic.appError(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.sendMessage.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle result", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<Action<string>> = cold("-a", {
-        a: { type: actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR }
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        stateResult
-      );
-      const dependencies: IDependencies = {};
-      const output$: Observable<IActionSendMessage> = epic.appError(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.sendMessage.query({
-          query: {
-            chat_id: ((state$.value.message.query as IStateMessageQuery)
-              .message as IMessage).chat.id,
-            disable_notification: true,
-            disable_web_page_preview: true,
-            parse_mode: "HTML",
-            reply_to_message_id: ((state$.value.message
-              .query as IStateMessageQuery).message as IMessage).message_id,
-            text: texts.messageError
-          }
-        })
-      });
     });
   });
 });

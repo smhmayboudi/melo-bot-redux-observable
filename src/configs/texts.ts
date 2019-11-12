@@ -184,7 +184,7 @@ const epicDependencyCollectionObservableUndefined =
 const epicDependencyFindOneObservableUndefined = "findOneObservable undefined.";
 const epicDependencyInsertOneObservableUndefined =
   "insertOneObservable undefined.";
-const epicDependencyMongoClientObservableObservableUndefined =
+const epicDependencyMongoClientObservableUndefined =
   "epicDependencyMongoClientObservable undefined.";
 const epicDependencyRequestObservableUndefined =
   "epicDependencyRequestObservable undefined.";
@@ -363,7 +363,7 @@ export {
   epicDependencyCollectionObservableUndefined,
   epicDependencyFindOneObservableUndefined,
   epicDependencyInsertOneObservableUndefined,
-  epicDependencyMongoClientObservableObservableUndefined,
+  epicDependencyMongoClientObservableUndefined,
   epicDependencyRequestObservableUndefined,
   epicDependencyRequestsObservableUndefined,
   epicDependencyRequestsUploadObservableUndefined,

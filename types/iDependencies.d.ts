@@ -10,7 +10,6 @@ import {
   InsertOneWriteOpResult,
   MongoClient
 } from "mongodb";
-import { Action } from "redux";
 import { Observable } from "rxjs";
 
 import { IAction } from "./iAction";

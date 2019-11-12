@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSetGameScoreQuery } from "../../types/iStateSetGameScoreQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/setGameScore";

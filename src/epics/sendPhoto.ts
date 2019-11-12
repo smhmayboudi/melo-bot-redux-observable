@@ -37,7 +37,9 @@ const sendPhoto: (
     if (requestsUploadObservable === undefined) {
       return of(
         actions.sendPhoto.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
+          error: new Error(
+            texts.epicDependencyRequestsUploadObservableUndefined
+          )
         })
       );
     }

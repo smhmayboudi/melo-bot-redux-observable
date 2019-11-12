@@ -16,14 +16,13 @@ import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
+import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
+import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDownloadResultInsert";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
-import { IStateMessageQuery } from "../../types/iStateMessageQuery";
-import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
-import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
@@ -115,7 +114,7 @@ describe("youtubeDownload epic", (): void => {
     youtubeSearchList: actions.youtubeSearchList.initialState,
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
-  const stateResult: IState = {
+  const stateResult = {
     ...initialState,
     message: {
       query: {
@@ -131,26 +130,28 @@ describe("youtubeDownload epic", (): void => {
       }
     }
   };
-  const state$ValueMessageQueryUndefined: IState = {
+  const state$ValueMessageQueryUndefined = {
     ...stateResult,
     message: {
       ...stateResult.message,
       query: undefined
     }
   };
-  const state$ValueMessageQueryMessageUndefined: IState = {
+  const state$ValueMessageQueryMessageUndefined = {
     ...stateResult,
     message: {
       ...stateResult.message,
       query: {
-        ...(stateResult.message.query as IStateMessageQuery),
+        ...stateResult.message.query,
         message: undefined
       }
     }
   };
   const error: Error = new Error("");
-  const query: string = encode("small");
-  const result: IStateYoutubeDownloadResultInsertQuery = {
+  const query = {
+    id: encode("small")
+  };
+  const result = {
     duration: 0,
     file_id: "",
     file_size: 0,
@@ -166,7 +167,7 @@ describe("youtubeDownload epic", (): void => {
     title: "",
     width: 0
   };
-  const resultCache: IStateYoutubeDownloadResultInsertQuery = {
+  const resultCache = {
     duration: 0,
     file_id: "small",
     file_size: 0,
@@ -182,7 +183,7 @@ describe("youtubeDownload epic", (): void => {
     title: "",
     width: 0
   };
-  const resultCacheMimeType: IStateYoutubeDownloadResultInsertQuery = {
+  const resultCacheMimeType = {
     duration: 0,
     file_id: "small",
     file_size: 0,
@@ -198,7 +199,7 @@ describe("youtubeDownload epic", (): void => {
     title: "",
     width: 0
   };
-  const resultCacheThumb: IStateYoutubeDownloadResultInsertQuery = {
+  const resultCacheThumb = {
     duration: 0,
     file_id: "small",
     file_size: 0,
@@ -217,11 +218,11 @@ describe("youtubeDownload epic", (): void => {
       is_bot: false
     }
   };
-  const getChatMemberQuery: IStateGetChatMemberQuery = {
+  const getChatMemberQuery = {
     chat_id: "@melodio",
     user_id: 0
   };
-  const sendVideoQuery: IStateSendVideoQuery = {
+  const sendVideoQuery = {
     caption: caption(""),
     chat_id: 0,
     disable_notification: true,
@@ -234,7 +235,7 @@ describe("youtubeDownload epic", (): void => {
     video: fs.createReadStream(pathVideo("small")),
     width: 0
   };
-  const sendVideoQueryCache: IStateSendVideoQuery = {
+  const sendVideoQueryCache = {
     caption: caption(""),
     chat_id: 0,
     disable_notification: true,
@@ -272,14 +273,21 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: undefined
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a-b", {
         a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -306,15 +314,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -339,15 +354,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--a", { a: undefined })
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a-b", {
         a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -372,15 +394,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--a", { a: undefined })
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -402,15 +431,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.youtubeDownload.error({
@@ -437,15 +473,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.youtubeDownload.error({
@@ -472,15 +515,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.youtubeDownload.error({
@@ -507,15 +557,22 @@ describe("youtubeDownload epic", (): void => {
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: (): ColdObservable<any> =>
-          cold("--a", {
-            a: actions.getChatMember.result({ result: getChatMemberResult })
-          }),
+        testAction$: cold("--a", {
+          a: {
+            ...initialState,
+            ...actions.getChatMember.result({ result: getChatMemberResult })
+          }
+        }),
         youtubeDownloadObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
       const output$: Observable<
-        IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+        | IActionGetChatMember
+        | IActionSendMessage
+        | IActionSendVideo
+        | IActionYoutubeDownload
+        | IActionYoutubeDownloadResultFind
+        | IActionYoutubeDownloadResultInsert
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -570,21 +627,26 @@ describe("youtubeDownload epic", (): void => {
           collectionObservable,
           findOneObservable,
           mongoClientObservable: undefined,
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a-b", {
           a: actions.getChatMember.query({ query: getChatMemberQuery }),
           b: actions.youtubeDownload.error({
-            error: new Error(
-              texts.epicDependencyMongoClientObservableObservableUndefined
-            )
+            error: new Error(texts.epicDependencyMongoClientObservableUndefined)
           })
         });
       });
@@ -605,14 +667,21 @@ describe("youtubeDownload epic", (): void => {
           findOneObservable,
           mongoClientObservable: (): ColdObservable<any> =>
             cold("--#", {}, error),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a---b", {
           a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -637,14 +706,21 @@ describe("youtubeDownload epic", (): void => {
           collectionObservable: undefined,
           findOneObservable,
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a-b", {
           a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -670,14 +746,21 @@ describe("youtubeDownload epic", (): void => {
             cold("--#", {}, error),
           findOneObservable,
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a---b", {
           a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -702,14 +785,21 @@ describe("youtubeDownload epic", (): void => {
           collectionObservable,
           findOneObservable: undefined,
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a-b", {
           a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -734,14 +824,21 @@ describe("youtubeDownload epic", (): void => {
           collectionObservable,
           findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
         expectObservable(output$).toBe("-a---b", {
           a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -767,16 +864,23 @@ describe("youtubeDownload epic", (): void => {
           collectionObservable,
           findOneObservable: (): Observable<any> => cold("-a", { a: null }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toBe("-a---b", {
+        // ExpectObservable(output$).toEqual("-a---b", {
         //   A: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
@@ -789,9 +893,12 @@ describe("youtubeDownload epic", (): void => {
           .then(
             (
               actual:
-                | IActionYoutubeDownload
                 | IActionGetChatMember
+                | IActionSendMessage
                 | IActionSendVideo
+                | IActionYoutubeDownload
+                | IActionYoutubeDownloadResultFind
+                | IActionYoutubeDownloadResultInsert
             ): void => {
               cold("-a---b", {
                 a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -801,9 +908,12 @@ describe("youtubeDownload epic", (): void => {
                 .then(
                   (
                     expected:
-                      | IActionYoutubeDownload
                       | IActionGetChatMember
+                      | IActionSendMessage
                       | IActionSendVideo
+                      | IActionYoutubeDownload
+                      | IActionYoutubeDownloadResultFind
+                      | IActionYoutubeDownloadResultInsert
                   ): boolean => actual === expected
                 );
             }
@@ -829,16 +939,23 @@ describe("youtubeDownload epic", (): void => {
               a: resultCacheMimeType
             }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toBe("-a---b", {
+        // ExpectObservable(output$).toEqual("-a---b", {
         //   A: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
@@ -851,9 +968,12 @@ describe("youtubeDownload epic", (): void => {
           .then(
             (
               actual:
-                | IActionYoutubeDownload
                 | IActionGetChatMember
+                | IActionSendMessage
                 | IActionSendVideo
+                | IActionYoutubeDownload
+                | IActionYoutubeDownloadResultFind
+                | IActionYoutubeDownloadResultInsert
             ): void => {
               cold("-a---b", {
                 a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -863,9 +983,12 @@ describe("youtubeDownload epic", (): void => {
                 .then(
                   (
                     expected:
-                      | IActionYoutubeDownload
                       | IActionGetChatMember
+                      | IActionSendMessage
                       | IActionSendVideo
+                      | IActionYoutubeDownload
+                      | IActionYoutubeDownloadResultFind
+                      | IActionYoutubeDownloadResultInsert
                   ): boolean => actual === expected
                 );
             }
@@ -891,16 +1014,23 @@ describe("youtubeDownload epic", (): void => {
               a: resultCacheThumb
             }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toBe("-a---b", {
+        // ExpectObservable(output$).toEqual("-a---b", {
         //   A: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
@@ -913,9 +1043,12 @@ describe("youtubeDownload epic", (): void => {
           .then(
             (
               actual:
-                | IActionYoutubeDownload
                 | IActionGetChatMember
+                | IActionSendMessage
                 | IActionSendVideo
+                | IActionYoutubeDownload
+                | IActionYoutubeDownloadResultFind
+                | IActionYoutubeDownloadResultInsert
             ): void => {
               cold("-a---b", {
                 a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -925,9 +1058,12 @@ describe("youtubeDownload epic", (): void => {
                 .then(
                   (
                     expected:
-                      | IActionYoutubeDownload
                       | IActionGetChatMember
+                      | IActionSendMessage
                       | IActionSendVideo
+                      | IActionYoutubeDownload
+                      | IActionYoutubeDownloadResultFind
+                      | IActionYoutubeDownloadResultInsert
                   ): boolean => actual === expected
                 );
             }
@@ -950,16 +1086,23 @@ describe("youtubeDownload epic", (): void => {
           collectionObservable,
           findOneObservable,
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: (): ColdObservable<any> =>
-            cold("--a", {
-              a: actions.getChatMember.result({ result: getChatMemberResult })
-            }),
+          testAction$: cold("--a", {
+            a: {
+              ...initialState,
+              ...actions.getChatMember.result({ result: getChatMemberResult })
+            }
+          }),
           youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
         };
         const output$: Observable<
-          IActionGetChatMember | IActionSendVideo | IActionYoutubeDownload
+          | IActionGetChatMember
+          | IActionSendMessage
+          | IActionSendVideo
+          | IActionYoutubeDownload
+          | IActionYoutubeDownloadResultFind
+          | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // ExpectObservable(output$).toBe("-a---b", {
+        // ExpectObservable(output$).toEqual("-a---b", {
         //   A: actions.getChatMember.query({
         //     Query: getChatMemberQuery
         //   }),
@@ -972,9 +1115,12 @@ describe("youtubeDownload epic", (): void => {
           .then(
             (
               actual:
-                | IActionYoutubeDownload
                 | IActionGetChatMember
+                | IActionSendMessage
                 | IActionSendVideo
+                | IActionYoutubeDownload
+                | IActionYoutubeDownloadResultFind
+                | IActionYoutubeDownloadResultInsert
             ): void => {
               cold("-a---b", {
                 a: actions.getChatMember.query({ query: getChatMemberQuery }),
@@ -984,9 +1130,12 @@ describe("youtubeDownload epic", (): void => {
                 .then(
                   (
                     expected:
-                      | IActionYoutubeDownload
                       | IActionGetChatMember
+                      | IActionSendMessage
                       | IActionSendVideo
+                      | IActionYoutubeDownload
+                      | IActionYoutubeDownloadResultFind
+                      | IActionYoutubeDownloadResultInsert
                   ): boolean => actual === expected
                 );
             }

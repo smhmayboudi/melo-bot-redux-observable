@@ -27,7 +27,7 @@ describe("mongodbObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: connectObservable("", {})
       });
-      expectObservable(action$).toBe("-a", { a: [] });
+      expectObservable(action$).toEqual("-a", { a: [] });
     });
   });
 
@@ -37,7 +37,7 @@ describe("mongodbObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: collectionObservable(new MongoClient("").db(""), "", {})
       });
-      expectObservable(action$).toBe("-a", { a: [] });
+      expectObservable(action$).toEqual("-a", { a: [] });
     });
   });
 
@@ -47,7 +47,7 @@ describe("mongodbObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: findOneObservable(new MongoClient("").db("").collection(""), {})
       });
-      expectObservable(action$).toBe("-a", { a: [] });
+      expectObservable(action$).toEqual("-a", { a: [] });
     });
   });
 
@@ -61,7 +61,7 @@ describe("mongodbObservable lib", (): void => {
           {}
         )
       });
-      expectObservable(action$).toBe("-a", { a: [] });
+      expectObservable(action$).toEqual("-a", { a: [] });
     });
   });
 });

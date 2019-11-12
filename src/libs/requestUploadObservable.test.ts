@@ -22,7 +22,7 @@ describe("requestObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: requestUploadObservable({}, new FormData())
       });
-      expectObservable(action$).toBe("-a", { a: [] });
+      expectObservable(action$).toEqual("-a", { a: [] });
     });
   });
 });

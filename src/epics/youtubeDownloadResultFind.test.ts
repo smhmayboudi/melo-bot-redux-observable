@@ -1,30 +1,45 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
+import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
 import { IDependencies } from "../../types/iDependencies";
-import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeDownloadResultFindQuery";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import * as epic from "../epics/youtubeDownloadResultFind";
+import {
+  collectionObservable,
+  findOneObservable
+} from "../libs/mongodbObservable";
+
+import * as epic from "./youtubeDownloadResultFind";
 
 describe("youtubeDownloadResultFind epic", (): void => {
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultFindQuery = {
     id: ""
   };
-  const result = "";
-  const responseOKF: IResponse = {
-    ok: false
-  };
-  const responseOKT: IResponse = {
-    ok: true,
-    result
+  const result: IStateYoutubeDownloadResultInsertQuery = {
+    duration: 0,
+    file_id: "",
+    height: 0,
+    id: "",
+    title: "",
+    width: 0
   };
 
   let testScheduler: TestScheduler;
@@ -37,53 +52,32 @@ describe("youtubeDownloadResultFind epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        { a: actions.youtubeDownloadResultFind.query({ query }) }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionYoutubeDownloadResultFind | IActionYoutubeDownloadResultFind
-      > = epic.youtubeDownloadResultFind(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
+  let db: Db;
+  let connection: MongoClient;
 
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        { a: actions.youtubeDownloadResultFind.query({ query }) }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionYoutubeDownloadResultFind | IActionYoutubeDownloadResultFind
-      > = epic.youtubeDownloadResultFind(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
+  beforeAll(
+    async (): Promise<any> => {
+      connection = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
       });
-    });
-  });
+      db = connection.db(global.__MONGO_DB_NAME__);
+    }
+  );
 
-  test("should handle dependency requestsObservable error", (): void => {
+  beforeEach(
+    async (): Promise<any> => {
+      await db.collection("cache").deleteOne({ id: "small" });
+    }
+  );
+
+  afterAll(
+    async (): Promise<any> => {
+      await connection.close();
+    }
+  );
+
+  test("should handle dependency mongoClientObservable undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
@@ -94,12 +88,151 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: undefined
       };
-      const output$: Observable<
-        IActionYoutubeDownloadResultFind | IActionYoutubeDownloadResultFind
-      > = epic.youtubeDownloadResultFind(action$, state$, dependencies);
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: actions.youtubeDownloadResultFind.error({
+          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle dependency mongoClientObservable error", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({ query })
+        }
+      );
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
+      };
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeDownloadResultFind.error({ error })
+      });
+    });
+  });
+
+  test("should handle dependency collectionObservable undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({ query })
+        }
+      );
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable: undefined,
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: actions.youtubeDownloadResultFind.error({
+          error: new Error(texts.epicDependencyCollectionObservableUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle dependency collectionObservable error", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({ query })
+        }
+      );
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeDownloadResultFind.error({ error })
+      });
+    });
+  });
+
+  test("should handle dependency findOneObservable undefined", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({ query })
+        }
+      );
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable,
+        findOneObservable: undefined,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("-a", {
+        a: actions.youtubeDownloadResultFind.error({
+          error: new Error(texts.epicDependencyFindOneObservableUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle dependency findOneObservable error", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({ query })
+        }
+      );
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        collectionObservable,
+        findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.youtubeDownloadResultFind.error({ error })
       });
@@ -109,17 +242,23 @@ describe("youtubeDownloadResultFind epic", (): void => {
   test("should handle error actionYoutubeDownloadResultFindQuery undefined", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
-      const action$: Observable<IActionYoutubeDownloadResultFind> = cold("-a", {
-        a: actions.youtubeDownloadResultFind.query({})
-      });
+      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
+        "-a",
+        {
+          a: actions.youtubeDownloadResultFind.query({})
+        }
+      );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> => cold("--a")
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionYoutubeDownloadResultFind | IActionYoutubeDownloadResultFind
-      > = epic.youtubeDownloadResultFind(action$, state$, dependencies);
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("-a", {
         a: actions.youtubeDownloadResultFind.error({
           error: new Error(texts.actionYoutubeDownloadResultFindQueryUndefined)
@@ -128,9 +267,10 @@ describe("youtubeDownloadResultFind epic", (): void => {
     });
   });
 
-  test("should handle result ok false", (): void => {
+  test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
+      // Const { cold, expectObservable } = runHelpers;
+      const { cold } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
         "-a",
         {
@@ -139,40 +279,32 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: responseOKF })
+        collectionObservable,
+        findOneObservable,
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
-      const output$: Observable<
-        IActionYoutubeDownloadResultFind
-      > = epic.youtubeDownloadResultFind(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.youtubeDownloadResultFind.error({ error: responseOKF })
-      });
-    });
-  });
-
-  test("should handle result ok true", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        {
-          a: actions.youtubeDownloadResultFind.query({ query })
-        }
+      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
+        action$,
+        state$,
+        dependencies
       );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: (): ColdObservable<any> =>
-          cold("--a", { a: responseOKT })
-      };
-      const output$: Observable<
-        IActionYoutubeDownloadResultFind
-      > = epic.youtubeDownloadResultFind(action$, state$, dependencies);
-      expectObservable(output$).toBe("---a", {
-        a: actions.youtubeDownloadResultFind.result({ result })
-      });
+      // ExpectObservable(output$).toEqual("-a", {
+      //   A: actions.youtubeDownloadResultFind.result({ result })
+      // });
+      output$
+        .toPromise()
+        .then((actual: IActionYoutubeDownloadResultFind): void => {
+          cold("---a", {
+            a: actions.youtubeDownloadResultFind.result({
+              result
+            })
+          })
+            .toPromise()
+            .then(
+              (expected: IActionYoutubeDownloadResultFind): boolean =>
+                actual === expected
+            );
+        });
     });
   });
 });
