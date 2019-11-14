@@ -1,5 +1,8 @@
 export DEBUG=*,-not_this
 export BOT_TOKEN=520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc
+export CHANNEL=melodio
+export CHANNEL_JOIN_LINK=https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA
+export DB_NAME=melodio
 export GOOGLE_API_KEY=AIzaSyDw1FO0PiK1CUxpxMaTIrDGaEJRco4FBXg
 export GOOGLE_API_LIST_MAX_RESULTS=10
 export GOOGLE_API_SAFE_SEARCH=strict
