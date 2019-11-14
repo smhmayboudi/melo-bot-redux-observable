@@ -61,13 +61,6 @@ const transformObservable: (
       })
     );
   }
-  if (state$.value.youtubeSearchList.query.q === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
-      })
-    );
-  }
   if (action.youtubeSearchList.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
@@ -108,18 +101,6 @@ const transformObservable: (
 
   const inlineKeyboard = [];
   if (
-    action.youtubeSearchList.result.prevPageToken !== null &&
-    action.youtubeSearchList.result.prevPageToken !== undefined
-  ) {
-    inlineKeyboard.push({
-      callback_data: stringify({
-        id: action2.callbackQueryDataInsert.result,
-        pageToken: action.youtubeSearchList.result.prevPageToken
-      }),
-      text: texts.messageWithPaginationPrev
-    });
-  }
-  if (
     action.youtubeSearchList.result.nextPageToken !== null &&
     action.youtubeSearchList.result.nextPageToken !== undefined
   ) {
@@ -129,6 +110,18 @@ const transformObservable: (
         pageToken: action.youtubeSearchList.result.nextPageToken
       }),
       text: texts.messageWithPaginationNext
+    });
+  }
+  if (
+    action.youtubeSearchList.result.prevPageToken !== null &&
+    action.youtubeSearchList.result.prevPageToken !== undefined
+  ) {
+    inlineKeyboard.push({
+      callback_data: stringify({
+        id: action2.callbackQueryDataInsert.result,
+        pageToken: action.youtubeSearchList.result.prevPageToken
+      }),
+      text: texts.messageWithPaginationPrev
     });
   }
 
@@ -145,7 +138,8 @@ const transformObservable: (
         },
         text: transformSearchResults(
           action.youtubeSearchList.result.items,
-          state$.value.youtubeSearchList.query.q
+          state$.value.youtubeSearchList.query.q,
+          state$.value.youtubeSearchList.query.relatedToVideoId
         )
       }
     })

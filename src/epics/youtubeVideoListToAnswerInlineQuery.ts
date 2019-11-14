@@ -91,10 +91,7 @@ const transformObservable: (
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
         next_offset: nextOffset,
-        results: transformVideos(
-          action.youtubeVideoList.result.items,
-          state$.value.youtubeVideoList.query.chart
-        ),
+        results: transformVideos(action.youtubeVideoList.result.items),
         switch_pm_parameter: "string",
         switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
       }

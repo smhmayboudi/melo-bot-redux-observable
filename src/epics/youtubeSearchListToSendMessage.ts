@@ -52,13 +52,6 @@ const transformObservable: (
       })
     );
   }
-  if (state$.value.youtubeSearchList.query.q === undefined) {
-    return of(
-      actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
-      })
-    );
-  }
   if (action.youtubeSearchList.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
@@ -136,7 +129,8 @@ const transformObservable: (
         reply_to_message_id: state$.value.message.query.message.message_id,
         text: transformSearchResults(
           action.youtubeSearchList.result.items,
-          state$.value.youtubeSearchList.query.q
+          state$.value.youtubeSearchList.query.q,
+          state$.value.youtubeSearchList.query.relatedToVideoId
         )
       }
     })

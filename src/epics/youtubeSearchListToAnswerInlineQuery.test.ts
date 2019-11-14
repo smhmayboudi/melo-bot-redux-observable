@@ -92,7 +92,7 @@ describe("youtubeSearchList epic", (): void => {
       key: ""
     };
     // const result = {};
-    const stateResult = {
+    const state$Value = {
       ...initialState,
       inlineQuery: {
         query: {
@@ -128,48 +128,51 @@ describe("youtubeSearchList epic", (): void => {
         result: {}
       }
     };
-    const stateResultInlineQueryQueryUndefined = {
-      ...stateResult,
+    const state$ValueInlineQueryQueryUndefined = {
+      ...state$Value,
       inlineQuery: {
-        ...stateResult.inlineQuery,
+        ...state$Value.inlineQuery,
         query: undefined
       }
     };
-    const stateResultYoutubeSearchListQueryUndefined = {
-      ...stateResult,
+    const state$ValueYoutubeSearchListQueryUndefined = {
+      ...state$Value,
       youtubeSearchList: {
-        ...stateResult.youtubeSearchList,
+        ...state$Value.youtubeSearchList,
         query: undefined
       }
     };
-    const stateResultYoutubeSearchListQueryQRelatedToVideoIdUndefined = {
-      ...stateResult,
+    const state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined = {
+      ...state$Value,
       youtubeSearchList: {
-        ...stateResult.youtubeSearchList,
+        ...state$Value.youtubeSearchList,
         query: {
-          ...stateResult.youtubeSearchList.query,
+          ...state$Value.youtubeSearchList.query,
           q: undefined,
           relatedToVideoId: undefined
         }
       }
     };
-    const stateResultYoutubeSearchListQueryQRelatedToVideoIdNotUndefined = {
-      ...stateResult,
-      youtubeSearchList: {
-        ...stateResult.youtubeSearchList,
-        query: {
-          ...stateResult.youtubeSearchList.query,
-          q: "",
-          relatedToVideoId: ""
-        }
-      }
+    const actionYoutubeSearchListResult = {
+      items: [],
+      nextPageToken: ""
+    };
+    const actionYoutubeSearchListResultItemsUndefined = {
+      ...actionYoutubeSearchListResult,
+      items: undefined
+    };
+    const actionYoutubeSearchListResultNextPageTokenUndefined = {
+      ...actionYoutubeSearchListResult,
+      nextPageToken: undefined
     };
 
     test("should handle error", (): void => {
-      const action = actions.youtubeSearchList.error({ error });
+      const action: IActionYoutubeSearchList = actions.youtubeSearchList.error({
+        error
+      });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(of(action));
@@ -196,7 +199,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultInlineQueryQueryUndefined
+        state$ValueInlineQueryQueryUndefined
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(
@@ -214,7 +217,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultYoutubeSearchListQueryUndefined
+        state$ValueYoutubeSearchListQueryUndefined
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(
@@ -234,7 +237,7 @@ describe("youtubeSearchList epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(
@@ -249,20 +252,18 @@ describe("youtubeSearchList epic", (): void => {
     test("should handle error actionYoutubeSearchListResultItems undefined", (): void => {
       const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
         {
-          result: {
-            items: undefined
-          }
+          result: actionYoutubeSearchListResultItemsUndefined
         }
       );
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(
         of(
           actions.youtubeSearchList.error({
-            error: new Error(texts.actionYoutubeSearchListResultUndefined)
+            error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
           })
         )
       );
@@ -271,14 +272,12 @@ describe("youtubeSearchList epic", (): void => {
     test("should handle error action2CallbackQueryDataInsertResult undefined", (): void => {
       const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
         {
-          result: {
-            items: []
-          }
+          result: actionYoutubeSearchListResult
         }
       );
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const action2 = actions.callbackQueryDataInsert.result({
         result: undefined
@@ -295,38 +294,12 @@ describe("youtubeSearchList epic", (): void => {
     test("should handle error state$ValueYoutubeSearchListQueryQRelatedToVideoId undefined", (): void => {
       const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
         {
-          result: {
-            items: []
-          }
+          result: actionYoutubeSearchListResult
         }
       );
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultYoutubeSearchListQueryQRelatedToVideoIdUndefined
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeSearchList.error({
-            error: new Error(
-              texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
-            )
-          })
-        )
-      );
-    });
-
-    test("should handle error state$ValueYoutubeSearchListQueryQRelatedToVideoId not undefined", (): void => {
-      const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
-        {
-          result: {
-            items: []
-          }
-        }
-      );
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        stateResultYoutubeSearchListQueryQRelatedToVideoIdNotUndefined
+        state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(
@@ -343,15 +316,12 @@ describe("youtubeSearchList epic", (): void => {
     test("should handle result actionYoutubeSearchListResultNextPageToken undefined", (): void => {
       const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
         {
-          result: {
-            items: [],
-            nextPageToken: undefined
-          }
+          result: actionYoutubeSearchListResultNextPageTokenUndefined
         }
       );
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(
@@ -368,15 +338,12 @@ describe("youtubeSearchList epic", (): void => {
     test("should handle result", (): void => {
       const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
         {
-          result: {
-            items: [],
-            nextPageToken: ""
-          }
+          result: actionYoutubeSearchListResult
         }
       );
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const action2 = actions.callbackQueryDataInsert.result({ result: "" });
       expect(transformObservable(action, state$)(action2)).toEqual(

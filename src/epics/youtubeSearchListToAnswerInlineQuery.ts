@@ -100,10 +100,7 @@ const transformObservable: (
         inline_query_id: state$.value.inlineQuery.query.id,
         is_personal: true,
         next_offset: nextOffset,
-        results: transformSearchResults(
-          action.youtubeSearchList.result.items,
-          state$.value.youtubeSearchList.query.q
-        ),
+        results: transformSearchResults(action.youtubeSearchList.result.items),
         switch_pm_parameter: "string",
         switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
       }

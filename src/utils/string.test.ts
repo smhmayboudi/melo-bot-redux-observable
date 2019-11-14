@@ -898,7 +898,7 @@ describe("string utils", (): void => {
     ];
     const res: string[] = [];
     res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo(""));
+    res.push(texts.messageResultChart(""));
     res.push(texts.messageSeparator);
     res.push(
       `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
@@ -917,7 +917,7 @@ describe("string utils", (): void => {
     ];
     const res: string[] = [];
     res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo(""));
+    res.push(texts.messageResultChart(""));
     res.push(texts.messageSeparator);
     res.push(
       `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
@@ -936,7 +936,7 @@ describe("string utils", (): void => {
     ];
     const res: string[] = [];
     res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo(""));
+    res.push(texts.messageResultChart(""));
     res.push(texts.messageSeparator);
     res.push(
       `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
@@ -958,7 +958,7 @@ describe("string utils", (): void => {
     ];
     const res: string[] = [];
     res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo(""));
+    res.push(texts.messageResultChart(""));
     res.push(texts.messageSeparator);
     res.push(
       `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
@@ -987,7 +987,7 @@ describe("string utils", (): void => {
       ].join("\n")
     );
     res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedTo(""));
+    res.push(texts.messageResultChart(""));
     res.push(texts.messageSeparator);
     res.push(
       `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${

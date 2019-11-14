@@ -161,7 +161,10 @@ const callbackQueryDataFind: (
         })
       );
     }
-    if (action.callbackQueryDataFind.result === undefined) {
+    if (
+      action.callbackQueryDataFind.result === null ||
+      action.callbackQueryDataFind.result === undefined
+    ) {
       return of(
         actions.callbackQueryDataFind.error({
           error: new Error(texts.actionCallbackQueryDataFindResultUndefined)

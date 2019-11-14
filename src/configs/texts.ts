@@ -210,11 +210,14 @@ const messageChannelJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
   findByCode("1F449").char
 } ${messageChannelJoinLink} ${findByCode("1F448").char}`;
 const messageNoResult = "NO RESULT";
+const messageResultChart: (chart: string) => string = (chart: string): string =>
+  `${findByCode("1F50E").char} RESULT(S) RELATED TO ${chart}`;
 const messageResultQ: (q: string) => string = (q: string): string =>
   `${findByCode("1F50E").char} QUERY RESULT(S) OF ${q}`;
-const messageResultRelatedTo: (chart: string) => string = (
-  chart: string
-): string => `${findByCode("1F50E").char} RESULT(S) RELATED TO ${chart}`;
+const messageResultRelatedToVideoId: (relatedToVideoId: string) => string = (
+  relatedToVideoId: string
+): string =>
+  `${findByCode("1F50E").char} RESULT(S) RELATED TO ${relatedToVideoId}`;
 const messageSeparator = "--------------------";
 const messageSetInlineGeo = "SETINLINEGEO";
 const messageSettings = "SETTINGS";
@@ -377,8 +380,9 @@ export {
   messageHelp,
   messageChannelJoin,
   messageNoResult,
+  messageResultChart,
+  messageResultRelatedToVideoId,
   messageResultQ,
-  messageResultRelatedTo,
   messageSeparator,
   messageSetInlineGeo,
   messageSettings,

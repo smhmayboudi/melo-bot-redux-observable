@@ -24,14 +24,14 @@ const transformObservableSendVideo: (
   if (action.youtubeDownload.result === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.actionYoutubeDownloadQueryUndefined)
+        error: new Error(texts.actionYoutubeDownloadResultUndefined)
       })
     );
   }
   if (action2.sendVideo.result === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.actionYoutubeDownloadResultUndefined)
+        error: new Error(texts.actionSendVideoResultUndefined)
       })
     );
   }

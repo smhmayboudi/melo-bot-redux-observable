@@ -38,7 +38,10 @@ const transformObservableYoutubeDownloadResultFind: (
       })
     );
   }
-  if (action.youtubeDownloadResultFind.result === undefined) {
+  if (
+    action.youtubeDownloadResultFind.result === null ||
+    action.youtubeDownloadResultFind.result === undefined
+  ) {
     return of(
       actions.youtubeDownload.error({
         error: new Error(texts.actionYoutubeDownloadResultUndefined)

@@ -540,10 +540,7 @@ describe("youtubeSearchList epic", (): void => {
             inline_query_id: (stateInlineQueryResult.inlineQuery
               .query as IStateInlineQueryQuery).id,
             is_personal: true,
-            results: transformSearchListInlineQueryResultArticle(
-              result.items,
-              stateInlineQueryResult.youtubeSearchList.query.q
-            ),
+            results: transformSearchListInlineQueryResultArticle(result.items),
             switch_pm_parameter: "string",
             switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
           }

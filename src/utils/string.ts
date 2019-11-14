@@ -63,8 +63,13 @@ const transformSearchResultCaption: (
 
 const transformSearchResults: (
   items: youtube_v3.Schema$SearchResult[],
-  q: string
-) => string = (items: youtube_v3.Schema$SearchResult[], q: string): string => {
+  q?: string,
+  relatedToVideoId?: string
+) => string = (
+  items: youtube_v3.Schema$SearchResult[],
+  q?: string,
+  relatedToVideoId?: string
+): string => {
   const res: string[] = [];
   if (items.length === 0) {
     return texts.messageNoResult;
@@ -96,7 +101,11 @@ const transformSearchResults: (
     msg.push(texts.messageSeparator);
     res.push(msg.join("\n"));
   }
-  res.push(texts.messageResultQ(q));
+  if (q !== undefined) {
+    res.push(texts.messageResultQ(q));
+  } else if (relatedToVideoId !== undefined) {
+    res.push(texts.messageResultRelatedToVideoId(relatedToVideoId));
+  }
   res.push(texts.messageSeparator);
   res.push(
     `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
@@ -218,7 +227,7 @@ const transformVideos: (
     msg.push(texts.messageSeparator);
     res.push(msg.join("\n"));
   }
-  res.push(texts.messageResultRelatedTo(chart));
+  res.push(texts.messageResultChart(chart));
   res.push(texts.messageSeparator);
   res.push(
     `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
