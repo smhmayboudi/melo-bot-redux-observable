@@ -79,30 +79,22 @@ describe("inlineQueryResultArticle utils", (): void => {
     }
   };
 
-  test("should handle transformSearchResults items undefined", (): void => {
-    const q = "";
-    expect(transformSearchResults(undefined, q)).toEqual([]);
-  });
-
   test("should handle transformSearchResults items length", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults id undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
         id: undefined
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults id videoId null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -111,11 +103,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults id videoId undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -124,22 +115,20 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
         snippet: undefined
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet description null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -149,11 +138,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet description undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -163,11 +151,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -177,11 +164,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -194,11 +180,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default height null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -214,11 +199,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default height undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -234,11 +218,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default url null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -254,11 +237,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default url undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -274,11 +256,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default width null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -294,11 +275,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet thumbnails default width undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -314,11 +294,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet title null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -328,11 +307,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults snippet title undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -342,17 +320,16 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([]);
+    expect(transformSearchResults(items)).toEqual([]);
   });
 
   test("should handle transformSearchResults", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem
       }
     ];
-    expect(transformSearchResults(items, q)).toEqual([
+    expect(transformSearchResults(items)).toEqual([
       {
         description: "",
         hide_url: false,
@@ -386,46 +363,41 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformVideos items length", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos id null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
         id: null
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos id undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
         id: undefined
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         id: "",
         snippet: undefined
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet description null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -435,11 +407,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet description undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -449,11 +420,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -463,11 +433,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -480,11 +449,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default height null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -500,11 +468,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default height undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -520,11 +487,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default url null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -540,11 +506,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default url undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -560,11 +525,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default width null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -580,11 +544,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet thumbnails default width undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -600,11 +563,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet title null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -614,11 +576,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos snippet title undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem,
@@ -628,17 +589,16 @@ describe("inlineQueryResultArticle utils", (): void => {
         }
       }
     ];
-    expect(transformVideos(items, q)).toEqual([]);
+    expect(transformVideos(items)).toEqual([]);
   });
 
   test("should handle transformVideos", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$Video[] = [
       {
         ...videoItem
       }
     ];
-    expect(transformVideos(items, q)).toEqual([
+    expect(transformVideos(items)).toEqual([
       {
         description: "",
         hide_url: false,
