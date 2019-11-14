@@ -148,8 +148,20 @@ describe("youtubeSearchList epic", (): void => {
     },
     prevPageToken: ""
   };
-  const stateMessageResult = {
+  const state$Value = {
     ...initialState,
+    inlineQuery: {
+      query: {
+        from: {
+          first_name: "",
+          id: 0,
+          is_bot: false
+        },
+        id: "",
+        offset: "",
+        query: ""
+      }
+    },
     message: {
       query: {
         message: {
@@ -168,79 +180,43 @@ describe("youtubeSearchList epic", (): void => {
       result
     }
   };
-  const stateInlineQueryResult = {
-    ...initialState,
-    inlineQuery: {
-      query: {
-        from: {
-          first_name: "",
-          id: 0,
-          is_bot: false
-        },
-        id: "",
-        offset: "",
-        query: ""
-      }
-    },
-    youtubeSearchList: {
-      query,
-      result
-    }
-  };
-  const state$InlineQueryValueInlineQueryQuery = {
-    ...stateInlineQueryResult,
-    inlineQuery: {
-      ...stateInlineQueryResult.inlineQuery,
+  const state$ValueMessageQueryUndefined = {
+    ...state$Value,
+    message: {
+      ...state$Value.message,
       query: undefined
-    }
-  };
-  const state$InlineQueryValueYoutubeSearchListQuery = {
-    ...stateInlineQueryResult,
-    youtubeSearchList: {
-      ...stateInlineQueryResult.youtubeSearchList,
-      query: undefined
-    }
-  };
-  const state$InlineQueryValueYoutubeSearchListQueryQ = {
-    ...stateInlineQueryResult,
-    youtubeSearchList: {
-      ...stateInlineQueryResult.youtubeSearchList,
-      query: {
-        ...stateInlineQueryResult.youtubeSearchList.query,
-        q: undefined
-      }
     }
   };
   const state$ValueMessageQueryMessageUndefined = {
-    ...stateMessageResult,
+    ...state$Value,
     message: {
-      ...stateMessageResult.message,
+      ...state$Value.message,
       query: {
-        ...stateMessageResult.message.query,
+        ...state$Value.message.query,
         message: undefined
       }
     }
   };
-  const state$ValueMessageQueryUndefined = {
-    ...stateMessageResult,
-    message: {
-      ...stateMessageResult.message,
+  const state$ValueInlineQueryQueryUndefined = {
+    ...state$Value,
+    inlineQuery: {
+      ...state$Value.inlineQuery,
       query: undefined
     }
   };
-  const state$MessageValueYoutubeSearchListQuery = {
-    ...stateMessageResult,
+  const state$ValueYoutubeSearchListQueryUndefined = {
+    ...state$Value,
     youtubeSearchList: {
-      ...stateMessageResult.youtubeSearchList,
+      ...state$Value.youtubeSearchList,
       query: undefined
     }
   };
-  const state$MessageValueYoutubeSearchListQueryQ = {
-    ...stateMessageResult,
+  const state$ValueYoutubeSearchListQueryQUndefined = {
+    ...state$Value,
     youtubeSearchList: {
-      ...stateMessageResult.youtubeSearchList,
+      ...state$Value.youtubeSearchList,
       query: {
-        ...stateMessageResult.youtubeSearchList.query,
+        ...state$Value.youtubeSearchList.query,
         q: undefined
       }
     }
@@ -264,7 +240,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateMessageResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: undefined,
@@ -298,7 +274,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateMessageResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -324,7 +300,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateMessageResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -379,7 +355,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateMessageResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -434,7 +410,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        state$InlineQueryValueInlineQueryQuery
+        state$ValueInlineQueryQueryUndefined
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -463,7 +439,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        state$InlineQueryValueYoutubeSearchListQuery
+        state$ValueYoutubeSearchListQueryUndefined
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -492,7 +468,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        state$InlineQueryValueYoutubeSearchListQueryQ
+        state$ValueYoutubeSearchListQueryQUndefined
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -521,7 +497,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateInlineQueryResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -537,7 +513,7 @@ describe("youtubeSearchList epic", (): void => {
       expectObservable(output$).toBe("---a", {
         a: actions.answerInlineQuery.query({
           query: {
-            inline_query_id: (stateInlineQueryResult.inlineQuery
+            inline_query_id: (state$Value.inlineQuery
               .query as IStateInlineQueryQuery).id,
             is_personal: true,
             results: transformSearchListInlineQueryResultArticle(result.items),
@@ -615,7 +591,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        state$MessageValueYoutubeSearchListQuery
+        state$ValueYoutubeSearchListQueryUndefined
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -644,7 +620,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        state$MessageValueYoutubeSearchListQueryQ
+        state$ValueYoutubeSearchListQueryQUndefined
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -673,7 +649,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateMessageResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -696,7 +672,7 @@ describe("youtubeSearchList epic", (): void => {
             reply_to_message_id: 0,
             text: transformSearchListString(
               result.items,
-              stateInlineQueryResult.youtubeSearchList.query.q
+              state$Value.youtubeSearchList.query.q
             )
           }
         })
