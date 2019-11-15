@@ -148,9 +148,11 @@ describe("answerPreCheckoutQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionAnswerPreCheckoutQuery
-      > = epic.answerPreCheckoutQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerPreCheckoutQuery> = epic.answerPreCheckoutQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerPreCheckoutQuery.error({ error: responseOKF })
       });
@@ -172,9 +174,11 @@ describe("answerPreCheckoutQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionAnswerPreCheckoutQuery
-      > = epic.answerPreCheckoutQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerPreCheckoutQuery> = epic.answerPreCheckoutQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerPreCheckoutQuery.result({ result })
       });

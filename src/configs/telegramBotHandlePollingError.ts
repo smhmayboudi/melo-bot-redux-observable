@@ -6,10 +6,11 @@ import { IState } from "../../types/iState";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handlePollingError: (store: Store<IState>, error: Error) => void = (
-  _store: Store<IState>,
-  _error: Error
+  store: Store<IState>,
+  error: Error
 ): void => {
   appDebug("telegramBot:handlePollingError");
+  store.dispatch({ type: "POLLING_ERROR", error: error });
 };
 
 export { handlePollingError };

@@ -1,3 +1,4 @@
+import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as action from "../actions/youtubeDownload";
 
@@ -5,7 +6,7 @@ import * as reducer from "./youtubeDownload";
 
 describe("youtubeDownload reducer", (): void => {
   const error: Error = new Error("");
-  const query = {
+  const query: IStateYoutubeDownloadQuery = {
     id: ""
   };
   const result: IStateYoutubeDownloadResultInsertQuery = {

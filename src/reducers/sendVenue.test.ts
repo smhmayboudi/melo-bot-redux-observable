@@ -16,7 +16,7 @@ describe("sendVenue reducer", (): void => {
   const result: IMessage = {
     chat: {
       id: 0,
-      type: "private"
+      type: ""
     },
     date: 0,
     message_id: 0

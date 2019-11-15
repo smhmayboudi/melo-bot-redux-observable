@@ -148,9 +148,11 @@ describe("editMessageLiveLocation epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionEditMessageLiveLocation
-      > = epic.editMessageLiveLocation(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageLiveLocation> = epic.editMessageLiveLocation(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageLiveLocation.error({ error: responseOKF })
       });
@@ -172,9 +174,11 @@ describe("editMessageLiveLocation epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionEditMessageLiveLocation
-      > = epic.editMessageLiveLocation(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageLiveLocation> = epic.editMessageLiveLocation(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageLiveLocation.result({ result })
       });

@@ -1,3 +1,5 @@
+import { youtube_v3 } from "googleapis";
+
 import { StateObservable } from "redux-observable";
 import { Observable, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -12,6 +14,7 @@ import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { transformVideos } from "../utils/string";
@@ -97,10 +100,11 @@ describe("youtubeVideoList epic", (): void => {
     youtubeVideoList: actions.youtubeVideoList.initialState
   };
   const error: Error = new Error("");
-  const query = {
+  const query: IStateYoutubeVideoListQuery = {
+    chart: "",
     key: ""
   };
-  const result = {
+  const result: youtube_v3.Schema$VideoListResponse = {
     items: [
       {
         id: "",
@@ -110,7 +114,7 @@ describe("youtubeVideoList epic", (): void => {
       }
     ]
   };
-  const stateResult = {
+  const state$Value: IState = {
     ...initialState,
     message: {
       query: {
@@ -126,19 +130,19 @@ describe("youtubeVideoList epic", (): void => {
       }
     }
   };
-  const state$ValueMessageQueryUndefined = {
-    ...stateResult,
+  const state$ValueMessageQueryUndefined: IState = {
+    ...state$Value,
     message: {
-      ...stateResult.message,
+      ...state$Value.message,
       query: undefined
     }
   };
-  const state$ValueMessageQueryMessageUndefined = {
-    ...stateResult,
+  const state$ValueMessageQueryMessageUndefined: IState = {
+    ...state$Value,
     message: {
-      ...stateResult.message,
+      ...state$Value.message,
       query: {
-        ...(stateResult.message.query as IStateMessageQuery),
+        ...(state$Value.message.query as IStateMessageQuery),
         message: undefined,
         update_id: 0
       }
@@ -163,7 +167,7 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: undefined
@@ -191,7 +195,7 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -217,7 +221,7 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -246,7 +250,7 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -275,7 +279,7 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -388,7 +392,7 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         requestsObservable: (): ColdObservable<any> =>
@@ -409,7 +413,7 @@ describe("youtubeVideoList epic", (): void => {
             disable_web_page_preview: true,
             parse_mode: "HTML",
             reply_to_message_id: 0,
-            text: transformVideos(result.items, "")
+            text: transformVideos(result.items as youtube_v3.Schema$Video[], "")
           }
         })
       });

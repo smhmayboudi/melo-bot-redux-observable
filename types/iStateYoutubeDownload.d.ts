@@ -1,8 +1,8 @@
-import { IStateYoutubeDownloadResultFindQuery } from "./iStateYoutubeDownloadResultFindQuery";
+import { IStateYoutubeDownloadQuery } from "./iStateYoutubeDownloadQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadResultInsertQuery";
 
 export interface IStateYoutubeDownload {
   error?: any;
-  query?: IStateYoutubeDownloadResultFindQuery;
+  query?: IStateYoutubeDownloadQuery;
   result?: IStateYoutubeDownloadResultInsertQuery;
 }

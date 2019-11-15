@@ -149,9 +149,11 @@ describe("answerShippingQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionAnswerShippingQuery
-      > = epic.answerShippingQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerShippingQuery> = epic.answerShippingQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerShippingQuery.error({ error: responseOKF })
       });
@@ -170,9 +172,11 @@ describe("answerShippingQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionAnswerShippingQuery
-      > = epic.answerShippingQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerShippingQuery> = epic.answerShippingQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerShippingQuery.result({ result })
       });

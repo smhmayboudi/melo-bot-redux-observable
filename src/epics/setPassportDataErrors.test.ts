@@ -144,9 +144,11 @@ describe("setPassportDataErrors epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionSetPassportDataErrors
-      > = epic.setPassportDataErrors(action$, state$, dependencies);
+      const output$: Observable<IActionSetPassportDataErrors> = epic.setPassportDataErrors(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setPassportDataErrors.error({ error: responseOKF })
       });
@@ -165,9 +167,11 @@ describe("setPassportDataErrors epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionSetPassportDataErrors
-      > = epic.setPassportDataErrors(action$, state$, dependencies);
+      const output$: Observable<IActionSetPassportDataErrors> = epic.setPassportDataErrors(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setPassportDataErrors.result({ result })
       });

@@ -1,3 +1,5 @@
+import { youtube_v3 } from "googleapis";
+
 import { StateObservable } from "redux-observable";
 import { of, Subject } from "rxjs";
 
@@ -89,10 +91,11 @@ describe("youtubeVideoList epic", (): void => {
     };
     const error: Error = new Error("");
     const query: IStateYoutubeVideoListQuery = {
+      chart: "",
       key: ""
     };
-    // const result = {};
-    const state$Value = {
+    // const result: youtube_v3.Schema$VideoListResponse = {};
+    const state$Value: IState = {
       ...initialState,
       inlineQuery: {
         query: {
@@ -120,46 +123,43 @@ describe("youtubeVideoList epic", (): void => {
         }
       },
       youtubeVideoList: {
-        query: {
-          chart: "",
-          key: ""
-        },
-        result: {}
+        query
       }
     };
-    const state$ValueInlineQueryQueryUndefined = {
+    const state$ValueInlineQueryQueryUndefined: IState = {
       ...state$Value,
       inlineQuery: {
         ...state$Value.inlineQuery,
         query: undefined
       }
     };
-    const state$ValueYoutubeVideoListQueryUndefined = {
+    const state$ValueYoutubeVideoListQueryUndefined: IState = {
       ...state$Value,
       youtubeVideoList: {
         ...state$Value.youtubeVideoList,
         query: undefined
       }
     };
-    const state$ValueYoutubeVideoListQueryChartUndefined = {
+    const state$ValueYoutubeVideoListQueryChartUndefined: IState = {
       ...state$Value,
       youtubeVideoList: {
         ...state$Value.youtubeVideoList,
         query: {
-          ...state$Value.youtubeVideoList.query,
+          ...(state$Value.youtubeVideoList
+            .query as IStateYoutubeVideoListQuery),
           chart: undefined
         }
       }
     };
-    const actionYoutubeVideoListResult = {
+    const actionYoutubeVideoListResult: youtube_v3.Schema$VideoListResponse = {
       items: [],
       nextPageToken: ""
     };
-    const actionYoutubeVideoListResultItemsUndefined = {
+    const actionYoutubeVideoListResultItemsUndefined: youtube_v3.Schema$VideoListResponse = {
       ...actionYoutubeVideoListResult,
       items: undefined
     };
-    const actionYoutubeVideoListResultNextPageTokenUndefined = {
+    const actionYoutubeVideoListResultNextPageTokenUndefined: youtube_v3.Schema$VideoListResponse = {
       ...actionYoutubeVideoListResult,
       nextPageToken: undefined
     };

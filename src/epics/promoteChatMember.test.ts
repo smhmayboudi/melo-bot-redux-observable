@@ -136,9 +136,11 @@ describe("promoteChatMember epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionPromoteChatMember
-      > = epic.promoteChatMember(action$, state$, dependencies);
+      const output$: Observable<IActionPromoteChatMember> = epic.promoteChatMember(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.promoteChatMember.error({ error: responseOKF })
       });
@@ -157,9 +159,11 @@ describe("promoteChatMember epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionPromoteChatMember
-      > = epic.promoteChatMember(action$, state$, dependencies);
+      const output$: Observable<IActionPromoteChatMember> = epic.promoteChatMember(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.promoteChatMember.result({ result })
       });

@@ -20,8 +20,7 @@ describe("telegramBotHandleChosenInlineResult configs", (): void => {
       query: "",
       result_id: ""
     };
-    expect(
-      handleChosenInlineResult(store, chosenInlineResult)
-    ).toHaveBeenCalled();
+    handleChosenInlineResult(store, chosenInlineResult);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

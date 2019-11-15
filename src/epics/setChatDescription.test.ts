@@ -135,9 +135,11 @@ describe("setChatDescription epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionSetChatDescription
-      > = epic.setChatDescription(action$, state$, dependencies);
+      const output$: Observable<IActionSetChatDescription> = epic.setChatDescription(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setChatDescription.error({ error: responseOKF })
       });
@@ -156,9 +158,11 @@ describe("setChatDescription epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionSetChatDescription
-      > = epic.setChatDescription(action$, state$, dependencies);
+      const output$: Observable<IActionSetChatDescription> = epic.setChatDescription(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setChatDescription.result({ result })
       });

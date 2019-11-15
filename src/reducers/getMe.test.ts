@@ -32,9 +32,9 @@ describe("getMe reducer", (): void => {
   });
 
   test("should handle query", (): void => {
-    expect(reducer.getMe(action.initialState, action.query({ query }))).toEqual(
-      { query }
-    );
+    expect(
+      reducer.getMe(action.initialState, action.query({ query }))
+    ).toEqual({ query });
   });
 
   test("should handle result", (): void => {

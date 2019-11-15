@@ -136,9 +136,11 @@ describe("setChatStickerSet epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionSetChatStickerSet
-      > = epic.setChatStickerSet(action$, state$, dependencies);
+      const output$: Observable<IActionSetChatStickerSet> = epic.setChatStickerSet(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setChatStickerSet.error({ error: responseOKF })
       });
@@ -157,9 +159,11 @@ describe("setChatStickerSet epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionSetChatStickerSet
-      > = epic.setChatStickerSet(action$, state$, dependencies);
+      const output$: Observable<IActionSetChatStickerSet> = epic.setChatStickerSet(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setChatStickerSet.result({ result })
       });

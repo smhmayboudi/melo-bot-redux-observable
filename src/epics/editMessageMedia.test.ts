@@ -25,7 +25,7 @@ describe("editMessageMedia epic", (): void => {
   const result: IMessage = {
     chat: {
       id: 0,
-      type: "private"
+      type: ""
     },
     date: 0,
     message_id: 0
@@ -146,9 +146,11 @@ describe("editMessageMedia epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionEditMessageMedia
-      > = epic.editMessageMedia(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageMedia> = epic.editMessageMedia(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageMedia.error({ error: responseOKF })
       });
@@ -167,9 +169,11 @@ describe("editMessageMedia epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionEditMessageMedia
-      > = epic.editMessageMedia(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageMedia> = epic.editMessageMedia(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageMedia.result({ result })
       });

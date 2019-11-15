@@ -140,9 +140,11 @@ describe("uploadStickerFile epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionUploadStickerFile
-      > = epic.uploadStickerFile(action$, state$, dependencies);
+      const output$: Observable<IActionUploadStickerFile> = epic.uploadStickerFile(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.uploadStickerFile.error({ error: responseOKF })
       });
@@ -161,9 +163,11 @@ describe("uploadStickerFile epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionUploadStickerFile
-      > = epic.uploadStickerFile(action$, state$, dependencies);
+      const output$: Observable<IActionUploadStickerFile> = epic.uploadStickerFile(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.uploadStickerFile.result({ result })
       });

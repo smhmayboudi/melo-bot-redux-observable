@@ -10,16 +10,45 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
     subscribe: jest.fn(() => jest.fn(() => {}))
   };
 
-  test("should handle", (): void => {
-    const callbackQuery: ICallbackQuery = {
-      chat_instance: "",
-      from: {
-        first_name: "",
+  const callbackQuery: ICallbackQuery = {
+    chat_instance: "",
+    data: "",
+    from: {
+      first_name: "",
+      id: 0,
+      is_bot: false
+    },
+    id: "",
+    inline_message_id: "",
+    message: {
+      chat: {
         id: 0,
-        is_bot: false
+        type: ""
       },
-      id: ""
-    };
-    expect(handleCallbackQuery(store, callbackQuery)).toHaveBeenCalled();
+      date: 0,
+      message_id: 0
+    }
+  };
+
+  test("should handle data, inline_message_id undefined", (): void => {
+    handleCallbackQuery(store, {
+      ...callbackQuery,
+      data: undefined,
+      inline_message_id: undefined
+    });
+    expect(store.dispatch).toHaveBeenCalled();
+  });
+
+  test("should handle inline_message_id undefined", (): void => {
+    handleCallbackQuery(store, {
+      ...callbackQuery,
+      inline_message_id: undefined
+    });
+    expect(store.dispatch).toHaveBeenCalled();
+  });
+
+  test("should handle message undefined", (): void => {
+    handleCallbackQuery(store, { ...callbackQuery, message: undefined });
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

@@ -145,9 +145,11 @@ describe("getChatAdministrators epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionGetChatAdministrators
-      > = epic.getChatAdministrators(action$, state$, dependencies);
+      const output$: Observable<IActionGetChatAdministrators> = epic.getChatAdministrators(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getChatAdministrators.error({ error: responseOKF })
       });
@@ -166,9 +168,11 @@ describe("getChatAdministrators epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionGetChatAdministrators
-      > = epic.getChatAdministrators(action$, state$, dependencies);
+      const output$: Observable<IActionGetChatAdministrators> = epic.getChatAdministrators(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getChatAdministrators.result({ result })
       });

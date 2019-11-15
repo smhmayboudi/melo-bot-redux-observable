@@ -1,10 +1,14 @@
+import { youtube_v3 } from "googleapis";
+
 import { StateObservable } from "redux-observable";
 import { of, Subject } from "rxjs";
 
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
+import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import { transformObservable } from "./youtubeVideoListToEditMessageMedia";
 
@@ -89,10 +93,11 @@ describe("youtubeVideoList epic", (): void => {
     };
     const error: Error = new Error("");
     const query: IStateYoutubeVideoListQuery = {
+      chart: "",
       key: ""
     };
-    // const result = {};
-    const state$Value = {
+    // const result: youtube_v3.Schema$VideoListResponse = {};
+    const state$Value: IState = {
       ...initialState,
       inlineQuery: {
         query: {
@@ -137,74 +142,72 @@ describe("youtubeVideoList epic", (): void => {
         }
       },
       youtubeVideoList: {
-        query: {
-          chart: "",
-          key: ""
-        },
-        result: {}
+        query
       }
     };
-    const state$ValueMessageQueryUndefined = {
+    const state$ValueMessageQueryUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: undefined
       }
     };
-    const state$ValueMessageQueryCallbackQueryUndefined = {
+    const state$ValueMessageQueryCallbackQueryUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
+          ...(state$Value.message.query as IStateMessageQuery),
           callback_query: undefined
         }
       }
     };
-    const state$ValueMessageQueryCallbackQueryMessageUndefined = {
+    const state$ValueMessageQueryCallbackQueryMessageUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
+          ...(state$Value.message.query as IStateMessageQuery),
           callback_query: {
-            ...state$Value.message.query.callback_query,
+            ...((state$Value.message.query as IStateMessageQuery)
+              .callback_query as ICallbackQuery),
             message: undefined
           }
         }
       }
     };
-    const state$ValueYoutubeVideoListQueryUndefined = {
+    const state$ValueYoutubeVideoListQueryUndefined: IState = {
       ...state$Value,
       youtubeVideoList: {
         ...state$Value.youtubeVideoList,
         query: undefined
       }
     };
-    const state$ValueYoutubeVideoListQueryChartUndefined = {
+    const state$ValueYoutubeVideoListQueryChartUndefined: IState = {
       ...state$Value,
       youtubeVideoList: {
         ...state$Value.youtubeVideoList,
         query: {
-          ...state$Value.youtubeVideoList.query,
+          ...(state$Value.youtubeVideoList
+            .query as IStateYoutubeVideoListQuery),
           chart: undefined
         }
       }
     };
-    const actionYoutubeVideoListResult = {
+    const actionYoutubeVideoListResult: youtube_v3.Schema$VideoListResponse = {
       items: [],
       nextPageToken: "",
       prevPageToken: ""
     };
-    const actionYoutubeVideoListResultItemsUndefined = {
+    const actionYoutubeVideoListResultItemsUndefined: youtube_v3.Schema$VideoListResponse = {
       ...actionYoutubeVideoListResult,
       items: undefined
     };
-    const actionYoutubeVideoListResultNextPageTokenUndefined = {
+    const actionYoutubeVideoListResultNextPageTokenUndefined: youtube_v3.Schema$VideoListResponse = {
       ...actionYoutubeVideoListResult,
       nextPageToken: undefined
     };
-    const actionYoutubeVideoListResultPrevPageTokenUndefined = {
+    const actionYoutubeVideoListResultPrevPageTokenUndefined: youtube_v3.Schema$VideoListResponse = {
       ...actionYoutubeVideoListResult,
       prevPageToken: undefined
     };

@@ -29,11 +29,19 @@ import * as epic from "./youtubeDownloadResultInsert";
 
 describe("youtubeDownloadResultInsert epic", (): void => {
   const error: Error = new Error("");
-  const query: IStateYoutubeDownloadResultInsertQuery = {
+  const query: IStateYoutubeDownloadResultInsertQuery | null = {
     duration: 0,
-    file_id: "",
+    file_id: "small",
+    file_size: 0,
     height: 0,
-    id: "",
+    id: "small",
+    mime_type: "video/mp4",
+    thumb: {
+      file_id: "small",
+      file_size: 0,
+      height: 0,
+      width: 0
+    },
     title: "",
     width: 0
   };

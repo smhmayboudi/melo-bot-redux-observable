@@ -148,9 +148,11 @@ describe("setStickerPositionInSet epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionSetStickerPositionInSet
-      > = epic.setStickerPositionInSet(action$, state$, dependencies);
+      const output$: Observable<IActionSetStickerPositionInSet> = epic.setStickerPositionInSet(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setStickerPositionInSet.error({ error: responseOKF })
       });
@@ -172,9 +174,11 @@ describe("setStickerPositionInSet epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionSetStickerPositionInSet
-      > = epic.setStickerPositionInSet(action$, state$, dependencies);
+      const output$: Observable<IActionSetStickerPositionInSet> = epic.setStickerPositionInSet(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.setStickerPositionInSet.result({ result })
       });

@@ -21,6 +21,7 @@ describe("telegramBotHandleInlineQuery configs", (): void => {
       offset: "",
       query: ""
     };
-    expect(handleInlineQuery(store, inlineQuery)).toHaveBeenCalled();
+    handleInlineQuery(store, inlineQuery);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

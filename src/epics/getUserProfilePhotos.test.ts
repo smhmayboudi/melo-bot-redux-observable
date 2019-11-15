@@ -147,9 +147,11 @@ describe("getUserProfilePhotos epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionGetUserProfilePhotos
-      > = epic.getUserProfilePhotos(action$, state$, dependencies);
+      const output$: Observable<IActionGetUserProfilePhotos> = epic.getUserProfilePhotos(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getUserProfilePhotos.error({ error: responseOKF })
       });
@@ -168,9 +170,11 @@ describe("getUserProfilePhotos epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionGetUserProfilePhotos
-      > = epic.getUserProfilePhotos(action$, state$, dependencies);
+      const output$: Observable<IActionGetUserProfilePhotos> = epic.getUserProfilePhotos(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getUserProfilePhotos.result({ result })
       });

@@ -14,11 +14,12 @@ describe("telegramBotHandleEditedMessageText configs", (): void => {
     const message: IMessage = {
       chat: {
         id: 0,
-        type: "private"
+        type: ""
       },
       date: 0,
       message_id: 0
     };
-    expect(handleEditedMessageText(store, message)).toHaveBeenCalled();
+    handleEditedMessageText(store, message);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

@@ -1,4 +1,5 @@
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 
 import * as action from "./callbackQueryDataFind";
 
@@ -8,7 +9,7 @@ describe("callbackQueryDataFind actions", (): void => {
     id: "",
     pageToken: ""
   };
-  const result = {};
+  const result: IStateCallbackQueryDataInsertQuery | null = {};
 
   test("should handle error", (): void => {
     expect(action.error({ error })).toEqual({

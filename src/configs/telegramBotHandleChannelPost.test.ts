@@ -1,8 +1,8 @@
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 
-import { handleChanelPost } from "./telegramBotHandleChanelPost";
+import { handleChannelPost } from "./telegramBotHandleChannelPost";
 
-describe("telegramBotHandleChanelPost configs", (): void => {
+describe("telegramBotHandleChannelPost configs", (): void => {
   const store: any = {
     dispatch: jest.fn(() => {}),
     getState: jest.fn(() => {}),
@@ -14,11 +14,12 @@ describe("telegramBotHandleChanelPost configs", (): void => {
     const message: IMessage = {
       chat: {
         id: 0,
-        type: "private"
+        type: ""
       },
       date: 0,
       message_id: 0
     };
-    expect(handleChanelPost(store, message)).toHaveBeenCalled();
+    handleChannelPost(store, message);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

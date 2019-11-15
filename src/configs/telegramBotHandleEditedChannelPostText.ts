@@ -9,8 +9,9 @@ const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 const handleEditedChannelPostText: (
   store: Store<IState>,
   message: IMessage
-) => void = (_store: Store<IState>, _message: IMessage): void => {
+) => void = (store: Store<IState>, message: IMessage): void => {
   appDebug("telegramBot:handleEditedChannelPostText");
+  store.dispatch({ type: "EDITED_CHANNEL_POST_TEXT", query: message });
 };
 
 export { handleEditedChannelPostText };

@@ -1,3 +1,5 @@
+import { youtube_v3 } from "googleapis";
+
 import { StateObservable } from "redux-observable";
 import { of, Subject } from "rxjs";
 
@@ -89,10 +91,12 @@ describe("youtubeSearchList epic", (): void => {
     };
     const error: Error = new Error("");
     const query: IStateYoutubeSearchListQuery = {
-      key: ""
+      key: "",
+      q: "",
+      relatedToVideoId: undefined
     };
-    // const result = {};
-    const state$Value = {
+    // const result: youtube_v3.Schema$SearchListResponse = {};
+    const state$Value: IState = {
       ...initialState,
       inlineQuery: {
         query: {
@@ -120,48 +124,44 @@ describe("youtubeSearchList epic", (): void => {
         }
       },
       youtubeSearchList: {
-        query: {
-          key: "",
-          q: "",
-          relatedToVideoId: undefined
-        },
-        result: {}
+        query
       }
     };
-    const state$ValueInlineQueryQueryUndefined = {
+    const state$ValueInlineQueryQueryUndefined: IState = {
       ...state$Value,
       inlineQuery: {
         ...state$Value.inlineQuery,
         query: undefined
       }
     };
-    const state$ValueYoutubeSearchListQueryUndefined = {
+    const state$ValueYoutubeSearchListQueryUndefined: IState = {
       ...state$Value,
       youtubeSearchList: {
         ...state$Value.youtubeSearchList,
         query: undefined
       }
     };
-    const state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined = {
+    const state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined: IState = {
       ...state$Value,
       youtubeSearchList: {
         ...state$Value.youtubeSearchList,
         query: {
-          ...state$Value.youtubeSearchList.query,
+          ...(state$Value.youtubeSearchList
+            .query as IStateYoutubeSearchListQuery),
           q: undefined,
           relatedToVideoId: undefined
         }
       }
     };
-    const actionYoutubeSearchListResult = {
+    const actionYoutubeSearchListResult: youtube_v3.Schema$SearchListResponse = {
       items: [],
       nextPageToken: ""
     };
-    const actionYoutubeSearchListResultItemsUndefined = {
+    const actionYoutubeSearchListResultItemsUndefined: youtube_v3.Schema$SearchListResponse = {
       ...actionYoutubeSearchListResult,
       items: undefined
     };
-    const actionYoutubeSearchListResultNextPageTokenUndefined = {
+    const actionYoutubeSearchListResultNextPageTokenUndefined: youtube_v3.Schema$SearchListResponse = {
       ...actionYoutubeSearchListResult,
       nextPageToken: undefined
     };

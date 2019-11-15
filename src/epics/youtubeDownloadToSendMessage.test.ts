@@ -5,8 +5,10 @@ import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
 import { transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToSendMessage", (): void => {
@@ -91,8 +93,8 @@ describe("youtubeDownload epic", (): void => {
     const query: IStateYoutubeDownloadQuery = {
       id: ""
     };
-    // const result = {};
-    const state$Value = {
+    // const result: IStateYoutubeDownloadResultInsertQuery = {};
+    const state$Value: IState = {
       ...initialState,
       message: {
         query: {
@@ -108,19 +110,19 @@ describe("youtubeDownload epic", (): void => {
         }
       }
     };
-    const state$ValueMessageQueryUndefined = {
+    const state$ValueMessageQueryUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: undefined
       }
     };
-    const state$ValueMessageQueryMessageUndefined = {
+    const state$ValueMessageQueryMessageUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
+          ...(state$Value.message.query as IStateMessageQuery),
           message: undefined
         }
       }
@@ -199,11 +201,13 @@ describe("youtubeDownload epic", (): void => {
         of(
           actions.sendMessage.query({
             query: {
-              chat_id: state$Value.message.query.message.chat.id,
+              chat_id: ((state$Value.message.query as IStateMessageQuery)
+                .message as IMessage).chat.id,
               disable_notification: true,
               disable_web_page_preview: true,
               parse_mode: "HTML",
-              reply_to_message_id: state$Value.message.query.message.message_id,
+              reply_to_message_id: ((state$Value.message
+                .query as IStateMessageQuery).message as IMessage).message_id,
               text: texts.messageChannelJoin
             }
           })

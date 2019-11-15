@@ -9,6 +9,7 @@ describe("telegramBotHandle configs", (): void => {
   };
 
   test("should handle", (): void => {
-    expect(handle(store)).toHaveBeenCalled();
+    handle(store);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

@@ -10,6 +10,7 @@ describe("telegramBotHandleError configs", (): void => {
 
   test("should handle", (): void => {
     const error: Error = new Error("");
-    expect(handleError(store, error)).toHaveBeenCalled();
+    handleError(store, error);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

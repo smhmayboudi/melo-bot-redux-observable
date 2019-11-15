@@ -145,9 +145,11 @@ describe("stopMessageLiveLocation epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionStopMessageLiveLocation
-      > = epic.stopMessageLiveLocation(action$, state$, dependencies);
+      const output$: Observable<IActionStopMessageLiveLocation> = epic.stopMessageLiveLocation(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.stopMessageLiveLocation.error({ error: responseOKF })
       });
@@ -169,9 +171,11 @@ describe("stopMessageLiveLocation epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionStopMessageLiveLocation
-      > = epic.stopMessageLiveLocation(action$, state$, dependencies);
+      const output$: Observable<IActionStopMessageLiveLocation> = epic.stopMessageLiveLocation(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.stopMessageLiveLocation.result({ result })
       });

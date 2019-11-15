@@ -1,4 +1,5 @@
 import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeDownloadResultFindQuery";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as action from "../actions/youtubeDownloadResultFind";
 
 import * as reducer from "./youtubeDownloadResultFind";
@@ -8,7 +9,7 @@ describe("youtubeDownloadResultFind reducer", (): void => {
   const query: IStateYoutubeDownloadResultFindQuery = {
     id: ""
   };
-  const result = {
+  const result: IStateYoutubeDownloadResultInsertQuery | null = {
     duration: 0,
     file_id: "",
     height: 0,

@@ -151,7 +151,7 @@ const youtubeDownload: (
       ) => void = (
         videoInfos: IStateYoutubeDownloadResultInsertQuery[]
       ): void => {
-        const videoInfo: IStateYoutubeDownloadResultInsertQuery = videoInfos
+        const videoInfo: IStateYoutubeDownloadResultInsertQuery | null = videoInfos
           .filter(
             (value: IStateYoutubeDownloadResultInsertQuery): boolean =>
               value.mime_type === "video/mp4"

@@ -1,6 +1,6 @@
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as action from "../actions/callbackQueryDataFind";
-
 import * as reducer from "./callbackQueryDataFind";
 
 describe("callbackQueryDataFind reducer", (): void => {
@@ -9,7 +9,7 @@ describe("callbackQueryDataFind reducer", (): void => {
     id: "",
     pageToken: ""
   };
-  const result = {};
+  const result: IStateCallbackQueryDataInsertQuery | null = {};
 
   test("should handle initialState", (): void => {
     expect(

@@ -22,6 +22,7 @@ describe("telegramBotHandlePreCheckoutQuery configs", (): void => {
       invoice_payload: "",
       total_amount: 0
     };
-    expect(handlePreCheckoutQuery(store, shippingQuery)).toHaveBeenCalled();
+    handlePreCheckoutQuery(store, shippingQuery);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

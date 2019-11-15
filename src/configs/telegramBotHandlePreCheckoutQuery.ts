@@ -10,10 +10,11 @@ const handlePreCheckoutQuery: (
   store: Store<IState>,
   preCheckoutQuery: IPreCheckoutQuery
 ) => void = (
-  _store: Store<IState>,
-  _preCheckoutQuery: IPreCheckoutQuery
+  store: Store<IState>,
+  preCheckoutQuery: IPreCheckoutQuery
 ): void => {
   appDebug("telegramBot:handlePreCheckoutQuery");
+  store.dispatch({ type: "PRE_CHECKOUT_QUERY", query: preCheckoutQuery });
 };
 
 export { handlePreCheckoutQuery };

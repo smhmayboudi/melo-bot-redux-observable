@@ -137,9 +137,11 @@ describe("restrictChatMember epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionRestrictChatMember
-      > = epic.restrictChatMember(action$, state$, dependencies);
+      const output$: Observable<IActionRestrictChatMember> = epic.restrictChatMember(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.restrictChatMember.error({ error: responseOKF })
       });
@@ -158,9 +160,11 @@ describe("restrictChatMember epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionRestrictChatMember
-      > = epic.restrictChatMember(action$, state$, dependencies);
+      const output$: Observable<IActionRestrictChatMember> = epic.restrictChatMember(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.restrictChatMember.result({ result })
       });

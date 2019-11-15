@@ -5,7 +5,12 @@ import { of, Subject } from "rxjs";
 
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
+import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import { IState } from "../../types/iState";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -96,51 +101,7 @@ describe("youtubeDownload epic", (): void => {
       youtubeVideoList: actions.youtubeVideoList.initialState
     };
     // const error: Error = new Error("");
-    const sendVideoResult = {
-      chat: {
-        id: 0,
-        type: ""
-      },
-      date: 0,
-      id: "",
-      message_id: 0,
-      title: "",
-      video: {
-        duration: 0,
-        file_id: "./asset/small.mp4",
-        file_size: 0,
-        height: 0,
-        mime_type: "",
-        thumb: {
-          file_id: "./asset/small.jpg",
-          height: 0,
-          width: 0
-        },
-        width: 0
-      }
-    };
-    const sendVideoResultVideoUndefined = {
-      ...sendVideoResult,
-      video: undefined
-    };
-    const result = {
-      duration: 0,
-      file_id: "./asset/small.mp4",
-      height: 0,
-      id: "",
-      thumb: {
-        file_id: "./asset/small.jpg",
-        height: 0,
-        width: 0
-      },
-      title: "",
-      width: 0
-    };
-    const resultThumbUndefined = {
-      ...result,
-      thumb: undefined
-    };
-    const state$Value = {
+    const state$Value: IState = {
       ...initialState,
       message: {
         query: {
@@ -156,22 +117,64 @@ describe("youtubeDownload epic", (): void => {
         }
       }
     };
-    const state$ValueMessageQueryUndefined = {
+    const state$ValueMessageQueryUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: undefined
       }
     };
-    const state$ValueMessageQueryMessageUndefined = {
+    const state$ValueMessageQueryMessageUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
+          ...(state$Value.message.query as IStateMessageQuery),
           message: undefined
         }
       }
+    };
+    const actionYoutubeDownloadResult: IMessage = {
+      chat: {
+        id: 0,
+        type: ""
+      },
+      date: 0,
+      message_id: 0,
+      video: {
+        duration: 0,
+        file_id: "./asset/small.mp4",
+        file_size: 0,
+        height: 0,
+        mime_type: "",
+        thumb: {
+          file_id: "./asset/small.jpg",
+          height: 0,
+          width: 0
+        },
+        width: 0
+      }
+    };
+    const actionYoutubeDownloadResultVideoUndefined: IMessage = {
+      ...actionYoutubeDownloadResult,
+      video: undefined
+    };
+    const result: IStateYoutubeDownloadResultInsertQuery = {
+      duration: 0,
+      file_id: "./asset/small.mp4",
+      height: 0,
+      id: "",
+      thumb: {
+        file_id: "./asset/small.jpg",
+        height: 0,
+        width: 0
+      },
+      title: "",
+      width: 0
+    };
+    const actionYoutubeDownloadResultThumbUndefined: IStateYoutubeDownloadResultInsertQuery | null = {
+      ...result,
+      thumb: undefined
     };
 
     describe("transformObservableSendVideo", (): void => {
@@ -180,7 +183,7 @@ describe("youtubeDownload epic", (): void => {
           result: undefined
         });
         const action2: IActionSendVideo = actions.sendVideo.result({
-          result: sendVideoResult
+          result: actionYoutubeDownloadResult
         });
         expect(transformObservableSendVideo(action)(action2)).toEqual(
           of(
@@ -212,7 +215,7 @@ describe("youtubeDownload epic", (): void => {
           result
         });
         const action2: IActionSendVideo = actions.sendVideo.result({
-          result: sendVideoResultVideoUndefined
+          result: actionYoutubeDownloadResultVideoUndefined
         });
         expect(transformObservableSendVideo(action)(action2)).toEqual(
           of(
@@ -228,21 +231,26 @@ describe("youtubeDownload epic", (): void => {
           result
         });
         const action2: IActionSendVideo = actions.sendVideo.result({
-          result: sendVideoResult
+          result: actionYoutubeDownloadResult
         });
         expect(transformObservableSendVideo(action)(action2)).toEqual(
           of(
             actions.youtubeDownloadResultInsert.query({
               query: {
-                duration: sendVideoResult.video.duration,
-                file_id: sendVideoResult.video.file_id,
-                file_size: sendVideoResult.video.file_size,
-                height: sendVideoResult.video.height,
-                id: sendVideoResult.id,
-                mime_type: sendVideoResult.video.mime_type,
-                thumb: sendVideoResult.video.thumb,
-                title: sendVideoResult.title,
-                width: sendVideoResult.video.width
+                duration: (actionYoutubeDownloadResult.video as IVideo)
+                  .duration,
+                file_id: (actionYoutubeDownloadResult.video as IVideo).file_id,
+                file_size: (actionYoutubeDownloadResult.video as IVideo)
+                  .file_size,
+                height: (actionYoutubeDownloadResult.video as IVideo).height,
+                id: (action.youtubeDownload
+                  .result as IStateYoutubeDownloadResultInsertQuery).id,
+                mime_type: (actionYoutubeDownloadResult.video as IVideo)
+                  .mime_type,
+                thumb: (actionYoutubeDownloadResult.video as IVideo).thumb,
+                title: (action.youtubeDownload
+                  .result as IStateYoutubeDownloadResultInsertQuery).title,
+                width: (actionYoutubeDownloadResult.video as IVideo).width
               }
             })
           )
@@ -318,7 +326,7 @@ describe("youtubeDownload epic", (): void => {
 
       test("should handle error actionYoutubeDownloadResultThumb undefined", (): void => {
         const action: IActionYoutubeDownload = actions.youtubeDownload.result({
-          result: resultThumbUndefined
+          result: actionYoutubeDownloadResultThumbUndefined
         });
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
@@ -346,7 +354,8 @@ describe("youtubeDownload epic", (): void => {
             actions.sendVideo.query({
               query: {
                 caption: caption(result.title),
-                chat_id: state$Value.message.query.message.chat.id,
+                chat_id: ((state$Value.message.query as IStateMessageQuery)
+                  .message as IMessage).chat.id,
                 disable_notification: true,
                 duration: result.duration,
                 height: result.height,
@@ -365,10 +374,10 @@ describe("youtubeDownload epic", (): void => {
                     ]
                   ]
                 },
-                reply_to_message_id:
-                  state$Value.message.query.message.message_id,
+                reply_to_message_id: ((state$Value.message
+                  .query as IStateMessageQuery).message as IMessage).message_id,
                 supports_streaming: true,
-                thumb: result.thumb.file_id,
+                thumb: (result.thumb as IPhotoSize).file_id,
                 video: result.file_id,
                 width: result.width
               }

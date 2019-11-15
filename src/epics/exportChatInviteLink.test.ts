@@ -135,9 +135,11 @@ describe("exportChatInviteLink epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionExportChatInviteLink
-      > = epic.exportChatInviteLink(action$, state$, dependencies);
+      const output$: Observable<IActionExportChatInviteLink> = epic.exportChatInviteLink(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.exportChatInviteLink.error({ error: responseOKF })
       });
@@ -156,9 +158,11 @@ describe("exportChatInviteLink epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionExportChatInviteLink
-      > = epic.exportChatInviteLink(action$, state$, dependencies);
+      const output$: Observable<IActionExportChatInviteLink> = epic.exportChatInviteLink(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.exportChatInviteLink.result({ result })
       });

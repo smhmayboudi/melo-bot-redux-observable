@@ -135,9 +135,11 @@ describe("answerCallbackQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionAnswerCallbackQuery
-      > = epic.answerCallbackQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerCallbackQuery> = epic.answerCallbackQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerCallbackQuery.error({ error: responseOKF })
       });
@@ -156,9 +158,11 @@ describe("answerCallbackQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionAnswerCallbackQuery
-      > = epic.answerCallbackQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerCallbackQuery> = epic.answerCallbackQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerCallbackQuery.result({ result })
       });

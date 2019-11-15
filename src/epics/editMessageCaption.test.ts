@@ -20,7 +20,7 @@ describe("editMessageCaption epic", (): void => {
   const result: IMessage = {
     chat: {
       id: 0,
-      type: "private"
+      type: ""
     },
     date: 0,
     message_id: 0
@@ -141,9 +141,11 @@ describe("editMessageCaption epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionEditMessageCaption
-      > = epic.editMessageCaption(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageCaption> = epic.editMessageCaption(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageCaption.error({ error: responseOKF })
       });
@@ -162,9 +164,11 @@ describe("editMessageCaption epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionEditMessageCaption
-      > = epic.editMessageCaption(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageCaption> = epic.editMessageCaption(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageCaption.result({ result })
       });

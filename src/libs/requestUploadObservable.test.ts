@@ -5,7 +5,7 @@ import { TestScheduler } from "rxjs/testing";
 
 import { requestUploadObservable } from "./requestUploadObservable";
 
-describe("requestObservable lib", (): void => {
+describe("requestUploadObservable lib", (): void => {
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {

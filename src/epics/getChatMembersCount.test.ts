@@ -135,9 +135,11 @@ describe("getChatMembersCount epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionGetChatMembersCount
-      > = epic.getChatMembersCount(action$, state$, dependencies);
+      const output$: Observable<IActionGetChatMembersCount> = epic.getChatMembersCount(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getChatMembersCount.error({ error: responseOKF })
       });
@@ -156,9 +158,11 @@ describe("getChatMembersCount epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionGetChatMembersCount
-      > = epic.getChatMembersCount(action$, state$, dependencies);
+      const output$: Observable<IActionGetChatMembersCount> = epic.getChatMembersCount(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getChatMembersCount.result({ result })
       });

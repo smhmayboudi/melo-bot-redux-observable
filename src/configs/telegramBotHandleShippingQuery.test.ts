@@ -28,6 +28,7 @@ describe("telegramBotHandleShippingQuery configs", (): void => {
         street_line2: ""
       }
     };
-    expect(handleShippingQuery(store, shippingQuery)).toHaveBeenCalled();
+    handleShippingQuery(store, shippingQuery);
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

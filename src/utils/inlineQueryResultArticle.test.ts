@@ -8,7 +8,7 @@ import {
 import * as texts from "../configs/texts";
 
 describe("inlineQueryResultArticle utils", (): void => {
-  const searchResultItem = {
+  const searchResultItem: youtube_v3.Schema$SearchResult = {
     id: {
       videoId: ""
     },
@@ -44,7 +44,7 @@ describe("inlineQueryResultArticle utils", (): void => {
       title: ""
     }
   };
-  const videoItem = {
+  const videoItem: youtube_v3.Schema$Video = {
     id: "",
     snippet: {
       description: "",
@@ -174,7 +174,8 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: undefined
           }
         }
@@ -190,9 +191,11 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: {
-              ...searchResultItem.snippet.thumbnails.default,
+              ...((searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               height: null
             }
           }
@@ -209,9 +212,11 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: {
-              ...searchResultItem.snippet.thumbnails.default,
+              ...((searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               height: undefined
             }
           }
@@ -228,9 +233,11 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: {
-              ...searchResultItem.snippet.thumbnails.default,
+              ...((searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               url: null
             }
           }
@@ -247,9 +254,11 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: {
-              ...searchResultItem.snippet.thumbnails.default,
+              ...((searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               url: undefined
             }
           }
@@ -266,9 +275,11 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: {
-              ...searchResultItem.snippet.thumbnails.default,
+              ...((searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               width: null
             }
           }
@@ -285,9 +296,11 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...searchResultItem.snippet,
           thumbnails: {
-            ...searchResultItem.snippet.thumbnails,
+            ...(searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+              .thumbnails,
             default: {
-              ...searchResultItem.snippet.thumbnails.default,
+              ...((searchResultItem.snippet as youtube_v3.Schema$SearchResultSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               width: undefined
             }
           }
@@ -324,11 +337,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformSearchResults", (): void => {
-    const items: youtube_v3.Schema$SearchResult[] = [
-      {
-        ...searchResultItem
-      }
-    ];
+    const items: youtube_v3.Schema$SearchResult[] = [searchResultItem];
     expect(transformSearchResults(items)).toEqual([
       {
         description: "",
@@ -443,7 +452,7 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: undefined
           }
         }
@@ -459,9 +468,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: {
-              ...videoItem.snippet.thumbnails.default,
+              ...((videoItem.snippet as youtube_v3.Schema$VideoSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               height: null
             }
           }
@@ -478,9 +488,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: {
-              ...videoItem.snippet.thumbnails.default,
+              ...((videoItem.snippet as youtube_v3.Schema$VideoSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               height: undefined
             }
           }
@@ -497,9 +508,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: {
-              ...videoItem.snippet.thumbnails.default,
+              ...((videoItem.snippet as youtube_v3.Schema$VideoSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               url: null
             }
           }
@@ -516,9 +528,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: {
-              ...videoItem.snippet.thumbnails.default,
+              ...((videoItem.snippet as youtube_v3.Schema$VideoSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               url: undefined
             }
           }
@@ -535,9 +548,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: {
-              ...videoItem.snippet.thumbnails.default,
+              ...((videoItem.snippet as youtube_v3.Schema$VideoSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               width: null
             }
           }
@@ -554,9 +568,10 @@ describe("inlineQueryResultArticle utils", (): void => {
         snippet: {
           ...videoItem.snippet,
           thumbnails: {
-            ...videoItem.snippet.thumbnails,
+            ...(videoItem.snippet as youtube_v3.Schema$VideoSnippet).thumbnails,
             default: {
-              ...videoItem.snippet.thumbnails.default,
+              ...((videoItem.snippet as youtube_v3.Schema$VideoSnippet)
+                .thumbnails as youtube_v3.Schema$ThumbnailDetails).default,
               width: undefined
             }
           }
@@ -593,11 +608,7 @@ describe("inlineQueryResultArticle utils", (): void => {
   });
 
   test("should handle transformVideos", (): void => {
-    const items: youtube_v3.Schema$Video[] = [
-      {
-        ...videoItem
-      }
-    ];
+    const items: youtube_v3.Schema$Video[] = [videoItem];
     expect(transformVideos(items)).toEqual([
       {
         description: "",

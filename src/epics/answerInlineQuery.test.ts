@@ -155,9 +155,11 @@ describe("answerInlineQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionAnswerInlineQuery
-      > = epic.answerInlineQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerInlineQuery> = epic.answerInlineQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerInlineQuery.error({ error: responseOKF })
       });
@@ -176,9 +178,11 @@ describe("answerInlineQuery epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionAnswerInlineQuery
-      > = epic.answerInlineQuery(action$, state$, dependencies);
+      const output$: Observable<IActionAnswerInlineQuery> = epic.answerInlineQuery(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.answerInlineQuery.result({ result })
       });

@@ -3,8 +3,12 @@ import { of, Subject } from "rxjs";
 
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
+import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeDownloadResultFindQuery";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 
@@ -98,24 +102,23 @@ describe("youtubeDownload epic", (): void => {
     const query: IStateYoutubeDownloadResultFindQuery = {
       id: ""
     };
-    const result = {
+    const result: IStateYoutubeDownloadResultInsertQuery | null = {
       duration: 0,
-      file_id: "",
+      file_id: "small",
+      file_size: 0,
       height: 0,
-      id: "",
+      id: "small",
+      mime_type: "video/mp4",
       thumb: {
-        file_id: "",
+        file_id: "small",
+        file_size: 0,
         height: 0,
         width: 0
       },
       title: "",
       width: 0
     };
-    const resultThumbUndefined = {
-      ...result,
-      thumb: undefined
-    };
-    const state$Value = {
+    const state$Value: IState = {
       ...initialState,
       message: {
         query: {
@@ -131,22 +134,26 @@ describe("youtubeDownload epic", (): void => {
         }
       }
     };
-    const state$ValueMessageQueryUndefined = {
+    const state$ValueMessageQueryUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: undefined
       }
     };
-    const state$ValueMessageQueryMessageUndefined = {
+    const state$ValueMessageQueryMessageUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
+          ...(state$Value.message.query as IStateMessageQuery),
           message: undefined
         }
       }
+    };
+    const actionYoutubeDownloadResultThumbUndefined: IStateYoutubeDownloadResultInsertQuery | null = {
+      ...result,
+      thumb: undefined
     };
 
     describe("transformObservableYoutubeDownloadResultFind", (): void => {
@@ -225,7 +232,7 @@ describe("youtubeDownload epic", (): void => {
 
       test("should handle error actionYoutubeDownloadResultFindResultThumb undefined", (): void => {
         const action: IActionYoutubeDownloadResultFind = actions.youtubeDownloadResultFind.result(
-          { result: resultThumbUndefined }
+          { result: actionYoutubeDownloadResultThumbUndefined }
         );
         const state$: StateObservable<IState> | undefined = new StateObservable(
           new Subject(),
@@ -257,7 +264,8 @@ describe("youtubeDownload epic", (): void => {
             actions.sendVideo.query({
               query: {
                 caption: caption(result.title),
-                chat_id: state$Value.message.query.message.chat.id,
+                chat_id: ((state$Value.message.query as IStateMessageQuery)
+                  .message as IMessage).chat.id,
                 disable_notification: true,
                 duration: result.duration,
                 height: result.height,
@@ -276,10 +284,10 @@ describe("youtubeDownload epic", (): void => {
                     ]
                   ]
                 },
-                reply_to_message_id:
-                  state$Value.message.query.message.message_id,
+                reply_to_message_id: ((state$Value.message
+                  .query as IStateMessageQuery).message as IMessage).message_id,
                 supports_streaming: true,
-                thumb: result.thumb.file_id,
+                thumb: (result.thumb as IPhotoSize).file_id,
                 video: result.file_id,
                 width: result.width
               }

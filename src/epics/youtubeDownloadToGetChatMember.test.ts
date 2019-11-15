@@ -1,7 +1,9 @@
 import { Subject } from "rxjs";
 import { StateObservable } from "redux-observable";
 
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
@@ -86,7 +88,7 @@ describe("youtubeDownload epic", (): void => {
       youtubeSearchList: actions.youtubeSearchList.initialState,
       youtubeVideoList: actions.youtubeVideoList.initialState
     };
-    const state$Value = {
+    const state$Value: IState = {
       ...initialState,
       message: {
         query: {
@@ -102,19 +104,19 @@ describe("youtubeDownload epic", (): void => {
         }
       }
     };
-    const state$ValueMessageQueryUndefined = {
+    const state$ValueMessageQueryUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: undefined
       }
     };
-    const state$ValueMessageQueryMessageUndefined = {
+    const state$ValueMessageQueryMessageUndefined: IState = {
       ...state$Value,
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
+          ...(state$Value.message.query as IStateMessageQuery),
           message: undefined
         }
       }
@@ -162,7 +164,8 @@ describe("youtubeDownload epic", (): void => {
         actions.getChatMember.query({
           query: {
             chat_id: `@${env.CHANNEL}`,
-            user_id: state$Value.message.query.message.chat.id
+            user_id: ((state$Value.message.query as IStateMessageQuery)
+              .message as IMessage).chat.id
           }
         })
       );

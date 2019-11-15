@@ -9,8 +9,9 @@ const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 const handleShippingQuery: (
   store: Store<IState>,
   shippingQuery: IShippingQuery
-) => void = (_store: Store<IState>, _shippingQuery: IShippingQuery): void => {
+) => void = (store: Store<IState>, shippingQuery: IShippingQuery): void => {
   appDebug("telegramBot:handleShippingQuery");
+  store.dispatch({ type: "SHIPPING_QUERY", query: shippingQuery });
 };
 
 export { handleShippingQuery };

@@ -97,7 +97,7 @@ const configureStore: (dependencies?: IDependencies) => Store<IState> = (
     IAction,
     IState,
     IDependencies
-  > = createEpicMiddleware({ dependencies: { ...dependencies } });
+  > = createEpicMiddleware({ dependencies });
   // TODO: fix it any to (...funcs: StoreEnhancer[]) => StoreEnhancer
   const composeEnhancers: any = composeWithDevTools({
     hostname: env.REMOTEDEV_HOSTNAME,

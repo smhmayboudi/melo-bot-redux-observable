@@ -135,9 +135,11 @@ describe("deleteChatStickerSet epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionDeleteChatStickerSet
-      > = epic.deleteChatStickerSet(action$, state$, dependencies);
+      const output$: Observable<IActionDeleteChatStickerSet> = epic.deleteChatStickerSet(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.deleteChatStickerSet.error({ error: responseOKF })
       });
@@ -156,9 +158,11 @@ describe("deleteChatStickerSet epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionDeleteChatStickerSet
-      > = epic.deleteChatStickerSet(action$, state$, dependencies);
+      const output$: Observable<IActionDeleteChatStickerSet> = epic.deleteChatStickerSet(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.deleteChatStickerSet.result({ result })
       });

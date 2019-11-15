@@ -6,6 +6,6 @@ describe("kubernetesProbs configs", (): void => {
   });
 
   test("should handle readiness", (): void => {
-    expect(readiness).toEqual(true);
+    expect(readiness).toEqual(false);
   });
 });

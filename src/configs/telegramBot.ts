@@ -22,7 +22,7 @@ import * as env from "./env";
 import { configureStore } from "./store";
 import { handle } from "./telegramBotHandle";
 import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
-import { handleChanelPost } from "./telegramBotHandleChanelPost";
+import { handleChannelPost } from "./telegramBotHandleChannelPost";
 import { handleChosenInlineResult } from "./telegramBotHandleChosenInlineResult";
 import { handleEditedChannelPost } from "./telegramBotHandleEditedChannelPost";
 import { handleEditedChannelPostCaption } from "./telegramBotHandleEditedChannelPostCaption";
@@ -43,9 +43,9 @@ const appDebug: debug.IDebugger = debug("app:config:telegramBot");
 const operate: (message: IStateMessageQuery) => void = (
   message: IStateMessageQuery
 ): void => {
-  const mongoClientObservable: () => Observable<MongoClient> = (): Observable<
+  const mongoClientObservable: () => Observable<
     MongoClient
-  > =>
+  > = (): Observable<MongoClient> =>
     connectObservable(env.MONGO_CLIENT_URI, {
       appname: env.MONGO_CLIENT_APPNAME,
       logger: appDebug,
@@ -69,7 +69,7 @@ const operate: (message: IStateMessageQuery) => void = (
   if (message.callback_query !== undefined) {
     handleCallbackQuery(store, message.callback_query);
   } else if (message.channel_post !== undefined) {
-    handleChanelPost(store, message.channel_post);
+    handleChannelPost(store, message.channel_post);
   } else if (message.chosen_inline_result !== undefined) {
     handleChosenInlineResult(store, message.chosen_inline_result);
   } else if (message.edited_channel_post !== undefined) {

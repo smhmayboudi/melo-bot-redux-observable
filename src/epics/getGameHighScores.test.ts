@@ -146,9 +146,11 @@ describe("getGameHighScores epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionGetGameHighScores
-      > = epic.getGameHighScores(action$, state$, dependencies);
+      const output$: Observable<IActionGetGameHighScores> = epic.getGameHighScores(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getGameHighScores.error({ error: responseOKF })
       });
@@ -167,9 +169,11 @@ describe("getGameHighScores epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionGetGameHighScores
-      > = epic.getGameHighScores(action$, state$, dependencies);
+      const output$: Observable<IActionGetGameHighScores> = epic.getGameHighScores(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.getGameHighScores.result({ result })
       });

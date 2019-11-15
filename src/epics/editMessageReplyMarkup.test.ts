@@ -20,7 +20,7 @@ describe("editMessageReplyMarkup epic", (): void => {
   const result: IMessage = {
     chat: {
       id: 0,
-      type: "private"
+      type: ""
     },
     date: 0,
     message_id: 0
@@ -153,9 +153,11 @@ describe("editMessageReplyMarkup epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionEditMessageReplyMarkup
-      > = epic.editMessageReplyMarkup(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageReplyMarkup> = epic.editMessageReplyMarkup(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageReplyMarkup.error({ error: responseOKF })
       });
@@ -177,9 +179,11 @@ describe("editMessageReplyMarkup epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionEditMessageReplyMarkup
-      > = epic.editMessageReplyMarkup(action$, state$, dependencies);
+      const output$: Observable<IActionEditMessageReplyMarkup> = epic.editMessageReplyMarkup(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.editMessageReplyMarkup.result({ result })
       });

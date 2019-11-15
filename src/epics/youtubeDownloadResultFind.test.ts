@@ -30,11 +30,19 @@ describe("youtubeDownloadResultFind epic", (): void => {
   const query: IStateYoutubeDownloadResultFindQuery = {
     id: "000000000000000000000000"
   };
-  const result: IStateYoutubeDownloadResultInsertQuery = {
+  const result: IStateYoutubeDownloadResultInsertQuery | null = {
     duration: 0,
-    file_id: "",
+    file_id: "small",
+    file_size: 0,
     height: 0,
-    id: "",
+    id: "small",
+    mime_type: "video/mp4",
+    thumb: {
+      file_id: "small",
+      file_size: 0,
+      height: 0,
+      width: 0
+    },
     title: "",
     width: 0
   };

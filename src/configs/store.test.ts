@@ -91,7 +91,7 @@ describe("store configs", (): void => {
           first_name: "Hossein",
           id: 52953379,
           last_name: "Mayboudi",
-          type: "private",
+          type: "",
           username: "smhmayboudi"
         },
         date: 1537627954,

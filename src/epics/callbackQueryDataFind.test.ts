@@ -1,3 +1,5 @@
+import { youtube_v3 } from "googleapis";
+
 declare global {
   namespace NodeJS {
     interface Global {
@@ -20,6 +22,7 @@ import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
@@ -110,7 +113,7 @@ describe("callbackQueryDataFind epic", (): void => {
     id: "000000000000000000000000",
     pageToken: ""
   };
-  const result = {
+  const result: IStateCallbackQueryDataInsertQuery | null = {
     nextPageToken: "",
     pageInfo: {
       resultsPerPage: 0,
@@ -118,32 +121,29 @@ describe("callbackQueryDataFind epic", (): void => {
     },
     prevPageToken: ""
   };
-  const resultPageInfoUndefined = {
-    nextPageToken: "",
-    pageInfo: undefined,
-    prevPageToken: ""
+  const resultPageInfoUndefined: IStateCallbackQueryDataInsertQuery | null = {
+    ...result,
+    pageInfo: undefined
   };
-  const resultPageInfoResultsPerPageUndefined = {
-    nextPageToken: "",
+  const resultPageInfoResultsPerPageUndefined: IStateCallbackQueryDataInsertQuery | null = {
+    ...result,
     pageInfo: {
-      resultsPerPage: undefined,
-      totalResults: 0
-    },
-    prevPageToken: ""
+      ...result.pageInfo,
+      resultsPerPage: undefined
+    }
   };
-  const resultChart = {
+  const resultChart: IStateCallbackQueryDataInsertQuery | null = {
     ...result,
     chart: ""
   };
-  const resultQ = {
+  const resultQ: IStateCallbackQueryDataInsertQuery | null = {
     ...result,
     q: ""
   };
-  const stateResult = {
+  const state$Value: IState = {
     ...initialState,
     callbackQueryDataFind: {
-      query,
-      result
+      query
     },
     message: {
       query: {
@@ -159,55 +159,56 @@ describe("callbackQueryDataFind epic", (): void => {
       }
     }
   };
-  const stateQueryUndefined = {
-    ...stateResult,
+  const state$ValueCallbackQueryDataFindQueryUndefined: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       query: undefined
     }
   };
-  const stateResultNull = {
-    ...stateResult,
+  const state$ValueCallbackQueryDataFindResultNull: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       result: null
     }
   };
-  const stateResultUndefined = {
-    ...stateResult,
+  const state$ValueCallbackQueryDataFindResultUndefined: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       result: undefined
     }
   };
-  const stateResultPageInfoUndefined = {
-    ...stateResult,
+  const state$ValueCallbackQueryDataFindResultPageInfoUndefined: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       result: resultPageInfoUndefined
     }
   };
-  const stateResultPageInfoResultsPerPageUndefined = {
-    ...stateResult,
+  const state$ValueCallbackQueryDataFindResultPageInfoResultsPerPageUndefined: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       result: resultPageInfoResultsPerPageUndefined
     }
   };
-  const stateResultChart = {
-    ...stateResult,
+  const state$ValueChart: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       result: resultChart
     }
   };
-  const stateResultQ = {
-    ...stateResult,
+  const state$ValueQ: IState = {
+    ...state$Value,
     callbackQueryDataFind: {
-      ...stateResult.callbackQueryDataFind,
+      ...state$Value.callbackQueryDataFind,
       result: resultQ
     }
   };
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -251,7 +252,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -279,7 +280,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -305,7 +306,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable: undefined,
@@ -333,7 +334,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
@@ -359,7 +360,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -387,7 +388,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -413,7 +414,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -466,7 +467,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateQueryUndefined
+        state$ValueCallbackQueryDataFindQueryUndefined
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -494,7 +495,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultNull
+        state$ValueCallbackQueryDataFindResultNull
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -522,7 +523,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultUndefined
+        state$ValueCallbackQueryDataFindResultUndefined
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -550,7 +551,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultPageInfoUndefined
+        state$ValueCallbackQueryDataFindResultPageInfoUndefined
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -580,7 +581,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultPageInfoResultsPerPageUndefined
+        state$ValueCallbackQueryDataFindResultPageInfoResultsPerPageUndefined
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -611,7 +612,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultChart
+        state$ValueChart
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -629,7 +630,8 @@ describe("callbackQueryDataFind epic", (): void => {
             chart: resultChart.chart,
             hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
             key: env.GOOGLE_API_KEY,
-            maxResults: result.pageInfo.resultsPerPage,
+            maxResults: (result.pageInfo as youtube_v3.Schema$PageInfo)
+              .resultsPerPage as number,
             part: "id,snippet",
             pageToken: query.pageToken,
             regionCode: env.GOOGLE_API_REGION_CODE
@@ -647,7 +649,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResultQ
+        state$ValueQ
       );
       const dependencies: IDependencies = {
         collectionObservable,
@@ -663,7 +665,8 @@ describe("callbackQueryDataFind epic", (): void => {
         a: actions.youtubeSearchList.query({
           query: {
             key: env.GOOGLE_API_KEY,
-            maxResults: result.pageInfo.resultsPerPage,
+            maxResults: (result.pageInfo as youtube_v3.Schema$PageInfo)
+              .resultsPerPage as number,
             part: "id,snippet",
             pageToken: query.pageToken,
             q: resultQ.q,
@@ -685,7 +688,7 @@ describe("callbackQueryDataFind epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),
-        stateResult
+        state$Value
       );
       const dependencies: IDependencies = {
         collectionObservable,

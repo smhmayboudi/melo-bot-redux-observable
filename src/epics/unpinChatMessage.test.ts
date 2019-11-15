@@ -135,9 +135,11 @@ describe("unpinChatMessage epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
       };
-      const output$: Observable<
-        IActionUnpinChatMessage
-      > = epic.unpinChatMessage(action$, state$, dependencies);
+      const output$: Observable<IActionUnpinChatMessage> = epic.unpinChatMessage(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.unpinChatMessage.error({ error: responseOKF })
       });
@@ -156,9 +158,11 @@ describe("unpinChatMessage epic", (): void => {
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
       };
-      const output$: Observable<
-        IActionUnpinChatMessage
-      > = epic.unpinChatMessage(action$, state$, dependencies);
+      const output$: Observable<IActionUnpinChatMessage> = epic.unpinChatMessage(
+        action$,
+        state$,
+        dependencies
+      );
       expectObservable(output$).toBe("---a", {
         a: actions.unpinChatMessage.result({ result })
       });
