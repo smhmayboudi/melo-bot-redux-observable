@@ -51,7 +51,7 @@ const sendVoice: (
       );
     }
 
-    return requestsUploadObservable(
+    return requestsUploadObservable<IResponse>(
       {
         host: "api.telegram.org",
         method: "POST",

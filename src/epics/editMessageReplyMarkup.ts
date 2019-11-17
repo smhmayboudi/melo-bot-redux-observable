@@ -48,7 +48,7 @@ const editMessageReplyMarkup: (
       );
     }
 
-    return requestsObservable(
+    return requestsObservable<IResponse>(
       {
         host: "api.telegram.org",
         method: "POST",

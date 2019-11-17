@@ -61,7 +61,7 @@ const youtubeSearchList: (
       );
     }
 
-    return requestsObservable({
+    return requestsObservable<youtube_v3.Schema$SearchListResponse>({
       host: "www.googleapis.com",
       path: `/youtube/v3/search?${querystring.stringify(
         action.youtubeSearchList.query

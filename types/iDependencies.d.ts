@@ -33,19 +33,22 @@ export interface IDependencies {
     options: CollectionInsertOneOptions
   ): Observable<InsertOneWriteOpResult<any>>;
   mongoClientObservable?(): Observable<MongoClient>;
-  requestObservable?(options: http.RequestOptions, data?: any): Observable<any>;
-  requestsObservable?(
+  requestObservable?<T>(
     options: http.RequestOptions,
     data?: any
-  ): Observable<any>;
-  requestsUploadObservable?: (
+  ): Observable<T>;
+  requestsObservable?<T>(
+    options: http.RequestOptions,
+    data?: any
+  ): Observable<T>;
+  requestsUploadObservable?<T>(
     options: http.RequestOptions,
     formData: FormData
-  ) => Observable<any>;
-  requestUploadObservable?(
+  ): Observable<T>;
+  requestUploadObservable?<T>(
     options: http.RequestOptions,
     formData: FormData
-  ): Observable<any>;
+  ): Observable<T>;
   testAction$?: Observable<IAction>;
   youtubeDownloadObservable?(
     videoId: string

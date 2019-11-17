@@ -39,7 +39,7 @@ const <%= h.changeCase.camel(name)%>: (
       return of(actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined) }));
     }
 
-    return requestsObservable(
+    return requestsObservable<IResponse>(
       {
         host: "api.telegram.org",
         method: "POST",

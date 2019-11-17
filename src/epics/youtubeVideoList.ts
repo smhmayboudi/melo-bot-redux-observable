@@ -61,7 +61,7 @@ const youtubeVideoList: (
       );
     }
 
-    return requestsObservable({
+    return requestsObservable<youtube_v3.Schema$VideoListResponse>({
       host: "www.googleapis.com",
       path: `/youtube/v3/videos?${querystring.stringify(
         action.youtubeVideoList.query

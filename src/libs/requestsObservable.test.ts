@@ -19,7 +19,7 @@ describe("requestsObservable lib", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
-        a: requestsObservable({})
+        a: requestsObservable<{}>({})
       });
       expectObservable(action$).toBe("-a", { a: [] });
     });

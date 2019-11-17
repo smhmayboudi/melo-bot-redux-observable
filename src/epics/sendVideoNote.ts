@@ -51,7 +51,7 @@ const sendVideoNote: (
       );
     }
 
-    return requestsUploadObservable(
+    return requestsUploadObservable<IResponse>(
       {
         host: "api.telegram.org",
         method: "POST",

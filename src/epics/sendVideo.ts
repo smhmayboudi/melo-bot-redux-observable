@@ -51,7 +51,7 @@ const sendVideo: (
       );
     }
 
-    return requestsUploadObservable(
+    return requestsUploadObservable<IResponse>(
       {
         host: "api.telegram.org",
         path: `/bot${botToken}/sendVideo`

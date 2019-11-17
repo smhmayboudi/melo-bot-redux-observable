@@ -20,7 +20,7 @@ describe("requestUploadObservable lib", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
-        a: requestUploadObservable({}, new FormData())
+        a: requestUploadObservable<{}>({}, new FormData())
       });
       expectObservable(action$).toBe("-a", { a: [] });
     });

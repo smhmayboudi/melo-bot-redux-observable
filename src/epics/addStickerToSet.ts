@@ -50,7 +50,7 @@ const addStickerToSet: (
       );
     }
 
-    return requestsUploadObservable(
+    return requestsUploadObservable<IResponse>(
       {
         host: "api.telegram.org",
         method: "POST",
