@@ -25,20 +25,6 @@ const setStickerPositionInSet: (
   ) => Observable<IActionSetStickerPositionInSet> = (
     action: IActionSetStickerPositionInSet
   ): Observable<IActionSetStickerPositionInSet> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setStickerPositionInSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setStickerPositionInSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setStickerPositionInSet.query === undefined) {
       return of(
         actions.setStickerPositionInSet.error({

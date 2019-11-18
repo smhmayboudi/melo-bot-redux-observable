@@ -29,12 +29,6 @@ const <%= h.changeCase.camel(name)%>: (
   ) => Observable<IAction<%= h.changeCase.pascal(name)%>> = (
     action: IAction<%= h.changeCase.pascal(name)%>
   ): Observable<IAction<%= h.changeCase.pascal(name)%>> => {
-    if (botToken === undefined) {
-      return of(actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.epicDependencyBotTokenUndefined) }));
-    }
-    if (requestsObservable === undefined) {
-      return of(actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.epicDependencyRequestsObservableUndefined) }));
-    }
     if (action.<%= h.changeCase.camel(name)%>.query === undefined) {
       return of(actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined) }));
     }

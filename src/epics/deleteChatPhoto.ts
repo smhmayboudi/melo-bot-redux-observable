@@ -25,20 +25,6 @@ const deleteChatPhoto: (
   ) => Observable<IActionDeleteChatPhoto> = (
     action: IActionDeleteChatPhoto
   ): Observable<IActionDeleteChatPhoto> => {
-    if (botToken === undefined) {
-      return of(
-        actions.deleteChatPhoto.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.deleteChatPhoto.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.deleteChatPhoto.query === undefined) {
       return of(
         actions.deleteChatPhoto.error({

@@ -22,8 +22,8 @@ import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutub
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { collectionObservable } from "../libs/mongodbObservable";
-
 import * as epic from "./youtubeDownloadResultFind";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("youtubeDownloadResultFind epic", (): void => {
   const error: Error = new Error("");
@@ -82,34 +82,6 @@ describe("youtubeDownloadResultFind epic", (): void => {
     }
   );
 
-  test("should handle dependency mongoClientObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        {
-          a: actions.youtubeDownloadResultFind.query({ query })
-        }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
-        mongoClientObservable: undefined
-      };
-      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -121,6 +93,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -136,34 +109,6 @@ describe("youtubeDownloadResultFind epic", (): void => {
     });
   });
 
-  test("should handle dependency collectionObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        {
-          a: actions.youtubeDownloadResultFind.query({ query })
-        }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        collectionObservable: undefined,
-        findOneObservable: () => cold("-a", { a: result }),
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
-      };
-      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.epicDependencyCollectionObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency collectionObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -175,6 +120,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -190,34 +136,6 @@ describe("youtubeDownloadResultFind epic", (): void => {
     });
   });
 
-  test("should handle dependency findOneObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        {
-          a: actions.youtubeDownloadResultFind.query({ query })
-        }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        collectionObservable,
-        findOneObservable: undefined,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
-      };
-      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.epicDependencyFindOneObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency findOneObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -229,6 +147,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -255,6 +174,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -283,6 +203,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         findOneObservable: () => cold("-a", { a: null }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -309,6 +230,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         findOneObservable: () => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)

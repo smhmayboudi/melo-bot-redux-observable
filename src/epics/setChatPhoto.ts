@@ -25,20 +25,6 @@ const setChatPhoto: (
   ) => Observable<IActionSetChatPhoto> = (
     action: IActionSetChatPhoto
   ): Observable<IActionSetChatPhoto> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setChatPhoto.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setChatPhoto.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setChatPhoto.query === undefined) {
       return of(
         actions.setChatPhoto.error({

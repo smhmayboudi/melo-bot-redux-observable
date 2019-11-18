@@ -24,8 +24,8 @@ import {
   collectionObservable,
   insertOneObservable
 } from "../libs/mongodbObservable";
-
 import * as epic from "./chosenInlineResult";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("chosenInlineResult epic", (): void => {
   const error: Error = new Error("");
@@ -75,31 +75,6 @@ describe("chosenInlineResult epic", (): void => {
     }
   );
 
-  test("should handle dependency mongoClientObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
-        a: actions.chosenInlineResult.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        collectionObservable,
-        insertOneObservable,
-        mongoClientObservable: undefined
-      };
-      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.chosenInlineResult.error({
-          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -108,6 +83,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -123,31 +99,6 @@ describe("chosenInlineResult epic", (): void => {
     });
   });
 
-  test("should handle dependency collectionObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
-        a: actions.chosenInlineResult.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        collectionObservable: undefined,
-        insertOneObservable,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
-      };
-      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.chosenInlineResult.error({
-          error: new Error(texts.epicDependencyCollectionObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency collectionObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -156,6 +107,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -171,31 +123,6 @@ describe("chosenInlineResult epic", (): void => {
     });
   });
 
-  test("should handle dependency insertOneObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
-        a: actions.chosenInlineResult.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        collectionObservable,
-        insertOneObservable: undefined,
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
-      };
-      const output$: Observable<IActionChosenInlineResult> = epic.chosenInlineResult(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("-a", {
-        a: actions.chosenInlineResult.error({
-          error: new Error(texts.epicDependencyInsertOneObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency insertOneObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -204,6 +131,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -227,6 +155,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -253,6 +182,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)

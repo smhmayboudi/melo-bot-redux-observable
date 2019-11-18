@@ -30,27 +30,9 @@ const chosenInlineResult: (
   ) => Observable<IActionChosenInlineResult> = (
     action: IActionChosenInlineResult
   ): Observable<IActionChosenInlineResult> => {
-    if (mongoClientObservable === undefined) {
-      return of(
-        actions.chosenInlineResult.error({
-          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-        })
-      );
-    }
-
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionChosenInlineResult> => {
-          if (collectionObservable === undefined) {
-            return of(
-              actions.chosenInlineResult.error({
-                error: new Error(
-                  texts.epicDependencyCollectionObservableUndefined
-                )
-              })
-            );
-          }
-
           return collectionObservable(
             client.db(env.DB_NAME),
             "chosenInlineResult",
@@ -58,15 +40,6 @@ const chosenInlineResult: (
           ).pipe(
             switchMap(
               (collection: any): Observable<IActionChosenInlineResult> => {
-                if (insertOneObservable === undefined) {
-                  return of(
-                    actions.chosenInlineResult.error({
-                      error: new Error(
-                        texts.epicDependencyInsertOneObservableUndefined
-                      )
-                    })
-                  );
-                }
                 if (action.chosenInlineResult.query === undefined) {
                   return of(
                     actions.chosenInlineResult.error({

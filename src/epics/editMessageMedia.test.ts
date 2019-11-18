@@ -13,6 +13,7 @@ import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/editMessageMedia";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("editMessageMedia epic", (): void => {
   const error: Error = new Error("");
@@ -48,50 +49,6 @@ describe("editMessageMedia epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionEditMessageMedia> = cold("-a", {
-        a: actions.editMessageMedia.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionEditMessageMedia | IActionEditMessageMedia
-      > = epic.editMessageMedia(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.editMessageMedia.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionEditMessageMedia> = cold("-a", {
-        a: actions.editMessageMedia.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionEditMessageMedia | IActionEditMessageMedia
-      > = epic.editMessageMedia(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.editMessageMedia.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -100,6 +57,7 @@ describe("editMessageMedia epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -120,6 +78,7 @@ describe("editMessageMedia epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -142,6 +101,7 @@ describe("editMessageMedia epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -165,6 +125,7 @@ describe("editMessageMedia epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

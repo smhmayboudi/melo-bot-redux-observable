@@ -25,20 +25,6 @@ const deleteWebhook: (
   ) => Observable<IActionDeleteWebhook> = (
     action: IActionDeleteWebhook
   ): Observable<IActionDeleteWebhook> => {
-    if (botToken === undefined) {
-      return of(
-        actions.deleteWebhook.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.deleteWebhook.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.deleteWebhook.query === undefined) {
       return of(
         actions.deleteWebhook.error({

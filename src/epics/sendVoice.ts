@@ -27,22 +27,6 @@ const sendVoice: (
   ) => Observable<IActionSendVoice> = (
     action: IActionSendVoice
   ): Observable<IActionSendVoice> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendVoice.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendVoice.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendVoice.query === undefined) {
       return of(
         actions.sendVoice.error({

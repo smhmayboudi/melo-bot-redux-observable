@@ -178,24 +178,6 @@ const commandSeparator = "_";
 const commandSetInlineGeo = "setinlinegeo";
 const commandSettings = "settings";
 const commandStart = "start";
-const epicDependencyBotTokenUndefined = "epicDependencyBotToken undefined.";
-const epicDependencyCollectionObservableUndefined =
-  "collectionObservable undefined.";
-const epicDependencyFindOneObservableUndefined = "findOneObservable undefined.";
-const epicDependencyInsertOneObservableUndefined =
-  "insertOneObservable undefined.";
-const epicDependencyMongoClientObservableUndefined =
-  "epicDependencyMongoClientObservable undefined.";
-const epicDependencyRequestObservableUndefined =
-  "epicDependencyRequestObservable undefined.";
-const epicDependencyRequestUploadObservableUndefined =
-  "epicDependencyRequestUploadObservable undefined.";
-const epicDependencyRequestsObservableUndefined =
-  "epicDependencyRequestsObservable undefined.";
-const epicDependencyRequestsUploadObservableUndefined =
-  "epicDependencyRequestsUploadObservable undefined.";
-const epicDependencyYoutubeDownloadObservableUndefined =
-  "epicDependencyYoutubeDownloadObservable undefined.";
 const epicYoutubeDownloadValueMimeTypeUndefined =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
 const epicYoutubeDownloadValueThumbUndefined =
@@ -362,16 +344,6 @@ export {
   commandSetInlineGeo,
   commandSettings,
   commandStart,
-  epicDependencyBotTokenUndefined,
-  epicDependencyCollectionObservableUndefined,
-  epicDependencyFindOneObservableUndefined,
-  epicDependencyInsertOneObservableUndefined,
-  epicDependencyMongoClientObservableUndefined,
-  epicDependencyRequestObservableUndefined,
-  epicDependencyRequestsObservableUndefined,
-  epicDependencyRequestsUploadObservableUndefined,
-  epicDependencyRequestUploadObservableUndefined,
-  epicDependencyYoutubeDownloadObservableUndefined,
   epicYoutubeDownloadValueMimeTypeUndefined,
   epicYoutubeDownloadValueThumbUndefined,
   messageChannel,

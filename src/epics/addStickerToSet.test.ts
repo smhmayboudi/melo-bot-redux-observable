@@ -12,6 +12,7 @@ import { IStateAddStickerToSetQuery } from "../../types/iStateAddStickerToSetQue
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/addStickerToSet";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("addStickerToSet epic", (): void => {
   const error: Error = new Error("");
@@ -40,52 +41,6 @@ describe("addStickerToSet epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionAddStickerToSet> = cold("-a", {
-        a: actions.addStickerToSet.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsUploadObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionAddStickerToSet | IActionAddStickerToSet
-      > = epic.addStickerToSet(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.addStickerToSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsUploadObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionAddStickerToSet> = cold("-a", {
-        a: actions.addStickerToSet.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: undefined
-      };
-      const output$: Observable<
-        IActionAddStickerToSet | IActionAddStickerToSet
-      > = epic.addStickerToSet(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.addStickerToSet.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsUploadObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -94,6 +49,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -115,6 +71,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -137,6 +94,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -160,6 +118,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

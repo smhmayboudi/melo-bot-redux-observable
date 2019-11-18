@@ -12,6 +12,7 @@ import { IStateStopMessageLiveLocationQuery } from "../../types/iStateStopMessag
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/stopMessageLiveLocation";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("stopMessageLiveLocation epic", (): void => {
   const error: Error = new Error("");
@@ -35,56 +36,6 @@ describe("stopMessageLiveLocation epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionStopMessageLiveLocation> = cold(
-        "-a",
-        {
-          a: actions.stopMessageLiveLocation.query({ query })
-        }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionStopMessageLiveLocation | IActionStopMessageLiveLocation
-      > = epic.stopMessageLiveLocation(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.stopMessageLiveLocation.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionStopMessageLiveLocation> = cold(
-        "-a",
-        {
-          a: actions.stopMessageLiveLocation.query({ query })
-        }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionStopMessageLiveLocation | IActionStopMessageLiveLocation
-      > = epic.stopMessageLiveLocation(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.stopMessageLiveLocation.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -96,6 +47,7 @@ describe("stopMessageLiveLocation epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -116,6 +68,7 @@ describe("stopMessageLiveLocation epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -141,6 +94,7 @@ describe("stopMessageLiveLocation epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -167,6 +121,7 @@ describe("stopMessageLiveLocation epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

@@ -31,27 +31,9 @@ const youtubeDownloadResultFind: (
   ) => Observable<IActionYoutubeDownloadResultFind> = (
     action: IActionYoutubeDownloadResultFind
   ): Observable<IActionYoutubeDownloadResultFind> => {
-    if (mongoClientObservable === undefined) {
-      return of(
-        actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-        })
-      );
-    }
-
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionYoutubeDownloadResultFind> => {
-          if (collectionObservable === undefined) {
-            return of(
-              actions.youtubeDownloadResultFind.error({
-                error: new Error(
-                  texts.epicDependencyCollectionObservableUndefined
-                )
-              })
-            );
-          }
-
           return collectionObservable(
             client.db(env.DB_NAME),
             "youtubeDownloadResult",
@@ -61,15 +43,6 @@ const youtubeDownloadResultFind: (
               (
                 collection: any
               ): Observable<IActionYoutubeDownloadResultFind> => {
-                if (findOneObservable === undefined) {
-                  return of(
-                    actions.youtubeDownloadResultFind.error({
-                      error: new Error(
-                        texts.epicDependencyFindOneObservableUndefined
-                      )
-                    })
-                  );
-                }
                 if (action.youtubeDownloadResultFind.query === undefined) {
                   return of(
                     actions.youtubeDownloadResultFind.error({

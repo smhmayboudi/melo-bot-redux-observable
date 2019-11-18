@@ -16,41 +16,38 @@ import { IAction } from "./iAction";
 import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadResultInsertQuery";
 
 export interface IDependencies {
-  botToken?: string;
-  collectionObservable?(
+  botToken: string;
+  collectionObservable(
     db: Db,
     name: string,
     options: DbCollectionOptions
   ): Observable<Collection<any>>;
-  findOneObservable?(
+  findOneObservable(
     collection: Collection,
     query: FilterQuery<any>,
     options?: FindOneOptions
   ): Observable<any>;
-  insertOneObservable?(
+  insertOneObservable(
     collection: Collection,
     docs: any,
     options: CollectionInsertOneOptions
   ): Observable<InsertOneWriteOpResult<any>>;
-  mongoClientObservable?(): Observable<MongoClient>;
-  requestObservable?<T>(
+  mongoClientObservable(): Observable<MongoClient>;
+  requestObservable<T>(options: http.RequestOptions, data?: any): Observable<T>;
+  requestsObservable<T>(
     options: http.RequestOptions,
     data?: any
   ): Observable<T>;
-  requestsObservable?<T>(
-    options: http.RequestOptions,
-    data?: any
-  ): Observable<T>;
-  requestsUploadObservable?<T>(
+  requestsUploadObservable<T>(
     options: http.RequestOptions,
     formData: FormData
   ): Observable<T>;
-  requestUploadObservable?<T>(
+  requestUploadObservable<T>(
     options: http.RequestOptions,
     formData: FormData
   ): Observable<T>;
-  testAction$?: Observable<IAction>;
-  youtubeDownloadObservable?(
+  youtubeDownloadObservable(
     videoId: string
   ): Observable<IStateYoutubeDownloadResultInsertQuery>;
+  testAction$?: Observable<IAction>;
 }

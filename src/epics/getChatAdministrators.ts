@@ -26,20 +26,6 @@ const getChatAdministrators: (
   ) => Observable<IActionGetChatAdministrators> = (
     action: IActionGetChatAdministrators
   ): Observable<IActionGetChatAdministrators> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getChatAdministrators.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getChatAdministrators.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getChatAdministrators.query === undefined) {
       return of(
         actions.getChatAdministrators.error({

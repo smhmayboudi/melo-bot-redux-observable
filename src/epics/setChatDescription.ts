@@ -25,20 +25,6 @@ const setChatDescription: (
   ) => Observable<IActionSetChatDescription> = (
     action: IActionSetChatDescription
   ): Observable<IActionSetChatDescription> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setChatDescription.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setChatDescription.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setChatDescription.query === undefined) {
       return of(
         actions.setChatDescription.error({

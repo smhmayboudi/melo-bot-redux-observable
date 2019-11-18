@@ -26,20 +26,6 @@ const getChat: (
   ) => Observable<IActionGetChat> = (
     action: IActionGetChat
   ): Observable<IActionGetChat> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getChat.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getChat.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getChat.query === undefined) {
       return of(
         actions.getChat.error({

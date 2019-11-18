@@ -27,22 +27,6 @@ const sendAnimation: (
   ) => Observable<IActionSendAnimation> = (
     action: IActionSendAnimation
   ): Observable<IActionSendAnimation> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendAnimation.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendAnimation.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendAnimation.query === undefined) {
       return of(
         actions.sendAnimation.error({

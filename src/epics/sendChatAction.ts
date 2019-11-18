@@ -25,20 +25,6 @@ const sendChatAction: (
   ) => Observable<IActionSendChatAction> = (
     action: IActionSendChatAction
   ): Observable<IActionSendChatAction> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendChatAction.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendChatAction.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendChatAction.query === undefined) {
       return of(
         actions.sendChatAction.error({

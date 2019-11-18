@@ -26,20 +26,6 @@ const setGameScore: (
   ) => Observable<IActionSetGameScore> = (
     action: IActionSetGameScore
   ): Observable<IActionSetGameScore> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setGameScore.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setGameScore.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setGameScore.query === undefined) {
       return of(
         actions.setGameScore.error({

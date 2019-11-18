@@ -26,20 +26,6 @@ const sendVenue: (
   ) => Observable<IActionSendVenue> = (
     action: IActionSendVenue
   ): Observable<IActionSendVenue> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendVenue.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendVenue.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendVenue.query === undefined) {
       return of(
         actions.sendVenue.error({

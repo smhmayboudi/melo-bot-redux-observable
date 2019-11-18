@@ -12,6 +12,7 @@ import { IStateDeleteWebhookQuery } from "../../types/iStateDeleteWebhookQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/deleteWebhook";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("deleteWebhook epic", (): void => {
   const error: Error = new Error("");
@@ -35,50 +36,6 @@ describe("deleteWebhook epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionDeleteWebhook> = cold("-a", {
-        a: actions.deleteWebhook.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionDeleteWebhook | IActionDeleteWebhook
-      > = epic.deleteWebhook(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.deleteWebhook.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionDeleteWebhook> = cold("-a", {
-        a: actions.deleteWebhook.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionDeleteWebhook | IActionDeleteWebhook
-      > = epic.deleteWebhook(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.deleteWebhook.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -87,6 +44,7 @@ describe("deleteWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -107,6 +65,7 @@ describe("deleteWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -129,6 +88,7 @@ describe("deleteWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -152,6 +112,7 @@ describe("deleteWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

@@ -25,20 +25,6 @@ const promoteChatMember: (
   ) => Observable<IActionPromoteChatMember> = (
     action: IActionPromoteChatMember
   ): Observable<IActionPromoteChatMember> => {
-    if (botToken === undefined) {
-      return of(
-        actions.promoteChatMember.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.promoteChatMember.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.promoteChatMember.query === undefined) {
       return of(
         actions.promoteChatMember.error({

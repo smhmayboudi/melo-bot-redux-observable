@@ -25,20 +25,6 @@ const unbanChatMember: (
   ) => Observable<IActionUnbanChatMember> = (
     action: IActionUnbanChatMember
   ): Observable<IActionUnbanChatMember> => {
-    if (botToken === undefined) {
-      return of(
-        actions.unbanChatMember.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.unbanChatMember.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.unbanChatMember.query === undefined) {
       return of(
         actions.unbanChatMember.error({

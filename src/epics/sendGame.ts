@@ -26,20 +26,6 @@ const sendGame: (
   ) => Observable<IActionSendGame> = (
     action: IActionSendGame
   ): Observable<IActionSendGame> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendGame.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendGame.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendGame.query === undefined) {
       return of(
         actions.sendGame.error({

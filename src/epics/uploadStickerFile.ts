@@ -26,20 +26,6 @@ const uploadStickerFile: (
   ) => Observable<IActionUploadStickerFile> = (
     action: IActionUploadStickerFile
   ): Observable<IActionUploadStickerFile> => {
-    if (botToken === undefined) {
-      return of(
-        actions.uploadStickerFile.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.uploadStickerFile.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.uploadStickerFile.query === undefined) {
       return of(
         actions.uploadStickerFile.error({

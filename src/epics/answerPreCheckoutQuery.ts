@@ -25,20 +25,6 @@ const answerPreCheckoutQuery: (
   ) => Observable<IActionAnswerPreCheckoutQuery> = (
     action: IActionAnswerPreCheckoutQuery
   ): Observable<IActionAnswerPreCheckoutQuery> => {
-    if (botToken === undefined) {
-      return of(
-        actions.answerPreCheckoutQuery.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.answerPreCheckoutQuery.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.answerPreCheckoutQuery.query === undefined) {
       return of(
         actions.answerPreCheckoutQuery.error({

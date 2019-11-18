@@ -25,20 +25,6 @@ const pinChatMessage: (
   ) => Observable<IActionPinChatMessage> = (
     action: IActionPinChatMessage
   ): Observable<IActionPinChatMessage> => {
-    if (botToken === undefined) {
-      return of(
-        actions.pinChatMessage.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.pinChatMessage.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.pinChatMessage.query === undefined) {
       return of(
         actions.pinChatMessage.error({

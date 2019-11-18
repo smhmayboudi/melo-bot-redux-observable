@@ -25,20 +25,6 @@ const answerInlineQuery: (
   ) => Observable<IActionAnswerInlineQuery> = (
     action: IActionAnswerInlineQuery
   ): Observable<IActionAnswerInlineQuery> => {
-    if (botToken === undefined) {
-      return of(
-        actions.answerInlineQuery.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.answerInlineQuery.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.answerInlineQuery.query === undefined) {
       return of(
         actions.answerInlineQuery.error({

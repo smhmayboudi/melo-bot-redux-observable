@@ -27,22 +27,6 @@ const sendPhoto: (
   ) => Observable<IActionSendPhoto> = (
     action: IActionSendPhoto
   ): Observable<IActionSendPhoto> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendPhoto.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendPhoto.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendPhoto.query === undefined) {
       return of(
         actions.sendPhoto.error({

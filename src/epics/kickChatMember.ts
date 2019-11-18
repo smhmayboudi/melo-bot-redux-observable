@@ -25,20 +25,6 @@ const kickChatMember: (
   ) => Observable<IActionKickChatMember> = (
     action: IActionKickChatMember
   ): Observable<IActionKickChatMember> => {
-    if (botToken === undefined) {
-      return of(
-        actions.kickChatMember.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.kickChatMember.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.kickChatMember.query === undefined) {
       return of(
         actions.kickChatMember.error({

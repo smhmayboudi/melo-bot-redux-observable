@@ -24,20 +24,6 @@ const getMe: (
   const actionObservable: (action: IActionGetMe) => Observable<IActionGetMe> = (
     action: IActionGetMe
   ): Observable<IActionGetMe> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getMe.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getMe.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getMe.query === undefined) {
       return of(
         actions.getMe.error({

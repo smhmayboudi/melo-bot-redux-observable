@@ -27,22 +27,6 @@ const sendDocument: (
   ) => Observable<IActionSendDocument> = (
     action: IActionSendDocument
   ): Observable<IActionSendDocument> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendDocument.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendDocument.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendDocument.query === undefined) {
       return of(
         actions.sendDocument.error({

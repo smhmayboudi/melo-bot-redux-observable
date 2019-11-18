@@ -12,6 +12,7 @@ import { IStatePromoteChatMemberQuery } from "../../types/iStatePromoteChatMembe
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/promoteChatMember";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("promoteChatMember epic", (): void => {
   const error: Error = new Error("");
@@ -38,50 +39,6 @@ describe("promoteChatMember epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionPromoteChatMember> = cold("-a", {
-        a: actions.promoteChatMember.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionPromoteChatMember | IActionPromoteChatMember
-      > = epic.promoteChatMember(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.promoteChatMember.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionPromoteChatMember> = cold("-a", {
-        a: actions.promoteChatMember.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionPromoteChatMember | IActionPromoteChatMember
-      > = epic.promoteChatMember(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.promoteChatMember.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -90,6 +47,7 @@ describe("promoteChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -110,6 +68,7 @@ describe("promoteChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -132,6 +91,7 @@ describe("promoteChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -155,6 +115,7 @@ describe("promoteChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

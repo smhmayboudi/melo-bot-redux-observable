@@ -26,20 +26,6 @@ const getFile: (
   ) => Observable<IActionGetFile> = (
     action: IActionGetFile
   ): Observable<IActionGetFile> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getFile.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getFile.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getFile.query === undefined) {
       return of(
         actions.getFile.error({

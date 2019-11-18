@@ -13,6 +13,7 @@ import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/inlineQuery";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("inlineQuery epic", (): void => {
   const query: IStateInlineQueryQuery = {
@@ -43,7 +44,9 @@ describe("inlineQuery epic", (): void => {
         a: actions.inlineQuery.query({})
       });
       const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {};
+      const dependencies: IDependencies = {
+        ...initialDependencies
+      };
       const output$: Observable<
         IActionInlineQuery | IActionYoutubeSearchList
       > = epic.inlineQuery(action$, state$, dependencies);
@@ -62,7 +65,9 @@ describe("inlineQuery epic", (): void => {
         a: actions.inlineQuery.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {};
+      const dependencies: IDependencies = {
+        ...initialDependencies
+      };
       const output$: Observable<
         IActionInlineQuery | IActionYoutubeSearchList
       > = epic.inlineQuery(action$, state$, dependencies);

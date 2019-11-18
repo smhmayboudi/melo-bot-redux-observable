@@ -1,24 +1,9 @@
-import debug from "debug";
-import { MongoClient } from "mongodb";
 import { Store } from "redux";
-import { Observable } from "rxjs";
 
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
-import {
-  collectionObservable,
-  connectObservable,
-  findOneObservable,
-  insertOneObservable
-} from "../libs/mongodbObservable";
-import { requestObservable } from "../libs/requestObservable";
-import { requestsObservable } from "../libs/requestsObservable";
-import { requestsUploadObservable } from "../libs/requestsUploadObservable";
-import { requestUploadObservable } from "../libs/requestUploadObservable";
-import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
 
-import * as env from "./env";
 import { configureStore } from "./store";
 import { handle } from "./telegramBotHandle";
 import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
@@ -38,33 +23,10 @@ import { handlePreCheckoutQuery } from "./telegramBotHandlePreCheckoutQuery";
 import { handleShippingQuery } from "./telegramBotHandleShippingQuery";
 import { handleWebhookError } from "./telegramBotHandleWebhookError";
 
-const appDebug: debug.IDebugger = debug("app:config:telegramBot");
-
 const operate: (message: IStateMessageQuery) => void = (
   message: IStateMessageQuery
 ): void => {
-  const mongoClientObservable: () => Observable<
-    MongoClient
-  > = (): Observable<MongoClient> =>
-    connectObservable(env.MONGO_CLIENT_URI, {
-      appname: env.MONGO_CLIENT_APPNAME,
-      logger: appDebug,
-      loggerLevel: env.MONGO_CLIENT_LOGGER_LEVEL,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-  const store: Store<IState> = configureStore({
-    botToken: env.BOT_TOKEN,
-    collectionObservable,
-    findOneObservable,
-    insertOneObservable,
-    mongoClientObservable,
-    requestObservable,
-    requestUploadObservable,
-    requestsObservable,
-    requestsUploadObservable,
-    youtubeDownloadObservable
-  });
+  const store: Store<IState> = configureStore();
   store.dispatch(actions.message.query({ query: message }));
   if (message.callback_query !== undefined) {
     handleCallbackQuery(store, message.callback_query);

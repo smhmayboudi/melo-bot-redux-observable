@@ -26,22 +26,6 @@ const addStickerToSet: (
   ) => Observable<IActionAddStickerToSet> = (
     action: IActionAddStickerToSet
   ): Observable<IActionAddStickerToSet> => {
-    if (botToken === undefined) {
-      return of(
-        actions.addStickerToSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.addStickerToSet.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.addStickerToSet.query === undefined) {
       return of(
         actions.addStickerToSet.error({

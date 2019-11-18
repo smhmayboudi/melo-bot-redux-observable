@@ -25,20 +25,6 @@ const setWebhook: (
   ) => Observable<IActionSetWebhook> = (
     action: IActionSetWebhook
   ): Observable<IActionSetWebhook> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setWebhook.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setWebhook.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setWebhook.query === undefined) {
       return of(
         actions.setWebhook.error({

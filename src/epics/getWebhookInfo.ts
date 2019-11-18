@@ -26,20 +26,6 @@ const getWebhookInfo: (
   ) => Observable<IActionGetWebhookInfo> = (
     action: IActionGetWebhookInfo
   ): Observable<IActionGetWebhookInfo> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getWebhookInfo.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getWebhookInfo.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getWebhookInfo.query === undefined) {
       return of(
         actions.getWebhookInfo.error({

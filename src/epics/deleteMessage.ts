@@ -25,20 +25,6 @@ const deleteMessage: (
   ) => Observable<IActionDeleteMessage> = (
     action: IActionDeleteMessage
   ): Observable<IActionDeleteMessage> => {
-    if (botToken === undefined) {
-      return of(
-        actions.deleteMessage.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.deleteMessage.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.deleteMessage.query === undefined) {
       return of(
         actions.deleteMessage.error({

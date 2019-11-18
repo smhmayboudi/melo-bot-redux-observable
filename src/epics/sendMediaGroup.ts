@@ -27,22 +27,6 @@ const sendMediaGroup: (
   ) => Observable<IActionSendMediaGroup> = (
     action: IActionSendMediaGroup
   ): Observable<IActionSendMediaGroup> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendMediaGroup.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendMediaGroup.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendMediaGroup.query === undefined) {
       return of(
         actions.sendMediaGroup.error({

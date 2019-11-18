@@ -13,6 +13,7 @@ import { IStickerSet } from "../../types/telegramBot/stickers/iStickerSet";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getStickerSet";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("getStickerSet epic", (): void => {
   const error: Error = new Error("");
@@ -51,50 +52,6 @@ describe("getStickerSet epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionGetStickerSet> = cold("-a", {
-        a: actions.getStickerSet.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionGetStickerSet | IActionGetStickerSet
-      > = epic.getStickerSet(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.getStickerSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionGetStickerSet> = cold("-a", {
-        a: actions.getStickerSet.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionGetStickerSet | IActionGetStickerSet
-      > = epic.getStickerSet(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.getStickerSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -103,6 +60,7 @@ describe("getStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -123,6 +81,7 @@ describe("getStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -145,6 +104,7 @@ describe("getStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -168,6 +128,7 @@ describe("getStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

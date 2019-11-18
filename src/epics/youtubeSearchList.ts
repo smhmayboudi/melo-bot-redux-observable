@@ -46,13 +46,6 @@ const youtubeSearchList: (
   ) => Observable<IActionYoutubeSearchList> = (
     action: IActionYoutubeSearchList
   ): Observable<IActionYoutubeSearchList> => {
-    if (requestsObservable === undefined) {
-      return of(
-        actions.youtubeSearchList.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.youtubeSearchList.query === undefined) {
       return of(
         actions.youtubeSearchList.error({

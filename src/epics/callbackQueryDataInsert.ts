@@ -30,27 +30,9 @@ const callbackQueryDataInsert: (
   ) => Observable<IActionCallbackQueryDataInsert> = (
     action: IActionCallbackQueryDataInsert
   ): Observable<IActionCallbackQueryDataInsert> => {
-    if (mongoClientObservable === undefined) {
-      return of(
-        actions.callbackQueryDataInsert.error({
-          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-        })
-      );
-    }
-
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionCallbackQueryDataInsert> => {
-          if (collectionObservable === undefined) {
-            return of(
-              actions.callbackQueryDataInsert.error({
-                error: new Error(
-                  texts.epicDependencyCollectionObservableUndefined
-                )
-              })
-            );
-          }
-
           return collectionObservable(
             client.db(env.DB_NAME),
             "callbackQueryData",
@@ -58,15 +40,6 @@ const callbackQueryDataInsert: (
           ).pipe(
             switchMap(
               (collection: any): Observable<IActionCallbackQueryDataInsert> => {
-                if (insertOneObservable === undefined) {
-                  return of(
-                    actions.callbackQueryDataInsert.error({
-                      error: new Error(
-                        texts.epicDependencyInsertOneObservableUndefined
-                      )
-                    })
-                  );
-                }
                 if (action.callbackQueryDataInsert.query === undefined) {
                   return of(
                     actions.callbackQueryDataInsert.error({

@@ -41,27 +41,9 @@ const callbackQueryDataFind: (
   ) => Observable<IActionCallbackQueryDataFind> = (
     action: IActionCallbackQueryDataFind
   ): Observable<IActionCallbackQueryDataFind> => {
-    if (mongoClientObservable === undefined) {
-      return of(
-        actions.callbackQueryDataFind.error({
-          error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-        })
-      );
-    }
-
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionCallbackQueryDataFind> => {
-          if (collectionObservable === undefined) {
-            return of(
-              actions.callbackQueryDataFind.error({
-                error: new Error(
-                  texts.epicDependencyCollectionObservableUndefined
-                )
-              })
-            );
-          }
-
           return collectionObservable(
             client.db(env.DB_NAME),
             "callbackQueryData",
@@ -69,15 +51,6 @@ const callbackQueryDataFind: (
           ).pipe(
             switchMap(
               (collection: any): Observable<IActionCallbackQueryDataFind> => {
-                if (findOneObservable === undefined) {
-                  return of(
-                    actions.callbackQueryDataFind.error({
-                      error: new Error(
-                        texts.epicDependencyFindOneObservableUndefined
-                      )
-                    })
-                  );
-                }
                 if (action.callbackQueryDataFind.query === undefined) {
                   return of(
                     actions.callbackQueryDataFind.error({

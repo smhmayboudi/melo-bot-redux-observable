@@ -25,20 +25,6 @@ const deleteChatStickerSet: (
   ) => Observable<IActionDeleteChatStickerSet> = (
     action: IActionDeleteChatStickerSet
   ): Observable<IActionDeleteChatStickerSet> => {
-    if (botToken === undefined) {
-      return of(
-        actions.deleteChatStickerSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.deleteChatStickerSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.deleteChatStickerSet.query === undefined) {
       return of(
         actions.deleteChatStickerSet.error({

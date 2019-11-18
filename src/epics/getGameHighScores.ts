@@ -26,20 +26,6 @@ const getGameHighScores: (
   ) => Observable<IActionGetGameHighScores> = (
     action: IActionGetGameHighScores
   ): Observable<IActionGetGameHighScores> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getGameHighScores.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getGameHighScores.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getGameHighScores.query === undefined) {
       return of(
         actions.getGameHighScores.error({

@@ -25,20 +25,6 @@ const answerShippingQuery: (
   ) => Observable<IActionAnswerShippingQuery> = (
     action: IActionAnswerShippingQuery
   ): Observable<IActionAnswerShippingQuery> => {
-    if (botToken === undefined) {
-      return of(
-        actions.answerShippingQuery.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.answerShippingQuery.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.answerShippingQuery.query === undefined) {
       return of(
         actions.answerShippingQuery.error({

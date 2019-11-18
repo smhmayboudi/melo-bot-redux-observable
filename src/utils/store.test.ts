@@ -1,0 +1,1 @@
+describe("store utils", (): void => {});

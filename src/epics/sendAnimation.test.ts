@@ -13,6 +13,7 @@ import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/sendAnimation";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("sendAnimation epic", (): void => {
   const error: Error = new Error("");
@@ -46,52 +47,6 @@ describe("sendAnimation epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAnimation> = cold("-a", {
-        a: actions.sendAnimation.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsUploadObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionSendAnimation | IActionSendAnimation
-      > = epic.sendAnimation(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.sendAnimation.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsUploadObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionSendAnimation> = cold("-a", {
-        a: actions.sendAnimation.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsUploadObservable: undefined
-      };
-      const output$: Observable<
-        IActionSendAnimation | IActionSendAnimation
-      > = epic.sendAnimation(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.sendAnimation.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsUploadObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -100,6 +55,7 @@ describe("sendAnimation epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -121,6 +77,7 @@ describe("sendAnimation epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -143,6 +100,7 @@ describe("sendAnimation epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -166,6 +124,7 @@ describe("sendAnimation epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

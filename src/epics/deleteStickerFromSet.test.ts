@@ -12,6 +12,7 @@ import { IStateDeleteStickerFromSetQuery } from "../../types/iStateDeleteSticker
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/deleteStickerFromSet";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("deleteStickerFromSet epic", (): void => {
   const error: Error = new Error("");
@@ -37,50 +38,6 @@ describe("deleteStickerFromSet epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionDeleteStickerFromSet> = cold("-a", {
-        a: actions.deleteStickerFromSet.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionDeleteStickerFromSet | IActionDeleteStickerFromSet
-      > = epic.deleteStickerFromSet(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.deleteStickerFromSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionDeleteStickerFromSet> = cold("-a", {
-        a: actions.deleteStickerFromSet.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionDeleteStickerFromSet | IActionDeleteStickerFromSet
-      > = epic.deleteStickerFromSet(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.deleteStickerFromSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -89,6 +46,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -109,6 +67,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -131,6 +90,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -154,6 +114,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

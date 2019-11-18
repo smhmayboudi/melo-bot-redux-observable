@@ -26,20 +26,6 @@ const getUserProfilePhotos: (
   ) => Observable<IActionGetUserProfilePhotos> = (
     action: IActionGetUserProfilePhotos
   ): Observable<IActionGetUserProfilePhotos> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getUserProfilePhotos.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getUserProfilePhotos.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getUserProfilePhotos.query === undefined) {
       return of(
         actions.getUserProfilePhotos.error({

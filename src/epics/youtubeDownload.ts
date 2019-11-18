@@ -56,15 +56,6 @@ const youtubeDownload: (
   ) => Observable<IActionYoutubeDownload> = (
     action: IActionYoutubeDownload
   ): Observable<IActionYoutubeDownload> => {
-    if (youtubeDownloadObservable === undefined) {
-      return of(
-        actions.youtubeDownload.error({
-          error: new Error(
-            texts.epicDependencyYoutubeDownloadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.youtubeDownload.query === undefined) {
       return of(
         actions.youtubeDownload.error({

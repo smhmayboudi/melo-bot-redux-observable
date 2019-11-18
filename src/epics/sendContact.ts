@@ -26,20 +26,6 @@ const sendContact: (
   ) => Observable<IActionSendContact> = (
     action: IActionSendContact
   ): Observable<IActionSendContact> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendContact.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendContact.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendContact.query === undefined) {
       return of(
         actions.sendContact.error({

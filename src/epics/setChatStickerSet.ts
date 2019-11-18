@@ -25,20 +25,6 @@ const setChatStickerSet: (
   ) => Observable<IActionSetChatStickerSet> = (
     action: IActionSetChatStickerSet
   ): Observable<IActionSetChatStickerSet> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setChatStickerSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setChatStickerSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setChatStickerSet.query === undefined) {
       return of(
         actions.setChatStickerSet.error({

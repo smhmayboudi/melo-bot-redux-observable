@@ -25,20 +25,6 @@ const setChatTitle: (
   ) => Observable<IActionSetChatTitle> = (
     action: IActionSetChatTitle
   ): Observable<IActionSetChatTitle> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setChatTitle.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setChatTitle.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setChatTitle.query === undefined) {
       return of(
         actions.setChatTitle.error({

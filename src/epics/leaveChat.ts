@@ -25,20 +25,6 @@ const leaveChat: (
   ) => Observable<IActionLeaveChat> = (
     action: IActionLeaveChat
   ): Observable<IActionLeaveChat> => {
-    if (botToken === undefined) {
-      return of(
-        actions.leaveChat.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.leaveChat.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.leaveChat.query === undefined) {
       return of(
         actions.leaveChat.error({

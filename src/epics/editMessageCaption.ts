@@ -26,20 +26,6 @@ const editMessageCaption: (
   ) => Observable<IActionEditMessageCaption> = (
     action: IActionEditMessageCaption
   ): Observable<IActionEditMessageCaption> => {
-    if (botToken === undefined) {
-      return of(
-        actions.editMessageCaption.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.editMessageCaption.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.editMessageCaption.query === undefined) {
       return of(
         actions.editMessageCaption.error({

@@ -26,20 +26,6 @@ const sendLocation: (
   ) => Observable<IActionSendLocation> = (
     action: IActionSendLocation
   ): Observable<IActionSendLocation> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendLocation.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendLocation.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendLocation.query === undefined) {
       return of(
         actions.sendLocation.error({

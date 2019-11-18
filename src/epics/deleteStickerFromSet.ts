@@ -25,20 +25,6 @@ const deleteStickerFromSet: (
   ) => Observable<IActionDeleteStickerFromSet> = (
     action: IActionDeleteStickerFromSet
   ): Observable<IActionDeleteStickerFromSet> => {
-    if (botToken === undefined) {
-      return of(
-        actions.deleteStickerFromSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.deleteStickerFromSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.deleteStickerFromSet.query === undefined) {
       return of(
         actions.deleteStickerFromSet.error({

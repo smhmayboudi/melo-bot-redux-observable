@@ -26,20 +26,6 @@ const sendInvoice: (
   ) => Observable<IActionSendInvoice> = (
     action: IActionSendInvoice
   ): Observable<IActionSendInvoice> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendInvoice.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendInvoice.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendInvoice.query === undefined) {
       return of(
         actions.sendInvoice.error({

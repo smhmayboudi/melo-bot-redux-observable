@@ -27,22 +27,6 @@ const sendVideoNote: (
   ) => Observable<IActionSendVideoNote> = (
     action: IActionSendVideoNote
   ): Observable<IActionSendVideoNote> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendVideoNote.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendVideoNote.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendVideoNote.query === undefined) {
       return of(
         actions.sendVideoNote.error({

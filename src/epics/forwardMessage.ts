@@ -26,20 +26,6 @@ const forwardMessage: (
   ) => Observable<IActionForwardMessage> = (
     action: IActionForwardMessage
   ): Observable<IActionForwardMessage> => {
-    if (botToken === undefined) {
-      return of(
-        actions.forwardMessage.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.forwardMessage.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.forwardMessage.query === undefined) {
       return of(
         actions.forwardMessage.error({

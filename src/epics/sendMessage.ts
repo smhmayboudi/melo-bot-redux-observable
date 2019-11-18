@@ -26,20 +26,6 @@ const sendMessage: (
   ) => Observable<IActionSendMessage> = (
     action: IActionSendMessage
   ): Observable<IActionSendMessage> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendMessage.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendMessage.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendMessage.query === undefined) {
       return of(
         actions.sendMessage.error({

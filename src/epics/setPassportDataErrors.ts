@@ -25,20 +25,6 @@ const setPassportDataErrors: (
   ) => Observable<IActionSetPassportDataErrors> = (
     action: IActionSetPassportDataErrors
   ): Observable<IActionSetPassportDataErrors> => {
-    if (botToken === undefined) {
-      return of(
-        actions.setPassportDataErrors.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.setPassportDataErrors.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.setPassportDataErrors.query === undefined) {
       return of(
         actions.setPassportDataErrors.error({

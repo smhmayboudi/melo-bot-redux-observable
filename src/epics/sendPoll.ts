@@ -26,20 +26,6 @@ const sendPoll: (
   ) => Observable<IActionSendPoll> = (
     action: IActionSendPoll
   ): Observable<IActionSendPoll> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendPoll.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.sendPoll.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.sendPoll.query === undefined) {
       return of(
         actions.sendPoll.error({

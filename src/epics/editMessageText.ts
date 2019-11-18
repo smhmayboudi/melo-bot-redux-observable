@@ -26,20 +26,6 @@ const editMessageText: (
   ) => Observable<IActionEditMessageText> = (
     action: IActionEditMessageText
   ): Observable<IActionEditMessageText> => {
-    if (botToken === undefined) {
-      return of(
-        actions.editMessageText.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.editMessageText.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.editMessageText.query === undefined) {
       return of(
         actions.editMessageText.error({

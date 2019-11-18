@@ -25,20 +25,6 @@ const stopPoll: (
   ) => Observable<IActionStopPoll> = (
     action: IActionStopPoll
   ): Observable<IActionStopPoll> => {
-    if (botToken === undefined) {
-      return of(
-        actions.stopPoll.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.stopPoll.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.stopPoll.query === undefined) {
       return of(
         actions.stopPoll.error({

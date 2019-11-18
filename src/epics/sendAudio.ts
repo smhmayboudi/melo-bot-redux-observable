@@ -27,22 +27,6 @@ const sendAudio: (
   ) => Observable<IActionSendAudio> = (
     action: IActionSendAudio
   ): Observable<IActionSendAudio> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendAudio.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendAudio.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendAudio.query === undefined) {
       return of(
         actions.sendAudio.error({

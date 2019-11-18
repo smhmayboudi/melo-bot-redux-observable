@@ -26,20 +26,6 @@ const editMessageReplyMarkup: (
   ) => Observable<IActionEditMessageReplyMarkup> = (
     action: IActionEditMessageReplyMarkup
   ): Observable<IActionEditMessageReplyMarkup> => {
-    if (botToken === undefined) {
-      return of(
-        actions.editMessageReplyMarkup.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.editMessageReplyMarkup.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.editMessageReplyMarkup.query === undefined) {
       return of(
         actions.editMessageReplyMarkup.error({

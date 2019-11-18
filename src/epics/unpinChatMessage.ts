@@ -25,20 +25,6 @@ const unpinChatMessage: (
   ) => Observable<IActionUnpinChatMessage> = (
     action: IActionUnpinChatMessage
   ): Observable<IActionUnpinChatMessage> => {
-    if (botToken === undefined) {
-      return of(
-        actions.unpinChatMessage.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.unpinChatMessage.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.unpinChatMessage.query === undefined) {
       return of(
         actions.unpinChatMessage.error({

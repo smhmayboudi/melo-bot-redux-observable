@@ -26,20 +26,6 @@ const editMessageLiveLocation: (
   ) => Observable<IActionEditMessageLiveLocation> = (
     action: IActionEditMessageLiveLocation
   ): Observable<IActionEditMessageLiveLocation> => {
-    if (botToken === undefined) {
-      return of(
-        actions.editMessageLiveLocation.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.editMessageLiveLocation.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.editMessageLiveLocation.query === undefined) {
       return of(
         actions.editMessageLiveLocation.error({

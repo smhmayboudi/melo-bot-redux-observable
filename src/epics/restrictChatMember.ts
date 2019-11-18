@@ -25,20 +25,6 @@ const restrictChatMember: (
   ) => Observable<IActionRestrictChatMember> = (
     action: IActionRestrictChatMember
   ): Observable<IActionRestrictChatMember> => {
-    if (botToken === undefined) {
-      return of(
-        actions.restrictChatMember.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.restrictChatMember.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.restrictChatMember.query === undefined) {
       return of(
         actions.restrictChatMember.error({

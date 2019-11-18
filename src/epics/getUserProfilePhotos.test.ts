@@ -13,6 +13,7 @@ import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePh
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import * as epic from "../epics/getUserProfilePhotos";
+import { initialDependencies } from "../utils/dependencies";
 
 describe("getUserProfilePhotos epic", (): void => {
   const error: Error = new Error("");
@@ -49,50 +50,6 @@ describe("getUserProfilePhotos epic", (): void => {
     });
   });
 
-  test("should handle dependency botToken undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionGetUserProfilePhotos> = cold("-a", {
-        a: actions.getUserProfilePhotos.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: undefined,
-        requestsObservable: (): ColdObservable<any> => cold("--a")
-      };
-      const output$: Observable<
-        IActionGetUserProfilePhotos | IActionGetUserProfilePhotos
-      > = epic.getUserProfilePhotos(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.getUserProfilePhotos.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      });
-    });
-  });
-
-  test("should handle dependency requestsObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionGetUserProfilePhotos> = cold("-a", {
-        a: actions.getUserProfilePhotos.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        botToken: "",
-        requestsObservable: undefined
-      };
-      const output$: Observable<
-        IActionGetUserProfilePhotos | IActionGetUserProfilePhotos
-      > = epic.getUserProfilePhotos(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a", {
-        a: actions.getUserProfilePhotos.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      });
-    });
-  });
-
   test("should handle dependency requestsObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -101,6 +58,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -121,6 +79,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -143,6 +102,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -166,6 +126,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

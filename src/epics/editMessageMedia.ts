@@ -26,20 +26,6 @@ const editMessageMedia: (
   ) => Observable<IActionEditMessageMedia> = (
     action: IActionEditMessageMedia
   ): Observable<IActionEditMessageMedia> => {
-    if (botToken === undefined) {
-      return of(
-        actions.editMessageMedia.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.editMessageMedia.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.editMessageMedia.query === undefined) {
       return of(
         actions.editMessageMedia.error({

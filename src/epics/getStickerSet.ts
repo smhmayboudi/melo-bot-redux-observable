@@ -26,20 +26,6 @@ const getStickerSet: (
   ) => Observable<IActionGetStickerSet> = (
     action: IActionGetStickerSet
   ): Observable<IActionGetStickerSet> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getStickerSet.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getStickerSet.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getStickerSet.query === undefined) {
       return of(
         actions.getStickerSet.error({

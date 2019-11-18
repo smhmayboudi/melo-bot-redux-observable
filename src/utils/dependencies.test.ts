@@ -1,0 +1,1 @@
+describe("dependencies utils", (): void => {});

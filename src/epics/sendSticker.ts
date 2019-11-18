@@ -27,22 +27,6 @@ const sendSticker: (
   ) => Observable<IActionSendSticker> = (
     action: IActionSendSticker
   ): Observable<IActionSendSticker> => {
-    if (botToken === undefined) {
-      return of(
-        actions.sendSticker.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsUploadObservable === undefined) {
-      return of(
-        actions.sendSticker.error({
-          error: new Error(
-            texts.epicDependencyRequestsUploadObservableUndefined
-          )
-        })
-      );
-    }
     if (action.sendSticker.query === undefined) {
       return of(
         actions.sendSticker.error({

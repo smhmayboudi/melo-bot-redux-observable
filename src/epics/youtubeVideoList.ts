@@ -46,13 +46,6 @@ const youtubeVideoList: (
   ) => Observable<IActionYoutubeVideoList> = (
     action: IActionYoutubeVideoList
   ): Observable<IActionYoutubeVideoList> => {
-    if (requestsObservable === undefined) {
-      return of(
-        actions.youtubeVideoList.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.youtubeVideoList.query === undefined) {
       return of(
         actions.youtubeVideoList.error({

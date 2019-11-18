@@ -26,20 +26,6 @@ const stopMessageLiveLocation: (
   ) => Observable<IActionStopMessageLiveLocation> = (
     action: IActionStopMessageLiveLocation
   ): Observable<IActionStopMessageLiveLocation> => {
-    if (botToken === undefined) {
-      return of(
-        actions.stopMessageLiveLocation.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.stopMessageLiveLocation.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.stopMessageLiveLocation.query === undefined) {
       return of(
         actions.stopMessageLiveLocation.error({

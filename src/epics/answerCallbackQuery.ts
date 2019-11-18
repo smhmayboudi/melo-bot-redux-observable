@@ -25,20 +25,6 @@ const answerCallbackQuery: (
   ) => Observable<IActionAnswerCallbackQuery> = (
     action: IActionAnswerCallbackQuery
   ): Observable<IActionAnswerCallbackQuery> => {
-    if (botToken === undefined) {
-      return of(
-        actions.answerCallbackQuery.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.answerCallbackQuery.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.answerCallbackQuery.query === undefined) {
       return of(
         actions.answerCallbackQuery.error({

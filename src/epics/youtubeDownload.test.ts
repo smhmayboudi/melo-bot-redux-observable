@@ -15,6 +15,7 @@ import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
+import { initialState } from "../utils/store";
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
@@ -36,89 +37,12 @@ import {
   findOneObservable
 } from "../libs/mongodbObservable";
 import { caption, encode, pathThumb, pathVideo } from "../utils/string";
-
 import * as epic from "./youtubeDownload";
+import { initialDependencies } from "../utils/dependencies";
 
 jest.mock("fs");
 
 describe("youtubeDownload epic", (): void => {
-  const initialState: IState = {
-    youtubeDownloadResultInsert:
-      actions.youtubeDownloadResultInsert.initialState,
-    youtubeDownloadResultFind: actions.youtubeDownloadResultFind.initialState,
-    addStickerToSet: actions.addStickerToSet.initialState,
-    answerCallbackQuery: actions.answerCallbackQuery.initialState,
-    answerInlineQuery: actions.answerInlineQuery.initialState,
-    answerPreCheckoutQuery: actions.answerPreCheckoutQuery.initialState,
-    answerShippingQuery: actions.answerShippingQuery.initialState,
-    callbackQueryDataFind: actions.callbackQueryDataFind.initialState,
-    callbackQueryDataInsert: actions.callbackQueryDataInsert.initialState,
-    chosenInlineResult: actions.chosenInlineResult.initialState,
-    createNewStickerSet: actions.createNewStickerSet.initialState,
-    deleteChatPhoto: actions.deleteChatPhoto.initialState,
-    deleteChatStickerSet: actions.deleteChatStickerSet.initialState,
-    deleteMessage: actions.deleteMessage.initialState,
-    deleteStickerFromSet: actions.deleteStickerFromSet.initialState,
-    deleteWebhook: actions.deleteWebhook.initialState,
-    editMessageCaption: actions.editMessageCaption.initialState,
-    editMessageLiveLocation: actions.editMessageLiveLocation.initialState,
-    editMessageMedia: actions.editMessageMedia.initialState,
-    editMessageReplyMarkup: actions.editMessageReplyMarkup.initialState,
-    editMessageText: actions.editMessageText.initialState,
-    exportChatInviteLink: actions.exportChatInviteLink.initialState,
-    forwardMessage: actions.forwardMessage.initialState,
-    getChat: actions.getChat.initialState,
-    getChatAdministrators: actions.getChatAdministrators.initialState,
-    getChatMember: actions.getChatMember.initialState,
-    getChatMembersCount: actions.getChatMembersCount.initialState,
-    getFile: actions.getFile.initialState,
-    getGameHighScores: actions.getGameHighScores.initialState,
-    getMe: actions.getMe.initialState,
-    getStickerSet: actions.getStickerSet.initialState,
-    getUpdates: actions.getUpdates.initialState,
-    getUserProfilePhotos: actions.getUserProfilePhotos.initialState,
-    getWebhookInfo: actions.getWebhookInfo.initialState,
-    inlineQuery: actions.inlineQuery.initialState,
-    kickChatMember: actions.kickChatMember.initialState,
-    leaveChat: actions.leaveChat.initialState,
-    message: actions.message.initialState,
-    pinChatMessage: actions.pinChatMessage.initialState,
-    promoteChatMember: actions.promoteChatMember.initialState,
-    restrictChatMember: actions.restrictChatMember.initialState,
-    sendAnimation: actions.sendAnimation.initialState,
-    sendAudio: actions.sendAudio.initialState,
-    sendChatAction: actions.sendChatAction.initialState,
-    sendContact: actions.sendContact.initialState,
-    sendDocument: actions.sendDocument.initialState,
-    sendGame: actions.sendGame.initialState,
-    sendInvoice: actions.sendInvoice.initialState,
-    sendLocation: actions.sendLocation.initialState,
-    sendMediaGroup: actions.sendMediaGroup.initialState,
-    sendMessage: actions.sendMessage.initialState,
-    sendPhoto: actions.sendPhoto.initialState,
-    sendPoll: actions.sendPoll.initialState,
-    sendSticker: actions.sendSticker.initialState,
-    sendVenue: actions.sendVenue.initialState,
-    sendVideo: actions.sendVideo.initialState,
-    sendVideoNote: actions.sendVideoNote.initialState,
-    sendVoice: actions.sendVoice.initialState,
-    setChatDescription: actions.setChatDescription.initialState,
-    setChatPhoto: actions.setChatPhoto.initialState,
-    setChatStickerSet: actions.setChatStickerSet.initialState,
-    setChatTitle: actions.setChatTitle.initialState,
-    setGameScore: actions.setGameScore.initialState,
-    setPassportDataErrors: actions.setPassportDataErrors.initialState,
-    setStickerPositionInSet: actions.setStickerPositionInSet.initialState,
-    setWebhook: actions.setWebhook.initialState,
-    stopMessageLiveLocation: actions.stopMessageLiveLocation.initialState,
-    stopPoll: actions.stopPoll.initialState,
-    unbanChatMember: actions.unbanChatMember.initialState,
-    unpinChatMessage: actions.unpinChatMessage.initialState,
-    uploadStickerFile: actions.uploadStickerFile.initialState,
-    youtubeDownload: actions.youtubeDownload.initialState,
-    youtubeSearchList: actions.youtubeSearchList.initialState,
-    youtubeVideoList: actions.youtubeVideoList.initialState
-  };
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadQuery = {
     id: encode("small")
@@ -216,47 +140,6 @@ describe("youtubeDownload epic", (): void => {
     });
   });
 
-  test("should handle dependency youtubeDownloadObservable undefined", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({ query })
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const dependencies: IDependencies = {
-        collectionObservable: (): Observable<any> => cold("-"),
-        findOneObservable: (): Observable<any> => cold("-"),
-        mongoClientObservable: (): Observable<any> => cold("-"),
-        testAction$: cold("--a", {
-          a: {
-            ...initialState,
-            ...actions.getChatMember.result({ result: resultGetChatMember })
-          }
-        }),
-        youtubeDownloadObservable: undefined
-      };
-      const output$: Observable<
-        | IActionGetChatMember
-        | IActionSendMessage
-        | IActionSendVideo
-        | IActionYoutubeDownload
-        | IActionYoutubeDownloadResultFind
-        | IActionYoutubeDownloadResultInsert
-      > = epic.youtubeDownload(action$, state$, dependencies);
-      expectObservable(output$).toBe("-a-b", {
-        a: actions.getChatMember.query({ query: queryGetChatMember }),
-        b: actions.youtubeDownload.error({
-          error: new Error(
-            texts.epicDependencyYoutubeDownloadObservableUndefined
-          )
-        })
-      });
-    });
-  });
-
   test("should handle dependency youtubeDownloadObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -268,6 +151,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -308,6 +192,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -348,6 +233,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -385,6 +271,7 @@ describe("youtubeDownload epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -427,6 +314,7 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -469,6 +357,7 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -511,6 +400,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
+        ...initialDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -570,45 +460,6 @@ describe("youtubeDownload epic", (): void => {
       }
     );
 
-    test("should handle dependency mongoClientObservable undefined", (): void => {
-      testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
-        const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({ query })
-        });
-        const state$: StateObservable<IState> | undefined = new StateObservable(
-          new Subject(),
-          state$Value
-        );
-        const dependencies: IDependencies = {
-          collectionObservable,
-          findOneObservable,
-          mongoClientObservable: undefined,
-          testAction$: cold("--a", {
-            a: {
-              ...initialState,
-              ...actions.getChatMember.result({ result: resultGetChatMember })
-            }
-          }),
-          youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
-        };
-        const output$: Observable<
-          | IActionGetChatMember
-          | IActionSendMessage
-          | IActionSendVideo
-          | IActionYoutubeDownload
-          | IActionYoutubeDownloadResultFind
-          | IActionYoutubeDownloadResultInsert
-        > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a-b", {
-          a: actions.getChatMember.query({ query: queryGetChatMember }),
-          b: actions.youtubeDownload.error({
-            error: new Error(texts.epicDependencyMongoClientObservableUndefined)
-          })
-        });
-      });
-    });
-
     test("should handle dependency mongoClientObservable error", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
@@ -620,6 +471,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable,
           findOneObservable,
           mongoClientObservable: (): ColdObservable<any> =>
@@ -649,45 +501,6 @@ describe("youtubeDownload epic", (): void => {
       });
     });
 
-    test("should handle dependency collectionObservable undefined", (): void => {
-      testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
-        const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({ query })
-        });
-        const state$: StateObservable<IState> | undefined = new StateObservable(
-          new Subject(),
-          state$Value
-        );
-        const dependencies: IDependencies = {
-          collectionObservable: undefined,
-          findOneObservable,
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: cold("--a", {
-            a: {
-              ...initialState,
-              ...actions.getChatMember.result({ result: resultGetChatMember })
-            }
-          }),
-          youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
-        };
-        const output$: Observable<
-          | IActionGetChatMember
-          | IActionSendMessage
-          | IActionSendVideo
-          | IActionYoutubeDownload
-          | IActionYoutubeDownloadResultFind
-          | IActionYoutubeDownloadResultInsert
-        > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a-b", {
-          a: actions.getChatMember.query({ query: queryGetChatMember }),
-          b: actions.youtubeDownload.error({
-            error: new Error(texts.epicDependencyCollectionObservableUndefined)
-          })
-        });
-      });
-    });
-
     test("should handle dependency collectionObservable error", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
@@ -699,6 +512,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable: (): ColdObservable<any> =>
             cold("--#", {}, error),
           findOneObservable,
@@ -728,45 +542,6 @@ describe("youtubeDownload epic", (): void => {
       });
     });
 
-    test("should handle dependency findOneObservable undefined", (): void => {
-      testScheduler.run((runHelpers: RunHelpers) => {
-        const { cold, expectObservable } = runHelpers;
-        const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-          a: actions.youtubeDownload.query({ query })
-        });
-        const state$: StateObservable<IState> | undefined = new StateObservable(
-          new Subject(),
-          state$Value
-        );
-        const dependencies: IDependencies = {
-          collectionObservable,
-          findOneObservable: undefined,
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
-          testAction$: cold("--a", {
-            a: {
-              ...initialState,
-              ...actions.getChatMember.result({ result: resultGetChatMember })
-            }
-          }),
-          youtubeDownloadObservable: (): ColdObservable<any> => cold("-")
-        };
-        const output$: Observable<
-          | IActionGetChatMember
-          | IActionSendMessage
-          | IActionSendVideo
-          | IActionYoutubeDownload
-          | IActionYoutubeDownloadResultFind
-          | IActionYoutubeDownloadResultInsert
-        > = epic.youtubeDownload(action$, state$, dependencies);
-        expectObservable(output$).toBe("-a-b", {
-          a: actions.getChatMember.query({ query: queryGetChatMember }),
-          b: actions.youtubeDownload.error({
-            error: new Error(texts.epicDependencyFindOneObservableUndefined)
-          })
-        });
-      });
-    });
-
     test("should handle dependency findOneObservable error", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
         const { cold, expectObservable } = runHelpers;
@@ -778,6 +553,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable,
           findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
@@ -818,6 +594,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable,
           findOneObservable: (): Observable<any> => cold("-a", { a: null }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
@@ -890,6 +667,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable,
           findOneObservable: (): Observable<any> =>
             cold("-a", {
@@ -965,6 +743,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable,
           findOneObservable: (): Observable<any> =>
             cold("-a", {
@@ -1040,6 +819,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
+          ...initialDependencies,
           collectionObservable,
           findOneObservable,
           mongoClientObservable: (): Observable<MongoClient> => of(connection),

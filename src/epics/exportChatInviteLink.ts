@@ -25,20 +25,6 @@ const exportChatInviteLink: (
   ) => Observable<IActionExportChatInviteLink> = (
     action: IActionExportChatInviteLink
   ): Observable<IActionExportChatInviteLink> => {
-    if (botToken === undefined) {
-      return of(
-        actions.exportChatInviteLink.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.exportChatInviteLink.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.exportChatInviteLink.query === undefined) {
       return of(
         actions.exportChatInviteLink.error({

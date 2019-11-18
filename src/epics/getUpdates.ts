@@ -26,20 +26,6 @@ const getUpdates: (
   ) => Observable<IActionGetUpdates> = (
     action: IActionGetUpdates
   ): Observable<IActionGetUpdates> => {
-    if (botToken === undefined) {
-      return of(
-        actions.getUpdates.error({
-          error: new Error(texts.epicDependencyBotTokenUndefined)
-        })
-      );
-    }
-    if (requestsObservable === undefined) {
-      return of(
-        actions.getUpdates.error({
-          error: new Error(texts.epicDependencyRequestsObservableUndefined)
-        })
-      );
-    }
     if (action.getUpdates.query === undefined) {
       return of(
         actions.getUpdates.error({
