@@ -86,18 +86,6 @@ const transformObservable: (
 
   const inlineKeyboard = [];
   if (
-    action.youtubeVideoList.result.nextPageToken !== null &&
-    action.youtubeVideoList.result.nextPageToken !== undefined
-  ) {
-    inlineKeyboard.push({
-      callback_data: stringify({
-        id: action2.callbackQueryDataInsert.result,
-        pageToken: action.youtubeVideoList.result.nextPageToken
-      }),
-      text: texts.messageWithPaginationNext
-    });
-  }
-  if (
     action.youtubeVideoList.result.prevPageToken !== null &&
     action.youtubeVideoList.result.prevPageToken !== undefined
   ) {
@@ -107,6 +95,18 @@ const transformObservable: (
         pageToken: action.youtubeVideoList.result.prevPageToken
       }),
       text: texts.messageWithPaginationPrev
+    });
+  }
+  if (
+    action.youtubeVideoList.result.nextPageToken !== null &&
+    action.youtubeVideoList.result.nextPageToken !== undefined
+  ) {
+    inlineKeyboard.push({
+      callback_data: stringify({
+        id: action2.callbackQueryDataInsert.result,
+        pageToken: action.youtubeVideoList.result.nextPageToken
+      }),
+      text: texts.messageWithPaginationNext
     });
   }
 
