@@ -6,34 +6,36 @@ import {
   Db,
   DbCollectionOptions,
   FilterQuery,
-  FindOneOptions,
   InsertOneWriteOpResult,
   MongoClient
 } from "mongodb";
+import { Action } from "redux";
 import { Observable } from "rxjs";
 
-import { IAction } from "./iAction";
 import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadResultInsertQuery";
 
 export interface IDependencies {
   botToken: string;
-  collectionObservable(
+  collectionObservable<TSchema>(
     db: Db,
     name: string,
     options: DbCollectionOptions
-  ): Observable<Collection<any>>;
-  findOneObservable(
-    collection: Collection,
-    query: FilterQuery<any>,
-    options?: FindOneOptions
-  ): Observable<any>;
-  insertOneObservable(
-    collection: Collection,
-    docs: any,
+  ): Observable<Collection<TSchema>>;
+  findOneObservable<TSchema, T = TSchema>(
+    collection: Collection<TSchema>,
+    filter: FilterQuery<TSchema>
+  ): Observable<T | null>;
+  insertOneObservable<TSchema>(
+    collection: Collection<TSchema>,
+    docs: TSchema,
     options: CollectionInsertOneOptions
-  ): Observable<InsertOneWriteOpResult<any>>;
+  ): Observable<InsertOneWriteOpResult<TSchema>>;
   mongoClientObservable(): Observable<MongoClient>;
   requestObservable<T>(options: http.RequestOptions, data?: any): Observable<T>;
+  requestUploadObservable<T>(
+    options: http.RequestOptions,
+    formData: FormData
+  ): Observable<T>;
   requestsObservable<T>(
     options: http.RequestOptions,
     data?: any
@@ -42,12 +44,8 @@ export interface IDependencies {
     options: http.RequestOptions,
     formData: FormData
   ): Observable<T>;
-  requestUploadObservable<T>(
-    options: http.RequestOptions,
-    formData: FormData
-  ): Observable<T>;
+  testAction$?: Observable<Action<string>>;
   youtubeDownloadObservable(
     videoId: string
   ): Observable<IStateYoutubeDownloadResultInsertQuery>;
-  testAction$?: Observable<IAction>;
 }

@@ -31,9 +31,20 @@ rm -fr coverage
 ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs
+#         http
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose enhancers
+#         monitorReducer
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
+#         youtubeDownload
+#         youtubeSearchList
+#         youtubeVideoList
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose libs
+#         mongodbObservable
+#         request
+#         requests
+#         requestsUpload
+#         requestUpload
+#         youtubeDownload
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose middlewares
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose reducers
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose utils

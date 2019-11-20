@@ -5,15 +5,17 @@ import { IInputMediaPhoto } from "../types/iInputMediaPhoto";
 import { IInputMediaVideo } from "../types/iInputMediaVideo";
 import { IMessage } from "../types/iMessage";
 
-export type sendMediaGroup = (
-  chat_id: number | string,
-  media: Array<
-    | IInputMediaAnimation
-    | IInputMediaAudio
-    | IInputMediaDocument
-    | IInputMediaPhoto
-    | IInputMediaVideo
-  >,
-  disable_notification?: boolean,
-  reply_to_message_id?: number
-) => IMessage;
+export interface SendMediaGroup {
+  (
+    chat_id: number | string,
+    media: Array<
+      | IInputMediaAnimation
+      | IInputMediaAudio
+      | IInputMediaDocument
+      | IInputMediaPhoto
+      | IInputMediaVideo
+    >,
+    disable_notification?: boolean,
+    reply_to_message_id?: number
+  ): IMessage;
+}

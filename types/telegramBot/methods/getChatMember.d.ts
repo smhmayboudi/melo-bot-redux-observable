@@ -1,5 +1,5 @@
 import { IChatMember } from "../types/iChatMember";
 
-export interface getChatMember {
+export interface GetChatMember {
   (chat_id: number | string, user_id: number): IChatMember;
 }

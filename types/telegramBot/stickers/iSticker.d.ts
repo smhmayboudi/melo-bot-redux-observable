@@ -1,5 +1,4 @@
 import { IMaskPosition } from "./iMaskPosition";
-import { IStickerSet } from "./iStickerSet";
 import { IPhotoSize } from "../types/iPhotoSize";
 
 export interface ISticker {

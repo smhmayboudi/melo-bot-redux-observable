@@ -1,12 +1,15 @@
 import * as http from "http";
 
-const requests: (options: http.RequestOptions, data?: any) => Promise<any> = (
+const requests: <T>(
+  options: http.RequestOptions,
+  data?: any
+) => Promise<boolean> = <T>(
   _options: http.RequestOptions,
   _data?: any
-): Promise<any> =>
+): Promise<boolean> =>
   new Promise(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
+      resolve: (value?: boolean | PromiseLike<boolean>) => void,
       _reject: (reason?: any) => void
     ): void => {
       process.nextTick(() => resolve(true));

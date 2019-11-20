@@ -1,6 +1,6 @@
 import { IChatPermissions } from "../types/iChatPermissions";
 
-export interface restrictChatMember {
+export interface RestrictChatMember {
   (
     chat_id: number | string,
     permissions: IChatPermissions,

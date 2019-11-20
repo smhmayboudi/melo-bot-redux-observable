@@ -1,6 +1,6 @@
 import { IUpdate } from "./iUpdate";
 
-export interface getUpdates {
+export interface GetUpdates {
   (
     allowed_updates?: string[],
     limit?: number,

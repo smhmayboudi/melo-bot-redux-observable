@@ -19,33 +19,35 @@ import { IInlineQueryResultVenue } from "./iInlineQueryResultVenue";
 import { IInlineQueryResultVideo } from "./iInlineQueryResultVideo";
 import { IInlineQueryResultVoice } from "./iInlineQueryResultVoice";
 
-export type answerInlineQuery = (
-  inline_query_id: string,
-  results: Array<
-    | IInlineQueryResultArticle
-    | IInlineQueryResultAudio
-    | IInlineQueryResultCachedAudio
-    | IInlineQueryResultCachedDocument
-    | IInlineQueryResultCachedGif
-    | IInlineQueryResultCachedMpeg4Gif
-    | IInlineQueryResultCachedPhoto
-    | IInlineQueryResultCachedSticker
-    | IInlineQueryResultCachedVideo
-    | IInlineQueryResultCachedVoice
-    | IInlineQueryResultContact
-    | IInlineQueryResultDocument
-    | IInlineQueryResultGame
-    | IInlineQueryResultGif
-    | IInlineQueryResultLocation
-    | IInlineQueryResultMpeg4Gif
-    | IInlineQueryResultPhoto
-    | IInlineQueryResultVenue
-    | IInlineQueryResultVideo
-    | IInlineQueryResultVoice
-  >,
-  cache_time?: number,
-  is_personal?: boolean,
-  next_offset?: string,
-  switch_pm_parameter?: string,
-  switch_pm_text?: string
-) => boolean;
+export interface AnswerInlineQuery {
+  (
+    inline_query_id: string,
+    results: Array<
+      | IInlineQueryResultArticle
+      | IInlineQueryResultAudio
+      | IInlineQueryResultCachedAudio
+      | IInlineQueryResultCachedDocument
+      | IInlineQueryResultCachedGif
+      | IInlineQueryResultCachedMpeg4Gif
+      | IInlineQueryResultCachedPhoto
+      | IInlineQueryResultCachedSticker
+      | IInlineQueryResultCachedVideo
+      | IInlineQueryResultCachedVoice
+      | IInlineQueryResultContact
+      | IInlineQueryResultDocument
+      | IInlineQueryResultGame
+      | IInlineQueryResultGif
+      | IInlineQueryResultLocation
+      | IInlineQueryResultMpeg4Gif
+      | IInlineQueryResultPhoto
+      | IInlineQueryResultVenue
+      | IInlineQueryResultVideo
+      | IInlineQueryResultVoice
+    >,
+    cache_time?: number,
+    is_personal?: boolean,
+    next_offset?: string,
+    switch_pm_parameter?: string,
+    switch_pm_text?: string
+  ): boolean;
+}

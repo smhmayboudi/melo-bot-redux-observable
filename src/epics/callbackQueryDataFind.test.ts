@@ -1,6 +1,7 @@
 import { youtube_v3 } from "googleapis";
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     interface Global {
       __MONGO_DB_NAME__: string;
@@ -181,7 +182,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
@@ -208,7 +209,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -262,7 +263,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -288,7 +289,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -317,7 +318,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -346,7 +347,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: null }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: null }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -375,7 +376,8 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: undefined }),
+        findOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: undefined }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -404,7 +406,8 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: resultPageInfoUndefined }),
+        findOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: resultPageInfoUndefined }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -435,7 +438,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () =>
+        findOneObservable: (): ColdObservable<any> =>
           cold("-a", { a: resultPageInfoResultsPerPageUndefined }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
@@ -467,7 +470,8 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: resultChart }),
+        findOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: resultChart }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -505,7 +509,8 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: resultQ }),
+        findOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: resultQ }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<
@@ -545,7 +550,7 @@ describe("callbackQueryDataFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<

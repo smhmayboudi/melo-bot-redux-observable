@@ -1,5 +1,5 @@
 import { IFile } from "../types/iFile";
 
-export interface getFile {
+export interface GetFile {
   (file_id: string): IFile;
 }

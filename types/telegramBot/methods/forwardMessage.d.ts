@@ -1,6 +1,6 @@
 import { IMessage } from "../types/iMessage";
 
-export interface forwardMessage {
+export interface ForwardMessage {
   (
     chat_id: number | string,
     from_chat_id: number | string,

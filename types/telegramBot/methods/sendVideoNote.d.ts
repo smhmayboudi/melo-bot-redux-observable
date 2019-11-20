@@ -5,7 +5,7 @@ import { IInputFile } from "../types/iInputFile";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendVideoNote {
+export interface SendVideoNote {
   (
     chat_id: number | string,
     video_note: IInputFile | string,

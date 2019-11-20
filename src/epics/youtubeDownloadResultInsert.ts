@@ -1,4 +1,9 @@
-import { InsertOneWriteOpResult, MongoClient } from "mongodb";
+import {
+  Collection,
+  InsertOneWriteOpResult,
+  MongoClient,
+  ObjectId
+} from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
@@ -6,6 +11,7 @@ import { catchError, switchMap } from "rxjs/operators";
 import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDownloadResultInsert";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
@@ -35,14 +41,14 @@ const youtubeDownloadResultInsert: (
         (
           client: MongoClient
         ): Observable<IActionYoutubeDownloadResultInsert> => {
-          return collectionObservable(
+          return collectionObservable<IStateYoutubeDownloadResultInsertQuery>(
             client.db(env.DB_NAME),
             "youtubeDownloadResult",
             {}
           ).pipe(
             switchMap(
               (
-                collection: any
+                collection: Collection<IStateYoutubeDownloadResultInsertQuery>
               ): Observable<IActionYoutubeDownloadResultInsert> => {
                 if (action.youtubeDownloadResultInsert.query === undefined) {
                   return of(
@@ -59,12 +65,17 @@ const youtubeDownloadResultInsert: (
                   action.youtubeDownloadResultInsert.query,
                   {}
                 ).pipe(
-                  switchMap((value: InsertOneWriteOpResult<any>) =>
-                    of(
-                      actions.youtubeDownloadResultInsert.result({
-                        result: value.insertedId.toString()
-                      })
-                    )
+                  switchMap(
+                    (
+                      value: InsertOneWriteOpResult<
+                        IStateYoutubeDownloadResultInsertQuery
+                      >
+                    ) =>
+                      of(
+                        actions.youtubeDownloadResultInsert.result({
+                          result: (value.insertedId as ObjectId).toString()
+                        })
+                      )
                   ),
                   catchError((error: any) =>
                     of(

@@ -10,9 +10,9 @@ import {
   insertOneObservable
 } from "../libs/mongodbObservable";
 import { requestObservable } from "../libs/requestObservable";
+import { requestUploadObservable } from "../libs/requestUploadObservable";
 import { requestsObservable } from "../libs/requestsObservable";
 import { requestsUploadObservable } from "../libs/requestsUploadObservable";
-import { requestUploadObservable } from "../libs/requestUploadObservable";
 import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
 
 import * as env from "../configs/env";
@@ -37,11 +37,11 @@ const initialDependencies: IDependencies = {
   insertOneObservable,
   mongoClientObservable,
   requestObservable,
+  requestUploadObservable,
   requestsObservable,
   requestsUploadObservable,
-  requestUploadObservable,
-  youtubeDownloadObservable,
-  testAction$: undefined
+  testAction$: undefined,
+  youtubeDownloadObservable
 };
 
 export { initialDependencies };

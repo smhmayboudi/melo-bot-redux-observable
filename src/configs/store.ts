@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, Store } from "redux";
+import { applyMiddleware, createStore, Store, StoreEnhancer } from "redux";
 import { createEpicMiddleware, EpicMiddleware } from "redux-observable";
 import { composeWithDevTools } from "remote-redux-devtools";
 
@@ -14,24 +14,32 @@ import { index as reducers } from "../reducers";
 import { initialDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
 
-const configureStore: () => Store<IState> = (): Store<IState> => {
+const configureStore: () => Store<IState, IAction> = (): Store<
+  IState,
+  IAction
+> => {
   const epicMiddleware: EpicMiddleware<
     IAction,
     IAction,
     IState,
     IDependencies
   > = createEpicMiddleware({ dependencies: initialDependencies });
-  // TODO: fix it any to (...funcs: StoreEnhancer[]) => StoreEnhancer
-  const composeEnhancers: any = composeWithDevTools({
+  const composeEnhancers: (
+    ...funcs: StoreEnhancer<{}, {}>[]
+  ) => StoreEnhancer<{}, {}> = composeWithDevTools({
     hostname: env.REMOTEDEV_HOSTNAME,
     name: env.REMOTEDEV_NAME,
     port: env.REMOTEDEV_PORT,
     realtime: env.REMOTEDEV_REALTIME
   });
-  const store: Store<IState> = createStore(
+  const store: Store<IState, IAction> = createStore(
     reducers,
     initialState,
-    composeEnhancers(applyMiddleware(epicMiddleware), enhancers, middlewares)
+    composeEnhancers(
+      applyMiddleware<{}, IState>(epicMiddleware),
+      enhancers,
+      middlewares
+    )
   );
   epicMiddleware.run(epics);
 

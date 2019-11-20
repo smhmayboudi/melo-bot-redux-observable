@@ -30,72 +30,73 @@ const connectObservable: (
   options: MongoClientOptions
 ): Observable<MongoClient> => bindNodeCallback(connectObs)(uri, options);
 
-const collectionObs: (
+const collectionObs: <TSchema>(
   db: Db,
   name: string,
   options: DbCollectionOptions,
-  callback: MongoCallback<Collection<any>>
-) => void = (
+  callback: MongoCallback<Collection<TSchema>>
+) => void = <TSchema>(
   db: Db,
   name: string,
   options: DbCollectionOptions,
-  callback: MongoCallback<Collection<any>>
+  callback: MongoCallback<Collection<TSchema>>
 ): void => {
-  db.collection(name, options, callback);
+  db.collection<TSchema>(name, options, callback);
 };
-const collectionObservable: (
+const collectionObservable: <TSchema>(
   db: Db,
   name: string,
   options: DbCollectionOptions
-) => Observable<Collection<any>> = (
+) => Observable<Collection<TSchema>> = <TSchema>(
   db: Db,
   name: string,
   options: DbCollectionOptions
-): Observable<Collection<any>> =>
-  bindNodeCallback(collectionObs)(db, name, options);
+): Observable<Collection<TSchema>> =>
+  bindNodeCallback(collectionObs)<TSchema>(db, name, options);
 
-const findOneObs: (
-  collection: Collection,
-  filter: FilterQuery<any>,
-  callback: MongoCallback<any>
-) => void = (
-  collection: Collection,
-  filter: FilterQuery<any>,
-  callback: MongoCallback<any>
+const findOneObs: <TSchema, T = TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>,
+  callback: MongoCallback<T | null>
+) => void = <TSchema, T = TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>,
+  callback: MongoCallback<T | null>
 ): void => {
-  collection.findOne(filter, callback);
+  collection.findOne<T>(filter, callback);
 };
-const findOneObservable: (
-  collection: Collection,
-  filter: FilterQuery<any>
-) => Observable<any> = (
-  collection: Collection,
-  filter: FilterQuery<any>
-): Observable<any> => bindNodeCallback(findOneObs)(collection, filter);
+const findOneObservable: <TSchema, T = TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>
+) => Observable<T | null> = <TSchema, T = TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>
+): Observable<T | null> =>
+  bindNodeCallback(findOneObs)<TSchema, T>(collection, filter);
 
-const insertOneObs: (
-  collection: Collection,
-  docs: any,
+const insertOneObs: <TSchema>(
+  collection: Collection<TSchema>,
+  docs: TSchema,
   options: CollectionInsertOneOptions,
   callback: MongoCallback<InsertOneWriteOpResult<any>>
-) => void = (
-  collection: Collection,
-  docs: any,
+) => void = <TSchema>(
+  collection: Collection<TSchema>,
+  docs: TSchema,
   options: CollectionInsertOneOptions,
   callback: MongoCallback<InsertOneWriteOpResult<any>>
 ): void => {
   collection.insertOne(docs, options, callback);
 };
-const insertOneObservable: (
-  collection: Collection,
-  docs: any,
+const insertOneObservable: <TSchema>(
+  collection: Collection<TSchema>,
+  docs: TSchema,
   options: CollectionInsertOneOptions
-) => Observable<InsertOneWriteOpResult<any>> = (
-  collection: Collection,
-  docs: any,
+) => Observable<InsertOneWriteOpResult<TSchema>> = <TSchema>(
+  collection: Collection<TSchema>,
+  docs: TSchema,
   options: CollectionInsertOneOptions
-): Observable<InsertOneWriteOpResult<any>> =>
-  bindNodeCallback(insertOneObs)(collection, docs, options);
+): Observable<InsertOneWriteOpResult<TSchema>> =>
+  bindNodeCallback(insertOneObs)<TSchema>(collection, docs, options);
 
 export {
   connectObservable,

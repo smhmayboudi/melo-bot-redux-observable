@@ -4,7 +4,7 @@ import { IMessage } from "../types/iMessage";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendVenue {
+export interface SendVenue {
   (
     address: string,
     chat_id: number | string,

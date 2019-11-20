@@ -1,6 +1,3 @@
-import { IInputMediaAnimation } from "./telegramBot/types/iInputMediaAnimation";
-import { IInputMediaAudio } from "./telegramBot/types/iInputMediaAudio";
-import { IInputMediaDocument } from "./telegramBot/types/iInputMediaDocument";
 import { IInputMediaPhoto } from "./telegramBot/types/iInputMediaPhoto";
 import { IInputMediaVideo } from "./telegramBot/types/iInputMediaVideo";
 

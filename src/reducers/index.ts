@@ -78,7 +78,7 @@ import { youtubeDownloadResultInsert } from "./youtubeDownloadResultInsert";
 import { youtubeSearchList } from "./youtubeSearchList";
 import { youtubeVideoList } from "./youtubeVideoList";
 
-const index: Reducer<IState, IAction> = combineReducers({
+const index: Reducer<IState, IAction> = combineReducers<IState>({
   addStickerToSet,
   answerCallbackQuery,
   answerInlineQuery,

@@ -1,5 +1,5 @@
 import { IWebhookInfo } from "./iWebhookInfo";
 
-declare interface getWebhookInfo {
+declare interface GetWebhookInfo {
   (): IWebhookInfo;
 }

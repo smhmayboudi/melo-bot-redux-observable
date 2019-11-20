@@ -2,6 +2,7 @@ import debug from "debug";
 import * as fs from "fs";
 import { Store } from "redux";
 
+import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
@@ -14,10 +15,10 @@ import * as texts from "./texts";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
-const handleMessage: (store: Store<IState>, message: IMessage) => void = (
-  store: Store<IState>,
+const handleMessage: (
+  store: Store<IState, IAction>,
   message: IMessage
-): void => {
+) => void = (store: Store<IState, IAction>, message: IMessage): void => {
   appDebug("telegramBot:handleMessage");
   switch (message.text) {
     case "/addStickerToSet":

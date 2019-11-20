@@ -5,15 +5,18 @@ import { IInputMediaDocument } from "../types/iInputMediaDocument";
 import { IInputMediaPhoto } from "../types/iInputMediaPhoto";
 import { IInputMediaVideo } from "../types/iInputMediaVideo";
 import { IMessage } from "../types/iMessage";
-export type editMessageMedia = (
-  media:
-    | IInputMediaAnimation
-    | IInputMediaAudio
-    | IInputMediaDocument
-    | IInputMediaPhoto
-    | IInputMediaVideo,
-  chat_id?: number | string,
-  inline_message_id?: string,
-  message_id?: number,
-  reply_markup?: IInlineKeyboardMarkup
-) => IMessage;
+
+export interface EditMessageMedia {
+  (
+    media:
+      | IInputMediaAnimation
+      | IInputMediaAudio
+      | IInputMediaDocument
+      | IInputMediaPhoto
+      | IInputMediaVideo,
+    chat_id?: number | string,
+    inline_message_id?: string,
+    message_id?: number,
+    reply_markup?: IInlineKeyboardMarkup
+  ): IMessage;
+}

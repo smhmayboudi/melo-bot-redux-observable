@@ -5,7 +5,7 @@ import { IMessage } from "../types/iMessage";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendAnimation {
+export interface SendAnimation {
   (
     animation: IInputFile | string,
     chat_id: number | string,

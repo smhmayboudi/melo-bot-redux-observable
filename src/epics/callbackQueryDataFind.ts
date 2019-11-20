@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
@@ -44,13 +44,15 @@ const callbackQueryDataFind: (
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionCallbackQueryDataFind> => {
-          return collectionObservable(
+          return collectionObservable<IStateCallbackQueryDataInsertQuery>(
             client.db(env.DB_NAME),
             "callbackQueryData",
             {}
           ).pipe(
             switchMap(
-              (collection: any): Observable<IActionCallbackQueryDataFind> => {
+              (
+                collection: Collection<IStateCallbackQueryDataInsertQuery>
+              ): Observable<IActionCallbackQueryDataFind> => {
                 if (action.callbackQueryDataFind.query === undefined) {
                   return of(
                     actions.callbackQueryDataFind.error({
@@ -64,12 +66,13 @@ const callbackQueryDataFind: (
                 return findOneObservable(collection, {
                   _id: new ObjectId(action.callbackQueryDataFind.query.id)
                 }).pipe(
-                  switchMap((value: IStateCallbackQueryDataInsertQuery) =>
-                    of(
-                      actions.callbackQueryDataFind.result({
-                        result: value === null ? undefined : value
-                      })
-                    )
+                  switchMap(
+                    (value: IStateCallbackQueryDataInsertQuery | null) =>
+                      of(
+                        actions.callbackQueryDataFind.result({
+                          result: value === null ? undefined : value
+                        })
+                      )
                   ),
                   catchError((error: any) =>
                     of(

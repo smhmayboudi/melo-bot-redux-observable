@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { Collection, MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
@@ -34,14 +34,14 @@ const youtubeDownloadResultFind: (
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionYoutubeDownloadResultFind> => {
-          return collectionObservable(
+          return collectionObservable<IStateYoutubeDownloadResultInsertQuery>(
             client.db(env.DB_NAME),
             "youtubeDownloadResult",
             {}
           ).pipe(
             switchMap(
               (
-                collection: any
+                collection: Collection<IStateYoutubeDownloadResultInsertQuery>
               ): Observable<IActionYoutubeDownloadResultFind> => {
                 if (action.youtubeDownloadResultFind.query === undefined) {
                   return of(
@@ -56,12 +56,13 @@ const youtubeDownloadResultFind: (
                 return findOneObservable(collection, {
                   id: action.youtubeDownloadResultFind.query.id
                 }).pipe(
-                  switchMap((value: IStateYoutubeDownloadResultInsertQuery) =>
-                    of(
-                      actions.youtubeDownloadResultFind.result({
-                        result: value === null ? undefined : value
-                      })
-                    )
+                  switchMap(
+                    (value: IStateYoutubeDownloadResultInsertQuery | null) =>
+                      of(
+                        actions.youtubeDownloadResultFind.result({
+                          result: value === null ? undefined : value
+                        })
+                      )
                   ),
                   catchError((error: any) =>
                     of(

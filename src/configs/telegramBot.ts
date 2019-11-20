@@ -1,5 +1,6 @@
 import { Store } from "redux";
 
+import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
@@ -23,10 +24,15 @@ import { handlePreCheckoutQuery } from "./telegramBotHandlePreCheckoutQuery";
 import { handleShippingQuery } from "./telegramBotHandleShippingQuery";
 import { handleWebhookError } from "./telegramBotHandleWebhookError";
 
-const operate: (message: IStateMessageQuery) => void = (
-  message: IStateMessageQuery
+const operate: (
+  message: IStateMessageQuery,
+  testStore?: Store<IState, IAction>
+) => void = (
+  message: IStateMessageQuery,
+  testStore?: Store<IState, IAction>
 ): void => {
-  const store: Store<IState> = configureStore();
+  const store: Store<IState, IAction> =
+    testStore !== undefined ? testStore : configureStore();
   store.dispatch(actions.message.query({ query: message }));
   if (message.callback_query !== undefined) {
     handleCallbackQuery(store, message.callback_query);

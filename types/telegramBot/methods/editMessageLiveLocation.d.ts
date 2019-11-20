@@ -1,7 +1,7 @@
 import { IInlineKeyboardMarkup } from "../types/iInlineKeyboardMarkup";
 import { IMessage } from "../types/iMessage";
 
-export interface editMessageLiveLocation {
+export interface EditMessageLiveLocation {
   (
     latitude: number,
     longitude: number,

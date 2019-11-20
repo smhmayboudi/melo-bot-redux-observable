@@ -1,7 +1,7 @@
 import { IInlineKeyboardMarkup } from "../types/iInlineKeyboardMarkup";
 import { IMessage } from "../types/iMessage";
 
-export interface editMessageReplyMarkup {
+export interface EditMessageReplyMarkup {
   (
     chat_id?: number | string,
     inline_message_id?: string,

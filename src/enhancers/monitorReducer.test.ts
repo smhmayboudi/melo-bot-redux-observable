@@ -11,7 +11,12 @@ describe("monitorReducer middleware", (): void => {
     };
   } = (): {
     next: jest.Mock;
-    store: any;
+    store: {
+      dispatch: jest.Mock;
+      getState: jest.Mock;
+      replaceReducer: jest.Mock;
+      subscribe: jest.Mock;
+    };
   } => {
     const next: jest.Mock = jest.fn();
     const store: any = {

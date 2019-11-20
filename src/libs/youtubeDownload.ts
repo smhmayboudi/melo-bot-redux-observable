@@ -41,9 +41,9 @@ const youtubeDownload: (
       ) => IStateYoutubeDownloadResultInsertQuery[] = (
         videoInfo: string
       ): IStateYoutubeDownloadResultInsertQuery[] => {
-        const rxFmtList = /fmt_list=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxFmtList = /fmt_list=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         const fmtListmap: string = unescape(
-          (videoInfo.match(rxFmtList) as RegExpMatchArray)[1]
+          (rxFmtList.exec(videoInfo) as RegExpMatchArray)[1]
         );
 
         const rxFmtListNumG = /\d+/g;
@@ -64,42 +64,42 @@ const youtubeDownload: (
           });
         }
 
-        const rxUrlMap = /url_encoded_fmt_stream_map=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxUrlMap = /url_encoded_fmt_stream_map=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         const urlmap: string = unescape(
-          (videoInfo.match(rxUrlMap) as RegExpMatchArray)[1]
+          (rxUrlMap.exec(videoInfo) as RegExpMatchArray)[1]
         );
 
-        const rxUrlG = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/g;
+        const rxUrlG = /url=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/g;
 
-        const rxDur = /dur=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxDur = /dur=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         let durs: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         durs = map(durs, unescape);
         durs = map(
           durs,
-          (s: string): string => (s.match(rxDur) as RegExpMatchArray)[1]
+          (s: string): string => (rxDur.exec(s) as RegExpMatchArray)[1]
         );
 
-        const rxItag = /itag=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
-        let itags: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
-        itags = map(itags, unescape);
-        itags = map(
-          itags,
-          (s: string): string => (s.match(rxItag) as RegExpMatchArray)[1]
-        );
+        // TODO: const rxItag = /itag=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
+        // TODO: let itags: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
+        // TODO: itags = map(itags, unescape);
+        // TODO: itags = map(
+        // TODO:   itags,
+        // TODO:   (s: string): string => (rxItag.exec(s) as RegExpMatchArray)[1]
+        // TODO: );
 
-        const rxMime = /mime=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxMime = /mime=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         let mimes: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         mimes = map(mimes, unescape);
         mimes = map(
           mimes,
-          (s: string): string => (s.match(rxMime) as RegExpMatchArray)[1]
+          (s: string): string => (rxMime.exec(s) as RegExpMatchArray)[1]
         );
         mimes = map(mimes, unescape);
 
-        // TODO: const rxThumbnailUrl: RegExp = /thumbnail_url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        // TODO: const rxThumbnailUrl: RegExp = /thumbnail_url=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         // TODO: const thumbnailUrl: string = unescape((videoInfo.match(rxThumbnailUrl) as RegExpMatchArray)[1]);
 
-        const rxThumbnailUrl = /\=(\{.*\})\&/gm;
+        const rxThumbnailUrl = /=(\{.*\})&/gm;
         const res: RegExpMatchArray | null = rxThumbnailUrl.exec(
           unescape(videoInfo)
         );
@@ -108,16 +108,16 @@ const youtubeDownload: (
         const thumbnailUrl: string =
           playerResponseJSON.videoDetails.thumbnail.thumbnails[0].url;
 
-        // TODO: const rxTitle: RegExp = /title=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        // TODO: const rxTitle: RegExp = /title=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         // TODO: const title: string = (videoInfo.match(rxTitle) as RegExpMatchArray)[1];
 
         const title: string = playerResponseJSON.videoDetails.title;
 
-        const rxUrl = /url=([\]\[!"#$%'()*+,.\/:;<=>?@\^_`{|}~-\w]*)/;
+        const rxUrl = /url=([\][!"#$%'()*+,./:;<=>?@^_`{|}~-\w]*)/;
         let urls: RegExpMatchArray = urlmap.match(rxUrlG) as RegExpMatchArray;
         urls = map(
           urls,
-          (s: string): string => (s.match(rxUrl) as RegExpMatchArray)[1]
+          (s: string): string => (rxUrl.exec(s) as RegExpMatchArray)[1]
         );
         urls = map(urls, unescape);
 

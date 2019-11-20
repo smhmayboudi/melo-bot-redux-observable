@@ -1,4 +1,4 @@
-export interface promoteChatMember {
+export interface PromoteChatMember {
   (
     chat_id: number | string,
     user_id: number,

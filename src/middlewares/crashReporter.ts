@@ -14,7 +14,7 @@ import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-import * as actions from "../actions";
+// import * as actions from "../actions";
 import * as env from "../configs/env";
 
 const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
@@ -40,11 +40,9 @@ init({
 //   });
 // });
 
-const crashReporter: Middleware = (
-  middlewareAPI: MiddlewareAPI
-): ((next: Dispatch) => (action: IAction) => IAction) => (
-  next: Dispatch
-): ((action: IAction) => IAction) => (action: IAction): IAction => {
+const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = (
+  middlewareAPI: MiddlewareAPI<Dispatch<IAction>, IState>
+) => (next: Dispatch<IAction>) => (action: IAction): IAction => {
   let message: IMessage = {
     chat: {
       id: 0,
@@ -53,14 +51,15 @@ const crashReporter: Middleware = (
     date: 0,
     message_id: 0
   };
-  if (
-    action.type === actions.message.MESSAGE_QUERY &&
-    action.message !== undefined &&
-    action.message.query !== undefined &&
-    action.message.query.message !== undefined
-  ) {
-    message = action.message.query.message;
-  }
+  // TODO: check it
+  // if (
+  //   action.type === actions.message.MESSAGE_QUERY &&
+  //   action.message !== undefined &&
+  //   action.message.query !== undefined &&
+  //   action.message.query.message !== undefined
+  // ) {
+  //   message = action.message.query.message;
+  // }
   const state: IState = middlewareAPI.getState();
   if (
     state.message.query !== undefined &&

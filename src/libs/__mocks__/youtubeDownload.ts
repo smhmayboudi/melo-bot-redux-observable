@@ -1,9 +1,9 @@
-const requests: (_videoId: string) => Promise<any> = (
+const requests: <T>(_videoId: string) => Promise<boolean> = <T>(
   _videoId: string
-): Promise<any> =>
+): Promise<boolean> =>
   new Promise(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
+      resolve: (value?: boolean | PromiseLike<boolean>) => void,
       _reject: (reason?: any) => void
     ): void => {
       process.nextTick(() => resolve(true));

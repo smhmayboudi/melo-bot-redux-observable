@@ -8,17 +8,19 @@ import { IPassportElementErrorTranslationFile } from "./iPassportElementErrorTra
 import { PassportElementErrorTranslationFiles } from "./iPassportElementErrorTranslationFiles";
 import { IPassportElementErrorUnspecified } from "./iPassportElementErrorUnspecified";
 
-export type setPassportDataErrors = (
-  errors: Array<
-    | IPassportElementErrorDataField
-    | IPassportElementErrorFile
-    | IPassportElementErrorFiles
-    | IPassportElementErrorFrontSide
-    | IPassportElementErrorReverseSide
-    | IPassportElementErrorSelfie
-    | IPassportElementErrorTranslationFile
-    | PassportElementErrorTranslationFiles
-    | IPassportElementErrorUnspecified
-  >,
-  user_id: number
-) => boolean;
+export interface SetPassportDataErrors {
+  (
+    errors: Array<
+      | IPassportElementErrorDataField
+      | IPassportElementErrorFile
+      | IPassportElementErrorFiles
+      | IPassportElementErrorFrontSide
+      | IPassportElementErrorReverseSide
+      | IPassportElementErrorSelfie
+      | IPassportElementErrorTranslationFile
+      | PassportElementErrorTranslationFiles
+      | IPassportElementErrorUnspecified
+    >,
+    user_id: number
+  ): boolean;
+}

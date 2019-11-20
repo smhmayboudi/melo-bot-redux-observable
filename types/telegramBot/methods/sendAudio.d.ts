@@ -5,7 +5,7 @@ import { IMessage } from "../types/iMessage";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendAudio {
+export interface SendAudio {
   (
     audio: IInputFile | string,
     chat_id: number | string,

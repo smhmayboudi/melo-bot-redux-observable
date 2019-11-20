@@ -1,4 +1,9 @@
-import { InsertOneWriteOpResult, MongoClient } from "mongodb";
+import {
+  Collection,
+  InsertOneWriteOpResult,
+  MongoClient,
+  ObjectId
+} from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
@@ -6,6 +11,7 @@ import { catchError, switchMap } from "rxjs/operators";
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
@@ -33,13 +39,15 @@ const callbackQueryDataInsert: (
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionCallbackQueryDataInsert> => {
-          return collectionObservable(
+          return collectionObservable<IStateCallbackQueryDataInsertQuery>(
             client.db(env.DB_NAME),
             "callbackQueryData",
             {}
           ).pipe(
             switchMap(
-              (collection: any): Observable<IActionCallbackQueryDataInsert> => {
+              (
+                collection: Collection<IStateCallbackQueryDataInsertQuery>
+              ): Observable<IActionCallbackQueryDataInsert> => {
                 if (action.callbackQueryDataInsert.query === undefined) {
                   return of(
                     actions.callbackQueryDataInsert.error({
@@ -55,12 +63,17 @@ const callbackQueryDataInsert: (
                   action.callbackQueryDataInsert.query,
                   {}
                 ).pipe(
-                  switchMap((value: InsertOneWriteOpResult<any>) =>
-                    of(
-                      actions.callbackQueryDataInsert.result({
-                        result: value.insertedId.toString()
-                      })
-                    )
+                  switchMap(
+                    (
+                      value: InsertOneWriteOpResult<
+                        IStateCallbackQueryDataInsertQuery
+                      >
+                    ) =>
+                      of(
+                        actions.callbackQueryDataInsert.result({
+                          result: (value.insertedId as ObjectId).toString()
+                        })
+                      )
                   ),
                   catchError((error: any) =>
                     of(

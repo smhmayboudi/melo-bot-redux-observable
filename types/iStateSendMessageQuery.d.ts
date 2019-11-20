@@ -1,6 +1,5 @@
 import { IForceReply } from "../types/telegramBot/types/iForceReply";
 import { IInlineKeyboardMarkup } from "../types/telegramBot/types/iInlineKeyboardMarkup";
-import { IMessage } from "../types/telegramBot/types/iMessage";
 import { IReplyKeyboardMarkup } from "../types/telegramBot/types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/telegramBot/types/iReplyKeyboardRemove";
 

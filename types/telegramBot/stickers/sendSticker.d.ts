@@ -5,7 +5,7 @@ import { IMessage } from "../types/iMessage";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendSticker {
+export interface SendSticker {
   (
     chat_id: number | string,
     sticker: IInputFile | string,

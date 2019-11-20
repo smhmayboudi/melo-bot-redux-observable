@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { Collection, MongoClient } from "mongodb";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { catchError, switchMap, switchMapTo } from "rxjs/operators";
@@ -6,6 +6,7 @@ import { catchError, switchMap, switchMapTo } from "rxjs/operators";
 import { IActionChosenInlineResult } from "../../types/iActionChosenInlineResult";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IStateChosenInlineResultQuery } from "../../types/iStateChosenInlineResultQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
@@ -33,13 +34,15 @@ const chosenInlineResult: (
     return mongoClientObservable().pipe(
       switchMap(
         (client: MongoClient): Observable<IActionChosenInlineResult> => {
-          return collectionObservable(
+          return collectionObservable<IStateChosenInlineResultQuery>(
             client.db(env.DB_NAME),
             "chosenInlineResult",
             {}
           ).pipe(
             switchMap(
-              (collection: any): Observable<IActionChosenInlineResult> => {
+              (
+                collection: Collection<IStateChosenInlineResultQuery>
+              ): Observable<IActionChosenInlineResult> => {
                 if (action.chosenInlineResult.query === undefined) {
                   return of(
                     actions.chosenInlineResult.error({

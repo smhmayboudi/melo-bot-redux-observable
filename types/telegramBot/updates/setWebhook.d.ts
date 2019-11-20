@@ -1,6 +1,6 @@
 import { IInputFile } from "../types/iInputFile";
 
-export interface setWebhook {
+export interface SetWebhook {
   (
     url: string,
     allowed_updates?: string[],

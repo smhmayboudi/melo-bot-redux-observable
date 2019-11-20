@@ -1,4 +1,5 @@
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     interface Global {
       __MONGO_DB_NAME__: string;
@@ -95,7 +96,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -122,7 +123,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -176,7 +177,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -205,7 +206,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: null }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: null }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
@@ -232,7 +233,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const dependencies: IDependencies = {
         ...initialDependencies,
         collectionObservable,
-        findOneObservable: () => cold("-a", { a: result }),
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(

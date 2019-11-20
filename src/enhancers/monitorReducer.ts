@@ -1,11 +1,17 @@
 import debug from "debug";
 import { performance } from "perf_hooks";
-import { DeepPartial, Reducer, StoreCreator, StoreEnhancer } from "redux";
+import {
+  DeepPartial,
+  Reducer,
+  Store,
+  StoreEnhancer,
+  StoreEnhancerStoreCreator
+} from "redux";
 
-import { IAction } from "../../types/iAction";
-import { IState } from "../../types/iState";
 import * as env from "../configs/env";
 import { Prometheus } from "../configs/prometheus";
+import { IAction } from "../../types/iAction";
+import { IState } from "../../types/iState";
 
 const appDebug: debug.IDebugger = debug("app:enhancers:monitorReducer");
 
@@ -21,20 +27,12 @@ const gauge: Prometheus.Gauge = new Prometheus.Gauge({
   name: `${env.METRICS_COLLECTOR_PREFIX}reducer_process_time_milliseconds`
 });
 
-const monitorReducer: (
-  next: StoreCreator
+const monitorReducer: StoreEnhancer<{}, {}> = (
+  next: StoreEnhancerStoreCreator<{}, {}>
 ) => (
-  reducer: Reducer<IState, IAction>,
+  reducer: Reducer<any, any>,
   preloadedState?: DeepPartial<IState>
-) => StoreEnhancer = (
-  next: StoreCreator
-): ((
-  reducer: Reducer<IState, IAction>,
-  preloadedState?: DeepPartial<IState>
-) => StoreEnhancer) => (
-  reducer: Reducer<IState, IAction>,
-  preloadedState?: DeepPartial<IState>
-): StoreEnhancer => {
+): Store<any, any> => {
   const monitoredReducer: (
     state: IState | undefined,
     action: IAction

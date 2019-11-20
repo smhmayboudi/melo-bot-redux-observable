@@ -1,6 +1,6 @@
 import { IGameHighScore } from "./iGameHighScore";
 
-export interface getGameHighScores {
+export interface GetGameHighScores {
   (
     user_id: number,
     chat_id?: number,

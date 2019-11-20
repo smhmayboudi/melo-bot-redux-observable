@@ -1,6 +1,6 @@
 import { IShippingOption } from "./iShippingOption";
 
-export interface answerShippingQuery {
+export interface AnswerShippingQuery {
   (
     error_message: string,
     ok: boolean,

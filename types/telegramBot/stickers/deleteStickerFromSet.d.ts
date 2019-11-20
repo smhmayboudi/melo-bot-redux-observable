@@ -1,3 +1,3 @@
-export interface deleteStickerFromSet {
+export interface DeleteStickerFromSet {
   (sticker: string): boolean;
 }

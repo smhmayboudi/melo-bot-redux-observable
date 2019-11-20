@@ -1,20 +1,20 @@
 import FormData from "form-data";
 import * as http from "http";
 
-const request: (
+const requestUpload: <T>(
   options: http.RequestOptions,
   formData: FormData
-) => Promise<any> = (
+) => Promise<boolean> = <T>(
   _options: http.RequestOptions,
   _formData: FormData
-): Promise<any> =>
+): Promise<boolean> =>
   new Promise(
     (
-      resolve: (value?: any | PromiseLike<any>) => void,
+      resolve: (value?: boolean | PromiseLike<boolean>) => void,
       _reject: (reason?: any) => void
     ): void => {
       process.nextTick(() => resolve(true));
     }
   );
 
-export { request };
+export { requestUpload };

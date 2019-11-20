@@ -1,5 +1,4 @@
-import { Action } from "redux";
-
+import { IAction } from "../../types/iAction";
 import { logger } from "./logger";
 
 describe("logger middleware", (): void => {
@@ -11,11 +10,16 @@ describe("logger middleware", (): void => {
       replaceReducer: jest.Mock;
       subscribe: jest.Mock;
     };
-    invoke(action: Action<string>): Action<string>;
+    invoke(action: IAction): IAction;
   } = (): {
     next: jest.Mock;
-    store: any;
-    invoke(action: Action<string>): Action<string>;
+    store: {
+      dispatch: jest.Mock;
+      getState: jest.Mock;
+      replaceReducer: jest.Mock;
+      subscribe: jest.Mock;
+    };
+    invoke(action: IAction): IAction;
   } => {
     const next: jest.Mock = jest.fn();
     const store: any = {
@@ -24,16 +28,15 @@ describe("logger middleware", (): void => {
       replaceReducer: jest.fn(() => {}),
       subscribe: jest.fn(() => jest.fn(() => {}))
     };
-    const invoke: (action: Action<string>) => Action<string> = (
-      action: Action<string>
-    ): Action<string> => logger(store)(next)(action);
+    const invoke: (action: IAction) => IAction = (action: IAction): IAction =>
+      logger(store)(next)(action);
 
     return { invoke, next, store };
   };
 
   test("should handle", (): void => {
     const { invoke, next } = create();
-    const action: Action<string> = { type: "" };
+    const action: IAction = { type: "" };
     invoke(action);
     expect(next).toHaveBeenCalledWith(action);
   });

@@ -5,7 +5,7 @@ import { IInputFile } from "../types/iInputFile";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendPhoto {
+export interface SendPhoto {
   (
     chat_id: number | string,
     photo: IInputFile | string,

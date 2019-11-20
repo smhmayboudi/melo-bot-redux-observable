@@ -1,5 +1,4 @@
-import { Action } from "redux";
-
+import { IAction } from "../../types/iAction";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
 
@@ -72,14 +71,19 @@ describe("crashReporter middleware", (): void => {
       replaceReducer: jest.Mock;
       subscribe: jest.Mock;
     };
-    invoke(action: Action<string>): Action<string>;
+    invoke(action: IAction): IAction;
   } = (
     getState: jest.Mock,
     error?: () => void
   ): {
     next: jest.Mock;
-    store: any;
-    invoke(action: Action<string>): Action<string>;
+    store: {
+      dispatch: jest.Mock;
+      getState: jest.Mock;
+      replaceReducer: jest.Mock;
+      subscribe: jest.Mock;
+    };
+    invoke(action: IAction): IAction;
   } => {
     const next: jest.Mock = jest.fn(error);
     const store: any = {
@@ -88,16 +92,15 @@ describe("crashReporter middleware", (): void => {
       replaceReducer: jest.fn(() => {}),
       subscribe: jest.fn(() => jest.fn(() => {}))
     };
-    const invoke: (action: Action<string>) => Action<string> = (
-      action: Action<string>
-    ): Action<string> => crashReporter(store)(next)(action);
+    const invoke: (action: IAction) => IAction = (action: IAction): IAction =>
+      crashReporter(store)(next)(action);
 
     return { invoke, next, store };
   };
 
   test("should handle", (): void => {
     const { invoke, next } = create(jest.fn(() => {}));
-    const action: Action<string> = { type: "" };
+    const action: IAction = { type: "" };
     try {
       invoke(action);
     } catch {
@@ -112,7 +115,7 @@ describe("crashReporter middleware", (): void => {
         throw error;
       }
     );
-    const action: Action<string> = actions.message.query({ query });
+    const action: IAction = actions.message.query({ query });
     try {
       invoke(action);
     } catch {
@@ -127,7 +130,7 @@ describe("crashReporter middleware", (): void => {
         throw error;
       }
     );
-    const action: Action<string> = { type: "" };
+    const action: IAction = { type: "" };
     try {
       invoke(action);
     } catch {
@@ -142,7 +145,7 @@ describe("crashReporter middleware", (): void => {
         throw error;
       }
     );
-    const action: Action<string> = { type: "" };
+    const action: IAction = { type: "" };
     try {
       invoke(action);
     } catch {

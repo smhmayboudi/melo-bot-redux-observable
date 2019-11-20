@@ -1,1 +1,3 @@
-export type unpinChatMessage = (chat_id: number | string) => boolean;
+export interface UnpinChatMessage {
+  (chat_id: number | string): boolean;
+}

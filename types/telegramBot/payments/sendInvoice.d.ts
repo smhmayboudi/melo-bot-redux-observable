@@ -2,7 +2,7 @@ import { ILabeledPrice } from "./iLabeledPrice";
 import { IInlineKeyboardMarkup } from "../types/iInlineKeyboardMarkup";
 import { IMessage } from "../types/iMessage";
 
-export interface sendInvoice {
+export interface SendInvoice {
   (
     chat_id: number,
     currency: string,

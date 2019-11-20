@@ -1,6 +1,7 @@
 import { Store } from "redux";
 
 import { initialState } from "../utils/store";
+import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
@@ -50,7 +51,7 @@ describe("store configs", (): void => {
         }
       };
     }
-    const store: Store<IState> = configureStore();
+    const store: Store<IState, IAction> = configureStore();
     store.dispatch(actions.message.query(message));
     expect(store.getState()).toEqual({
       ...initialState,

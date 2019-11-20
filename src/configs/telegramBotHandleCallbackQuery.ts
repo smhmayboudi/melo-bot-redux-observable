@@ -1,6 +1,7 @@
 import debug from "debug";
 import { Store } from "redux";
 
+import { IAction } from "../../types/iAction";
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
@@ -10,9 +11,12 @@ import * as actions from "../actions";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleCallbackQuery: (
-  store: Store<IState>,
+  store: Store<IState, IAction>,
   callbackQuery: ICallbackQuery
-) => void = (store: Store<IState>, callbackQuery: ICallbackQuery): void => {
+) => void = (
+  store: Store<IState, IAction>,
+  callbackQuery: ICallbackQuery
+): void => {
   appDebug("telegramBot:handleCallbackQuery");
   if (callbackQuery.inline_message_id !== undefined) {
     store.dispatch(

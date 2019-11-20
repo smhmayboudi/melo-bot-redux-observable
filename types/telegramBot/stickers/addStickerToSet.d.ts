@@ -1,7 +1,7 @@
 import { IMaskPosition } from "./iMaskPosition";
 import { IInputFile } from "../types/iInputFile";
 
-export interface addStickerToSet {
+export interface AddStickerToSet {
   (
     emojis: string,
     name: string,

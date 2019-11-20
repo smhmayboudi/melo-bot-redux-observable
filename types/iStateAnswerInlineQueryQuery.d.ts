@@ -1,4 +1,3 @@
-import { IInlineQueryResult } from "./telegramBot/inlineMode/iInlineQueryResult";
 import { IInlineQueryResultArticle } from "./telegramBot/inlineMode/iInlineQueryResultArticle";
 import { IInlineQueryResultAudio } from "./telegramBot/inlineMode/iInlineQueryResultAudio";
 import { IInlineQueryResultCachedAudio } from "./telegramBot/inlineMode/iInlineQueryResultCachedAudio";

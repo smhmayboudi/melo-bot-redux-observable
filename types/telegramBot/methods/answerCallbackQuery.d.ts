@@ -1,4 +1,4 @@
-export interface answerCallbackQuery {
+export interface AnswerCallbackQuery {
   (
     callback_query_id: string,
     cache_time?: number,

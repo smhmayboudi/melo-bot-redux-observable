@@ -1,6 +1,6 @@
 import { IMessage } from "../types/iMessage";
 
-export interface setGameScore {
+export interface SetGameScore {
   (
     score: number,
     user_id: number,

@@ -4,7 +4,7 @@ import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 import { IUser } from "../types/iUser";
 
-export interface getMe {
+export interface GetMe {
   (
     chat_id: number | string,
     text: string,

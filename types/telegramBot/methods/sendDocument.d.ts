@@ -5,7 +5,7 @@ import { IMessage } from "../types/iMessage";
 import { IReplyKeyboardMarkup } from "../types/iReplyKeyboardMarkup";
 import { IReplyKeyboardRemove } from "../types/iReplyKeyboardRemove";
 
-export interface sendDocument {
+export interface SendDocument {
   (
     chat_id: number | string,
     document: IInputFile | string,

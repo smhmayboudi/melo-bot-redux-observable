@@ -3,7 +3,6 @@ import { Observable, throwError } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
 import { IAction } from "../../types/iAction";
-import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
@@ -12,11 +11,11 @@ const appError: (
   action$: Observable<IAction>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<IActionSendMessage> = (
+) => Observable<IAction> = (
   action$: Observable<IAction>,
   _state$: StateObservable<IState> | undefined,
   _dependencies: IDependencies
-): Observable<IActionSendMessage> =>
+): Observable<IAction> =>
   action$.pipe(
     ofType(
       actions.addStickerToSet.ADD_STICKER_TO_SET_ERROR,

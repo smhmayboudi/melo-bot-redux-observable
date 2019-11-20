@@ -1,3 +1,3 @@
-export interface unbanChatMember {
+export interface UnbanChatMember {
   (chat_id: number | string, user_id: number): boolean;
 }
