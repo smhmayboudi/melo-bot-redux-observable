@@ -1,5 +1,4 @@
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     interface Global {
       __MONGO_DB_NAME__: string;

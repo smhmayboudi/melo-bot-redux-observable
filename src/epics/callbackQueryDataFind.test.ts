@@ -1,7 +1,6 @@
 import { youtube_v3 } from "googleapis";
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     interface Global {
       __MONGO_DB_NAME__: string;
