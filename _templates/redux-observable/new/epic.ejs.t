@@ -30,7 +30,11 @@ const <%= h.changeCase.camel(name)%>: (
     action: IAction<%= h.changeCase.pascal(name)%>
   ): Observable<IAction<%= h.changeCase.pascal(name)%>> => {
     if (action.<%= h.changeCase.camel(name)%>.query === undefined) {
-      return of(actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined) }));
+      return of(
+        actions.<%= h.changeCase.camel(name)%>.error({
+          error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined)
+        })
+      );
     }
 
     return requestsObservable<IResponse>(

@@ -36,7 +36,9 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
-    testScheduler = new TestScheduler((actual: IState, expected: IState): | boolean | void => {
+    testScheduler = new TestScheduler((actual: IState, expected: IState):
+      | boolean
+      | void => {
       expect(actual).toEqual(expected);
     });
   });
@@ -53,7 +55,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
-      const output$: Observable<IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.<%= h.changeCase.camel(name)%>.error({ error })
       });
@@ -72,7 +74,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
-      const output$: Observable<IAction<%= h.changeCase.pascal(name)%> | IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
+      const output$: Observable<IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined) })
       });
