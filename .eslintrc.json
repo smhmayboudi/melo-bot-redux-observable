@@ -87,8 +87,9 @@
       "send_email_to_provider",
       "youtube_v3"
     ], "properties": "never" }],
-    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-namespace": "off"
   }
 }
