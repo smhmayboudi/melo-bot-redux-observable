@@ -15,15 +15,15 @@ import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
 
-import { startActionGetChatMember } from "./youtubeDownloadToGetChatMember";
-import { transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
+import { startAction as startActionGetChatMember } from "./youtubeDownloadToGetChatMember";
+import { transformObservable as transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
 import {
-  transformObservableSendVideo,
-  startActionSendVideo
+  transformObservable as transformObservableSendVideo,
+  startAction as startActionSendVideo
 } from "./youtubeDownloadToYoutubeDownloadResultInsert";
 import {
-  transformObservableYoutubeDownloadResultFind,
-  startActionYoutubeDownloadResultFind
+  transformObservable as transformObservableYoutubeDownloadResultFind,
+  startAction as startActionYoutubeDownloadResultFind
 } from "./youtubeDownloadToYoutubeDownloadResultFind";
 
 const youtubeDownload: (

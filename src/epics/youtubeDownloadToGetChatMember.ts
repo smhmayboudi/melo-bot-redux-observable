@@ -7,7 +7,7 @@ import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
-const startActionGetChatMember: (
+const startAction: (
   state$: StateObservable<IState> | undefined
 ) => IActionGetChatMember | IActionYoutubeDownload = (
   state$: StateObservable<IState> | undefined
@@ -36,4 +36,4 @@ const startActionGetChatMember: (
   });
 };
 
-export { startActionGetChatMember };
+export { startAction };

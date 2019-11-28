@@ -8,7 +8,7 @@ import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
-import { transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
+import { transformObservable } from "./youtubeDownloadToSendMessage";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("youtubeDownload epic", (): void => {
@@ -60,9 +60,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$Value
       );
-      expect(transformObservableSendMessage(action, state$)).toEqual(
-        of(action)
-      );
+      expect(transformObservable(action, state$)).toEqual(of(action));
     });
 
     test("should handle error state$ undefined", (): void => {
@@ -70,7 +68,7 @@ describe("youtubeDownload epic", (): void => {
         query
       });
       const state$: StateObservable<IState> | undefined = undefined;
-      expect(transformObservableSendMessage(action, state$)).toEqual(
+      expect(transformObservable(action, state$)).toEqual(
         of(
           actions.youtubeDownload.error({
             error: new Error(texts.state$Undefined)
@@ -87,7 +85,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$ValueMessageQueryUndefined
       );
-      expect(transformObservableSendMessage(action, state$)).toEqual(
+      expect(transformObservable(action, state$)).toEqual(
         of(
           actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryUndefined)
@@ -104,7 +102,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$ValueMessageQueryMessageUndefined
       );
-      expect(transformObservableSendMessage(action, state$)).toEqual(
+      expect(transformObservable(action, state$)).toEqual(
         of(
           actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryMessageUndefined)
@@ -121,7 +119,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$Value
       );
-      expect(transformObservableSendMessage(action, state$)).toEqual(
+      expect(transformObservable(action, state$)).toEqual(
         of(
           actions.sendMessage.query({
             query: {

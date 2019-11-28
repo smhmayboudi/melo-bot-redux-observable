@@ -16,8 +16,8 @@ import * as texts from "../configs/texts";
 import { caption } from "../utils/string";
 
 import {
-  transformObservableYoutubeDownloadResultFind,
-  startActionYoutubeDownloadResultFind
+  transformObservable,
+  startAction
 } from "./youtubeDownloadToYoutubeDownloadResultFind";
 
 describe("youtubeDownload epic", (): void => {
@@ -80,15 +80,13 @@ describe("youtubeDownload epic", (): void => {
       thumb: undefined
     };
 
-    describe("transformObservableYoutubeDownloadResultFind", (): void => {
+    describe("transformObservable", (): void => {
       test("should handle error state$ undefined", (): void => {
         const action: IActionYoutubeDownloadResultFind = actions.youtubeDownloadResultFind.result(
           { result }
         );
         const state$: StateObservable<IState> | undefined = undefined;
-        expect(
-          transformObservableYoutubeDownloadResultFind(action, state$)
-        ).toEqual(
+        expect(transformObservable(action, state$)).toEqual(
           of(
             actions.youtubeDownload.error({
               error: new Error(texts.state$Undefined)
@@ -105,9 +103,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryUndefined
         );
-        expect(
-          transformObservableYoutubeDownloadResultFind(action, state$)
-        ).toEqual(
+        expect(transformObservable(action, state$)).toEqual(
           of(
             actions.youtubeDownload.error({
               error: new Error(texts.state$ValueMessageQueryUndefined)
@@ -124,9 +120,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryMessageUndefined
         );
-        expect(
-          transformObservableYoutubeDownloadResultFind(action, state$)
-        ).toEqual(
+        expect(transformObservable(action, state$)).toEqual(
           of(
             actions.youtubeDownload.error({
               error: new Error(texts.state$ValueMessageQueryMessageUndefined)
@@ -143,9 +137,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(
-          transformObservableYoutubeDownloadResultFind(action, state$)
-        ).toEqual(
+        expect(transformObservable(action, state$)).toEqual(
           of(
             actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultUndefined)
@@ -162,9 +154,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(
-          transformObservableYoutubeDownloadResultFind(action, state$)
-        ).toEqual(
+        expect(transformObservable(action, state$)).toEqual(
           of(
             actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
@@ -181,9 +171,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(
-          transformObservableYoutubeDownloadResultFind(action, state$)
-        ).toEqual(
+        expect(transformObservable(action, state$)).toEqual(
           of(
             actions.sendVideo.query({
               query: {
@@ -221,12 +209,12 @@ describe("youtubeDownload epic", (): void => {
       });
     });
 
-    describe("startActionYoutubeDownloadResultFind", (): void => {
+    describe("startAction", (): void => {
       test("should handle error actionYoutubeDownloadQuery undefined", (): void => {
         const action: IActionYoutubeDownload = actions.youtubeDownload.query({
           query: undefined
         });
-        expect(startActionYoutubeDownloadResultFind(action)).toEqual(
+        expect(startAction(action)).toEqual(
           actions.youtubeDownload.error({
             error: new Error(texts.actionYoutubeDownloadQueryUndefined)
           })
@@ -237,7 +225,7 @@ describe("youtubeDownload epic", (): void => {
         const action: IActionYoutubeDownload = actions.youtubeDownload.query({
           query: query
         });
-        expect(startActionYoutubeDownloadResultFind(action)).toEqual(
+        expect(startAction(action)).toEqual(
           actions.youtubeDownloadResultFind.query({
             query: {
               id: query.id

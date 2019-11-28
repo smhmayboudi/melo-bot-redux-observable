@@ -8,7 +8,7 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
-import { startActionGetChatMember } from "./youtubeDownloadToGetChatMember";
+import { startAction } from "./youtubeDownloadToGetChatMember";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToGetChatMember", (): void => {
@@ -48,7 +48,7 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error state$ undefined", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
-      expect(startActionGetChatMember(state$)).toEqual(
+      expect(startAction(state$)).toEqual(
         actions.youtubeDownload.error({
           error: new Error(texts.state$Undefined)
         })
@@ -60,7 +60,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$ValueMessageQueryUndefined
       );
-      expect(startActionGetChatMember(state$)).toEqual(
+      expect(startAction(state$)).toEqual(
         actions.youtubeDownload.error({
           error: new Error(texts.state$ValueMessageQueryUndefined)
         })
@@ -72,7 +72,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$ValueMessageQueryMessageUndefined
       );
-      expect(startActionGetChatMember(state$)).toEqual(
+      expect(startAction(state$)).toEqual(
         actions.youtubeDownload.error({
           error: new Error(texts.state$ValueMessageQueryMessageUndefined)
         })
@@ -84,7 +84,7 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$Value
       );
-      expect(startActionGetChatMember(state$)).toEqual(
+      expect(startAction(state$)).toEqual(
         actions.getChatMember.query({
           query: {
             chat_id: `@${env.CHANNEL}`,

@@ -10,7 +10,7 @@ import * as texts from "../configs/texts";
 
 import { caption } from "../utils/string";
 
-const transformObservableYoutubeDownloadResultFind: (
+const transformObservable: (
   action: IActionYoutubeDownloadResultFind,
   state$: StateObservable<IState> | undefined
 ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
@@ -89,7 +89,7 @@ const transformObservableYoutubeDownloadResultFind: (
   );
 };
 
-const startActionYoutubeDownloadResultFind: (
+const startAction: (
   action: IActionYoutubeDownload
 ) => IActionYoutubeDownload | IActionYoutubeDownloadResultFind = (
   action: IActionYoutubeDownload
@@ -107,7 +107,4 @@ const startActionYoutubeDownloadResultFind: (
   });
 };
 
-export {
-  transformObservableYoutubeDownloadResultFind,
-  startActionYoutubeDownloadResultFind
-};
+export { transformObservable, startAction };

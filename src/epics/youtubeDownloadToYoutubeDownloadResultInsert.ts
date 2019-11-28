@@ -12,7 +12,7 @@ import * as texts from "../configs/texts";
 
 import { caption } from "../utils/string";
 
-const transformObservableSendVideo: (
+const transformObservable: (
   action: IActionYoutubeDownload
 ) => (
   action2: IActionSendVideo
@@ -60,7 +60,7 @@ const transformObservableSendVideo: (
   );
 };
 
-const startActionSendVideo: (
+const startAction: (
   action: IActionYoutubeDownload,
   state$: StateObservable<IState> | undefined
 ) => IActionYoutubeDownload | IActionSendVideo = (
@@ -123,4 +123,4 @@ const startActionSendVideo: (
   });
 };
 
-export { transformObservableSendVideo, startActionSendVideo };
+export { transformObservable, startAction };
