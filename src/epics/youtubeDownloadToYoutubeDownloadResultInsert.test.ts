@@ -1,7 +1,7 @@
-// import * as fs from "fs";
-
 import { StateObservable } from "redux-observable";
-import { of, Subject } from "rxjs";
+import { Subject } from "rxjs";
+import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
+import { TestScheduler } from "rxjs/testing";
 
 import { initialState } from "../utils/store";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
@@ -102,64 +102,86 @@ describe("youtubeDownload epic", (): void => {
     };
 
     describe("transformObservable", (): void => {
+      let testScheduler: TestScheduler;
+
+      beforeEach((): void => {
+        testScheduler = new TestScheduler((actual: IState, expected: IState):
+          | boolean
+          | void => {
+          expect(actual).toEqual(expected);
+        });
+      });
+
       test("should handle error actionYoutubeDownloadResult undefined", (): void => {
-        const action: IActionYoutubeDownload = actions.youtubeDownload.result({
-          result: undefined
-        });
-        const action2: IActionSendVideo = actions.sendVideo.result({
-          result: actionYoutubeDownloadResult
-        });
-        expect(transformObservable(action)(action2)).toEqual(
-          of(
-            actions.youtubeDownload.error({
+        testScheduler.run((runHelpers: RunHelpers): void => {
+          const { expectObservable } = runHelpers;
+          const action: IActionYoutubeDownload = actions.youtubeDownload.result(
+            {
+              result: undefined
+            }
+          );
+          const action2: IActionSendVideo = actions.sendVideo.result({
+            result: actionYoutubeDownloadResult
+          });
+          expectObservable(transformObservable(action)(action2)).toBe("a", {
+            a: actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultUndefined)
             })
-          )
-        );
+          });
+        });
       });
 
       test("should handle error action2SendVideoResult undefined", (): void => {
-        const action: IActionYoutubeDownload = actions.youtubeDownload.result({
-          result
-        });
-        const action2: IActionSendVideo = actions.sendVideo.result({
-          result: undefined
-        });
-        expect(transformObservable(action)(action2)).toEqual(
-          of(
-            actions.youtubeDownload.error({
+        testScheduler.run((runHelpers: RunHelpers): void => {
+          const { expectObservable } = runHelpers;
+          const action: IActionYoutubeDownload = actions.youtubeDownload.result(
+            {
+              result
+            }
+          );
+          const action2: IActionSendVideo = actions.sendVideo.result({
+            result: undefined
+          });
+          expectObservable(transformObservable(action)(action2)).toBe("a", {
+            a: actions.youtubeDownload.error({
               error: new Error(texts.actionSendVideoResultUndefined)
             })
-          )
-        );
+          });
+        });
       });
 
       test("should handle error action2SendVideoResultVideo undefined", (): void => {
-        const action: IActionYoutubeDownload = actions.youtubeDownload.result({
-          result
-        });
-        const action2: IActionSendVideo = actions.sendVideo.result({
-          result: actionYoutubeDownloadResultVideoUndefined
-        });
-        expect(transformObservable(action)(action2)).toEqual(
-          of(
-            actions.youtubeDownload.error({
+        testScheduler.run((runHelpers: RunHelpers): void => {
+          const { expectObservable } = runHelpers;
+          const action: IActionYoutubeDownload = actions.youtubeDownload.result(
+            {
+              result
+            }
+          );
+          const action2: IActionSendVideo = actions.sendVideo.result({
+            result: actionYoutubeDownloadResultVideoUndefined
+          });
+          expectObservable(transformObservable(action)(action2)).toBe("a", {
+            a: actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultVideoUndefined)
             })
-          )
-        );
+          });
+        });
       });
 
       test("should handle result", (): void => {
-        const action: IActionYoutubeDownload = actions.youtubeDownload.result({
-          result
-        });
-        const action2: IActionSendVideo = actions.sendVideo.result({
-          result: actionYoutubeDownloadResult
-        });
-        expect(transformObservable(action)(action2)).toEqual(
-          of(
-            actions.youtubeDownloadResultInsert.query({
+        testScheduler.run((runHelpers: RunHelpers): void => {
+          const { expectObservable } = runHelpers;
+          const action: IActionYoutubeDownload = actions.youtubeDownload.result(
+            {
+              result
+            }
+          );
+          const action2: IActionSendVideo = actions.sendVideo.result({
+            result: actionYoutubeDownloadResult
+          });
+          expectObservable(transformObservable(action)(action2)).toBe("a", {
+            a: actions.youtubeDownloadResultInsert.query({
               query: {
                 duration: (actionYoutubeDownloadResult.video as IVideo)
                   .duration,
@@ -177,8 +199,8 @@ describe("youtubeDownload epic", (): void => {
                 width: (actionYoutubeDownloadResult.video as IVideo).width
               }
             })
-          )
-        );
+          });
+        });
       });
     });
 
@@ -189,11 +211,9 @@ describe("youtubeDownload epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         expect(startAction(action, state$)).toEqual(
-          of(
-            actions.youtubeDownload.error({
-              error: new Error(texts.state$Undefined)
-            })
-          )
+          actions.youtubeDownload.error({
+            error: new Error(texts.state$Undefined)
+          })
         );
       });
 
@@ -206,11 +226,9 @@ describe("youtubeDownload epic", (): void => {
           state$ValueMessageQueryUndefined
         );
         expect(startAction(action, state$)).toEqual(
-          of(
-            actions.youtubeDownload.error({
-              error: new Error(texts.state$ValueMessageQueryUndefined)
-            })
-          )
+          actions.youtubeDownload.error({
+            error: new Error(texts.state$ValueMessageQueryUndefined)
+          })
         );
       });
 
@@ -223,11 +241,9 @@ describe("youtubeDownload epic", (): void => {
           state$ValueMessageQueryMessageUndefined
         );
         expect(startAction(action, state$)).toEqual(
-          of(
-            actions.youtubeDownload.error({
-              error: new Error(texts.state$ValueMessageQueryMessageUndefined)
-            })
-          )
+          actions.youtubeDownload.error({
+            error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+          })
         );
       });
 
@@ -240,11 +256,9 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         expect(startAction(action, state$)).toEqual(
-          of(
-            actions.youtubeDownload.error({
-              error: new Error(texts.actionYoutubeDownloadResultUndefined)
-            })
-          )
+          actions.youtubeDownload.error({
+            error: new Error(texts.actionYoutubeDownloadResultUndefined)
+          })
         );
       });
 
@@ -257,11 +271,9 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         expect(startAction(action, state$)).toEqual(
-          of(
-            actions.youtubeDownload.error({
-              error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
-            })
-          )
+          actions.youtubeDownload.error({
+            error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
+          })
         );
       });
 
@@ -274,39 +286,37 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         expect(startAction(action, state$)).toEqual(
-          of(
-            actions.sendVideo.query({
-              query: {
-                caption: caption(result.title),
-                chat_id: ((state$Value.message.query as IStateMessageQuery)
-                  .message as IMessage).chat.id,
-                disable_notification: true,
-                duration: result.duration,
-                height: result.height,
-                parse_mode: "HTML",
-                reply_markup: {
-                  inline_keyboard: [
-                    [
-                      {
-                        callback_data: "callback_data:OK",
-                        text: "OK"
-                      },
-                      {
-                        callback_data: "callback_data:NOK",
-                        text: "NOK"
-                      }
-                    ]
+          actions.sendVideo.query({
+            query: {
+              caption: caption(result.title),
+              chat_id: ((state$Value.message.query as IStateMessageQuery)
+                .message as IMessage).chat.id,
+              disable_notification: true,
+              duration: result.duration,
+              height: result.height,
+              parse_mode: "HTML",
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    {
+                      callback_data: "callback_data:OK",
+                      text: "OK"
+                    },
+                    {
+                      callback_data: "callback_data:NOK",
+                      text: "NOK"
+                    }
                   ]
-                },
-                reply_to_message_id: ((state$Value.message
-                  .query as IStateMessageQuery).message as IMessage).message_id,
-                supports_streaming: true,
-                thumb: (result.thumb as IPhotoSize).file_id,
-                video: result.file_id,
-                width: result.width
-              }
-            })
-          )
+                ]
+              },
+              reply_to_message_id: ((state$Value.message
+                .query as IStateMessageQuery).message as IMessage).message_id,
+              supports_streaming: true,
+              thumb: (result.thumb as IPhotoSize).file_id,
+              video: result.file_id,
+              width: result.width
+            }
+          })
         );
       });
     });

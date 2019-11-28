@@ -1,30 +1,30 @@
 import {
   captureException,
   configureScope,
-  // GetCurrentHub,
-  // Hub,
+  getCurrentHub,
+  Hub,
   init,
-  Scope
-  // Severity
+  Scope,
+  Severity
 } from "@sentry/node";
-// Import { Integration } from "@sentry/types";
+import { Integration } from "@sentry/types";
 import debug from "debug";
 import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-// import * as actions from "../actions";
+import * as actions from "../actions";
 import * as env from "../configs/env";
 
 const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
 
 init({
   dsn: env.SENTRY_DSN,
-  // Integrations: (integrations: Integration[]): Integration[] =>
-  //   Integrations.filter(
-  //     (integration: Integration) => integration.name !== "OnUncaughtException"
-  //   ),
+  integrations: (integrations: Integration[]): Integration[] =>
+    integrations.filter(
+      (integration: Integration) => integration.name !== "OnUncaughtException"
+    ),
   onFatalError: (error: Error): void => {
     appDebug(error);
   },
@@ -32,13 +32,13 @@ init({
   serverName: env.SENTRY_SERVERNAME
 });
 
-// Global.process.on("uncaughtException", (error: Error): void => {
-// const hub: Hub = getCurrentHub();
-//   Hub.withScope((scope: Scope): void => {
-//     Scope.setLevel(Severity.Fatal);
-//     Hub.captureException(error);
-//   });
-// });
+global.process.on("uncaughtException", (error: Error): void => {
+  const hub: Hub = getCurrentHub();
+  hub.withScope((scope: Scope): void => {
+    scope.setLevel(Severity.Fatal);
+    hub.captureException(error);
+  });
+});
 
 const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = (
   middlewareAPI: MiddlewareAPI<Dispatch<IAction>, IState>
@@ -51,15 +51,14 @@ const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = (
     date: 0,
     message_id: 0
   };
-  // TODO: check it
-  // if (
-  //   action.type === actions.message.MESSAGE_QUERY &&
-  //   action.message !== undefined &&
-  //   action.message.query !== undefined &&
-  //   action.message.query.message !== undefined
-  // ) {
-  //   message = action.message.query.message;
-  // }
+  if (
+    action.type === actions.message.MESSAGE_QUERY &&
+    action.message !== undefined &&
+    action.message.query !== undefined &&
+    action.message.query.message !== undefined
+  ) {
+    message = action.message.query.message;
+  }
   const state: IState = middlewareAPI.getState();
   if (
     state.message.query !== undefined &&

@@ -1,5 +1,7 @@
-import { Subject, of } from "rxjs";
 import { StateObservable } from "redux-observable";
+import { Subject } from "rxjs";
+import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
+import { TestScheduler } from "rxjs/testing";
 
 import { initialState } from "../utils/store";
 import * as actions from "../actions";
@@ -52,76 +54,95 @@ describe("youtubeDownload epic", (): void => {
       }
     };
 
-    test("should handle error", (): void => {
-      const action: IActionYoutubeDownload = actions.youtubeDownload.error({
-        error
+    let testScheduler: TestScheduler;
+
+    beforeEach((): void => {
+      testScheduler = new TestScheduler((actual: IState, expected: IState):
+        | boolean
+        | void => {
+        expect(actual).toEqual(expected);
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      expect(transformObservable(action, state$)).toEqual(of(action));
+    });
+
+    test("should handle error", (): void => {
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeDownload = actions.youtubeDownload.error({
+          error
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        expectObservable(transformObservable(action, state$)).toBe("a", {
+          a: action
+        });
+      });
     });
 
     test("should handle error state$ undefined", (): void => {
-      const action: IActionYoutubeDownload = actions.youtubeDownload.query({
-        query
-      });
-      const state$: StateObservable<IState> | undefined = undefined;
-      expect(transformObservable(action, state$)).toEqual(
-        of(
-          actions.youtubeDownload.error({
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeDownload = actions.youtubeDownload.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = undefined;
+        expectObservable(transformObservable(action, state$)).toBe("a", {
+          a: actions.youtubeDownload.error({
             error: new Error(texts.state$Undefined)
           })
-        )
-      );
+        });
+      });
     });
 
     test("should handle error state$ValueMessageQuery undefined", (): void => {
-      const action: IActionYoutubeDownload = actions.youtubeDownload.query({
-        query
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueMessageQueryUndefined
-      );
-      expect(transformObservable(action, state$)).toEqual(
-        of(
-          actions.youtubeDownload.error({
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeDownload = actions.youtubeDownload.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueMessageQueryUndefined
+        );
+        expectObservable(transformObservable(action, state$)).toBe("a", {
+          a: actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryUndefined)
           })
-        )
-      );
+        });
+      });
     });
 
     test("should handle error state$ValueMessageQueryMessage undefined", (): void => {
-      const action: IActionYoutubeDownload = actions.youtubeDownload.query({
-        query
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueMessageQueryMessageUndefined
-      );
-      expect(transformObservable(action, state$)).toEqual(
-        of(
-          actions.youtubeDownload.error({
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeDownload = actions.youtubeDownload.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueMessageQueryMessageUndefined
+        );
+        expectObservable(transformObservable(action, state$)).toBe("a", {
+          a: actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryMessageUndefined)
           })
-        )
-      );
+        });
+      });
     });
 
     test("should handle result", (): void => {
-      const action: IActionYoutubeDownload = actions.youtubeDownload.query({
-        query
-      });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      expect(transformObservable(action, state$)).toEqual(
-        of(
-          actions.sendMessage.query({
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeDownload = actions.youtubeDownload.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        expectObservable(transformObservable(action, state$)).toBe("a", {
+          a: actions.sendMessage.query({
             query: {
               chat_id: ((state$Value.message.query as IStateMessageQuery)
                 .message as IMessage).chat.id,
@@ -133,8 +154,8 @@ describe("youtubeDownload epic", (): void => {
               text: texts.messageChannelJoin
             }
           })
-        )
-      );
+        });
+      });
     });
   });
 });

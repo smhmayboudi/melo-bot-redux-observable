@@ -1,7 +1,9 @@
 import { youtube_v3 } from "googleapis";
 
 import { StateObservable } from "redux-observable";
-import { of, Subject } from "rxjs";
+import { Subject } from "rxjs";
+import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
+import { TestScheduler } from "rxjs/testing";
 
 import { initialState } from "../utils/store";
 import * as actions from "../actions";
@@ -136,237 +138,317 @@ describe("youtubeVideoList epic", (): void => {
       prevPageToken: undefined
     };
 
-    test("should handle error", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.error({
-        error
+    let testScheduler: TestScheduler;
+
+    beforeEach((): void => {
+      testScheduler = new TestScheduler((actual: IState, expected: IState):
+        | boolean
+        | void => {
+        expect(actual).toEqual(expected);
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(of(action));
+    });
+
+    test("should handle error", (): void => {
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.error({
+          error
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: action
+          }
+        );
+      });
     });
 
     test("should handle error state$ undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
-        query
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = undefined;
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(texts.state$Undefined)
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = undefined;
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(texts.state$Undefined)
-          })
-        )
-      );
     });
 
     test("should handle error state$ValueMessageQuery undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
-        query
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueMessageQueryUndefined
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(texts.state$ValueMessageQueryUndefined)
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueMessageQueryUndefined
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(texts.state$ValueMessageQueryUndefined)
-          })
-        )
-      );
     });
 
     test("should handle error state$ValueMessageQueryCallbackQuery undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
-        query
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueMessageQueryCallbackQueryUndefined
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(
+                texts.state$ValueMessageQueryCallbackQueryUndefined
+              )
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueMessageQueryCallbackQueryUndefined
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(
-              texts.state$ValueMessageQueryCallbackQueryUndefined
-            )
-          })
-        )
-      );
     });
 
     test("should handle error state$ValueMessageQueryCallbackQueryMessage undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
-        query
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
+          query
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueMessageQueryCallbackQueryMessageUndefined
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(
+                texts.state$ValueMessageQueryCallbackQueryMessageUndefined
+              )
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueMessageQueryCallbackQueryMessageUndefined
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(
-              texts.state$ValueMessageQueryCallbackQueryMessageUndefined
-            )
-          })
-        )
-      );
     });
 
     test("should handle error state$ValueYoutubeVideoListQuery undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
-        query: undefined
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
+          query: undefined
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueYoutubeVideoListQueryUndefined
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueYoutubeVideoListQueryUndefined
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
-          })
-        )
-      );
     });
 
     test("should handle error state$ValueYoutubeVideoListQueryChart undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
-        query: undefined
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.query({
+          query: undefined
+        });
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$ValueYoutubeVideoListQueryChartUndefined
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(
+                texts.state$ValueYoutubeVideoListQueryChartUndefined
+              )
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$ValueYoutubeVideoListQueryChartUndefined
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(
-              texts.state$ValueYoutubeVideoListQueryChartUndefined
-            )
-          })
-        )
-      );
     });
 
     test("should handle error actionYoutubeVideoListResult undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.result({
-        result: undefined
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: undefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(texts.actionYoutubeVideoListResultUndefined)
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(texts.actionYoutubeVideoListResultUndefined)
-          })
-        )
-      );
     });
 
     test("should handle error actionYoutubeVideoListResultItems undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.result({
-        result: actionYoutubeVideoListResultItemsUndefined
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResultItemsUndefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
-          })
-        )
-      );
     });
 
     test("should handle error action2CallbackQueryDataInsertResult undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.result({
-        result: actionYoutubeVideoListResult
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResult
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: undefined
+        });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error(
+                texts.actionCallbackQueryDataInsertResultUndefined
+              )
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({
-        result: undefined
-      });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
-          })
-        )
-      );
     });
 
     test("should handle result actionYoutubeVideoListResultNextPageToken undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.result({
-        result: actionYoutubeVideoListResultNextPageTokenUndefined
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResultNextPageTokenUndefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error("")
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error("")
-          })
-        )
-      );
     });
 
     test("should handle result actionYoutubeVideoListResultPrevPageToken undefined", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.result({
-        result: actionYoutubeVideoListResultPrevPageTokenUndefined
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResultPrevPageTokenUndefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error("")
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error("")
-          })
-        )
-      );
     });
 
     test("should handle result", (): void => {
-      const action: IActionYoutubeVideoList = actions.youtubeVideoList.result({
-        result: actionYoutubeVideoListResult
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResult
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(action, state$)(action2)).toBe(
+          "a",
+          {
+            a: actions.youtubeVideoList.error({
+              error: new Error("")
+            })
+          }
+        );
       });
-      const state$: StateObservable<IState> | undefined = new StateObservable(
-        new Subject(),
-        state$Value
-      );
-      const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-      expect(transformObservable(action, state$)(action2)).toEqual(
-        of(
-          actions.youtubeVideoList.error({
-            error: new Error("")
-          })
-        )
-      );
     });
   });
 });

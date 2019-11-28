@@ -3,7 +3,6 @@ import { Observable } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
 import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
@@ -42,10 +41,7 @@ describe("appError epic", (): void => {
       expectObservable(output$).toBe(
         "-#",
         {},
-        {
-          ...initialState,
-          ...actions.answerInlineQuery.error({ error })
-        }
+        actions.answerInlineQuery.error({ error })
       );
     });
   });
