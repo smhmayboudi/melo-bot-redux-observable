@@ -98,16 +98,16 @@ const youtubeVideoList: (
     | IActionYoutubeVideoList
   > => {
     if (state$ !== undefined && state$.value.inlineQuery.query !== undefined) {
-      return transformObservableToAnswerInlineQuery(action, state$)(action2);
+      return transformObservableToAnswerInlineQuery(state$)(action)(action2);
     } else {
       if (
         state$ !== undefined &&
         state$.value.message.query !== undefined &&
         state$.value.message.query.message !== undefined
       ) {
-        return transformObservableToSendPhoto(action, state$)(action2);
+        return transformObservableToSendPhoto(state$)(action)(action2);
       }
-      return transformObservableToEditMessageMedia(action, state$)(action2);
+      return transformObservableToEditMessageMedia(state$)(action)(action2);
     }
   };
 

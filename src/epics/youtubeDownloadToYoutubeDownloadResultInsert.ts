@@ -61,11 +61,13 @@ const transformObservable: (
 };
 
 const startAction: (
-  action: IActionYoutubeDownload,
   state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeDownload
 ) => IActionYoutubeDownload | IActionSendVideo = (
-  action: IActionYoutubeDownload,
   state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeDownload
 ): IActionSendVideo | IActionYoutubeDownload => {
   if (state$ === undefined) {
     return actions.youtubeDownload.error({

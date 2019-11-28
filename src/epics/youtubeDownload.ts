@@ -100,7 +100,7 @@ const youtubeDownload: (
       ofType(actions.sendVideo.SEND_VIDEO_RESULT),
       take<IActionSendVideo & IActionYoutubeDownload>(1),
       switchMap(transformObservableSendVideo(action)),
-      startWith(startActionSendVideo(action, state$))
+      startWith(startActionSendVideo(state$)(action))
     );
 
   const youtubeDownloadResultFind: (
@@ -125,7 +125,7 @@ const youtubeDownload: (
       take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
       switchMap((action2: IActionYoutubeDownloadResultFind) => {
         if (action2.youtubeDownloadResultFind.result !== undefined) {
-          return transformObservableYoutubeDownloadResultFind(action2, state$);
+          return transformObservableYoutubeDownloadResultFind(state$)(action2);
         }
         return actionObservable(action).pipe(switchMap(sendVideo));
       }),
@@ -156,7 +156,7 @@ const youtubeDownload: (
     if (actionGetChatMemberResultStatus(action2)) {
       return youtubeDownloadResultFind(action);
     }
-    return transformObservableSendMessage(action, state$);
+    return transformObservableSendMessage(state$)(action);
   };
 
   return action$.pipe(

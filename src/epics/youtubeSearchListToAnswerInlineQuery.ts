@@ -11,14 +11,14 @@ import * as texts from "../configs/texts";
 import { stringify } from "../utils/queryString";
 
 const transformObservable: (
-  action: IActionYoutubeSearchList,
   state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeSearchList
 ) => (
   action2: IActionCallbackQueryDataInsert
 ) => Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> = (
-  action: IActionYoutubeSearchList,
   state$: StateObservable<IState> | undefined
-) => (
+) => (action: IActionYoutubeSearchList) => (
   action2: IActionCallbackQueryDataInsert
 ): Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> => {
   if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {

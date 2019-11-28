@@ -100,7 +100,7 @@ describe("youtubeDownload epic", (): void => {
             { result }
           );
           const state$: StateObservable<IState> | undefined = undefined;
-          expectObservable(transformObservable(action, state$)).toBe("a", {
+          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.state$Undefined)
             })
@@ -120,7 +120,7 @@ describe("youtubeDownload epic", (): void => {
             new Subject(),
             state$ValueMessageQueryUndefined
           );
-          expectObservable(transformObservable(action, state$)).toBe("a", {
+          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.state$ValueMessageQueryUndefined)
             })
@@ -140,7 +140,7 @@ describe("youtubeDownload epic", (): void => {
             new Subject(),
             state$ValueMessageQueryMessageUndefined
           );
-          expectObservable(transformObservable(action, state$)).toBe("a", {
+          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.state$ValueMessageQueryMessageUndefined)
             })
@@ -157,7 +157,7 @@ describe("youtubeDownload epic", (): void => {
           const state$:
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
-          expectObservable(transformObservable(action, state$)).toBe("a", {
+          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultUndefined)
             })
@@ -174,7 +174,7 @@ describe("youtubeDownload epic", (): void => {
           const state$:
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
-          expectObservable(transformObservable(action, state$)).toBe("a", {
+          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
             })
@@ -191,7 +191,7 @@ describe("youtubeDownload epic", (): void => {
           const state$:
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
-          expectObservable(transformObservable(action, state$)).toBe("a", {
+          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
             a: actions.sendVideo.query({
               query: {
                 caption: caption(result.title),

@@ -11,11 +11,13 @@ import * as texts from "../configs/texts";
 import { caption } from "../utils/string";
 
 const transformObservable: (
-  action: IActionYoutubeDownloadResultFind,
   state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeDownloadResultFind
 ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
-  action: IActionYoutubeDownloadResultFind,
   state$: StateObservable<IState> | undefined
+) => (
+  action: IActionYoutubeDownloadResultFind
 ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
   if (state$ === undefined) {
     return of(

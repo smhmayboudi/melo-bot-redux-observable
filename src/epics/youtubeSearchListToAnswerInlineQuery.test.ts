@@ -115,10 +115,9 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
-          { a: action }
-        );
+        expectObservable(
+          transformObservable(state$)(action)(action2)
+        ).toBe("(a|)", { a: action });
       });
     });
 
@@ -132,8 +131,8 @@ describe("youtubeSearchList epic", (): void => {
         );
         const state$: StateObservable<IState> | undefined = undefined;
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(texts.state$Undefined)
@@ -156,8 +155,8 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueInlineQueryQueryUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(texts.state$ValueInlineQueryQueryUndefined)
@@ -180,8 +179,8 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueYoutubeSearchListQueryUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
@@ -204,8 +203,8 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(texts.actionYoutubeSearchListResultUndefined)
@@ -228,8 +227,8 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(
@@ -256,8 +255,8 @@ describe("youtubeSearchList epic", (): void => {
         const action2 = actions.callbackQueryDataInsert.result({
           result: undefined
         });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(
@@ -282,8 +281,8 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(
@@ -308,8 +307,8 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(
@@ -334,8 +333,8 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeSearchList.error({
               error: new Error(

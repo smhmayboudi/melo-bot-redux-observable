@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
@@ -123,7 +125,7 @@ describe("youtubeDownload epic", (): void => {
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResult
           });
-          expectObservable(transformObservable(action)(action2)).toBe("a", {
+          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultUndefined)
             })
@@ -142,7 +144,7 @@ describe("youtubeDownload epic", (): void => {
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: undefined
           });
-          expectObservable(transformObservable(action)(action2)).toBe("a", {
+          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.actionSendVideoResultUndefined)
             })
@@ -161,7 +163,7 @@ describe("youtubeDownload epic", (): void => {
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResultVideoUndefined
           });
-          expectObservable(transformObservable(action)(action2)).toBe("a", {
+          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
             a: actions.youtubeDownload.error({
               error: new Error(texts.actionYoutubeDownloadResultVideoUndefined)
             })
@@ -180,7 +182,7 @@ describe("youtubeDownload epic", (): void => {
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResult
           });
-          expectObservable(transformObservable(action)(action2)).toBe("a", {
+          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
             a: actions.youtubeDownloadResultInsert.query({
               query: {
                 duration: (actionYoutubeDownloadResult.video as IVideo)
@@ -210,7 +212,7 @@ describe("youtubeDownload epic", (): void => {
           result
         });
         const state$: StateObservable<IState> | undefined = undefined;
-        expect(startAction(action, state$)).toEqual(
+        expect(startAction(state$)(action)).toEqual(
           actions.youtubeDownload.error({
             error: new Error(texts.state$Undefined)
           })
@@ -225,7 +227,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryUndefined
         );
-        expect(startAction(action, state$)).toEqual(
+        expect(startAction(state$)(action)).toEqual(
           actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryUndefined)
           })
@@ -240,7 +242,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryMessageUndefined
         );
-        expect(startAction(action, state$)).toEqual(
+        expect(startAction(state$)(action)).toEqual(
           actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryMessageUndefined)
           })
@@ -255,7 +257,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(startAction(action, state$)).toEqual(
+        expect(startAction(state$)(action)).toEqual(
           actions.youtubeDownload.error({
             error: new Error(texts.actionYoutubeDownloadResultUndefined)
           })
@@ -270,7 +272,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(startAction(action, state$)).toEqual(
+        expect(startAction(state$)(action)).toEqual(
           actions.youtubeDownload.error({
             error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
           })
@@ -285,7 +287,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(startAction(action, state$)).toEqual(
+        expect(startAction(state$)(action)).toEqual(
           actions.sendVideo.query({
             query: {
               caption: caption(result.title),
@@ -312,8 +314,8 @@ describe("youtubeDownload epic", (): void => {
               reply_to_message_id: ((state$Value.message
                 .query as IStateMessageQuery).message as IMessage).message_id,
               supports_streaming: true,
-              thumb: (result.thumb as IPhotoSize).file_id,
-              video: result.file_id,
+              thumb: fs.createReadStream((result.thumb as IPhotoSize).file_id),
+              video: fs.createReadStream(result.file_id),
               width: result.width
             }
           })

@@ -159,8 +159,8 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: action
           }
@@ -176,8 +176,8 @@ describe("youtubeVideoList epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(texts.state$Undefined)
@@ -198,8 +198,8 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueMessageQueryUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(texts.state$ValueMessageQueryUndefined)
@@ -220,8 +220,8 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueMessageQueryCallbackQueryUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(
@@ -244,8 +244,8 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueMessageQueryCallbackQueryMessageUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(
@@ -268,8 +268,8 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueYoutubeVideoListQueryUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
@@ -290,8 +290,8 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueYoutubeVideoListQueryChartUndefined
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(
@@ -316,8 +316,8 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(texts.actionYoutubeVideoListResultUndefined)
@@ -340,8 +340,8 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
@@ -366,8 +366,8 @@ describe("youtubeVideoList epic", (): void => {
         const action2 = actions.callbackQueryDataInsert.result({
           result: undefined
         });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error(
@@ -392,8 +392,8 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error("")
@@ -416,8 +416,8 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error("")
@@ -440,8 +440,8 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(action, state$)(action2)).toBe(
-          "a",
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
           {
             a: actions.youtubeVideoList.error({
               error: new Error("")

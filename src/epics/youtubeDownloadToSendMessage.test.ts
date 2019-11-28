@@ -74,7 +74,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expectObservable(transformObservable(action, state$)).toBe("a", {
+        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
           a: action
         });
       });
@@ -87,7 +87,7 @@ describe("youtubeDownload epic", (): void => {
           query
         });
         const state$: StateObservable<IState> | undefined = undefined;
-        expectObservable(transformObservable(action, state$)).toBe("a", {
+        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
           a: actions.youtubeDownload.error({
             error: new Error(texts.state$Undefined)
           })
@@ -105,7 +105,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryUndefined
         );
-        expectObservable(transformObservable(action, state$)).toBe("a", {
+        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
           a: actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryUndefined)
           })
@@ -123,7 +123,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryMessageUndefined
         );
-        expectObservable(transformObservable(action, state$)).toBe("a", {
+        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
           a: actions.youtubeDownload.error({
             error: new Error(texts.state$ValueMessageQueryMessageUndefined)
           })
@@ -141,7 +141,7 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expectObservable(transformObservable(action, state$)).toBe("a", {
+        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
           a: actions.sendMessage.query({
             query: {
               chat_id: ((state$Value.message.query as IStateMessageQuery)
