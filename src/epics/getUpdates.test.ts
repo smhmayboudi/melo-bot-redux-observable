@@ -62,7 +62,7 @@ describe("getUpdates epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionGetUpdates> = cold("-a", {
-        a: actions.getUpdates.query({})
+        a: actions.getUpdates.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

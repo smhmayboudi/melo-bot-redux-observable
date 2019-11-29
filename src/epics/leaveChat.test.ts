@@ -63,7 +63,7 @@ describe("leaveChat epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionLeaveChat> = cold("-a", {
-        a: actions.leaveChat.query({})
+        a: actions.leaveChat.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

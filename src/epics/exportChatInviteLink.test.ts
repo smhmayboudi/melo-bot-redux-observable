@@ -63,7 +63,7 @@ describe("exportChatInviteLink epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionExportChatInviteLink> = cold("-a", {
-        a: actions.exportChatInviteLink.query({})
+        a: actions.exportChatInviteLink.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

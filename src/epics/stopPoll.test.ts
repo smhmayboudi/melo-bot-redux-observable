@@ -64,7 +64,7 @@ describe("stopPoll epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionStopPoll> = cold("-a", {
-        a: actions.stopPoll.query({})
+        a: actions.stopPoll.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

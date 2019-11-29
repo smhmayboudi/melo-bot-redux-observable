@@ -73,7 +73,7 @@ describe("forwardMessage epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionForwardMessage> = cold("-a", {
-        a: actions.forwardMessage.query({})
+        a: actions.forwardMessage.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

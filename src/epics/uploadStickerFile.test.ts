@@ -68,7 +68,7 @@ describe("uploadStickerFile epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionUploadStickerFile> = cold("-a", {
-        a: actions.uploadStickerFile.query({})
+        a: actions.uploadStickerFile.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -163,7 +163,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
         "-a",
         {
-          a: actions.youtubeDownloadResultFind.query({})
+          a: actions.youtubeDownloadResultFind.query({ query: undefined })
         }
       );
       const state$: StateObservable<IState> | undefined = undefined;

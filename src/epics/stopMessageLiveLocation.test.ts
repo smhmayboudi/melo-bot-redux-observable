@@ -64,7 +64,7 @@ describe("stopMessageLiveLocation epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionStopMessageLiveLocation> = cold("-a", {
-        a: actions.stopMessageLiveLocation.query({})
+        a: actions.stopMessageLiveLocation.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

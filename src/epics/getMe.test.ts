@@ -71,7 +71,7 @@ describe("getMe epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionGetMe> = cold("-a", {
-        a: actions.getMe.query({})
+        a: actions.getMe.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

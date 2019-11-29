@@ -67,7 +67,7 @@ describe("setStickerPositionInSet epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSetStickerPositionInSet> = cold("-a", {
-        a: actions.setStickerPositionInSet.query({})
+        a: actions.setStickerPositionInSet.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

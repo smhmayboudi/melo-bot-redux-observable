@@ -73,7 +73,7 @@ describe("sendVideoNote epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendVideoNote> = cold("-a", {
-        a: actions.sendVideoNote.query({})
+        a: actions.sendVideoNote.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

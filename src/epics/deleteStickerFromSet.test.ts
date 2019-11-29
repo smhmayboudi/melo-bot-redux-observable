@@ -63,7 +63,7 @@ describe("deleteStickerFromSet epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionDeleteStickerFromSet> = cold("-a", {
-        a: actions.deleteStickerFromSet.query({})
+        a: actions.deleteStickerFromSet.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

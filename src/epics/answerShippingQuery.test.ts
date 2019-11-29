@@ -77,7 +77,7 @@ describe("answerShippingQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionAnswerShippingQuery> = cold("-a", {
-        a: actions.answerShippingQuery.query({})
+        a: actions.answerShippingQuery.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

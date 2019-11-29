@@ -74,7 +74,7 @@ describe("getGameHighScores epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionGetGameHighScores> = cold("-a", {
-        a: actions.getGameHighScores.query({})
+        a: actions.getGameHighScores.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

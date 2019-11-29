@@ -68,7 +68,7 @@ describe("createNewStickerSet epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionCreateNewStickerSet> = cold("-a", {
-        a: actions.createNewStickerSet.query({})
+        a: actions.createNewStickerSet.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

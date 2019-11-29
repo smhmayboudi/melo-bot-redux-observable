@@ -73,7 +73,7 @@ describe("sendVoice epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendVoice> = cold("-a", {
-        a: actions.sendVoice.query({})
+        a: actions.sendVoice.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

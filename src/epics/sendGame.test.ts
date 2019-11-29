@@ -72,7 +72,7 @@ describe("sendGame epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendGame> = cold("-a", {
-        a: actions.sendGame.query({})
+        a: actions.sendGame.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

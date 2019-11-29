@@ -8,7 +8,7 @@ declare global {
 }
 
 import * as fs from "fs";
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -185,7 +185,7 @@ describe("youtubeDownload epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
-        a: actions.youtubeDownload.query({})
+        a: actions.youtubeDownload.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),

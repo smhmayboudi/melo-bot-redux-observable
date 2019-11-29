@@ -67,7 +67,7 @@ describe("answerPreCheckoutQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionAnswerPreCheckoutQuery> = cold("-a", {
-        a: actions.answerPreCheckoutQuery.query({})
+        a: actions.answerPreCheckoutQuery.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

@@ -114,7 +114,7 @@ describe("youtubeVideoList epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeVideoList> = cold("-a", {
-        a: actions.youtubeVideoList.query({})
+        a: actions.youtubeVideoList.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = new StateObservable(
         new Subject(),

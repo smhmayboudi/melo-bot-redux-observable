@@ -68,7 +68,7 @@ describe("getFile epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionGetFile> = cold("-a", {
-        a: actions.getFile.query({})
+        a: actions.getFile.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

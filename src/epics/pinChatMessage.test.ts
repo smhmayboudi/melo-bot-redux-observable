@@ -64,7 +64,7 @@ describe("pinChatMessage epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionPinChatMessage> = cold("-a", {
-        a: actions.pinChatMessage.query({})
+        a: actions.pinChatMessage.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

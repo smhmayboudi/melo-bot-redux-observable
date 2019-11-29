@@ -63,7 +63,7 @@ describe("deleteChatPhoto epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionDeleteChatPhoto> = cold("-a", {
-        a: actions.deleteChatPhoto.query({})
+        a: actions.deleteChatPhoto.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

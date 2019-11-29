@@ -72,7 +72,7 @@ describe("setPassportDataErrors epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSetPassportDataErrors> = cold("-a", {
-        a: actions.setPassportDataErrors.query({})
+        a: actions.setPassportDataErrors.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

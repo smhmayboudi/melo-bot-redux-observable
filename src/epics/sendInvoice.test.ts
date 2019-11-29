@@ -83,7 +83,7 @@ describe("sendInvoice epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendInvoice> = cold("-a", {
-        a: actions.sendInvoice.query({})
+        a: actions.sendInvoice.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

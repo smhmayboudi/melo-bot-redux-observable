@@ -64,7 +64,7 @@ describe("sendChatAction epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendChatAction> = cold("-a", {
-        a: actions.sendChatAction.query({})
+        a: actions.sendChatAction.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

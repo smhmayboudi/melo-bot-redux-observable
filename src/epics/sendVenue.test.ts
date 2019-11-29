@@ -75,7 +75,7 @@ describe("sendVenue epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendVenue> = cold("-a", {
-        a: actions.sendVenue.query({})
+        a: actions.sendVenue.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

@@ -72,7 +72,7 @@ describe("setGameScore epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSetGameScore> = cold("-a", {
-        a: actions.setGameScore.query({})
+        a: actions.setGameScore.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

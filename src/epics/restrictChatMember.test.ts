@@ -65,7 +65,7 @@ describe("restrictChatMember epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionRestrictChatMember> = cold("-a", {
-        a: actions.restrictChatMember.query({})
+        a: actions.restrictChatMember.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

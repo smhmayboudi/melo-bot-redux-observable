@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -148,7 +148,7 @@ describe("callbackQueryDataInsert epic", (): void => {
       const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
         "-a",
         {
-          a: actions.callbackQueryDataInsert.query({})
+          a: actions.callbackQueryDataInsert.query({ query: undefined })
         }
       );
       const state$: StateObservable<IState> | undefined = undefined;

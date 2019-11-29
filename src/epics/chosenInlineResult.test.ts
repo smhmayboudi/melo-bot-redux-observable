@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -145,7 +145,7 @@ describe("chosenInlineResult epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
-        a: actions.chosenInlineResult.query({})
+        a: actions.chosenInlineResult.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

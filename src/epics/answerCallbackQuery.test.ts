@@ -63,7 +63,7 @@ describe("answerCallbackQuery epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionAnswerCallbackQuery> = cold("-a", {
-        a: actions.answerCallbackQuery.query({})
+        a: actions.answerCallbackQuery.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

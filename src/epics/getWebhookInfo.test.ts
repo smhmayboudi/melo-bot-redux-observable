@@ -66,7 +66,7 @@ describe("getWebhookInfo epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionGetWebhookInfo> = cold("-a", {
-        a: actions.getWebhookInfo.query({})
+        a: actions.getWebhookInfo.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

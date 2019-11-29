@@ -69,7 +69,7 @@ describe("editMessageCaption epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionEditMessageCaption> = cold("-a", {
-        a: actions.editMessageCaption.query({})
+        a: actions.editMessageCaption.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

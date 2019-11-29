@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -196,6 +196,35 @@ describe("callbackQueryDataFind epic", (): void => {
       expectObservable(output$).toBe("-a", {
         a: actions.callbackQueryDataFind.error({
           error: new Error(texts.actionCallbackQueryDataFindQueryUndefined)
+        })
+      });
+    });
+  });
+
+  test("should handle result", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionCallbackQueryDataFind> = cold("-a", {
+        a: actions.callbackQueryDataFind.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = new StateObservable(
+        new Subject(),
+        state$Value
+      );
+      const dependencies: IDependencies = {
+        ...initialDependencies,
+        collectionObservable,
+        findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
+        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+      };
+      const output$: Observable<
+        | IActionCallbackQueryDataFind
+        | IActionYoutubeSearchList
+        | IActionYoutubeVideoList
+      > = epic.callbackQueryDataFind(action$, state$, dependencies);
+      expectObservable(output$).toBe("--a", {
+        a: actions.callbackQueryDataFind.result({
+          result
         })
       });
     });

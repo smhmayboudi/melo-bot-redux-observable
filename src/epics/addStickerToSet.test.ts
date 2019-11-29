@@ -67,7 +67,7 @@ describe("addStickerToSet epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionAddStickerToSet> = cold("-a", {
-        a: actions.addStickerToSet.query({})
+        a: actions.addStickerToSet.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

@@ -72,7 +72,7 @@ describe("editMessageReplyMarkup epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionEditMessageReplyMarkup> = cold("-a", {
-        a: actions.editMessageReplyMarkup.query({})
+        a: actions.editMessageReplyMarkup.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {

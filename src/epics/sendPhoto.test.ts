@@ -73,7 +73,7 @@ describe("sendPhoto epic", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: Observable<IActionSendPhoto> = cold("-a", {
-        a: actions.sendPhoto.query({})
+        a: actions.sendPhoto.query({ query: undefined })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
