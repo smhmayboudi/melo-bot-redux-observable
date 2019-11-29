@@ -57,7 +57,7 @@ describe("youtubeDownloadResultInsert epic", (): void => {
     });
   });
 
-  let db: Db;
+  // let db: Db;
   let connection: MongoClient;
 
   beforeAll(
@@ -66,13 +66,7 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         useNewUrlParser: true,
         useUnifiedTopology: true
       });
-      db = connection.db(global.__MONGO_DB_NAME__);
-    }
-  );
-
-  beforeEach(
-    async (): Promise<any> => {
-      await db.collection("cache").deleteOne({ id: "small" });
+      // db = connection.db(global.__MONGO_DB_NAME__);
     }
   );
 
