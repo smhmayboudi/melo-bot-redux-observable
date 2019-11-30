@@ -1,17 +1,19 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
-import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { transformVideos } from "../utils/inlineQueryResultArticle";
+import { stringify } from "../utils/queryString";
+import { initialState } from "../utils/store";
 import { transformObservable } from "./youtubeVideoListToAnswerInlineQuery";
+import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 
 describe("youtubeVideoList epic", (): void => {
   describe("youtubeVideoListToAnswerInlineQuery", (): void => {
@@ -20,7 +22,6 @@ describe("youtubeVideoList epic", (): void => {
       chart: "",
       key: ""
     };
-    // const result: youtube_v3.Schema$VideoListResponse = {};
     const state$Value: IState = {
       ...initialState,
       inlineQuery: {
@@ -78,7 +79,7 @@ describe("youtubeVideoList epic", (): void => {
       }
     };
     const actionYoutubeVideoListResult: youtube_v3.Schema$VideoListResponse = {
-      items: [],
+      items: [{}],
       nextPageToken: ""
     };
     const actionYoutubeVideoListResultItemsUndefined: youtube_v3.Schema$VideoListResponse = {
@@ -296,8 +297,20 @@ describe("youtubeVideoList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
+            a: actions.answerInlineQuery.query({
+              query: {
+                inline_query_id: (state$.value.inlineQuery
+                  .query as IStateInlineQueryQuery).id,
+                is_personal: true,
+                next_offset: "",
+                results: transformVideos(
+                  (action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[]
+                ),
+                switch_pm_parameter: "string",
+                switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
+              }
             })
           }
         );
@@ -320,8 +333,25 @@ describe("youtubeVideoList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
+            a: actions.answerInlineQuery.query({
+              query: {
+                inline_query_id: (state$.value.inlineQuery
+                  .query as IStateInlineQueryQuery).id,
+                is_personal: true,
+                next_offset: stringify({
+                  id: action2.callbackQueryDataInsert.result as string,
+                  pageToken: (action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .nextPageToken as string
+                }),
+                results: transformVideos(
+                  (action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[]
+                ),
+                switch_pm_parameter: "string",
+                switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
+              }
             })
           }
         );

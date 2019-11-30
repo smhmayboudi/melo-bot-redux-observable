@@ -3,7 +3,6 @@ import { combineEpics, Epic } from "redux-observable";
 import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-
 import { addStickerToSet } from "./addStickerToSet";
 import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
@@ -11,6 +10,7 @@ import { answerPreCheckoutQuery } from "./answerPreCheckoutQuery";
 import { answerShippingQuery } from "./answerShippingQuery";
 import { appError } from "./appError";
 import { callbackQueryDataFind } from "./callbackQueryDataFind";
+import { callbackQueryDataFindToSendMessage } from "./callbackQueryDataFindToSendMessage";
 import { callbackQueryDataInsert } from "./callbackQueryDataInsert";
 import { chosenInlineResult } from "./chosenInlineResult";
 import { createNewStickerSet } from "./createNewStickerSet";
@@ -77,7 +77,9 @@ import { youtubeDownload } from "./youtubeDownload";
 import { youtubeDownloadResultFind } from "./youtubeDownloadResultFind";
 import { youtubeDownloadResultInsert } from "./youtubeDownloadResultInsert";
 import { youtubeSearchList } from "./youtubeSearchList";
+import { youtubeSearchListResult } from "./youtubeSearchListResult";
 import { youtubeVideoList } from "./youtubeVideoList";
+import { youtubeVideoListResult } from "./youtubeVideoListResult";
 
 const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   addStickerToSet,
@@ -87,6 +89,7 @@ const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   answerShippingQuery,
   appError,
   callbackQueryDataFind,
+  callbackQueryDataFindToSendMessage,
   callbackQueryDataInsert,
   chosenInlineResult,
   createNewStickerSet,
@@ -153,7 +156,9 @@ const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   youtubeDownloadResultInsert,
   youtubeDownloadResultFind,
   youtubeSearchList,
-  youtubeVideoList
+  youtubeSearchListResult,
+  youtubeVideoList,
+  youtubeVideoListResult
 );
 
 export { index };

@@ -1,17 +1,19 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
-import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { transformSearchResults } from "../utils/inlineQueryResultArticle";
+import { stringify } from "../utils/queryString";
+import { initialState } from "../utils/store";
 import { transformObservable } from "./youtubeSearchListToAnswerInlineQuery";
+import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 
 describe("youtubeSearchList epic", (): void => {
   describe("youtubeSearchListToAnswerInlineQuery", (): void => {
@@ -21,7 +23,6 @@ describe("youtubeSearchList epic", (): void => {
       q: "",
       relatedToVideoId: undefined
     };
-    // const result: youtube_v3.Schema$SearchListResponse = {};
     const state$Value: IState = {
       ...initialState,
       inlineQuery: {
@@ -80,7 +81,7 @@ describe("youtubeSearchList epic", (): void => {
       }
     };
     const actionYoutubeSearchListResult: youtube_v3.Schema$SearchListResponse = {
-      items: [],
+      items: [{}],
       nextPageToken: ""
     };
     const actionYoutubeSearchListResultItemsUndefined: youtube_v3.Schema$SearchListResponse = {
@@ -310,10 +311,20 @@ describe("youtubeSearchList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeSearchList.error({
-              error: new Error(
-                texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
-              )
+            a: actions.answerInlineQuery.query({
+              query: {
+                inline_query_id: (state$.value.inlineQuery
+                  .query as IStateInlineQueryQuery).id,
+                is_personal: true,
+                next_offset: "",
+                results: transformSearchResults(
+                  (action.youtubeSearchList
+                    .result as youtube_v3.Schema$SearchListResponse)
+                    .items as youtube_v3.Schema$SearchResult[]
+                ),
+                switch_pm_parameter: "string",
+                switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
+              }
             })
           }
         );
@@ -336,10 +347,25 @@ describe("youtubeSearchList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeSearchList.error({
-              error: new Error(
-                texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
-              )
+            a: actions.answerInlineQuery.query({
+              query: {
+                inline_query_id: (state$.value.inlineQuery
+                  .query as IStateInlineQueryQuery).id,
+                is_personal: true,
+                next_offset: stringify({
+                  id: action2.callbackQueryDataInsert.result as string,
+                  pageToken: (action.youtubeSearchList
+                    .result as youtube_v3.Schema$SearchListResponse)
+                    .nextPageToken as string
+                }),
+                results: transformSearchResults(
+                  (action.youtubeSearchList
+                    .result as youtube_v3.Schema$SearchListResponse)
+                    .items as youtube_v3.Schema$SearchResult[]
+                ),
+                switch_pm_parameter: "string",
+                switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
+              }
             })
           }
         );

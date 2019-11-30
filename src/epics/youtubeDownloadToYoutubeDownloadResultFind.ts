@@ -7,7 +7,6 @@ import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDown
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-
 import { caption } from "../utils/string";
 
 const transformObservable: (

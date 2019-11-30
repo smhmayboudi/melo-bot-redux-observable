@@ -3,28 +3,25 @@ import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
-import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeDownloadResultFindQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
+import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-
+import { initialState } from "../utils/store";
 import { caption } from "../utils/string";
-
 import {
-  transformObservable,
-  startAction
+  startAction,
+  transformObservable
 } from "./youtubeDownloadToYoutubeDownloadResultFind";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToYoutubeDownloadResultFind", (): void => {
-    // const error: Error = new Error("");
     const query: IStateYoutubeDownloadResultFindQuery = {
       id: ""
     };

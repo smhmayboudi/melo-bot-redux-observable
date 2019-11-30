@@ -1,7 +1,6 @@
 import { ofType, StateObservable } from "redux-observable";
 import { Observable, ObservableInput, of } from "rxjs";
 import { catchError, map, startWith, switchMap, take } from "rxjs/operators";
-
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
@@ -14,17 +13,16 @@ import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutub
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
-
 import { startAction as startActionGetChatMember } from "./youtubeDownloadToGetChatMember";
 import { transformObservable as transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
 import {
-  transformObservable as transformObservableSendVideo,
-  startAction as startActionSendVideo
-} from "./youtubeDownloadToYoutubeDownloadResultInsert";
-import {
-  transformObservable as transformObservableYoutubeDownloadResultFind,
-  startAction as startActionYoutubeDownloadResultFind
+  startAction as startActionYoutubeDownloadResultFind,
+  transformObservable as transformObservableYoutubeDownloadResultFind
 } from "./youtubeDownloadToYoutubeDownloadResultFind";
+import {
+  startAction as startActionSendVideo,
+  transformObservable as transformObservableSendVideo
+} from "./youtubeDownloadToYoutubeDownloadResultInsert";
 
 const youtubeDownload: (
   action$: Observable<IActionYoutubeDownload>,
@@ -124,7 +122,10 @@ const youtubeDownload: (
       ),
       take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
       switchMap((action2: IActionYoutubeDownloadResultFind) => {
-        if (action2.youtubeDownloadResultFind.result !== undefined) {
+        if (
+          action2.youtubeDownloadResultFind.result !== null ||
+          action2.youtubeDownloadResultFind.result !== undefined
+        ) {
           return transformObservableYoutubeDownloadResultFind(state$)(action2);
         }
         return actionObservable(action).pipe(switchMap(sendVideo));

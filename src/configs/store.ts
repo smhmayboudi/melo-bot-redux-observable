@@ -5,14 +5,13 @@ import { composeWithDevTools } from "remote-redux-devtools";
 import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
-import * as env from "./env";
 import { index as enhancers } from "../enhancers";
 import { index as epics } from "../epics";
 import { index as middlewares } from "../middlewares";
 import { index as reducers } from "../reducers";
-
 import { initialDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
+import * as env from "./env";
 
 const configureStore: () => Store<IState, IAction> = (): Store<
   IState,
@@ -36,9 +35,9 @@ const configureStore: () => Store<IState, IAction> = (): Store<
     reducers,
     initialState,
     composeEnhancers(
-      applyMiddleware<{}, IState>(epicMiddleware),
+      middlewares,
       enhancers,
-      middlewares
+      applyMiddleware<{}, IState>(epicMiddleware)
     )
   );
   epicMiddleware.run(epics);

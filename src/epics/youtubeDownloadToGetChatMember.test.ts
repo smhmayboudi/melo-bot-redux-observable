@@ -1,13 +1,13 @@
-import { Subject } from "rxjs";
 import { StateObservable } from "redux-observable";
+import { Subject } from "rxjs";
 
-import { initialState } from "../utils/store";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
+import { initialState } from "../utils/store";
 import { startAction } from "./youtubeDownloadToGetChatMember";
 
 describe("youtubeDownload epic", (): void => {

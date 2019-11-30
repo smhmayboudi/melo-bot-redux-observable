@@ -1,17 +1,17 @@
+import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionSendPhoto } from "../../types/iActionSendPhoto";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
-import { StateObservable } from "redux-observable";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { stringify } from "../utils/queryString";
 import {
   transformVideoCaption,
   transformVideoThumbnailUrl
 } from "../utils/string";
-import * as actions from "../actions";
-import * as texts from "../configs/texts";
-import { stringify } from "../utils/queryString";
 
 const transformObservable: (
   state$: StateObservable<IState> | undefined

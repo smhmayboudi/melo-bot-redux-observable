@@ -24,8 +24,8 @@ import {
   collectionObservable,
   insertOneObservable
 } from "../libs/mongodbObservable";
-import * as epic from "./youtubeDownloadResultInsert";
 import { initialDependencies } from "../utils/dependencies";
+import * as epic from "./youtubeDownloadResultInsert";
 
 describe("youtubeDownloadResultInsert epic", (): void => {
   const error: Error = new Error("");
@@ -190,7 +190,6 @@ describe("youtubeDownloadResultInsert epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
         "-a",
@@ -210,23 +209,15 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         state$,
         dependencies
       );
-      // expectObservable(output$).toBe("-a", {
-      // a: actions.youtubeDownloadResultInsert.result({ result })
-      // });
-      output$
-        .toPromise()
-        .then((actual: IActionYoutubeDownloadResultInsert): void => {
-          cold("---a", {
-            a: actions.youtubeDownloadResultInsert.result({
-              result
-            })
+      output$.subscribe((actual: IActionYoutubeDownloadResultInsert) => {
+        cold("---a", {
+          a: actions.youtubeDownloadResultInsert.result({
+            result
           })
-            .toPromise()
-            .then(
-              (expected: IActionYoutubeDownloadResultInsert): boolean =>
-                actual === expected
-            );
+        }).subscribe((expected: IActionYoutubeDownloadResultInsert) => {
+          return actual === expected;
         });
+      });
     });
   });
 });

@@ -4,8 +4,6 @@ import { Observable, of } from "rxjs";
 import { catchError, switchMap } from "rxjs/operators";
 
 import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
-import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
-import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
@@ -13,25 +11,15 @@ import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
-import { transformObservable as transformObservableToSendMessage } from "./callbackQueryDataFindToSendMessage";
-
 const callbackQueryDataFind: (
   action$: Observable<IActionCallbackQueryDataFind>,
   state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-) => Observable<
-  | IActionCallbackQueryDataFind
-  | IActionYoutubeSearchList
-  | IActionYoutubeVideoList
-> = (
+) => Observable<IActionCallbackQueryDataFind> = (
   action$: Observable<IActionCallbackQueryDataFind>,
-  state$: StateObservable<IState> | undefined,
+  _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
-): Observable<
-  | IActionCallbackQueryDataFind
-  | IActionYoutubeSearchList
-  | IActionYoutubeVideoList
-> => {
+): Observable<IActionCallbackQueryDataFind> => {
   const {
     collectionObservable,
     findOneObservable,
@@ -72,7 +60,7 @@ const callbackQueryDataFind: (
                     (value: IStateCallbackQueryDataInsertQuery | null) =>
                       of(
                         actions.callbackQueryDataFind.result({
-                          result: value === null ? undefined : value
+                          result: value
                         })
                       )
                   ),
@@ -108,8 +96,7 @@ const callbackQueryDataFind: (
 
   return action$.pipe(
     ofType(actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_QUERY),
-    switchMap(actionObservable),
-    switchMap(transformObservableToSendMessage(state$))
+    switchMap(actionObservable)
   );
 };
 

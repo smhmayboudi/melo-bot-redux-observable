@@ -1,28 +1,31 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
-
-import { initialState } from "../utils/store";
-import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
-import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
+import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { stringify } from "../utils/queryString";
+import { initialState } from "../utils/store";
+import {
+  transformVideoCaption,
+  transformVideoThumbnailUrl
+} from "../utils/string";
 import { transformObservable } from "./youtubeVideoListToEditMessageMedia";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("youtubeVideoList epic", (): void => {
-  describe("youtubeVideoListToEditMessageText", (): void => {
+  describe("youtubeVideoListToEditMessageMedia", (): void => {
     const error: Error = new Error("");
     const query: IStateYoutubeVideoListQuery = {
       chart: "",
       key: ""
     };
-    // const result: youtube_v3.Schema$VideoListResponse = {};
     const state$Value: IState = {
       ...initialState,
       inlineQuery: {
@@ -121,7 +124,7 @@ describe("youtubeVideoList epic", (): void => {
       }
     };
     const actionYoutubeVideoListResult: youtube_v3.Schema$VideoListResponse = {
-      items: [],
+      items: [{}],
       nextPageToken: "",
       prevPageToken: ""
     };
@@ -379,30 +382,6 @@ describe("youtubeVideoList epic", (): void => {
       });
     });
 
-    test("should handle result actionYoutubeVideoListResultNextPageToken undefined", (): void => {
-      testScheduler.run((runHelpers: RunHelpers): void => {
-        const { expectObservable } = runHelpers;
-        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
-          {
-            result: actionYoutubeVideoListResultNextPageTokenUndefined
-          }
-        );
-        const state$: StateObservable<IState> | undefined = new StateObservable(
-          new Subject(),
-          state$Value
-        );
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
-            })
-          }
-        );
-      });
-    });
-
     test("should handle result actionYoutubeVideoListResultPrevPageToken undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers): void => {
         const { expectObservable } = runHelpers;
@@ -419,8 +398,104 @@ describe("youtubeVideoList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
+            a: actions.editMessageMedia.query({
+              query: {
+                chat_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage).chat
+                  .id,
+                message_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage)
+                  .message_id,
+                media: {
+                  caption: transformVideoCaption(
+                    ((action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .items as youtube_v3.Schema$Video[])[0]
+                  ),
+                  media: transformVideoThumbnailUrl(
+                    ((action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .items as youtube_v3.Schema$Video[])[0]
+                  ),
+                  parse_mode: "HTML",
+                  type: "photo"
+                },
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .nextPageToken as string
+                        }),
+                        text: texts.messageWithPaginationNext
+                      }
+                    ]
+                  ]
+                }
+              }
+            })
+          }
+        );
+      });
+    });
+
+    test("should handle result actionYoutubeVideoListResultNextPageToken undefined", (): void => {
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResultNextPageTokenUndefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
+          {
+            a: actions.editMessageMedia.query({
+              query: {
+                chat_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage).chat
+                  .id,
+                message_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage)
+                  .message_id,
+                media: {
+                  caption: transformVideoCaption(
+                    ((action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .items as youtube_v3.Schema$Video[])[0]
+                  ),
+                  media: transformVideoThumbnailUrl(
+                    ((action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .items as youtube_v3.Schema$Video[])[0]
+                  ),
+                  parse_mode: "HTML",
+                  type: "photo"
+                },
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .prevPageToken as string
+                        }),
+                        text: texts.messageWithPaginationPrev
+                      }
+                    ]
+                  ]
+                }
+              }
             })
           }
         );
@@ -443,8 +518,53 @@ describe("youtubeVideoList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
+            a: actions.editMessageMedia.query({
+              query: {
+                chat_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage).chat
+                  .id,
+                message_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage)
+                  .message_id,
+                media: {
+                  caption: transformVideoCaption(
+                    ((action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .items as youtube_v3.Schema$Video[])[0]
+                  ),
+                  media: transformVideoThumbnailUrl(
+                    ((action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .items as youtube_v3.Schema$Video[])[0]
+                  ),
+                  parse_mode: "HTML",
+                  type: "photo"
+                },
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .nextPageToken as string
+                        }),
+                        text: texts.messageWithPaginationPrev
+                      },
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .prevPageToken as string
+                        }),
+                        text: texts.messageWithPaginationNext
+                      }
+                    ]
+                  ]
+                }
+              }
             })
           }
         );

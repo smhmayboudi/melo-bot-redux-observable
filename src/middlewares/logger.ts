@@ -9,9 +9,9 @@ const appDebug: debug.IDebugger = debug("app:middleware:logger");
 const logger: Middleware<{}, IState, Dispatch<IAction>> = (
   middlewareAPI: MiddlewareAPI<Dispatch<IAction>, IState>
 ) => (next: Dispatch<IAction>) => (action: IAction): IAction => {
-  appDebug("dispatching", action);
+  appDebug("DISPATCHING", action);
   const result: IAction = next(action);
-  appDebug("next state", middlewareAPI.getState());
+  appDebug("NEXT_STATE", middlewareAPI.getState());
 
   return result;
 };

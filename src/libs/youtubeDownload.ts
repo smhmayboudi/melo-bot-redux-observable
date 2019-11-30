@@ -290,12 +290,12 @@ const youtubeDownload: (
             const chunks: Uint8Array[] = [];
             response
               .on("data", (chunk: Uint8Array): void => {
-                appDebug("data", chunk);
+                appDebug("DATA", chunk);
                 chunks.push(chunk);
               })
               .on("end", (): void => {
                 const body: string = Buffer.concat(chunks).toString();
-                appDebug("body", body);
+                appDebug("BODY", body);
                 const videoInfos: IStateYoutubeDownloadResultInsertQuery[] = parseVideoInfo(
                   body
                 );
@@ -304,11 +304,11 @@ const youtubeDownload: (
           }
         )
         .on("error", (error: Error): void => {
-          appDebug("error", error);
+          appDebug("ERROR", error);
           reject(error);
         })
         .end((): void => {
-          appDebug("end");
+          appDebug("END");
         });
     }
   );

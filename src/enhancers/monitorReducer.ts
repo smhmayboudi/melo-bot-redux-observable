@@ -41,7 +41,7 @@ const monitorReducer: StoreEnhancer<{}, {}> = (
     const newState: IState = reducer(state, action);
     const end: number = performance.now();
     const diff: number = end - start;
-    appDebug(`reducer process time ${diff}ms`);
+    appDebug("REDUCER_PROCESS_TIME", diff);
     const dateNow: number = Date.now();
     counter.inc({ action_type: action.type }, 1, dateNow);
     gauge.set({ action_type: action.type }, diff, dateNow);

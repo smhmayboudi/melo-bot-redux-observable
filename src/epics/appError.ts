@@ -23,6 +23,8 @@ const appError: (
       actions.answerInlineQuery.ANSWER_INLINE_QUERY_ERROR,
       actions.answerPreCheckoutQuery.ANSWER_PRE_CHECKOUT_QUERY_ERROR,
       actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_ERROR,
+      actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_ERROR,
+      actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_ERROR,
       actions.chosenInlineResult.CHOSEN_INLINE_RESULT_ERROR,
       actions.createNewStickerSet.CREATE_NEW_STICKER_SET_ERROR,
       actions.deleteChatPhoto.DELETE_CHAT_PHOTO_ERROR,
@@ -85,6 +87,8 @@ const appError: (
       actions.unpinChatMessage.UNPIN_CHAT_MESSAGE_ERROR,
       actions.uploadStickerFile.UPLOAD_STICKER_FILE_ERROR,
       actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR,
+      actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_ERROR,
+      actions.youtubeDownloadResultInsert.YOUTUBE_DOWNLOAD_RESULT_INSERT_ERROR,
       actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR,
       actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR
     ),

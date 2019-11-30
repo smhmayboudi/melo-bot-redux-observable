@@ -3,15 +3,15 @@ import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
-import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
-import { transformObservable } from "./youtubeDownloadToSendMessage";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { initialState } from "../utils/store";
+import { transformObservable } from "./youtubeDownloadToSendMessage";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToSendMessage", (): void => {
@@ -19,7 +19,6 @@ describe("youtubeDownload epic", (): void => {
     const query: IStateYoutubeDownloadQuery = {
       id: ""
     };
-    // const result: IStateYoutubeDownloadResultInsertQuery = {};
     const state$Value: IState = {
       ...initialState,
       message: {

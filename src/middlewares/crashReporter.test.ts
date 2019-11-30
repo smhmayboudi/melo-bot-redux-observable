@@ -1,7 +1,6 @@
 import { IAction } from "../../types/iAction";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import * as actions from "../actions";
-
 import { crashReporter } from "./crashReporter";
 
 describe("crashReporter middleware", (): void => {

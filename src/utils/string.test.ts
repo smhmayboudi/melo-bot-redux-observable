@@ -12,10 +12,12 @@ import {
   transformSearchResultCaption,
   transformSearchResults,
   transformSearchResultUrl,
+  transformShortenList,
   transformVideoCaption,
   transformVideos,
   transformVideoThumbnailUrl
 } from "./string";
+import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 
 describe("string utils", (): void => {
   const query = "E0yxlqfXfEY";
@@ -795,6 +797,41 @@ describe("string utils", (): void => {
     expect(transformSearchResultUrl(item)).toEqual("");
   });
 
+  test("should handle transformShortenList rows undefined", (): void => {
+    expect(transformShortenList(undefined)).toEqual(texts.messageNoResult);
+  });
+
+  test("should handle transformShortenList rows length", (): void => {
+    const rows: IStateShortenListResult[] = [];
+    expect(transformShortenList(rows)).toEqual(texts.messageNoResult);
+  });
+
+  test("should handle transformShortenList", (): void => {
+    const rows: IStateShortenListResult[] = [
+      {
+        alphabet: "",
+        count: 0,
+        date: null,
+        id: 0,
+        longLink: "",
+        longBase64: null,
+        shortLink: ""
+      }
+    ];
+    const row: IStateShortenListResult = rows[0];
+    const res: string[] = [];
+    res.push(`<b>id</b>: ${row.id}`);
+    res.push(`<b>shortLink</b>: ${row.shortLink}`);
+    res.push(`<b>longLink</b>: ${row.longLink}`);
+    res.push(`<b>longBase64</b>: ${row.longBase64}`);
+    res.push(`<b>alphabet</b>: ${row.alphabet}`);
+    res.push(`<b>count</b>: ${row.count}`);
+    res.push(`<b>date</b>: ${row.date}`);
+    res.push(`/${texts.commandShortenReset}${texts.commandSeparator}${row.id}`);
+    res.push(texts.messageSeparator);
+    expect(transformShortenList(rows)).toEqual(res.join("\n"));
+  });
+
   test("should handle transformVideoCaption id null", (): void => {
     const item: youtube_v3.Schema$Video = {
       ...videoItem,
@@ -1369,11 +1406,4 @@ describe("string utils", (): void => {
     };
     expect(transformVideoThumbnailUrl(item)).toEqual("");
   });
-
-  // test("should handle transformVideoThumbnailUrl", (): void => {
-  //   const item: youtube_v3.Schema$Video = {
-  //     ...videoItem
-  //   };
-  //   expect(transformVideoThumbnailUrl(item)).toEqual("");
-  // });
 });

@@ -1,17 +1,22 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
-import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
+import * as actions from "../actions";
+import * as texts from "../configs/texts";
+import { initialState } from "../utils/store";
+import { stringify } from "../utils/queryString";
+import {
+  transformVideoCaption,
+  transformVideoThumbnailUrl
+} from "../utils/string";
 import { transformObservable } from "./youtubeVideoListToSendPhoto";
 
 describe("youtubeVideoList epic", (): void => {
@@ -21,7 +26,6 @@ describe("youtubeVideoList epic", (): void => {
       chart: "",
       key: ""
     };
-    // const result: youtube_v3.Schema$VideoListResponse = {};
     const state$Value: IState = {
       ...initialState,
       message: {
@@ -76,7 +80,7 @@ describe("youtubeVideoList epic", (): void => {
       }
     };
     const actionYoutubeVideoListResult: youtube_v3.Schema$VideoListResponse = {
-      items: [],
+      items: [{}],
       nextPageToken: "",
       prevPageToken: ""
     };
@@ -305,30 +309,6 @@ describe("youtubeVideoList epic", (): void => {
       });
     });
 
-    test("should handle result actionYoutubeVideoListResultNextPageToken undefined", (): void => {
-      testScheduler.run((runHelpers: RunHelpers): void => {
-        const { expectObservable } = runHelpers;
-        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
-          {
-            result: actionYoutubeVideoListResultNextPageTokenUndefined
-          }
-        );
-        const state$: StateObservable<IState> | undefined = new StateObservable(
-          new Subject(),
-          state$Value
-        );
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
-            })
-          }
-        );
-      });
-    });
-
     test("should handle result actionYoutubeVideoListResultPrevPageToken undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers): void => {
         const { expectObservable } = runHelpers;
@@ -345,8 +325,96 @@ describe("youtubeVideoList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
+            a: actions.sendPhoto.query({
+              query: {
+                caption: transformVideoCaption(
+                  ((action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[])[0]
+                ),
+                chat_id: ((state$.value.message.query as IStateMessageQuery)
+                  .message as IMessage).chat.id,
+                disable_notification: true,
+                parse_mode: "HTML",
+                photo: transformVideoThumbnailUrl(
+                  ((action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[])[0]
+                ),
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .nextPageToken as string
+                        }),
+                        text: texts.messageWithPaginationNext
+                      }
+                    ]
+                  ]
+                },
+                reply_to_message_id: ((state$.value.message
+                  .query as IStateMessageQuery).message as IMessage).message_id
+              }
+            })
+          }
+        );
+      });
+    });
+
+    test("should handle result actionYoutubeVideoListResultNextPageToken undefined", (): void => {
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeVideoList = actions.youtubeVideoList.result(
+          {
+            result: actionYoutubeVideoListResultNextPageTokenUndefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
+          {
+            a: actions.sendPhoto.query({
+              query: {
+                caption: transformVideoCaption(
+                  ((action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[])[0]
+                ),
+                chat_id: ((state$.value.message.query as IStateMessageQuery)
+                  .message as IMessage).chat.id,
+                disable_notification: true,
+                parse_mode: "HTML",
+                photo: transformVideoThumbnailUrl(
+                  ((action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[])[0]
+                ),
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .prevPageToken as string
+                        }),
+                        text: texts.messageWithPaginationPrev
+                      }
+                    ]
+                  ]
+                },
+                reply_to_message_id: ((state$.value.message
+                  .query as IStateMessageQuery).message as IMessage).message_id
+              }
             })
           }
         );
@@ -369,8 +437,49 @@ describe("youtubeVideoList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeVideoList.error({
-              error: new Error("")
+            a: actions.sendPhoto.query({
+              query: {
+                caption: transformVideoCaption(
+                  ((action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[])[0]
+                ),
+                chat_id: ((state$.value.message.query as IStateMessageQuery)
+                  .message as IMessage).chat.id,
+                disable_notification: true,
+                parse_mode: "HTML",
+                photo: transformVideoThumbnailUrl(
+                  ((action.youtubeVideoList
+                    .result as youtube_v3.Schema$VideoListResponse)
+                    .items as youtube_v3.Schema$Video[])[0]
+                ),
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .prevPageToken as string
+                        }),
+                        text: texts.messageWithPaginationPrev
+                      },
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeVideoList
+                            .result as youtube_v3.Schema$VideoListResponse)
+                            .nextPageToken as string
+                        }),
+                        text: texts.messageWithPaginationNext
+                      }
+                    ]
+                  ]
+                },
+                reply_to_message_id: ((state$.value.message
+                  .query as IStateMessageQuery).message as IMessage).message_id
+              }
             })
           }
         );

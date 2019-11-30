@@ -1,13 +1,13 @@
+import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
-import { StateObservable } from "redux-observable";
-import { transformSearchResults } from "../utils/inlineQueryResultArticle";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
+import { transformSearchResults } from "../utils/inlineQueryResultArticle";
 import { stringify } from "../utils/queryString";
 
 const transformObservable: (

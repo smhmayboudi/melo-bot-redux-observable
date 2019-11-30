@@ -26,7 +26,7 @@ init({
       (integration: Integration) => integration.name !== "OnUncaughtException"
     ),
   onFatalError: (error: Error): void => {
-    appDebug(error);
+    appDebug("ERROR", error);
   },
   release: env.SENTRY_RELEASE,
   serverName: env.SENTRY_SERVERNAME
@@ -85,7 +85,7 @@ const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = (
   try {
     return next(action);
   } catch (error) {
-    appDebug("exception", error);
+    appDebug("ERROR", error);
     captureException(error);
     throw error;
   }

@@ -24,8 +24,8 @@ import {
   collectionObservable,
   insertOneObservable
 } from "../libs/mongodbObservable";
-import * as epic from "./chosenInlineResult";
 import { initialDependencies } from "../utils/dependencies";
+import * as epic from "./chosenInlineResult";
 
 describe("chosenInlineResult epic", (): void => {
   const error: Error = new Error("");
@@ -169,7 +169,6 @@ describe("chosenInlineResult epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
         a: actions.chosenInlineResult.query({ query })
@@ -186,20 +185,14 @@ describe("chosenInlineResult epic", (): void => {
         state$,
         dependencies
       );
-      // expectObservable(output$).toBe("-a", {
-      // a: actions.chosenInlineResult.result({ result })
-      // });
-      output$.toPromise().then((actual: IActionChosenInlineResult): void => {
+      output$.subscribe((actual: IActionChosenInlineResult) => {
         cold("---a", {
           a: actions.chosenInlineResult.result({
             result
           })
-        })
-          .toPromise()
-          .then(
-            (expected: IActionChosenInlineResult): boolean =>
-              actual === expected
-          );
+        }).subscribe((expected: IActionChosenInlineResult) => {
+          return actual === expected;
+        });
       });
     });
   });

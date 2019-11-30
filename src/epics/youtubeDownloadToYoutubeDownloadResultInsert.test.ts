@@ -1,32 +1,28 @@
 import * as fs from "fs";
-
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
-import { IState } from "../../types/iState";
-import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
-import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-
+import { initialState } from "../utils/store";
 import { caption } from "../utils/string";
-
 import {
-  transformObservable,
-  startAction
+  startAction,
+  transformObservable
 } from "./youtubeDownloadToYoutubeDownloadResultInsert";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToYoutubeDownloadResultInsert", (): void => {
-    // const error: Error = new Error("");
     const state$Value: IState = {
       ...initialState,
       message: {
@@ -287,38 +283,42 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(startAction(state$)(action)).toEqual(
-          actions.sendVideo.query({
-            query: {
-              caption: caption(result.title),
-              chat_id: ((state$Value.message.query as IStateMessageQuery)
-                .message as IMessage).chat.id,
-              disable_notification: true,
-              duration: result.duration,
-              height: result.height,
-              parse_mode: "HTML",
-              reply_markup: {
-                inline_keyboard: [
-                  [
-                    {
-                      callback_data: "callback_data:OK",
-                      text: "OK"
-                    },
-                    {
-                      callback_data: "callback_data:NOK",
-                      text: "NOK"
-                    }
+        expect(JSON.stringify(startAction(state$)(action))).toEqual(
+          JSON.stringify(
+            actions.sendVideo.query({
+              query: {
+                caption: caption(result.title),
+                chat_id: ((state$Value.message.query as IStateMessageQuery)
+                  .message as IMessage).chat.id,
+                disable_notification: true,
+                duration: result.duration,
+                height: result.height,
+                parse_mode: "HTML",
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: "callback_data:OK",
+                        text: "OK"
+                      },
+                      {
+                        callback_data: "callback_data:NOK",
+                        text: "NOK"
+                      }
+                    ]
                   ]
-                ]
-              },
-              reply_to_message_id: ((state$Value.message
-                .query as IStateMessageQuery).message as IMessage).message_id,
-              supports_streaming: true,
-              thumb: fs.createReadStream((result.thumb as IPhotoSize).file_id),
-              video: fs.createReadStream(result.file_id),
-              width: result.width
-            }
-          })
+                },
+                reply_to_message_id: ((state$Value.message
+                  .query as IStateMessageQuery).message as IMessage).message_id,
+                supports_streaming: true,
+                thumb: fs.createReadStream(
+                  (result.thumb as IPhotoSize).file_id
+                ),
+                video: fs.createReadStream(result.file_id),
+                width: result.width
+              }
+            })
+          )
         );
       });
     });

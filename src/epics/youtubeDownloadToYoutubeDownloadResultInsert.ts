@@ -1,5 +1,4 @@
 import * as fs from "fs";
-
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 
@@ -9,7 +8,6 @@ import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDo
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-
 import { caption } from "../utils/string";
 
 const transformObservable: (
@@ -118,6 +116,7 @@ const startAction: (
         ]
       },
       reply_to_message_id: state$.value.message.query.message.message_id,
+      supports_streaming: true,
       thumb: fs.createReadStream(action.youtubeDownload.result.thumb.file_id),
       video: fs.createReadStream(action.youtubeDownload.result.file_id),
       width: action.youtubeDownload.result.width

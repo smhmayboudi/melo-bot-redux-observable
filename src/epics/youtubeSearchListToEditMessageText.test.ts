@@ -1,19 +1,21 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
+import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
+import { IState } from "../../types/iState";
+import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
+import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
-import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
-import { IState } from "../../types/iState";
-import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
+import { stringify } from "../utils/queryString";
+import { initialState } from "../utils/store";
+import { transformSearchResults } from "../utils/string";
 import { transformObservable } from "./youtubeSearchListToEditMessageText";
-import { IStateMessageQuery } from "../../types/iStateMessageQuery";
+import { IMessage } from "../../types/telegramBot/types/iMessage";
 
 describe("youtubeSearchList epic", (): void => {
   describe("youtubeSearchListToEditMessageText", (): void => {
@@ -23,7 +25,6 @@ describe("youtubeSearchList epic", (): void => {
       q: "",
       relatedToVideoId: undefined
     };
-    // const result: youtube_v3.Schema$SearchListResponse = {};
     const state$Value: IState = {
       ...initialState,
       inlineQuery: {
@@ -123,7 +124,7 @@ describe("youtubeSearchList epic", (): void => {
       }
     };
     const actionYoutubeSearchListResult: youtube_v3.Schema$SearchListResponse = {
-      items: [],
+      items: [{}],
       nextPageToken: "",
       prevPageToken: ""
     };
@@ -394,32 +395,6 @@ describe("youtubeSearchList epic", (): void => {
       });
     });
 
-    test("should handle result actionYoutubeSearchListResultNextPageToken undefined", (): void => {
-      testScheduler.run((runHelpers: RunHelpers): void => {
-        const { expectObservable } = runHelpers;
-        const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
-          {
-            result: actionYoutubeSearchListResultNextPageTokenUndefined
-          }
-        );
-        const state$: StateObservable<IState> | undefined = new StateObservable(
-          new Subject(),
-          state$Value
-        );
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeSearchList.error({
-              error: new Error(
-                texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
-              )
-            })
-          }
-        );
-      });
-    });
-
     test("should handle result actionYoutubeSearchListResultPrevPageToken undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers): void => {
         const { expectObservable } = runHelpers;
@@ -436,10 +411,98 @@ describe("youtubeSearchList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeSearchList.error({
-              error: new Error(
-                texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
-              )
+            a: actions.editMessageText.query({
+              query: {
+                chat_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage).chat
+                  .id,
+                disable_web_page_preview: true,
+                message_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage)
+                  .message_id,
+                parse_mode: "HTML",
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeSearchList
+                            .result as youtube_v3.Schema$SearchListResponse)
+                            .nextPageToken as string
+                        }),
+                        text: texts.messageWithPaginationNext
+                      }
+                    ]
+                  ]
+                },
+                text: transformSearchResults(
+                  (action.youtubeSearchList
+                    .result as youtube_v3.Schema$SearchListResponse)
+                    .items as youtube_v3.Schema$SearchResult[],
+                  (state$.value.youtubeSearchList
+                    .query as IStateYoutubeSearchListQuery).q,
+                  (state$.value.youtubeSearchList
+                    .query as IStateYoutubeSearchListQuery).relatedToVideoId
+                )
+              }
+            })
+          }
+        );
+      });
+    });
+
+    test("should handle result actionYoutubeSearchListResultNextPageToken undefined", (): void => {
+      testScheduler.run((runHelpers: RunHelpers): void => {
+        const { expectObservable } = runHelpers;
+        const action: IActionYoutubeSearchList = actions.youtubeSearchList.result(
+          {
+            result: actionYoutubeSearchListResultNextPageTokenUndefined
+          }
+        );
+        const state$: StateObservable<IState> | undefined = new StateObservable(
+          new Subject(),
+          state$Value
+        );
+        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        expectObservable(transformObservable(state$)(action)(action2)).toBe(
+          "(a|)",
+          {
+            a: actions.editMessageText.query({
+              query: {
+                chat_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage).chat
+                  .id,
+                disable_web_page_preview: true,
+                message_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage)
+                  .message_id,
+                parse_mode: "HTML",
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeSearchList
+                            .result as youtube_v3.Schema$SearchListResponse)
+                            .prevPageToken as string
+                        }),
+                        text: texts.messageWithPaginationPrev
+                      }
+                    ]
+                  ]
+                },
+                text: transformSearchResults(
+                  (action.youtubeSearchList
+                    .result as youtube_v3.Schema$SearchListResponse)
+                    .items as youtube_v3.Schema$SearchResult[],
+                  (state$.value.youtubeSearchList
+                    .query as IStateYoutubeSearchListQuery).q,
+                  (state$.value.youtubeSearchList
+                    .query as IStateYoutubeSearchListQuery).relatedToVideoId
+                )
+              }
             })
           }
         );
@@ -462,10 +525,50 @@ describe("youtubeSearchList epic", (): void => {
         expectObservable(transformObservable(state$)(action)(action2)).toBe(
           "(a|)",
           {
-            a: actions.youtubeSearchList.error({
-              error: new Error(
-                texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
-              )
+            a: actions.editMessageText.query({
+              query: {
+                chat_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage).chat
+                  .id,
+                disable_web_page_preview: true,
+                message_id: (((state$.value.message.query as IStateMessageQuery)
+                  .callback_query as ICallbackQuery).message as IMessage)
+                  .message_id,
+                parse_mode: "HTML",
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeSearchList
+                            .result as youtube_v3.Schema$SearchListResponse)
+                            .prevPageToken as string
+                        }),
+                        text: texts.messageWithPaginationPrev
+                      },
+                      {
+                        callback_data: stringify({
+                          id: action2.callbackQueryDataInsert.result as string,
+                          pageToken: (action.youtubeSearchList
+                            .result as youtube_v3.Schema$SearchListResponse)
+                            .nextPageToken as string
+                        }),
+                        text: texts.messageWithPaginationNext
+                      }
+                    ]
+                  ]
+                },
+                text: transformSearchResults(
+                  (action.youtubeSearchList
+                    .result as youtube_v3.Schema$SearchListResponse)
+                    .items as youtube_v3.Schema$SearchResult[],
+                  (state$.value.youtubeSearchList
+                    .query as IStateYoutubeSearchListQuery).q,
+                  (state$.value.youtubeSearchList
+                    .query as IStateYoutubeSearchListQuery).relatedToVideoId
+                )
+              }
             })
           }
         );

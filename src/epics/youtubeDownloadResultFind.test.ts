@@ -22,8 +22,8 @@ import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutub
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { collectionObservable } from "../libs/mongodbObservable";
-import * as epic from "./youtubeDownloadResultFind";
 import { initialDependencies } from "../utils/dependencies";
+import * as epic from "./youtubeDownloadResultFind";
 
 describe("youtubeDownloadResultFind epic", (): void => {
   const error: Error = new Error("");
@@ -182,33 +182,6 @@ describe("youtubeDownloadResultFind epic", (): void => {
         a: actions.youtubeDownloadResultFind.error({
           error: new Error(texts.actionYoutubeDownloadResultFindQueryUndefined)
         })
-      });
-    });
-  });
-
-  test("should handle actionYoutubeDownloadResultFindResult null", (): void => {
-    testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold, expectObservable } = runHelpers;
-      const action$: ColdObservable<IActionYoutubeDownloadResultFind> = cold(
-        "-a",
-        {
-          a: actions.youtubeDownloadResultFind.query({ query })
-        }
-      );
-      const state$: StateObservable<IState> | undefined = undefined;
-      const dependencies: IDependencies = {
-        ...initialDependencies,
-        collectionObservable,
-        findOneObservable: (): ColdObservable<any> => cold("-a", { a: null }),
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
-      };
-      const output$: Observable<IActionYoutubeDownloadResultFind> = epic.youtubeDownloadResultFind(
-        action$,
-        state$,
-        dependencies
-      );
-      expectObservable(output$).toBe("--a", {
-        a: actions.youtubeDownloadResultFind.result({ result: undefined })
       });
     });
   });

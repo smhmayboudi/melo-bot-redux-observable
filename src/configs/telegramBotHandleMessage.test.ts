@@ -148,10 +148,10 @@ describe("telegramBotHandleMessage configs", (): void => {
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  test("should handle messageText /start", (): void => {
+  test("should handle messageText /dl_", (): void => {
     handleMessage(store, {
       ...message,
-      text: `/${texts.commandStart}`
+      text: `/${texts.commandDownload}${texts.commandSeparator}`
     });
     expect(store.dispatch).toHaveBeenCalled();
   });
@@ -164,10 +164,18 @@ describe("telegramBotHandleMessage configs", (): void => {
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  test("should handle messageText /settings", (): void => {
+  test("should handle messageText /mp", (): void => {
     handleMessage(store, {
       ...message,
-      text: `/${texts.commandSettings}`
+      text: `/${texts.commandMostPopular}`
+    });
+    expect(store.dispatch).toHaveBeenCalled();
+  });
+
+  test("should handle messageText /rl_", (): void => {
+    handleMessage(store, {
+      ...message,
+      text: `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`
     });
     expect(store.dispatch).toHaveBeenCalled();
   });
@@ -180,26 +188,34 @@ describe("telegramBotHandleMessage configs", (): void => {
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  test("should handle messageText /mp", (): void => {
+  test("should handle messageText /settings", (): void => {
     handleMessage(store, {
       ...message,
-      text: `/${texts.commandMostPopular}`
+      text: `/${texts.commandSettings}`
     });
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  test("should handle messageText /dl_", (): void => {
+  test("should handle messageText /shortenList", (): void => {
     handleMessage(store, {
       ...message,
-      text: `/${texts.commandDownload}${texts.commandSeparator}`
+      text: `/${texts.commandShortenList}`
     });
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  test("should handle messageText /rl_", (): void => {
+  test("should handle messageText /shortenReset", (): void => {
     handleMessage(store, {
       ...message,
-      text: `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`
+      text: `/${texts.commandShortenReset}`
+    });
+    expect(store.dispatch).toHaveBeenCalled();
+  });
+
+  test("should handle messageText /start", (): void => {
+    handleMessage(store, {
+      ...message,
+      text: `/${texts.commandStart}`
     });
     expect(store.dispatch).toHaveBeenCalled();
   });

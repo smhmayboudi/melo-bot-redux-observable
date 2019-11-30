@@ -8,21 +8,19 @@ declare global {
 }
 
 import * as fs from "fs";
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
 import { IActionGetChatMember } from "../../types/iActionGetChatMember";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
 import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDownloadResultInsert";
-import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
@@ -30,15 +28,17 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
+import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import {
   collectionObservable,
   findOneObservable
 } from "../libs/mongodbObservable";
+import { initialDependencies } from "../utils/dependencies";
+import { initialState } from "../utils/store";
 import { caption, encode, pathThumb, pathVideo } from "../utils/string";
 import * as epic from "./youtubeDownload";
-import { initialDependencies } from "../utils/dependencies";
 
 jest.mock("fs");
 
@@ -584,7 +584,6 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error value undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -614,50 +613,31 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // expectObservable(output$).toBe("-a---b", {
-        // a: actions.getChatMember.query({
-        //     Query: getChatMemberQuery
-        //   }),
-        // b: actions.sendVideo.query({
-        //     Query: sendVideoQueryCache
-        //   })
-        // });
-        output$
-          .toPromise()
-          .then(
-            (
-              actual:
-                | IActionGetChatMember
-                | IActionSendMessage
-                | IActionSendVideo
-                | IActionYoutubeDownload
-                | IActionYoutubeDownloadResultFind
-                | IActionYoutubeDownloadResultInsert
-            ): void => {
-              cold("-a---b", {
-                a: actions.getChatMember.query({ query: queryGetChatMember }),
-                b: actions.sendVideo.query({ query: querySendVideo })
-              })
-                .toPromise()
-                .then(
-                  (
-                    expected:
-                      | IActionGetChatMember
-                      | IActionSendMessage
-                      | IActionSendVideo
-                      | IActionYoutubeDownload
-                      | IActionYoutubeDownloadResultFind
-                      | IActionYoutubeDownloadResultInsert
-                  ): boolean => actual === expected
-                );
-            }
-          );
+        output$.subscribe(
+          (
+            actual:
+              | IActionGetChatMember
+              | IActionSendMessage
+              | IActionSendVideo
+              | IActionYoutubeDownload
+              | IActionYoutubeDownloadResultFind
+              | IActionYoutubeDownloadResultInsert
+          ) => {
+            cold("-a---b", {
+              a: actions.getChatMember.query({ query: queryGetChatMember }),
+              b: actions.sendVideo.query({ query: querySendVideo })
+            }).subscribe(
+              (expected: IActionGetChatMember | IActionSendVideo) => {
+                return actual === expected;
+              }
+            );
+          }
+        );
       });
     });
 
     test("should handle error mime_type undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -690,50 +670,31 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // expectObservable(output$).toBe("-a---b", {
-        // a: actions.getChatMember.query({
-        //     Query: getChatMemberQuery
-        //   }),
-        // b: actions.sendVideo.query({
-        //     Query: sendVideoQueryCache
-        //   })
-        // });
-        output$
-          .toPromise()
-          .then(
-            (
-              actual:
-                | IActionGetChatMember
-                | IActionSendMessage
-                | IActionSendVideo
-                | IActionYoutubeDownload
-                | IActionYoutubeDownloadResultFind
-                | IActionYoutubeDownloadResultInsert
-            ): void => {
-              cold("-a---b", {
-                a: actions.getChatMember.query({ query: queryGetChatMember }),
-                b: actions.sendVideo.query({ query: querySendVideo })
-              })
-                .toPromise()
-                .then(
-                  (
-                    expected:
-                      | IActionGetChatMember
-                      | IActionSendMessage
-                      | IActionSendVideo
-                      | IActionYoutubeDownload
-                      | IActionYoutubeDownloadResultFind
-                      | IActionYoutubeDownloadResultInsert
-                  ): boolean => actual === expected
-                );
-            }
-          );
+        output$.subscribe(
+          (
+            actual:
+              | IActionGetChatMember
+              | IActionSendMessage
+              | IActionSendVideo
+              | IActionYoutubeDownload
+              | IActionYoutubeDownloadResultFind
+              | IActionYoutubeDownloadResultInsert
+          ) => {
+            cold("-a---b", {
+              a: actions.getChatMember.query({ query: queryGetChatMember }),
+              b: actions.sendVideo.query({ query: querySendVideo })
+            }).subscribe(
+              (expected: IActionGetChatMember | IActionSendVideo) => {
+                return actual === expected;
+              }
+            );
+          }
+        );
       });
     });
 
     test("should handle error thumb undefined", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -766,50 +727,31 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // expectObservable(output$).toBe("-a---b", {
-        // a: actions.getChatMember.query({
-        //     Query: getChatMemberQuery
-        //   }),
-        // b: actions.sendVideo.query({
-        //     Query: sendVideoQueryCache
-        //   })
-        // });
-        output$
-          .toPromise()
-          .then(
-            (
-              actual:
-                | IActionGetChatMember
-                | IActionSendMessage
-                | IActionSendVideo
-                | IActionYoutubeDownload
-                | IActionYoutubeDownloadResultFind
-                | IActionYoutubeDownloadResultInsert
-            ): void => {
-              cold("-a---b", {
-                a: actions.getChatMember.query({ query: queryGetChatMember }),
-                b: actions.sendVideo.query({ query: querySendVideo })
-              })
-                .toPromise()
-                .then(
-                  (
-                    expected:
-                      | IActionGetChatMember
-                      | IActionSendMessage
-                      | IActionSendVideo
-                      | IActionYoutubeDownload
-                      | IActionYoutubeDownloadResultFind
-                      | IActionYoutubeDownloadResultInsert
-                  ): boolean => actual === expected
-                );
-            }
-          );
+        output$.subscribe(
+          (
+            actual:
+              | IActionGetChatMember
+              | IActionSendMessage
+              | IActionSendVideo
+              | IActionYoutubeDownload
+              | IActionYoutubeDownloadResultFind
+              | IActionYoutubeDownloadResultInsert
+          ) => {
+            cold("-a---b", {
+              a: actions.getChatMember.query({ query: queryGetChatMember }),
+              b: actions.sendVideo.query({ query: querySendVideo })
+            }).subscribe(
+              (expected: IActionGetChatMember | IActionSendVideo) => {
+                return actual === expected;
+              }
+            );
+          }
+        );
       });
     });
 
     test("should handle result with cache", (): void => {
       testScheduler.run((runHelpers: RunHelpers) => {
-        // const { cold, expectObservable } = runHelpers;
         const { cold } = runHelpers;
         const action$: ColdObservable<IActionYoutubeDownload> = cold("-a", {
           a: actions.youtubeDownload.query({ query })
@@ -839,44 +781,26 @@ describe("youtubeDownload epic", (): void => {
           | IActionYoutubeDownloadResultFind
           | IActionYoutubeDownloadResultInsert
         > = epic.youtubeDownload(action$, state$, dependencies);
-        // expectObservable(output$).toBe("-a---b", {
-        // a: actions.getChatMember.query({
-        //     Query: getChatMemberQuery
-        //   }),
-        // b: actions.sendVideo.query({
-        //     Query: sendVideoQueryCache
-        //   })
-        // });
-        output$
-          .toPromise()
-          .then(
-            (
-              actual:
-                | IActionGetChatMember
-                | IActionSendMessage
-                | IActionSendVideo
-                | IActionYoutubeDownload
-                | IActionYoutubeDownloadResultFind
-                | IActionYoutubeDownloadResultInsert
-            ): void => {
-              cold("-a---b", {
-                a: actions.getChatMember.query({ query: queryGetChatMember }),
-                b: actions.sendVideo.query({ query: querySendVideo })
-              })
-                .toPromise()
-                .then(
-                  (
-                    expected:
-                      | IActionGetChatMember
-                      | IActionSendMessage
-                      | IActionSendVideo
-                      | IActionYoutubeDownload
-                      | IActionYoutubeDownloadResultFind
-                      | IActionYoutubeDownloadResultInsert
-                  ): boolean => actual === expected
-                );
-            }
-          );
+        output$.subscribe(
+          (
+            actual:
+              | IActionGetChatMember
+              | IActionSendMessage
+              | IActionSendVideo
+              | IActionYoutubeDownload
+              | IActionYoutubeDownloadResultFind
+              | IActionYoutubeDownloadResultInsert
+          ) => {
+            cold("-a---b", {
+              a: actions.getChatMember.query({ query: queryGetChatMember }),
+              b: actions.sendVideo.query({ query: querySendVideo })
+            }).subscribe(
+              (expected: IActionGetChatMember | IActionSendVideo) => {
+                return actual === expected;
+              }
+            );
+          }
+        );
       });
     });
   });

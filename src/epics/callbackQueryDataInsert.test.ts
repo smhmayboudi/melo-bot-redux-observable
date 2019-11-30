@@ -24,8 +24,8 @@ import {
   collectionObservable,
   insertOneObservable
 } from "../libs/mongodbObservable";
-import * as epic from "./callbackQueryDataInsert";
 import { initialDependencies } from "../utils/dependencies";
+import * as epic from "./callbackQueryDataInsert";
 
 describe("callbackQueryDataInsert epic", (): void => {
   const error: Error = new Error("");
@@ -173,7 +173,6 @@ describe("callbackQueryDataInsert epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      // const { cold, expectObservable } = runHelpers;
       const { cold } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
         "-a",
@@ -193,23 +192,15 @@ describe("callbackQueryDataInsert epic", (): void => {
         state$,
         dependencies
       );
-      // expectObservable(output$).toBe("-a", {
-      //   a: actions.callbackQueryDataInsert.result({ result })
-      // });
-      output$
-        .toPromise()
-        .then((actual: IActionCallbackQueryDataInsert): void => {
-          cold("---a", {
-            a: actions.callbackQueryDataInsert.result({
-              result
-            })
+      output$.subscribe((actual: IActionCallbackQueryDataInsert) => {
+        cold("---a", {
+          a: actions.callbackQueryDataInsert.result({
+            result
           })
-            .toPromise()
-            .then(
-              (expected: IActionCallbackQueryDataInsert): boolean =>
-                actual === expected
-            );
+        }).subscribe((expected: IActionCallbackQueryDataInsert) => {
+          return actual === expected;
         });
+      });
     });
   });
 });

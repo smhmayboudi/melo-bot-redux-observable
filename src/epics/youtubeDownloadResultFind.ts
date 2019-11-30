@@ -60,7 +60,7 @@ const youtubeDownloadResultFind: (
                     (value: IStateYoutubeDownloadResultInsertQuery | null) =>
                       of(
                         actions.youtubeDownloadResultFind.result({
-                          result: value === null ? undefined : value
+                          result: value
                         })
                       )
                   ),

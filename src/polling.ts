@@ -35,25 +35,25 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (
         response
           .setEncoding("utf8")
           .on("data", (chunk: Uint8Array): void => {
-            appDebug("data", chunk);
+            appDebug("DATA", chunk);
             chunks.push(chunk);
           })
           .on("end", (): void => {
             try {
               const body: any = JSON.parse(chunks.join(""));
-              appDebug("body", body);
+              appDebug("BODY", body);
             } catch (error) {
-              appDebug("error", error);
+              appDebug("ERROR", error);
             }
           });
       }
     )
     .on("error", (error: Error): void => {
-      appDebug("error", error);
+      appDebug("ERROR", error);
     });
   httpClientRequest.write(JSON.stringify(data));
   httpClientRequest.end((): void => {
-    appDebug("end");
+    appDebug("END");
   });
   httpClientRequest.on("response", (response: http.IncomingMessage): void => {
     appDebug("response.headers", response.headers);

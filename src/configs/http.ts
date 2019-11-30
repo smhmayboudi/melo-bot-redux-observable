@@ -23,7 +23,7 @@ const answer200: (
     "Content-Type": "text/plain; version=0.0.4; charset=utf-8"
   });
   response.end((): void => {
-    appDebug("end");
+    appDebug("END");
   });
 };
 
@@ -39,7 +39,7 @@ const answer500: (
     "Content-Type": "text/plain; version=0.0.4; charset=utf-8"
   });
   response.end((): void => {
-    appDebug("end");
+    appDebug("END");
   });
 };
 
@@ -53,20 +53,20 @@ const answerBotToken: (
   const chunks: Uint8Array[] = [];
   request
     .on("data", (chunk: Uint8Array): void => {
-      appDebug("data", chunk);
+      appDebug("DATA", chunk);
       chunks.push(chunk);
     })
     .on("end", (): void => {
       try {
         const body: any = JSON.parse(Buffer.concat(chunks).toString());
-        appDebug("body", body);
+        appDebug("BODY", body);
         operate(body as IStateMessageQuery);
       } catch (error) {
-        appDebug("error", error);
+        appDebug("ERROR", error);
       }
     })
     .on("error", (error: Error): void => {
-      appDebug("error", error);
+      appDebug("ERROR", error);
     });
   const statusCode = 200;
   if (readiness) {
@@ -78,7 +78,7 @@ const answerBotToken: (
     });
   }
   response.end((): void => {
-    appDebug("end");
+    appDebug("END");
   });
 };
 
@@ -131,5 +131,5 @@ http
     }
   )
   .listen(env.PORT, env.HOSTNAME, (): void => {
-    appDebug(`Server running at http://${env.HOSTNAME}:${env.PORT}`);
+    appDebug("SERVER_RUNNING", env.HOSTNAME, env.PORT);
   });

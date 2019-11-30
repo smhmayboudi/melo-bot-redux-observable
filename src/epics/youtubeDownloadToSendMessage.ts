@@ -1,9 +1,9 @@
+import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
-import { StateObservable } from "redux-observable";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 

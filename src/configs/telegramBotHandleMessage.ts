@@ -277,16 +277,22 @@ const handleMessage: (
         //   const command: IStateCallbackQueryDataFindQuery = parse(message.text.substr(1));
         //   console.log("command", command);
         // }
-        if (message.text.includes(`/${texts.commandStart}`)) {
+        if (
+          message.text.includes(
+            `/${texts.commandDownload}${texts.commandSeparator}`
+          )
+        ) {
           store.dispatch(
-            actions.sendMessage.query({
+            actions.youtubeDownload.query({
               query: {
-                chat_id: message.chat.id,
-                disable_notification: true,
-                disable_web_page_preview: true,
-                parse_mode: "HTML",
-                reply_to_message_id: message.message_id,
-                text: texts.messageStart
+                id: decode(
+                  message.text
+                    .replace(
+                      `/${texts.commandDownload}${texts.commandSeparator}`,
+                      ""
+                    )
+                    .trim()
+                )
               }
             })
           );
@@ -303,32 +309,6 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(`/${texts.commandSettings}`)) {
-          store.dispatch(
-            actions.sendMessage.query({
-              query: {
-                chat_id: message.chat.id,
-                disable_notification: true,
-                disable_web_page_preview: true,
-                parse_mode: "HTML",
-                reply_to_message_id: message.message_id,
-                text: texts.messageSettings
-              }
-            })
-          );
-        } else if (message.text.includes(`/${texts.commandSetInlineGeo}`)) {
-          store.dispatch(
-            actions.sendMessage.query({
-              query: {
-                chat_id: message.chat.id,
-                disable_notification: true,
-                disable_web_page_preview: true,
-                parse_mode: "HTML",
-                reply_to_message_id: message.message_id,
-                text: texts.messageSetInlineGeo
-              }
-            })
-          );
         } else if (message.text.includes(`/${texts.commandMostPopular}`)) {
           store.dispatch(
             actions.youtubeVideoList.query({
@@ -339,25 +319,6 @@ const handleMessage: (
                 maxResults: 1,
                 part: "id,snippet",
                 regionCode: env.GOOGLE_API_REGION_CODE
-              }
-            })
-          );
-        } else if (
-          message.text.includes(
-            `/${texts.commandDownload}${texts.commandSeparator}`
-          )
-        ) {
-          store.dispatch(
-            actions.youtubeDownload.query({
-              query: {
-                id: decode(
-                  message.text
-                    .replace(
-                      `/${texts.commandDownload}${texts.commandSeparator}`,
-                      ""
-                    )
-                    .trim()
-                )
               }
             })
           );
@@ -384,6 +345,76 @@ const handleMessage: (
                 relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
                 safeSearch: env.GOOGLE_API_SAFE_SEARCH,
                 type: env.GOOGLE_API_SEARCH_LIST_TYPE
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandSetInlineGeo}`)) {
+          store.dispatch(
+            actions.sendMessage.query({
+              query: {
+                chat_id: message.chat.id,
+                disable_notification: true,
+                disable_web_page_preview: true,
+                parse_mode: "HTML",
+                reply_to_message_id: message.message_id,
+                text: texts.messageSetInlineGeo
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandSettings}`)) {
+          store.dispatch(
+            actions.sendMessage.query({
+              query: {
+                chat_id: message.chat.id,
+                disable_notification: true,
+                disable_web_page_preview: true,
+                parse_mode: "HTML",
+                reply_to_message_id: message.message_id,
+                text: texts.messageSettings
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandShortenList}`)) {
+          // TODO: check it
+          store.dispatch(
+            actions.shortenList.query({
+              query: {
+                shortLink: message.text
+                  .replace(
+                    `/${texts.commandShortenList}${texts.commandSeparator}`,
+                    ""
+                  )
+                  .trim()
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandShortenReset}`)) {
+          // TODO: check it
+          store.dispatch(
+            actions.shortenReset.query({
+              query: {
+                id: parseInt(
+                  message.text
+                    .replace(
+                      `/${texts.commandShortenReset}${texts.commandSeparator}`,
+                      ""
+                    )
+                    .trim(),
+                  10
+                )
+              }
+            })
+          );
+        } else if (message.text.includes(`/${texts.commandStart}`)) {
+          store.dispatch(
+            actions.sendMessage.query({
+              query: {
+                chat_id: message.chat.id,
+                disable_notification: true,
+                disable_web_page_preview: true,
+                parse_mode: "HTML",
+                reply_to_message_id: message.message_id,
+                text: texts.messageStart
               }
             })
           );
