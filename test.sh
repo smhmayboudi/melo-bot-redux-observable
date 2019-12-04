@@ -10,6 +10,7 @@ export GOOGLE_API_SEARCH_LIST_TYPE=video
 export GOOGLE_API_RELEVANCE_LANGUAGE=fa
 export GOOGLE_API_REGION_CODE=ir
 export HOSTNAME=127.0.0.1
+export MARIA_CLIENT_URI=mariadb://root:testpassword@127.0.0.1:3306/mysql
 export METRICS_COLLECTOR_PREFIX=melo_bot_redux_observable_
 export METRICS_COLLECTOR_TIMEOUT=5000
 export MONGO_CLIENT_APPNAME=melo_bot_redux_observable
@@ -28,7 +29,7 @@ export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
 
 rm -fr coverage
-./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
+# ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs
 #         http
@@ -36,15 +37,18 @@ rm -fr coverage
 #         monitorReducer
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
 #         youtubeDownload
-#         youtubeSearchList
-#         youtubeVideoList
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose libs
+#         youtubeSearchListResult
+#         youtubeVideoListResult
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose libs/mariadbObservable
+#         mariadbObservable
 #         mongodbObservable
 #         request
 #         requests
 #         requestsUpload
 #         requestUpload
 #         youtubeDownload
-# [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose middlewares
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose middlewares
+#         authorization
+#         crashReporter
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose reducers
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose utils

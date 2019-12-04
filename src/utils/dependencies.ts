@@ -1,8 +1,14 @@
 import debug from "debug";
+import { Connection } from "mariadb";
 import { MongoClient } from "mongodb";
 import { Observable } from "rxjs";
 
 import { IDependencies } from "../../types/iDependencies";
+import * as env from "../configs/env";
+import {
+  createConnectionObservable,
+  queryObservable
+} from "../libs/mariadbObservable";
 import {
   collectionObservable,
   connectObservable,
@@ -10,14 +16,17 @@ import {
   insertOneObservable
 } from "../libs/mongodbObservable";
 import { requestObservable } from "../libs/requestObservable";
-import { requestUploadObservable } from "../libs/requestUploadObservable";
 import { requestsObservable } from "../libs/requestsObservable";
 import { requestsUploadObservable } from "../libs/requestsUploadObservable";
+import { requestUploadObservable } from "../libs/requestUploadObservable";
 import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
 
-import * as env from "../configs/env";
-
 const appDebug: debug.IDebugger = debug("app:utils:dependencies");
+
+const connectionObservable: () => Observable<
+  Connection
+> = (): Observable<Connection> =>
+  createConnectionObservable(env.MARIA_CLIENT_URI);
 
 const mongoClientObservable: () => Observable<
   MongoClient
@@ -33,9 +42,11 @@ const mongoClientObservable: () => Observable<
 const initialDependencies: IDependencies = {
   botToken: env.BOT_TOKEN,
   collectionObservable,
+  connectionObservable,
   findOneObservable,
   insertOneObservable,
   mongoClientObservable,
+  queryObservable,
   requestObservable,
   requestUploadObservable,
   requestsObservable,

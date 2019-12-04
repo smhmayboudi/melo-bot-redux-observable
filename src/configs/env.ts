@@ -47,6 +47,7 @@ const GOOGLE_API_REGION_CODE: string = getter(
   "string"
 );
 const HOSTNAME: string = getter("HOSTNAME", "string");
+const MARIA_CLIENT_URI: string = getter("MARIA_CLIENT_URI", "string");
 const METRICS_COLLECTOR_PREFIX: string = getter(
   "METRICS_COLLECTOR_PREFIX",
   "string"
@@ -93,6 +94,7 @@ export {
   GOOGLE_API_RELEVANCE_LANGUAGE,
   GOOGLE_API_REGION_CODE,
   HOSTNAME,
+  MARIA_CLIENT_URI,
   METRICS_COLLECTOR_PREFIX,
   METRICS_COLLECTOR_TIMEOUT,
   MONGO_CLIENT_APPNAME,

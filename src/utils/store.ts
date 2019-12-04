@@ -68,6 +68,8 @@ const initialState: IState = {
   setPassportDataErrors: actions.setPassportDataErrors.initialState,
   setStickerPositionInSet: actions.setStickerPositionInSet.initialState,
   setWebhook: actions.setWebhook.initialState,
+  shortenList: actions.shortenList.initialState,
+  shortenReset: actions.shortenReset.initialState,
   stopMessageLiveLocation: actions.stopMessageLiveLocation.initialState,
   stopPoll: actions.stopPoll.initialState,
   unbanChatMember: actions.unbanChatMember.initialState,

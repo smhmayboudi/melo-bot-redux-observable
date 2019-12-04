@@ -67,6 +67,8 @@ import { setGameScore } from "./setGameScore";
 import { setPassportDataErrors } from "./setPassportDataErrors";
 import { setStickerPositionInSet } from "./setStickerPositionInSet";
 import { setWebhook } from "./setWebhook";
+import { shortenList } from "./shortenList";
+import { shortenReset } from "./shortenReset";
 import { stopMessageLiveLocation } from "./stopMessageLiveLocation";
 import { stopPoll } from "./stopPoll";
 import { unbanChatMember } from "./unbanChatMember";
@@ -143,6 +145,8 @@ const index: Reducer<IState, IAction> = combineReducers<IState>({
   setPassportDataErrors,
   setStickerPositionInSet,
   setWebhook,
+  shortenList,
+  shortenReset,
   stopMessageLiveLocation,
   stopPoll,
   unbanChatMember,

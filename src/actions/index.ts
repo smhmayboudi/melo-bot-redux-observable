@@ -62,6 +62,8 @@ import * as setGameScore from "./setGameScore";
 import * as setPassportDataErrors from "./setPassportDataErrors";
 import * as setStickerPositionInSet from "./setStickerPositionInSet";
 import * as setWebhook from "./setWebhook";
+import * as shortenList from "./shortenList";
+import * as shortenReset from "./shortenReset";
 import * as stopMessageLiveLocation from "./stopMessageLiveLocation";
 import * as stopPoll from "./stopPoll";
 import * as unbanChatMember from "./unbanChatMember";
@@ -138,6 +140,8 @@ export {
   setPassportDataErrors,
   setStickerPositionInSet,
   setWebhook,
+  shortenList,
+  shortenReset,
   stopMessageLiveLocation,
   stopPoll,
   unbanChatMember,

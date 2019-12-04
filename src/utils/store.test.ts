@@ -69,6 +69,8 @@ describe("store utils", (): void => {
       setPassportDataErrors: {},
       setStickerPositionInSet: {},
       setWebhook: {},
+      shortenList: {},
+      shortenReset: {},
       stopMessageLiveLocation: {},
       stopPoll: {},
       unbanChatMember: {},

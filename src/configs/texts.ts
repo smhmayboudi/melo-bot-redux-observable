@@ -117,6 +117,8 @@ const actionSetStickerPositionInSetQueryUndefined =
 const actionSetWebhookQueryUndefined = "actionSetWebhookQuery undefined.";
 const actionStopMessageLiveLocationQueryUndefined =
   "actionStopMessageLiveLocationQuery undefined.";
+const actionShortenListQueryUndefined = "actionShortenListQuery undefined.";
+const actionShortenResetQueryUndefined = "actionShortenResetQuery undefined.";
 const actionStopPollQueryUndefined = "actionStopPollQuery undefined.";
 const actionUnbanChatMemberQueryUndefined =
   "actionUnbanChatMemberQuery undefined.";
@@ -177,6 +179,8 @@ const commandRelatedToVideoId = "rl";
 const commandSeparator = "_";
 const commandSetInlineGeo = "setinlinegeo";
 const commandSettings = "settings";
+const commandShortenList = "shortenList";
+const commandShortenReset = "shortenReset";
 const commandStart = "start";
 const epicYoutubeDownloadValueMimeTypeUndefined =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
@@ -191,6 +195,7 @@ const messageHelp = "HELP";
 const messageChannelJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
   findByCode("1F449").char
 } ${messageChannelJoinLink} ${findByCode("1F448").char}`;
+const messageNoAuthorization = "NO AUTHORIZATION";
 const messageNoResult = "NO RESULT";
 const messageResultChart: (chart: string) => string = (chart: string): string =>
   `${findByCode("1F50E").char} RESULT(S) RELATED TO ${chart}`;
@@ -308,6 +313,8 @@ export {
   actionSetPassportDataErrorsQueryUndefined,
   actionSetStickerPositionInSetQueryUndefined,
   actionSetWebhookQueryUndefined,
+  actionShortenListQueryUndefined,
+  actionShortenResetQueryUndefined,
   actionStopMessageLiveLocationQueryUndefined,
   actionStopPollQueryUndefined,
   actionUnbanChatMemberQueryUndefined,
@@ -343,6 +350,8 @@ export {
   commandSeparator,
   commandSetInlineGeo,
   commandSettings,
+  commandShortenList,
+  commandShortenReset,
   commandStart,
   epicYoutubeDownloadValueMimeTypeUndefined,
   epicYoutubeDownloadValueThumbUndefined,
@@ -351,6 +360,7 @@ export {
   messageError,
   messageHelp,
   messageChannelJoin,
+  messageNoAuthorization,
   messageNoResult,
   messageResultChart,
   messageResultRelatedToVideoId,

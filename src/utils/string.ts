@@ -1,6 +1,8 @@
 import { youtube_v3 } from "googleapis";
 import * as path from "path";
 
+import { IStateShortenListResult } from "../../types/iStateShortenListResult";
+
 import { findByCode } from "../configs/emojis";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
@@ -155,6 +157,30 @@ const transformSearchResultUrl: (
   return "";
 };
 
+const transformShortenList: (rows?: IStateShortenListResult[]) => string = (
+  rows?: IStateShortenListResult[]
+): string => {
+  if (rows === undefined || rows.length === 0) {
+    return texts.messageNoResult;
+  }
+  const res: string[] = [];
+  for (let index: number = rows.length; index > 0; index = index - 1) {
+    const row: IStateShortenListResult = rows[index - 1];
+    const msg: string[] = [];
+    msg.push(`<b>id</b>: ${row.id}`);
+    msg.push(`<b>shortLink</b>: ${row.shortLink}`);
+    msg.push(`<b>longLink</b>: ${row.longLink}`);
+    msg.push(`<b>longBase64</b>: ${row.longBase64}`);
+    msg.push(`<b>alphabet</b>: ${row.alphabet}`);
+    msg.push(`<b>count</b>: ${row.count}`);
+    msg.push(`<b>date</b>: ${row.date}`);
+    msg.push(`/${texts.commandShortenReset}${texts.commandSeparator}${row.id}`);
+    msg.push(texts.messageSeparator);
+    res.push(msg.join("\n"));
+  }
+  return res.join("\n");
+};
+
 const transformVideoCaption: (item: youtube_v3.Schema$Video) => string = (
   item: youtube_v3.Schema$Video
 ): string => {
@@ -286,6 +312,7 @@ export {
   transformSearchResultCaption,
   transformSearchResults,
   transformSearchResultUrl,
+  transformShortenList,
   transformVideoCaption,
   transformVideos,
   transformVideoThumbnailUrl

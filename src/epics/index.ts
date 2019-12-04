@@ -68,6 +68,9 @@ import { setGameScore } from "./setGameScore";
 import { setPassportDataErrors } from "./setPassportDataErrors";
 import { setStickerPositionInSet } from "./setStickerPositionInSet";
 import { setWebhook } from "./setWebhook";
+import { shortenList } from "./shortenList";
+import { shortenListToSendMessage } from "./shortenListToSendMessage";
+import { shortenReset } from "./shortenReset";
 import { stopMessageLiveLocation } from "./stopMessageLiveLocation";
 import { stopPoll } from "./stopPoll";
 import { unbanChatMember } from "./unbanChatMember";
@@ -147,6 +150,9 @@ const index: Epic<IAction, IAction, IState, IDependencies> = combineEpics(
   setPassportDataErrors,
   setStickerPositionInSet,
   setWebhook,
+  shortenList,
+  shortenListToSendMessage,
+  shortenReset,
   stopMessageLiveLocation,
   stopPoll,
   unbanChatMember,

@@ -47,6 +47,12 @@ describe("env configs", (): void => {
     expect(env.HOSTNAME).toBe("127.0.0.1");
   });
 
+  test("should handle MARIA_CLIENT_URI", (): void => {
+    expect(env.MARIA_CLIENT_URI).toBe(
+      "mariadb://root:testpassword@127.0.0.1:3306/mysql"
+    );
+  });
+
   test("should handle METRICS_COLLECTOR_PREFIX", (): void => {
     expect(env.METRICS_COLLECTOR_PREFIX).toBe("melo_bot_redux_observable_");
   });

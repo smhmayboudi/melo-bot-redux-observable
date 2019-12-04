@@ -81,6 +81,8 @@ const appError: (
       actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_ERROR,
       actions.setStickerPositionInSet.SET_STICKER_POSITION_IN_SET_ERROR,
       actions.setWebhook.SET_WEBHOOK_ERROR,
+      actions.shortenList.SHORTEN_LIST_ERROR,
+      actions.shortenReset.SHORTEN_RESET_ERROR,
       actions.stopMessageLiveLocation.STOP_MESSAGE_LIVE_LOCATION_ERROR,
       actions.stopPoll.STOP_POLL_ERROR,
       actions.unbanChatMember.UNBAN_CHAT_MEMBER_ERROR,

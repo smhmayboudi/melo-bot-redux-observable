@@ -64,6 +64,8 @@ import { IStateSetGameScore } from "./iStateSetGameScore";
 import { IStateSetPassportDataErrors } from "./iStateSetPassportDataErrors";
 import { IStateSetStickerPositionInSet } from "./iStateSetStickerPositionInSet";
 import { IStateSetWebhook } from "./iStateSetWebhook";
+import { IStateShortenList } from "./iStateShortenList";
+import { IStateShortenReset } from "./iStateShortenReset";
 import { IStateStopMessageLiveLocation } from "./iStateStopMessageLiveLocation";
 import { IStateStopPoll } from "./iStateStopPoll";
 import { IStateUnbanChatMember } from "./iStateUnbanChatMember";
@@ -140,6 +142,8 @@ export interface IAction extends Action<string> {
   setPassportDataErrors?: IStateSetPassportDataErrors;
   setStickerPositionInSet?: IStateSetStickerPositionInSet;
   setWebhook?: IStateSetWebhook;
+  shortenList?: IStateShortenList;
+  shortenReset?: IStateShortenReset;
   stopMessageLiveLocation?: IStateStopMessageLiveLocation;
   stopPoll?: IStateStopPoll;
   unbanChatMember?: IStateUnbanChatMember;
