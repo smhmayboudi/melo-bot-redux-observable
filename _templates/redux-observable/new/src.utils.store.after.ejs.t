@@ -1,6 +1,6 @@
 ---
 inject: true
 to: src/utils/store.ts
-after: IState
+after: IState \=
 ---
-    <%= h.changeCase.camel(name)%>: actions.<%= h.changeCase.camel(name)%>.initialState,
+  <%= h.changeCase.camel(name)%>: actions.<%= h.changeCase.camel(name)%>.initialState,
