@@ -40,9 +40,11 @@ global.process.on("uncaughtException", (error: Error): void => {
   });
 });
 
-const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = (
-  middlewareAPI: MiddlewareAPI<Dispatch<IAction>, IState>
-) => (next: Dispatch<IAction>) => (action: IAction): IAction => {
+const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = ({
+  getState
+}: MiddlewareAPI<Dispatch<IAction>, IState>) => (next: Dispatch<IAction>) => (
+  action: IAction
+): IAction => {
   let message: IMessage = {
     chat: {
       id: 0,
@@ -59,7 +61,7 @@ const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = (
   ) {
     message = action.message.query.message;
   }
-  const state: IState = middlewareAPI.getState();
+  const state: IState = getState();
   if (
     state.message.query !== undefined &&
     state.message.query.message !== undefined

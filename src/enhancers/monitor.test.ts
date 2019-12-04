@@ -1,6 +1,6 @@
-import { monitorReducer } from "./monitorReducer";
+import { monitor } from "./monitor";
 
-describe("monitorReducer middleware", (): void => {
+describe("monitor middleware", (): void => {
   const create: () => {
     next: jest.Mock;
     store: {
@@ -21,9 +21,9 @@ describe("monitorReducer middleware", (): void => {
     const next: jest.Mock = jest.fn();
     const store: any = {
       dispatch: jest.fn(),
-      getState: jest.fn(() => {}),
-      replaceReducer: jest.fn(() => {}),
-      subscribe: jest.fn(() => jest.fn(() => {}))
+      getState: jest.fn(() => ({})),
+      replaceReducer: jest.fn(() => ({})),
+      subscribe: jest.fn(() => jest.fn(() => ({})))
     };
 
     return { next, store };
@@ -31,7 +31,7 @@ describe("monitorReducer middleware", (): void => {
 
   test("should handle", (): void => {
     const { next } = create();
-    monitorReducer(next);
+    monitor(next);
     expect(next).toHaveBeenCalled();
   });
 });

@@ -2,11 +2,11 @@ import debug from "debug";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
-import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
-import { parse } from "../utils/queryString";
+import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import * as actions from "../actions";
+import { decode } from "../utils/string";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -17,7 +17,7 @@ const handleCallbackQuery: (
   store: Store<IState, IAction>,
   callbackQuery: ICallbackQuery
 ): void => {
-  appDebug("telegramBot:handleCallbackQuery");
+  appDebug("TELEGRAM_BOT_HANDLE_CALLBACK_QUERY");
   if (callbackQuery.inline_message_id !== undefined) {
     store.dispatch(
       actions.answerCallbackQuery.query({
@@ -35,8 +35,9 @@ const handleCallbackQuery: (
       })
     );
     if (callbackQuery.data !== undefined) {
-      const callbackQueryData: IStateCallbackQueryDataFindQuery = parse(
-        callbackQuery.data
+      const callbackQueryData: IStateCallbackQueryDataFindQuery = decode(
+        callbackQuery.data,
+        "iStateCallbackQueryDataFindQuery"
       );
       store.dispatch(
         actions.callbackQueryDataFind.query({

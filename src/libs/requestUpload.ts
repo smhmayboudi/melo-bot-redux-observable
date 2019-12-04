@@ -27,7 +27,7 @@ const requestUpload: <T>(
             }
           },
           (response: http.IncomingMessage): void => {
-            appDebug("response.statusCode", response.statusCode);
+            appDebug("RESPONSE_STATUS_CODE", response.statusCode);
             const chunks: Uint8Array[] = [];
             response
               .setEncoding("utf8")

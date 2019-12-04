@@ -1,5 +1,5 @@
-import { initialDependencies } from "./dependencies";
 import * as env from "../configs/env";
+import { initialDependencies } from "./dependencies";
 
 describe("dependencies utils", (): void => {
   test("should handle initialDependencies", (): void => {

@@ -24,9 +24,9 @@ describe("logger middleware", (): void => {
     const next: jest.Mock = jest.fn();
     const store: any = {
       dispatch: jest.fn(),
-      getState: jest.fn(() => {}),
-      replaceReducer: jest.fn(() => {}),
-      subscribe: jest.fn(() => jest.fn(() => {}))
+      getState: jest.fn(() => ({})),
+      replaceReducer: jest.fn(() => ({})),
+      subscribe: jest.fn(() => jest.fn(() => ({})))
     };
     const invoke: (action: IAction) => IAction = (action: IAction): IAction =>
       logger(store)(next)(action);

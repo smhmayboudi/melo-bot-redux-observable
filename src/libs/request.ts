@@ -36,7 +36,7 @@ const request: <T>(options: http.RequestOptions, data?: any) => Promise<T> = <
             }
           },
           (response: http.IncomingMessage): void => {
-            appDebug("response.statusCode", response.statusCode);
+            appDebug("RESPONSE_STATUS_CODE", response.statusCode);
             const chunks: Uint8Array[] = [];
             response
               .setEncoding("utf8")
@@ -61,7 +61,7 @@ const request: <T>(options: http.RequestOptions, data?: any) => Promise<T> = <
           reject(error);
         });
       if (isMethodPost) {
-        appDebug("post", dataStringify);
+        appDebug("POST", dataStringify);
         httpClientRequest.write(dataStringify);
       }
       httpClientRequest.end((): void => {

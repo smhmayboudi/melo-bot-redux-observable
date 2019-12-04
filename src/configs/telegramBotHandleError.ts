@@ -10,7 +10,7 @@ const handleError: (store: Store<IState, IAction>, error: Error) => void = (
   store: Store<IState, IAction>,
   error: Error
 ): void => {
-  appDebug("telegramBot:handleError");
+  appDebug("TELEGRAM_BOT_HANDLE_ERROR");
   store.dispatch({ type: "ERROR", error: error });
 };
 

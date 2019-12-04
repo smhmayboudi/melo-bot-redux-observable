@@ -6,6 +6,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
+import { IError } from "../../types/iError";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
@@ -42,12 +43,18 @@ const youtubeSearchList: (
     }).pipe(
       map(
         (
-          result: youtube_v3.Schema$SearchListResponse
-        ): IActionYoutubeSearchList =>
-          // TODO: check error
-          actions.youtubeSearchList.result({
-            result
-          })
+          result: youtube_v3.Schema$SearchListResponse | IError
+        ): IActionYoutubeSearchList => {
+          if ((result as IError).error === undefined) {
+            return actions.youtubeSearchList.result({
+              result: result as youtube_v3.Schema$SearchListResponse
+            });
+          }
+
+          return actions.youtubeSearchList.error({
+            error: result
+          });
+        }
       ),
       catchError((error: any) =>
         of(

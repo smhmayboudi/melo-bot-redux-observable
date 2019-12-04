@@ -4,10 +4,10 @@ import { operate } from "./telegramBot";
 
 describe("telegramBot configs", (): void => {
   const store: any = {
-    dispatch: jest.fn(() => {}),
-    getState: jest.fn(() => {}),
-    replaceReducer: jest.fn(() => {}),
-    subscribe: jest.fn(() => jest.fn(() => {}))
+    dispatch: jest.fn(() => ({})),
+    getState: jest.fn(() => ({})),
+    replaceReducer: jest.fn(() => ({})),
+    subscribe: jest.fn(() => jest.fn(() => ({})))
   };
 
   test("should handle callback_query", (): void => {

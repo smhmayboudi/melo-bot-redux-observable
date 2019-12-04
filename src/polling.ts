@@ -30,7 +30,7 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (
         port: env.PORT
       },
       (response: http.IncomingMessage): void => {
-        appDebug("response.statusCode", response.statusCode);
+        appDebug("RESPONSE_STATUS_CODE", response.statusCode);
         const chunks: Uint8Array[] = [];
         response
           .setEncoding("utf8")
@@ -56,15 +56,15 @@ const createHttpClientRequest: (data: IStateMessageQuery) => void = (
     appDebug("END");
   });
   httpClientRequest.on("response", (response: http.IncomingMessage): void => {
-    appDebug("response.headers", response.headers);
+    appDebug("RESPONSE_HEADERS", response.headers);
   });
 };
 
 telegramBot.on(
   "message",
   (message: TelegramBot.Message, metadata: TelegramBot.Metadata): void => {
-    appDebug("message:message", message);
-    appDebug("message:metadata", metadata);
+    appDebug("MESSAGE_MESSAGE", message);
+    appDebug("MESSAGE_METADATA", metadata);
     switch (metadata.type) {
       case "text":
       case "animation":
@@ -100,7 +100,7 @@ telegramBot.on(
 );
 
 telegramBot.on("callback_query", (query: TelegramBot.CallbackQuery): void => {
-  appDebug("callback_query:query", query);
+  appDebug("CALLBACK_QUERY_QUERY", query);
   createHttpClientRequest({
     callback_query: query as ICallbackQuery,
     update_id: 0
@@ -108,7 +108,7 @@ telegramBot.on("callback_query", (query: TelegramBot.CallbackQuery): void => {
 });
 
 telegramBot.on("inline_query", (query: TelegramBot.InlineQuery): void => {
-  appDebug("inline_query:query", query);
+  appDebug("INLINE_QUERY_QUERY", query);
   createHttpClientRequest({
     inline_query: query as IInlineQuery,
     update_id: 0
@@ -118,7 +118,7 @@ telegramBot.on("inline_query", (query: TelegramBot.InlineQuery): void => {
 telegramBot.on(
   "chosen_inline_result",
   (result: TelegramBot.ChosenInlineResult): void => {
-    appDebug("chosen_inline_result:result", result);
+    appDebug("CHOSEN_INLINE_RESULT_RESULT", result);
     createHttpClientRequest({
       chosen_inline_result: result as IChosenInlineResult,
       update_id: 0
@@ -127,45 +127,45 @@ telegramBot.on(
 );
 
 telegramBot.on("channel_post", (message: TelegramBot.Message): void => {
-  appDebug("channel_post:message", message);
+  appDebug("CHANNEL_POST_MESSAGE", message);
   createHttpClientRequest({ message: message as IMessage, update_id: 0 });
 });
 telegramBot.on("edited_message", (message: TelegramBot.Message): void => {
-  appDebug("edited_message:message", message);
+  appDebug("EDITED_MESSAGE_MESSAGE", message);
   createHttpClientRequest({ message: message as IMessage, update_id: 0 });
 });
 telegramBot.on("edited_message_text", (message: TelegramBot.Message): void => {
-  appDebug("edited_message_text:message", message);
+  appDebug("EDITED_MESSAGE_TEXT_MESSAGE", message);
   createHttpClientRequest({ message: message as IMessage, update_id: 0 });
 });
 telegramBot.on(
   "edited_message_caption",
   (message: TelegramBot.Message): void => {
-    appDebug("edited_message_caption:message", message);
+    appDebug("EDITED_MESSAGE_CAPTION_MESSAGE", message);
     createHttpClientRequest({ message: message as IMessage, update_id: 0 });
   }
 );
 telegramBot.on("edited_channel_post", (message: TelegramBot.Message): void => {
-  appDebug("edited_channel_post:message", message);
+  appDebug("EDITED_CHANNEL_POST_MESSAGE", message);
   createHttpClientRequest({ message: message as IMessage, update_id: 0 });
 });
 telegramBot.on(
   "edited_channel_post_text",
   (message: TelegramBot.Message): void => {
-    appDebug("edited_channel_post_text:message", message);
+    appDebug("EDITED_CHANNEL_POST_TEXT_MESSAGE", message);
     createHttpClientRequest({ message: message as IMessage, update_id: 0 });
   }
 );
 telegramBot.on(
   "edited_channel_post_caption",
   (message: TelegramBot.Message): void => {
-    appDebug("edited_channel_post_caption:message", message);
+    appDebug("EDITED_CHANNEL_POST_CAPTION_MESSAGE", message);
     createHttpClientRequest({ message: message as IMessage, update_id: 0 });
   }
 );
 
 telegramBot.on("shipping_query", (query: TelegramBot.ShippingQuery): void => {
-  appDebug("shipping_query:query", query);
+  appDebug("SHIPPING_QUERY_QUERY", query);
   createHttpClientRequest({
     shipping_query: query as IShippingQuery,
     update_id: 0
@@ -175,7 +175,7 @@ telegramBot.on("shipping_query", (query: TelegramBot.ShippingQuery): void => {
 telegramBot.on(
   "pre_checkout_query",
   (query: TelegramBot.PreCheckoutQuery): void => {
-    appDebug("pre_checkout_query:query", query);
+    appDebug("PRE_CHECKOUT_QUERY_QUERY", query);
     createHttpClientRequest({
       pre_checkout_query: query as IPreCheckoutQuery,
       update_id: 0
@@ -184,14 +184,14 @@ telegramBot.on(
 );
 
 telegramBot.on("polling_error", (error: Error): void => {
-  appDebug("polling_error:error", error);
+  appDebug("POLLING_ERROR_ERROR", error);
   createHttpClientRequest({ error, update_id: 0 });
 });
 telegramBot.on("webhook_error", (error: Error): void => {
-  appDebug("webhook_error:error", error);
+  appDebug("WEBHOOK_ERROR_ERROR", error);
   createHttpClientRequest({ error, update_id: 0 });
 });
 telegramBot.on("error", (error: Error): void => {
-  appDebug("error:error", error);
+  appDebug("ERROR_ERROR", error);
   createHttpClientRequest({ error, update_id: 0 });
 });

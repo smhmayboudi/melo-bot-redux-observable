@@ -3,15 +3,20 @@ import * as fs from "fs";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
+import { ICommandDownloadOptions } from "../../types/iCommandDownloadOptions";
+import { ICommandRelatedToVideoIdOptions } from "../../types/iCommandRelatedToVideoIdOptions";
+// import { ICommandShortenListOptions } from "../../types/iCommandShortenListOptions";
+import { ICommandShortenResetOptions } from "../../types/iCommandShortenResetOptions";
+import { ICommandStartOptions } from "../../types/iCommandStartOptions";
+import { ICommandStartGroupOptions } from "../../types/iCommandStartGroupOptions";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import { caption, decode } from "../utils/string";
-
+import * as command from "../utils/command";
+import * as commandStart from "../utils/commandStart";
+import { caption } from "../utils/string";
 import * as env from "./env";
 import * as texts from "./texts";
-// import { parse } from "../utils/queryString";
-// import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -19,7 +24,7 @@ const handleMessage: (
   store: Store<IState, IAction>,
   message: IMessage
 ) => void = (store: Store<IState, IAction>, message: IMessage): void => {
-  appDebug("telegramBot:handleMessage");
+  appDebug("TELEGRAM_BOT_HANDLE_MESSAGE");
   switch (message.text) {
     case "/addStickerToSet":
       // TODO: check it
@@ -236,7 +241,8 @@ const handleMessage: (
       store.dispatch(
         actions.youtubeDownload.query({
           query: {
-            id: decode("/dl_RTB5eGxxZlhmRVk".replace("/dl_", "").trim())
+            // TODO: check it
+            id: "/dl aWQ9RTB5eGxxZlhmRVk=" // id=E0yxlqfXfEY
           }
         })
       );
@@ -273,30 +279,21 @@ const handleMessage: (
       break;
     default:
       if (message.text !== undefined) {
-        // if (message.text.startsWith("/")) {
-        //   const command: IStateCallbackQueryDataFindQuery = parse(message.text.substr(1));
-        //   console.log("command", command);
-        // }
-        if (
-          message.text.includes(
-            `/${texts.commandDownload}${texts.commandSeparator}`
-          )
-        ) {
-          store.dispatch(
-            actions.youtubeDownload.query({
-              query: {
-                id: decode(
-                  message.text
-                    .replace(
-                      `/${texts.commandDownload}${texts.commandSeparator}`,
-                      ""
-                    )
-                    .trim()
-                )
-              }
-            })
-          );
-        } else if (message.text.includes(`/${texts.commandHelp}`)) {
+        if (message.text.includes(command.download())) {
+          const options: ICommandDownloadOptions | undefined = command.parse<
+            ICommandDownloadOptions
+          >(message.text, "iCommandDownloadOptions").options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.youtubeDownload.query({
+                query: {
+                  id: options.id
+                }
+              })
+            );
+          }
+        } else if (message.text.includes(command.help())) {
+          // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
               query: {
@@ -305,11 +302,11 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: texts.messageStart
+                text: texts.messageHelp
               }
             })
           );
-        } else if (message.text.includes(`/${texts.commandMostPopular}`)) {
+        } else if (message.text.includes(command.mostPopular())) {
           store.dispatch(
             actions.youtubeVideoList.query({
               query: {
@@ -322,33 +319,31 @@ const handleMessage: (
               }
             })
           );
-        } else if (
-          message.text.includes(
-            `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`
-          )
-        ) {
-          store.dispatch(
-            actions.youtubeSearchList.query({
-              query: {
-                key: env.GOOGLE_API_KEY,
-                maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-                part: "id,snippet",
-                regionCode: env.GOOGLE_API_REGION_CODE,
-                relatedToVideoId: decode(
-                  message.text
-                    .replace(
-                      `/${texts.commandRelatedToVideoId}${texts.commandSeparator}`,
-                      ""
-                    )
-                    .trim()
-                ),
-                relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-                safeSearch: env.GOOGLE_API_SAFE_SEARCH,
-                type: env.GOOGLE_API_SEARCH_LIST_TYPE
-              }
-            })
-          );
-        } else if (message.text.includes(`/${texts.commandSetInlineGeo}`)) {
+        } else if (message.text.includes(command.relatedToVideoId())) {
+          const options:
+            | ICommandRelatedToVideoIdOptions
+            | undefined = command.parse<ICommandRelatedToVideoIdOptions>(
+            message.text,
+            "iCommandRelatedToVideoIdOptions"
+          ).options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.youtubeSearchList.query({
+                query: {
+                  key: env.GOOGLE_API_KEY,
+                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
+                  part: "id,snippet",
+                  regionCode: env.GOOGLE_API_REGION_CODE,
+                  relatedToVideoId: options.id,
+                  relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+                  safeSearch: env.GOOGLE_API_SAFE_SEARCH,
+                  type: env.GOOGLE_API_SEARCH_LIST_TYPE
+                }
+              })
+            );
+          }
+        } else if (message.text.includes(command.setInlineGeo())) {
+          // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
               query: {
@@ -361,7 +356,8 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(`/${texts.commandSettings}`)) {
+        } else if (message.text.includes(command.settings())) {
+          // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
               query: {
@@ -374,50 +370,83 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(`/${texts.commandShortenList}`)) {
-          // TODO: check it
+        } else if (message.text.includes(command.shortenList())) {
           store.dispatch(
             actions.shortenList.query({
               query: {
                 shortLink: message.text
-                  .replace(
-                    `/${texts.commandShortenList}${texts.commandSeparator}`,
-                    ""
-                  )
+                  .replace(command.shortenList(), "")
                   .trim()
               }
             })
           );
-        } else if (message.text.includes(`/${texts.commandShortenReset}`)) {
-          // TODO: check it
-          store.dispatch(
-            actions.shortenReset.query({
-              query: {
-                id: parseInt(
-                  message.text
-                    .replace(
-                      `/${texts.commandShortenReset}${texts.commandSeparator}`,
-                      ""
-                    )
-                    .trim(),
-                  10
-                )
-              }
-            })
-          );
-        } else if (message.text.includes(`/${texts.commandStart}`)) {
-          store.dispatch(
-            actions.sendMessage.query({
-              query: {
-                chat_id: message.chat.id,
-                disable_notification: true,
-                disable_web_page_preview: true,
-                parse_mode: "HTML",
-                reply_to_message_id: message.message_id,
-                text: texts.messageStart
-              }
-            })
-          );
+          // const options: ICommandShortenListOptions | undefined = command.parse<
+          //   ICommandShortenListOptions
+          // >(message.text, "iCommandShortenListOptions").options;
+          // if (options !== undefined) {
+          //   store.dispatch(
+          //     actions.shortenList.query({
+          //       query: {
+          //         sl: options.shortLink
+          //       }
+          //     })
+          //   );
+          // } else {
+          //   store.dispatch(
+          //     actions.shortenList.query({
+          //       query: {}
+          //     })
+          //   );
+          // }
+        } else if (message.text.includes(command.shortenReset())) {
+          const options:
+            | ICommandShortenResetOptions
+            | undefined = command.parse<ICommandShortenResetOptions>(
+            message.text,
+            "iCommandShortenResetOptions"
+          ).options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.shortenReset.query({
+                query: {
+                  id: options.id
+                }
+              })
+            );
+          }
+        } else if (message.text.includes(command.start())) {
+          const options: ICommandStartOptions | undefined = commandStart.parse<
+            ICommandStartOptions
+          >(message.text, "iCommandStartOptions").options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.message.query({
+                query: {
+                  message: { ...message, text: options.cmd },
+                  update_id: 0
+                }
+              })
+            );
+            handleMessage(store, { ...message, text: options.cmd });
+          }
+        } else if (message.text.includes(command.startGroup())) {
+          const options:
+            | ICommandStartGroupOptions
+            | undefined = commandStart.parse<ICommandStartGroupOptions>(
+            message.text,
+            "iCommandStartGroupOptions"
+          ).options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.message.query({
+                query: {
+                  message: { ...message, text: options.cmd },
+                  update_id: 0
+                }
+              })
+            );
+            handleMessage(store, { ...message, text: options.cmd });
+          }
         } else {
           store.dispatch(
             actions.youtubeSearchList.query({

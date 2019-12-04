@@ -13,7 +13,7 @@ import { Prometheus } from "../configs/prometheus";
 import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
 
-const appDebug: debug.IDebugger = debug("app:enhancers:monitorReducer");
+const appDebug: debug.IDebugger = debug("app:enhancers:monitor");
 
 const counter: Prometheus.Counter = new Prometheus.Counter({
   help: "Count of reducer process",
@@ -27,16 +27,16 @@ const gauge: Prometheus.Gauge = new Prometheus.Gauge({
   name: `${env.METRICS_COLLECTOR_PREFIX}reducer_process_time_milliseconds`
 });
 
-const monitorReducer: StoreEnhancer<{}, {}> = (
+const monitor: StoreEnhancer<{}, {}> = (
   next: StoreEnhancerStoreCreator<{}, {}>
 ) => (
   reducer: Reducer<any, any>,
   preloadedState?: DeepPartial<IState>
 ): Store<any, any> => {
-  const monitoredReducer: (
+  const monitored: (state: IState | undefined, action: IAction) => IState = (
     state: IState | undefined,
     action: IAction
-  ) => IState = (state: IState | undefined, action: IAction): IState => {
+  ): IState => {
     const start: number = performance.now();
     const newState: IState = reducer(state, action);
     const end: number = performance.now();
@@ -49,7 +49,7 @@ const monitorReducer: StoreEnhancer<{}, {}> = (
     return newState;
   };
 
-  return next(monitoredReducer, preloadedState);
+  return next(monitored, preloadedState);
 };
 
-export { monitorReducer };
+export { monitor };

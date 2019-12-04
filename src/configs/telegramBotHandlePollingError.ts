@@ -10,7 +10,7 @@ const handlePollingError: (
   store: Store<IState, IAction>,
   error: Error
 ) => void = (store: Store<IState, IAction>, error: Error): void => {
-  appDebug("telegramBot:handlePollingError");
+  appDebug("TELEGRAM_BOT_HANDLE_POLLING_ERROR");
   store.dispatch({ type: "POLLING_ERROR", error: error });
 };
 

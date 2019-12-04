@@ -5,6 +5,7 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 
 const transformObservable: (
@@ -49,7 +50,7 @@ const transformObservable: (
         disable_web_page_preview: true,
         parse_mode: "HTML",
         reply_to_message_id: state$.value.message.query.message.message_id,
-        text: texts.messageChannelJoin
+        text: env.CHANNEL_JOIN_LINK
       }
     })
   );

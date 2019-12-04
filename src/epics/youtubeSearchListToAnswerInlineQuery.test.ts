@@ -6,14 +6,14 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
+import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { transformSearchResults } from "../utils/inlineQueryResultArticle";
-import { stringify } from "../utils/queryString";
 import { initialState } from "../utils/store";
+import { encode } from "../utils/string";
 import { transformObservable } from "./youtubeSearchListToAnswerInlineQuery";
-import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 
 describe("youtubeSearchList epic", (): void => {
   describe("youtubeSearchListToAnswerInlineQuery", (): void => {
@@ -352,12 +352,15 @@ describe("youtubeSearchList epic", (): void => {
                 inline_query_id: (state$.value.inlineQuery
                   .query as IStateInlineQueryQuery).id,
                 is_personal: true,
-                next_offset: stringify({
-                  id: action2.callbackQueryDataInsert.result as string,
-                  pageToken: (action.youtubeSearchList
-                    .result as youtube_v3.Schema$SearchListResponse)
-                    .nextPageToken as string
-                }),
+                next_offset: encode(
+                  {
+                    id: action2.callbackQueryDataInsert.result as string,
+                    pageToken: (action.youtubeSearchList
+                      .result as youtube_v3.Schema$SearchListResponse)
+                      .nextPageToken as string
+                  },
+                  "iStateCallbackQueryDataFindQuery"
+                ),
                 results: transformSearchResults(
                   (action.youtubeSearchList
                     .result as youtube_v3.Schema$SearchListResponse)

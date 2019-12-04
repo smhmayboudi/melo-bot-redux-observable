@@ -9,7 +9,7 @@ import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
-import { parse } from "../utils/queryString";
+import { decode } from "../utils/string";
 
 const inlineQuery: (
   action$: Observable<IActionInlineQuery>,
@@ -39,7 +39,10 @@ const inlineQuery: (
           key: env.GOOGLE_API_KEY,
           maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
           part: "id,snippet",
-          pageToken: parse(action.inlineQuery.query.offset).pageToken,
+          pageToken: decode(
+            action.inlineQuery.query.offset,
+            "iStateCallbackQueryDataFindQuery"
+          ).pageToken,
           q: action.inlineQuery.query.query.trim(),
           regionCode: env.GOOGLE_API_REGION_CODE,
           relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,

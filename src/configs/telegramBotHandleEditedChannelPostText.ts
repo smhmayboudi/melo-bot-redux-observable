@@ -11,7 +11,7 @@ const handleEditedChannelPostText: (
   store: Store<IState, IAction>,
   message: IMessage
 ) => void = (store: Store<IState, IAction>, message: IMessage): void => {
-  appDebug("telegramBot:handleEditedChannelPostText");
+  appDebug("TELEGRAM_BOT_HANDLE_EDITED_CHANNEL_POST_TEXT");
   store.dispatch({ type: "EDITED_CHANNEL_POST_TEXT", query: message });
 };
 

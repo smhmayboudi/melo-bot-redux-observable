@@ -15,7 +15,7 @@ const handleInlineQuery: (
   store: Store<IState, IAction>,
   inlineQuery: IInlineQuery
 ): void => {
-  appDebug("telegramBot:handleInlineQuery");
+  appDebug("TELEGRAM_BOT_HANDLE_INLINE_QUERY");
   store.dispatch(actions.inlineQuery.query({ query: inlineQuery }));
 };
 

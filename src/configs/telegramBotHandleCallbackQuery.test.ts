@@ -4,10 +4,10 @@ import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
 
 describe("telegramBotHandleCallbackQuery configs", (): void => {
   const store: any = {
-    dispatch: jest.fn(() => {}),
-    getState: jest.fn(() => {}),
-    replaceReducer: jest.fn(() => {}),
-    subscribe: jest.fn(() => jest.fn(() => {}))
+    dispatch: jest.fn(() => ({})),
+    getState: jest.fn(() => ({})),
+    replaceReducer: jest.fn(() => ({})),
+    subscribe: jest.fn(() => jest.fn(() => ({})))
   };
 
   const callbackQuery: ICallbackQuery = {

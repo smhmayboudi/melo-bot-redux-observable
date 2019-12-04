@@ -1,28 +1,51 @@
+import * as base64 from "@protobufjs/base64";
 import { youtube_v3 } from "googleapis";
 import * as path from "path";
+import * as protobufjs from "protobufjs";
 
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
-
 import { findByCode } from "../configs/emojis";
 import * as env from "../configs/env";
 import * as texts from "../configs/texts";
+import * as command from "../utils/command";
+import * as commandStart from "../utils/commandStart";
 
-const caption: (title: string) => string = (title?: string): string =>
-  `${title}\n\n${findByCode("1F194").char} @${env.CHANNEL}`.trim();
+const caption: (text: string) => string = (text: string): string =>
+  `${text.substring(0, env.TELEGRAM_CAPTION_LENGTH)}\n\n${
+    findByCode("1F194").char
+  } <a href="${env.CHANNEL_JOIN_LINK}">@${env.CHANNEL}</a>`;
 
-const decode: (id: string) => string = (id: string): string =>
-  Buffer.from(id, "base64").toString("ascii");
+const decode = (text: string, objType: string): any => {
+  const root = protobufjs.loadSync(`./proto/${objType}.proto`);
+  const type = root.lookupType(objType);
+  const buffer = Buffer.from(text, "base64");
+  const message = type.decode(buffer);
+  return message;
+};
 
-const encode: (id: string) => string = (id: string): string =>
-  Buffer.from(id)
-    .toString("base64")
-    .replace(/=/g, "");
+const encode = (obj: any, objType: string): string => {
+  const root = protobufjs.loadSync(`./proto/${objType}.proto`);
+  const type = root.lookupType(objType);
+  const errMsg = type.verify(obj);
+  if (errMsg) {
+    throw Error(errMsg);
+  }
+  const message = type.create(obj);
+  const buffer = type.encode(message).finish();
+  const text = base64.encode(buffer, 0, buffer.length).replace(/=/g, "");
+  return text;
+};
 
 const pathThumb: (id: string) => string = (id: string): string =>
-  path.resolve(__dirname, "../../asset", `${encode(id)}.jpg`);
+  path.resolve(__dirname, "../../asset", `${id}.jpg`);
 
 const pathVideo: (id: string) => string = (id: string): string =>
-  path.resolve(__dirname, "../../asset", `${encode(id)}.mp4`);
+  path.resolve(__dirname, "../../asset", `${id}.mp4`);
+
+const text: (text: string) => string = (text: string): string =>
+  `${text.substring(0, env.TELEGRAM_TEXT_LENGTH)}\n\n${
+    findByCode("1F194").char
+  } <a href="${env.CHANNEL_JOIN_LINK}">@${env.CHANNEL}</a>`;
 
 const transformSearchResultCaption: (
   item: youtube_v3.Schema$SearchResult
@@ -38,29 +61,20 @@ const transformSearchResultCaption: (
     item.snippet.description !== null &&
     item.snippet.description !== undefined
   ) {
-    const videoId: string = encode(item.id.videoId);
     res.push(item.snippet.title);
     res.push(item.snippet.description);
     res.push("");
     res.push(
-      `${findByCode("1F4E5").char} /${texts.commandDownload}${
-        texts.commandSeparator
-      }${videoId}`
+      `${findByCode("1F4E5").char} ${command.download({ id: item.id.videoId })}`
     );
     res.push(
-      `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-        texts.commandSeparator
-      }${videoId}`
+      `${findByCode("1F517").char} ${command.relatedToVideoId({
+        id: item.id.videoId
+      })}`
     );
   }
-  res.push("");
-  res.push(
-    `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-      texts.messageChannel
-    }</a> ${findByCode("1F448").char}`
-  );
 
-  return res.join("\n");
+  return text(res.join("\n"));
 };
 
 const transformSearchResults: (
@@ -87,17 +101,21 @@ const transformSearchResults: (
       value.snippet.title !== null &&
       value.snippet.title !== undefined
     ) {
-      const videoId: string = encode(value.id.videoId);
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
-        `${findByCode("1F4E5").char} /${texts.commandDownload}${
-          texts.commandSeparator
-        }${videoId}`
+        `${findByCode("1F4E5").char} ${command.download({
+          id: value.id.videoId
+        })}`
       );
       msg.push(
-        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-          texts.commandSeparator
-        }${videoId}`
+        `${findByCode("1F517").char} ${command.relatedToVideoId({
+          id: value.id.videoId
+        })}`
+      );
+      msg.push(
+        `${findByCode("1F517").char} ${commandStart.start({
+          cmd: command.relatedToVideoId({ id: value.id.videoId })
+        })}`
       );
     }
     msg.push(texts.messageSeparator);
@@ -108,14 +126,8 @@ const transformSearchResults: (
   } else if (relatedToVideoId !== undefined) {
     res.push(texts.messageResultRelatedToVideoId(relatedToVideoId));
   }
-  res.push(texts.messageSeparator);
-  res.push(
-    `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-      texts.messageChannel
-    }</a> ${findByCode("1F448").char}`
-  );
 
-  return res.join("\n");
+  return text(res.join("\n"));
 };
 
 const transformSearchResultUrl: (
@@ -174,7 +186,7 @@ const transformShortenList: (rows?: IStateShortenListResult[]) => string = (
     msg.push(`<b>alphabet</b>: ${row.alphabet}`);
     msg.push(`<b>count</b>: ${row.count}`);
     msg.push(`<b>date</b>: ${row.date}`);
-    msg.push(`/${texts.commandShortenReset}${texts.commandSeparator}${row.id}`);
+    msg.push(command.shortenReset({ id: row.id }));
     msg.push(texts.messageSeparator);
     res.push(msg.join("\n"));
   }
@@ -194,29 +206,18 @@ const transformVideoCaption: (item: youtube_v3.Schema$Video) => string = (
     item.snippet.description !== null &&
     item.snippet.description !== undefined
   ) {
-    const videoId: string = encode(item.id);
     res.push(item.snippet.title);
     res.push(item.snippet.description);
     res.push("");
     res.push(
-      `${findByCode("1F4E5").char} /${texts.commandDownload}${
-        texts.commandSeparator
-      }${videoId}`
+      `${findByCode("1F4E5").char} ${command.download({ id: item.id })}`
     );
     res.push(
-      `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-        texts.commandSeparator
-      }${videoId}`
+      `${findByCode("1F517").char} ${command.relatedToVideoId({ id: item.id })}`
     );
   }
-  res.push("");
-  res.push(
-    `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-      texts.messageChannel
-    }</a> ${findByCode("1F448").char}`
-  );
 
-  return res.join("\n");
+  return caption(res.join("\n"));
 };
 
 const transformVideos: (
@@ -237,31 +238,22 @@ const transformVideos: (
       value.snippet.title !== null &&
       value.snippet.title !== undefined
     ) {
-      const videoId: string = encode(value.id);
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
-        `${findByCode("1F4E5").char} /${texts.commandDownload}${
-          texts.commandSeparator
-        }${videoId}`
+        `${findByCode("1F4E5").char} ${command.download({ id: value.id })}`
       );
       msg.push(
-        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-          texts.commandSeparator
-        }${videoId}`
+        `${findByCode("1F517").char} ${command.relatedToVideoId({
+          id: value.id
+        })}`
       );
     }
     msg.push(texts.messageSeparator);
     res.push(msg.join("\n"));
   }
   res.push(texts.messageResultChart(chart));
-  res.push(texts.messageSeparator);
-  res.push(
-    `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-      texts.messageChannel
-    }</a> ${findByCode("1F448").char}`
-  );
 
-  return res.join("\n");
+  return text(res.join("\n"));
 };
 
 const transformVideoThumbnailUrl: (item: youtube_v3.Schema$Video) => string = (
@@ -309,6 +301,7 @@ export {
   encode,
   pathThumb,
   pathVideo,
+  text,
   transformSearchResultCaption,
   transformSearchResults,
   transformSearchResultUrl,

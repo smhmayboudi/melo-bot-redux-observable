@@ -88,8 +88,8 @@ describe("crashReporter middleware", (): void => {
     const store: any = {
       dispatch: jest.fn(),
       getState,
-      replaceReducer: jest.fn(() => {}),
-      subscribe: jest.fn(() => jest.fn(() => {}))
+      replaceReducer: jest.fn(() => ({})),
+      subscribe: jest.fn(() => jest.fn(() => ({})))
     };
     const invoke: (action: IAction) => IAction = (action: IAction): IAction =>
       crashReporter(store)(next)(action);
@@ -98,7 +98,7 @@ describe("crashReporter middleware", (): void => {
   };
 
   test("should handle", (): void => {
-    const { invoke, next } = create(jest.fn(() => {}));
+    const { invoke, next } = create(jest.fn(() => ({})));
     const action: IAction = { type: "" };
     try {
       invoke(action);
@@ -109,7 +109,7 @@ describe("crashReporter middleware", (): void => {
 
   test("should handle exception action", (): void => {
     const { next, invoke } = create(
-      jest.fn(() => {}),
+      jest.fn(() => ({})),
       (): void => {
         throw error;
       }

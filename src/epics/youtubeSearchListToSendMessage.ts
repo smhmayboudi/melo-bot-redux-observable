@@ -7,7 +7,7 @@ import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { stringify } from "../utils/queryString";
+import { encode } from "../utils/string";
 import { transformSearchResults } from "../utils/string";
 
 const transformObservable: (
@@ -96,10 +96,13 @@ const transformObservable: (
     action.youtubeSearchList.result.prevPageToken !== undefined
   ) {
     inlineKeyboard.push({
-      callback_data: stringify({
-        id: action2.callbackQueryDataInsert.result,
-        pageToken: action.youtubeSearchList.result.prevPageToken
-      }),
+      callback_data: encode(
+        {
+          id: action2.callbackQueryDataInsert.result,
+          pageToken: action.youtubeSearchList.result.prevPageToken
+        },
+        "iStateCallbackQueryDataFindQuery"
+      ),
       text: texts.messageWithPaginationPrev
     });
   }
@@ -108,10 +111,13 @@ const transformObservable: (
     action.youtubeSearchList.result.nextPageToken !== undefined
   ) {
     inlineKeyboard.push({
-      callback_data: stringify({
-        id: action2.callbackQueryDataInsert.result,
-        pageToken: action.youtubeSearchList.result.nextPageToken
-      }),
+      callback_data: encode(
+        {
+          id: action2.callbackQueryDataInsert.result,
+          pageToken: action.youtubeSearchList.result.nextPageToken
+        },
+        "iStateCallbackQueryDataFindQuery"
+      ),
       text: texts.messageWithPaginationNext
     });
   }

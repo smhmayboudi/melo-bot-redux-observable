@@ -1,14 +1,18 @@
 import { youtube_v3 } from "googleapis";
+import * as path from "path";
 
+import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import { findByCode } from "../configs/emojis";
+import * as env from "../configs/env";
 import * as texts from "../configs/texts";
-
+import * as command from "../utils/command";
 import {
   caption,
   decode,
   encode,
   pathThumb,
   pathVideo,
+  text,
   transformSearchResultCaption,
   transformSearchResults,
   transformSearchResultUrl,
@@ -17,11 +21,8 @@ import {
   transformVideos,
   transformVideoThumbnailUrl
 } from "./string";
-import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 
 describe("string utils", (): void => {
-  const query = "E0yxlqfXfEY";
-  const result = "RTB5eGxxZlhmRVk";
   const searchResultItem: youtube_v3.Schema$SearchResult = {
     id: {
       videoId: ""
@@ -94,23 +95,48 @@ describe("string utils", (): void => {
   };
 
   test("should handle caption", (): void => {
-    expect(caption("")).toEqual("🆔 @melodio");
+    expect(caption("")).toEqual(
+      `\n\n${findByCode("1F194").char} <a href="${env.CHANNEL_JOIN_LINK}">@${
+        env.CHANNEL
+      }</a>`
+    );
   });
 
   test("should handle decode", (): void => {
-    expect(decode(result)).toEqual(query);
+    expect(decode("ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3", "Start")).toEqual({
+      cmd: "/rl CgtGa01QdHgyUmtCaw"
+    });
   });
 
   test("should handle encode", (): void => {
-    expect(encode(query)).toEqual(result);
+    expect(
+      encode(
+        {
+          cmd: "/rl CgtGa01QdHgyUmtCaw"
+        },
+        "Start"
+      )
+    ).toEqual("ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3");
   });
 
   test("should handle pathThumb", (): void => {
-    expect(pathThumb(query)).toContain(`${result}.jpg`);
+    expect(pathThumb("E0yxlqfXfEY")).toEqual(
+      path.resolve(__dirname, "../../asset", `${"E0yxlqfXfEY"}.jpg`)
+    );
   });
 
   test("should handle pathVideo", (): void => {
-    expect(pathVideo(query)).toContain(`${result}.mp4`);
+    expect(pathVideo("E0yxlqfXfEY")).toEqual(
+      path.resolve(__dirname, "../../asset", `${"E0yxlqfXfEY"}.mp4`)
+    );
+  });
+
+  test("should handle text", (): void => {
+    expect(text("")).toEqual(
+      `\n\n${findByCode("1F194").char} <a href="${env.CHANNEL_JOIN_LINK}">@${
+        env.CHANNEL
+      }</a>`
+    );
   });
 
   test("should handle transformSearchResultCaption id undefined", (): void => {
@@ -118,14 +144,7 @@ describe("string utils", (): void => {
       ...searchResultItem,
       id: undefined
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption id videoId null", (): void => {
@@ -136,14 +155,7 @@ describe("string utils", (): void => {
         videoId: null
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption id videoId undefined", (): void => {
@@ -154,14 +166,7 @@ describe("string utils", (): void => {
         videoId: undefined
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption snippet undefined", (): void => {
@@ -169,14 +174,7 @@ describe("string utils", (): void => {
       ...searchResultItem,
       snippet: undefined
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption snippet title null", (): void => {
@@ -187,14 +185,7 @@ describe("string utils", (): void => {
         title: null
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption snippet title undefined", (): void => {
@@ -205,14 +196,7 @@ describe("string utils", (): void => {
         title: undefined
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption snippet description null", (): void => {
@@ -223,14 +207,7 @@ describe("string utils", (): void => {
         description: null
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption snippet description undefined", (): void => {
@@ -241,14 +218,7 @@ describe("string utils", (): void => {
         description: undefined
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformSearchResultCaption", (): void => {
@@ -257,23 +227,11 @@ describe("string utils", (): void => {
     res.push("");
     res.push("");
     res.push("");
+    res.push(`${findByCode("1F4E5").char} ${command.download({ id: "" })}`);
     res.push(
-      `${findByCode("1F4E5").char} /${texts.commandDownload}${
-        texts.commandSeparator
-      }`
+      `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
     );
-    res.push(
-      `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-        texts.commandSeparator
-      }`
-    );
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformSearchResultCaption(item)).toEqual(res.join("\n"));
+    expect(transformSearchResultCaption(item)).toEqual(caption(res.join("\n")));
   });
 
   test("should handle transformSearchResultUrl snippet thumbnails standard undefined", (): void => {
@@ -539,13 +497,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
+    expect(transformSearchResults(items, q, undefined)).toEqual(
+      text(res.join("\n"))
     );
-    expect(transformSearchResults(items, q, undefined)).toEqual(res.join("\n"));
   });
 
   test("should handle transformSearchResults id videoId undefined", (): void => {
@@ -562,13 +516,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
+    expect(transformSearchResults(items, q, undefined)).toEqual(
+      text(res.join("\n"))
     );
-    expect(transformSearchResults(items, q, undefined)).toEqual(res.join("\n"));
   });
 
   test("should handle transformSearchResults id videoId null", (): void => {
@@ -585,13 +535,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
+    expect(transformSearchResults(items, q, undefined)).toEqual(
+      text(res.join("\n"))
     );
-    expect(transformSearchResults(items, q, undefined)).toEqual(res.join("\n"));
   });
 
   test("should handle transformSearchResults snippet undefined", (): void => {
@@ -605,13 +551,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
+    expect(transformSearchResults(items, q, undefined)).toEqual(
+      text(res.join("\n"))
     );
-    expect(transformSearchResults(items, q, undefined)).toEqual(res.join("\n"));
   });
 
   test("should handle transformSearchResults snippet title undefined", (): void => {
@@ -628,13 +570,9 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
+    expect(transformSearchResults(items, q, undefined)).toEqual(
+      text(res.join("\n"))
     );
-    expect(transformSearchResults(items, q, undefined)).toEqual(res.join("\n"));
   });
 
   test("should handle transformSearchResults", (): void => {
@@ -643,23 +581,13 @@ describe("string utils", (): void => {
     res.push(
       [
         "1. ",
-        `${findByCode("1F4E5").char} /${texts.commandDownload}${
-          texts.commandSeparator
-        }`,
-        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-          texts.commandSeparator
-        }`
+        `${findByCode("1F4E5").char} ${command.download({ id: "" })}`,
+        `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
     res.push(texts.messageSeparator);
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
     expect(transformSearchResults(items, undefined, undefined)).toEqual(
-      res.join("\n")
+      text(res.join("\n"))
     );
   });
 
@@ -670,23 +598,15 @@ describe("string utils", (): void => {
     res.push(
       [
         "1. ",
-        `${findByCode("1F4E5").char} /${texts.commandDownload}${
-          texts.commandSeparator
-        }`,
-        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-          texts.commandSeparator
-        }`
+        `${findByCode("1F4E5").char} ${command.download({ id: "" })}`,
+        `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
     res.push(texts.messageSeparator);
     res.push(texts.messageResultQ(q));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
+    expect(transformSearchResults(items, q, undefined)).toEqual(
+      text(res.join("\n"))
     );
-    expect(transformSearchResults(items, q, undefined)).toEqual(res.join("\n"));
   });
 
   test("should handle transformSearchResults relatedToVideoId", (): void => {
@@ -696,24 +616,14 @@ describe("string utils", (): void => {
     res.push(
       [
         "1. ",
-        `${findByCode("1F4E5").char} /${texts.commandDownload}${
-          texts.commandSeparator
-        }`,
-        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-          texts.commandSeparator
-        }`
+        `${findByCode("1F4E5").char} ${command.download({ id: "" })}`,
+        `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
     res.push(texts.messageSeparator);
     res.push(texts.messageResultRelatedToVideoId(relatedToVideoId));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
     expect(transformSearchResults(items, undefined, relatedToVideoId)).toEqual(
-      res.join("\n")
+      text(res.join("\n"))
     );
   });
 
@@ -827,7 +737,7 @@ describe("string utils", (): void => {
     res.push(`<b>alphabet</b>: ${row.alphabet}`);
     res.push(`<b>count</b>: ${row.count}`);
     res.push(`<b>date</b>: ${row.date}`);
-    res.push(`/${texts.commandShortenReset}${texts.commandSeparator}${row.id}`);
+    res.push(command.shortenReset({ id: row.id }));
     res.push(texts.messageSeparator);
     expect(transformShortenList(rows)).toEqual(res.join("\n"));
   });
@@ -837,14 +747,7 @@ describe("string utils", (): void => {
       ...videoItem,
       id: null
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption id undefined", (): void => {
@@ -852,14 +755,7 @@ describe("string utils", (): void => {
       ...videoItem,
       id: undefined
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption snippet undefined", (): void => {
@@ -867,14 +763,7 @@ describe("string utils", (): void => {
       ...videoItem,
       snippet: undefined
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption snippet title null", (): void => {
@@ -885,14 +774,7 @@ describe("string utils", (): void => {
         title: null
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption snippet title undefined", (): void => {
@@ -903,14 +785,7 @@ describe("string utils", (): void => {
         title: undefined
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption snippet description null", (): void => {
@@ -921,14 +796,7 @@ describe("string utils", (): void => {
         description: null
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption snippet description undefined", (): void => {
@@ -939,14 +807,7 @@ describe("string utils", (): void => {
         description: undefined
       }
     };
-    const res: string[] = [];
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(""));
   });
 
   test("should handle transformVideoCaption", (): void => {
@@ -955,23 +816,11 @@ describe("string utils", (): void => {
     res.push("");
     res.push("");
     res.push("");
+    res.push(`${findByCode("1F4E5").char} ${command.download({ id: "" })}`);
     res.push(
-      `${findByCode("1F4E5").char} /${texts.commandDownload}${
-        texts.commandSeparator
-      }`
+      `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
     );
-    res.push(
-      `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-        texts.commandSeparator
-      }`
-    );
-    res.push("");
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideoCaption(item)).toEqual(res.join("\n"));
+    expect(transformVideoCaption(item)).toEqual(caption(res.join("\n")));
   });
 
   test("should handle transformVideos items length", (): void => {
@@ -989,13 +838,7 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultChart(""));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideos(items, "")).toEqual(res.join("\n"));
+    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos id null", (): void => {
@@ -1008,13 +851,7 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultChart(""));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideos(items, "")).toEqual(res.join("\n"));
+    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos snippet undefined", (): void => {
@@ -1027,13 +864,7 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultChart(""));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideos(items, "")).toEqual(res.join("\n"));
+    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos snippet title undefined", (): void => {
@@ -1049,13 +880,7 @@ describe("string utils", (): void => {
     const res: string[] = [];
     res.push(texts.messageSeparator);
     res.push(texts.messageResultChart(""));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideos(items, "")).toEqual(res.join("\n"));
+    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos", (): void => {
@@ -1064,23 +889,13 @@ describe("string utils", (): void => {
     res.push(
       [
         "1. ",
-        `${findByCode("1F4E5").char} /${texts.commandDownload}${
-          texts.commandSeparator
-        }`,
-        `${findByCode("1F517").char} /${texts.commandRelatedToVideoId}${
-          texts.commandSeparator
-        }`
+        `${findByCode("1F4E5").char} ${command.download({ id: "" })}`,
+        `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
     res.push(texts.messageSeparator);
     res.push(texts.messageResultChart(""));
-    res.push(texts.messageSeparator);
-    res.push(
-      `${findByCode("1F449").char} <a href="${texts.messageChannelJoinLink}">${
-        texts.messageChannel
-      }</a> ${findByCode("1F448").char}`
-    );
-    expect(transformVideos(items, "")).toEqual(res.join("\n"));
+    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideoThumbnailUrl snippet undefined", (): void => {

@@ -8,7 +8,7 @@ import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { transformSearchResults } from "../utils/inlineQueryResultArticle";
-import { stringify } from "../utils/queryString";
+import { encode } from "../utils/string";
 
 const transformObservable: (
   state$: StateObservable<IState> | undefined
@@ -88,10 +88,13 @@ const transformObservable: (
     action.youtubeSearchList.result.nextPageToken !== null &&
     action.youtubeSearchList.result.nextPageToken !== undefined
   ) {
-    nextOffset = stringify({
-      id: action2.callbackQueryDataInsert.result,
-      pageToken: action.youtubeSearchList.result.nextPageToken
-    });
+    nextOffset = encode(
+      {
+        id: action2.callbackQueryDataInsert.result,
+        pageToken: action.youtubeSearchList.result.nextPageToken
+      },
+      "iStateCallbackQueryDataFindQuery"
+    );
   }
 
   return of(

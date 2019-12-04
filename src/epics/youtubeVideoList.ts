@@ -6,6 +6,7 @@ import { catchError, map, switchMap } from "rxjs/operators";
 
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
+import { IError } from "../../types/iError";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
@@ -42,12 +43,18 @@ const youtubeVideoList: (
     }).pipe(
       map(
         (
-          result: youtube_v3.Schema$VideoListResponse
-        ): IActionYoutubeVideoList =>
-          // TODO: check error
-          actions.youtubeVideoList.result({
-            result
-          })
+          result: youtube_v3.Schema$VideoListResponse | IError
+        ): IActionYoutubeVideoList => {
+          if ((result as IError).error === undefined) {
+            return actions.youtubeVideoList.result({
+              result: result as youtube_v3.Schema$VideoListResponse
+            });
+          }
+
+          return actions.youtubeVideoList.error({
+            error: result
+          });
+        }
       ),
       catchError((error: any) =>
         of(

@@ -26,8 +26,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^5.9.0",
-    "@sentry/types": "^5.7.1",
+    "@sentry/node": "^5.10.2",
+    "@sentry/types": "^5.10.0",
     "casbin": "^3.0.7",
     "debug": "^4.1.1",
     "form-data": "^3.0.0",
@@ -39,6 +39,7 @@
     "node-telegram-bot-api": "^0.40.0",
     "prom-client": "^11.5.3",
     "prometheus-gc-stats": "^0.6.2",
+    "protobufjs": "^6.8.8",
     "redux": "^4.0.4",
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.3",
@@ -48,7 +49,7 @@
     "@types/debug": "^4.1.5",
     "@types/form-data": "^2.5.0",
     "@types/jest": "^24.0.23",
-    "@types/mongodb": "^3.3.11",
+    "@types/mongodb": "^3.3.12",
     "@types/mongodb-memory-server": "^2.3.0",
     "@types/node-telegram-bot-api": "^0.40.0",
     "@types/prometheus-gc-stats": "^0.6.1",
@@ -68,7 +69,7 @@
     "remote-redux-devtools": "^0.5.16",
     "remotedev-server": "^0.3.1",
     "ts-jest": "^24.2.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.3"
   },
   "husky": {
     "hooks": {

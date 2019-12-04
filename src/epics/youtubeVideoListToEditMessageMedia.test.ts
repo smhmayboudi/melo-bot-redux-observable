@@ -10,7 +10,7 @@ import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQ
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { stringify } from "../utils/queryString";
+import { encode } from "../utils/string";
 import { initialState } from "../utils/store";
 import {
   transformVideoCaption,
@@ -424,12 +424,16 @@ describe("youtubeVideoList epic", (): void => {
                   inline_keyboard: [
                     [
                       {
-                        callback_data: stringify({
-                          id: action2.callbackQueryDataInsert.result as string,
-                          pageToken: (action.youtubeVideoList
-                            .result as youtube_v3.Schema$VideoListResponse)
-                            .nextPageToken as string
-                        }),
+                        callback_data: encode(
+                          {
+                            id: action2.callbackQueryDataInsert
+                              .result as string,
+                            pageToken: (action.youtubeVideoList
+                              .result as youtube_v3.Schema$VideoListResponse)
+                              .nextPageToken as string
+                          },
+                          "iStateCallbackQueryDataFindQuery"
+                        ),
                         text: texts.messageWithPaginationNext
                       }
                     ]
@@ -484,12 +488,16 @@ describe("youtubeVideoList epic", (): void => {
                   inline_keyboard: [
                     [
                       {
-                        callback_data: stringify({
-                          id: action2.callbackQueryDataInsert.result as string,
-                          pageToken: (action.youtubeVideoList
-                            .result as youtube_v3.Schema$VideoListResponse)
-                            .prevPageToken as string
-                        }),
+                        callback_data: encode(
+                          {
+                            id: action2.callbackQueryDataInsert
+                              .result as string,
+                            pageToken: (action.youtubeVideoList
+                              .result as youtube_v3.Schema$VideoListResponse)
+                              .prevPageToken as string
+                          },
+                          "iStateCallbackQueryDataFindQuery"
+                        ),
                         text: texts.messageWithPaginationPrev
                       }
                     ]
@@ -544,21 +552,29 @@ describe("youtubeVideoList epic", (): void => {
                   inline_keyboard: [
                     [
                       {
-                        callback_data: stringify({
-                          id: action2.callbackQueryDataInsert.result as string,
-                          pageToken: (action.youtubeVideoList
-                            .result as youtube_v3.Schema$VideoListResponse)
-                            .nextPageToken as string
-                        }),
+                        callback_data: encode(
+                          {
+                            id: action2.callbackQueryDataInsert
+                              .result as string,
+                            pageToken: (action.youtubeVideoList
+                              .result as youtube_v3.Schema$VideoListResponse)
+                              .nextPageToken as string
+                          },
+                          "iStateCallbackQueryDataFindQuery"
+                        ),
                         text: texts.messageWithPaginationPrev
                       },
                       {
-                        callback_data: stringify({
-                          id: action2.callbackQueryDataInsert.result as string,
-                          pageToken: (action.youtubeVideoList
-                            .result as youtube_v3.Schema$VideoListResponse)
-                            .prevPageToken as string
-                        }),
+                        callback_data: encode(
+                          {
+                            id: action2.callbackQueryDataInsert
+                              .result as string,
+                            pageToken: (action.youtubeVideoList
+                              .result as youtube_v3.Schema$VideoListResponse)
+                              .prevPageToken as string
+                          },
+                          "iStateCallbackQueryDataFindQuery"
+                        ),
                         text: texts.messageWithPaginationNext
                       }
                     ]

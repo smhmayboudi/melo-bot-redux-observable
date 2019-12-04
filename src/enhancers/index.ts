@@ -1,7 +1,7 @@
 import { compose, StoreEnhancer } from "redux";
 
-import { monitorReducer } from "./monitorReducer";
+import { monitor } from "./monitor";
 
-const index: StoreEnhancer<{}, {}> = compose(monitorReducer);
+const index: StoreEnhancer<{}, {}> = compose(monitor);
 
 export { index };

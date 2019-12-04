@@ -321,7 +321,6 @@ describe("callbackQueryDataFind epic", (): void => {
       });
     });
 
-    // TODO: check it of(action) loop
     test("should handle result", (): void => {
       testScheduler.run((runHelpers: RunHelpers): void => {
         const { cold, expectObservable } = runHelpers;
@@ -345,9 +344,11 @@ describe("callbackQueryDataFind epic", (): void => {
           state$,
           dependencies
         );
-        expectObservable(output$).toBe("-a", {
-          a: actions.callbackQueryDataFind.result({ result })
-        });
+        expectObservable(output$).toBe(
+          "-#",
+          {},
+          new Error(texts.actionCallbackQueryDataFindResultChartQUndefined)
+        );
       });
     });
   });

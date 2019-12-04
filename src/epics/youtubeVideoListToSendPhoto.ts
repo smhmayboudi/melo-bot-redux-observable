@@ -7,7 +7,7 @@ import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
-import { stringify } from "../utils/queryString";
+import { encode } from "../utils/string";
 import {
   transformVideoCaption,
   transformVideoThumbnailUrl
@@ -90,10 +90,13 @@ const transformObservable: (
     action.youtubeVideoList.result.prevPageToken !== undefined
   ) {
     inlineKeyboard.push({
-      callback_data: stringify({
-        id: action2.callbackQueryDataInsert.result,
-        pageToken: action.youtubeVideoList.result.prevPageToken
-      }),
+      callback_data: encode(
+        {
+          id: action2.callbackQueryDataInsert.result,
+          pageToken: action.youtubeVideoList.result.prevPageToken
+        },
+        "iStateCallbackQueryDataFindQuery"
+      ),
       text: texts.messageWithPaginationPrev
     });
   }
@@ -102,10 +105,13 @@ const transformObservable: (
     action.youtubeVideoList.result.nextPageToken !== undefined
   ) {
     inlineKeyboard.push({
-      callback_data: stringify({
-        id: action2.callbackQueryDataInsert.result,
-        pageToken: action.youtubeVideoList.result.nextPageToken
-      }),
+      callback_data: encode(
+        {
+          id: action2.callbackQueryDataInsert.result,
+          pageToken: action.youtubeVideoList.result.nextPageToken
+        },
+        "iStateCallbackQueryDataFindQuery"
+      ),
       text: texts.messageWithPaginationNext
     });
   }

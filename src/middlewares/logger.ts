@@ -6,12 +6,14 @@ import { IState } from "../../types/iState";
 
 const appDebug: debug.IDebugger = debug("app:middleware:logger");
 
-const logger: Middleware<{}, IState, Dispatch<IAction>> = (
-  middlewareAPI: MiddlewareAPI<Dispatch<IAction>, IState>
-) => (next: Dispatch<IAction>) => (action: IAction): IAction => {
+const logger: Middleware<{}, IState, Dispatch<IAction>> = ({
+  getState
+}: MiddlewareAPI<Dispatch<IAction>, IState>) => (next: Dispatch<IAction>) => (
+  action: IAction
+): IAction => {
   appDebug("DISPATCHING", action);
   const result: IAction = next(action);
-  appDebug("NEXT_STATE", middlewareAPI.getState());
+  appDebug("NEXT_STATE", getState());
 
   return result;
 };

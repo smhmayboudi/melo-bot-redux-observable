@@ -15,7 +15,7 @@ const handleChosenInlineResult: (
   store: Store<IState, IAction>,
   chosenInlineResult: IChosenInlineResult
 ): void => {
-  appDebug("telegramBot:handleChosenInlineResult");
+  appDebug("TELEGRAM_BOT_HANDLE_CHOSEN_INLINE_RESULT");
   store.dispatch(
     actions.chosenInlineResult.query({ query: chosenInlineResult })
   );

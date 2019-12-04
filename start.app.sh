@@ -27,5 +27,7 @@ export PORT=8081
 export SENTRY_DSN=https://a74e2edcd150475f82cef68e0b09c5cd@sentry.io/1784965
 export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
+export TELEGRAM_CAPTION_LENGTH=200
+export TELEGRAM_TEXT_LENGTH=4096
 
 node --require source-map-support/register --inspect=0.0.0.0:9229 ./dist/app.js

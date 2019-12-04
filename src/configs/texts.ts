@@ -1,5 +1,4 @@
 import { findByCode } from "./emojis";
-import * as env from "./env";
 
 const actionAddStickerToSetQueryUndefined =
   "actionAddStickerToSetQuery undefined.";
@@ -14,6 +13,8 @@ const actionAnswerShippingQueryQueryUndefined =
   "actionAnswerShippingQueryQuery undefined.";
 const actionCallbackQueryDataFindQueryUndefined =
   "actionCallbackQueryDataFindQuery undefined.";
+const actionCallbackQueryDataFindResultChartQUndefined =
+  "actionCallbackQueryDataFindResultChartQ undefined.";
 const actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined =
   "actionCallbackQueryDataFindResultPageInfoResultsPerPage undefined.";
 const actionCallbackQueryDataFindResultPageInfoUndefined =
@@ -172,29 +173,14 @@ const actionYoutubeVideoListResultPrevPageTokenUndefined =
   "actionYoutubeVideoListResultPrevPageToken undefined.";
 const actionYoutubeVideoListResultUndefined =
   "actionYoutubeVideoListResult undefined.";
-const commandDownload = "dl";
-const commandHelp = "help";
-const commandMostPopular = "mp";
-const commandRelatedToVideoId = "rl";
-const commandSeparator = "_";
-const commandSetInlineGeo = "setinlinegeo";
-const commandSettings = "settings";
-const commandShortenList = "shortenList";
-const commandShortenReset = "shortenReset";
-const commandStart = "start";
 const epicYoutubeDownloadValueMimeTypeUndefined =
   "epicYoutubeFindOneObservableDownloadValueMimeType undefined.";
 const epicYoutubeDownloadValueThumbUndefined =
   "epicYoutubeFindOneObservableDownloadValueThumb undefined.";
-const messageChannel = `${findByCode("1F194").char} @${env.CHANNEL}`;
-const messageChannelJoinLink = "https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA";
 const messageError = `SYSTEM ERROR, PLEASE TRY AGAIN. ${
   findByCode("1F915").char
 }`;
 const messageHelp = "HELP";
-const messageChannelJoin = `FOR SUPPORT OUR WORKS PLEASE JOIN OUR CHANNEL.\n\n${
-  findByCode("1F449").char
-} ${messageChannelJoinLink} ${findByCode("1F448").char}`;
 const messageNoAuthorization = "NO AUTHORIZATION";
 const messageNoResult = "NO RESULT";
 const messageResultChart: (chart: string) => string = (chart: string): string =>
@@ -248,6 +234,7 @@ export {
   actionAnswerPreCheckoutQueryQueryUndefined,
   actionAnswerShippingQueryQueryUndefined,
   actionCallbackQueryDataFindQueryUndefined,
+  actionCallbackQueryDataFindResultChartQUndefined,
   actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined,
   actionCallbackQueryDataFindResultPageInfoUndefined,
   actionCallbackQueryDataFindResultUndefined,
@@ -343,23 +330,10 @@ export {
   actionYoutubeVideoListResultPageInfoTotalResultsUndefined,
   actionYoutubeVideoListResultPrevPageTokenUndefined,
   actionYoutubeVideoListResultUndefined,
-  commandDownload,
-  commandHelp,
-  commandMostPopular,
-  commandRelatedToVideoId,
-  commandSeparator,
-  commandSetInlineGeo,
-  commandSettings,
-  commandShortenList,
-  commandShortenReset,
-  commandStart,
   epicYoutubeDownloadValueMimeTypeUndefined,
   epicYoutubeDownloadValueThumbUndefined,
-  messageChannel,
-  messageChannelJoinLink,
   messageError,
   messageHelp,
-  messageChannelJoin,
   messageNoAuthorization,
   messageNoResult,
   messageResultChart,

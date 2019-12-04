@@ -1,0 +1,6 @@
+syntax = "proto3";
+ 
+message iStateCallbackQueryDataFindQuery {
+    string id = 1;
+    string pageToken = 2;
+}

@@ -10,7 +10,7 @@ import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQ
 import * as actions from "../actions";
 import * as texts from "../configs/texts";
 import { transformVideos } from "../utils/inlineQueryResultArticle";
-import { stringify } from "../utils/queryString";
+import { encode } from "../utils/string";
 import { initialState } from "../utils/store";
 import { transformObservable } from "./youtubeVideoListToAnswerInlineQuery";
 import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
@@ -338,12 +338,15 @@ describe("youtubeVideoList epic", (): void => {
                 inline_query_id: (state$.value.inlineQuery
                   .query as IStateInlineQueryQuery).id,
                 is_personal: true,
-                next_offset: stringify({
-                  id: action2.callbackQueryDataInsert.result as string,
-                  pageToken: (action.youtubeVideoList
-                    .result as youtube_v3.Schema$VideoListResponse)
-                    .nextPageToken as string
-                }),
+                next_offset: encode(
+                  {
+                    id: action2.callbackQueryDataInsert.result as string,
+                    pageToken: (action.youtubeVideoList
+                      .result as youtube_v3.Schema$VideoListResponse)
+                      .nextPageToken as string
+                  },
+                  "iStateCallbackQueryDataFindQuery"
+                ),
                 results: transformVideos(
                   (action.youtubeVideoList
                     .result as youtube_v3.Schema$VideoListResponse)

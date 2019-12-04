@@ -10,8 +10,8 @@ const handleWebhookError: (
   store: Store<IState, IAction>,
   error: Error
 ) => void = (store: Store<IState, IAction>, error: Error): void => {
-  appDebug("telegramBot:handleWebhookError");
-  store.dispatch({ type: "WEBHOOOK_ERROR", error: error });
+  appDebug("TELEGRAM_BOT_HANDLE_WEBHOOK_ERROR");
+  store.dispatch({ type: "WEBHOOK_ERROR", error: error });
 };
 
 export { handleWebhookError };

@@ -6,12 +6,11 @@ import { IStateSendAnimationQuery } from "../../types/iStateSendAnimationQuery";
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IStateSendDocumentQuery } from "../../types/iStateSendDocumentQuery";
 import { IStateSendMediaGroupQuery } from "../../types/iStateSendMediaGroupQuery";
+import { IStateSendPhotoQuery } from "../../types/iStateSendPhotoQuery";
 import { IStateSendStickerQuery } from "../../types/iStateSendStickerQuery";
 import { IStateSendVideoNoteQuery } from "../../types/iStateSendVideoNoteQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IStateSendVoiceQuery } from "../../types/iStateSendVoiceQuery";
-import { IStateSendPhotoQuery } from "../../types/iStateSendPhotoQuery";
-
 import {
   transformAddStickerToSetQuery,
   transformCreateNewStickerSetQuery,
@@ -19,11 +18,11 @@ import {
   transformSendAudioQuery,
   transformSendDocumentQuery,
   transformSendMediaGroupQuery,
+  transformSendPhotoQuery,
   transformSendStickerQuery,
   transformSendVideoNoteQuery,
   transformSendVideoQuery,
-  transformSendVoiceQuery,
-  transformSendPhotoQuery
+  transformSendVoiceQuery
 } from "./formData";
 
 describe("formData utils", (): void => {

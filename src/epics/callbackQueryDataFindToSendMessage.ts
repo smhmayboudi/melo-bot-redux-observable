@@ -1,5 +1,5 @@
 import { ofType, StateObservable } from "redux-observable";
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { switchMap } from "rxjs/operators";
 
 import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
@@ -120,7 +120,9 @@ const callbackQueryDataFindToSendMessage: (
       );
     }
 
-    return of(action);
+    return throwError(
+      new Error(texts.actionCallbackQueryDataFindResultChartQUndefined)
+    );
   };
 
   return action$.pipe(

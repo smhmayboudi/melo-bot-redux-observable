@@ -1,11 +1,10 @@
 import { youtube_v3 } from "googleapis";
 
+import * as command from "../utils/command";
 import {
   transformSearchResults,
   transformVideos
 } from "./inlineQueryResultArticle";
-
-import * as texts from "../configs/texts";
 
 describe("inlineQueryResultArticle utils", (): void => {
   const searchResultItem: youtube_v3.Schema$SearchResult = {
@@ -345,7 +344,7 @@ describe("inlineQueryResultArticle utils", (): void => {
         id: "",
         input_message_content: {
           disable_web_page_preview: true,
-          message_text: `/${texts.commandDownload}${texts.commandSeparator}`,
+          message_text: command.download({ id: "" }),
           parse_mode: "HTML"
         },
         reply_markup: {
@@ -616,7 +615,7 @@ describe("inlineQueryResultArticle utils", (): void => {
         id: "",
         input_message_content: {
           disable_web_page_preview: true,
-          message_text: `/${texts.commandDownload}${texts.commandSeparator}`,
+          message_text: command.download({ id: "" }),
           parse_mode: "HTML"
         },
         reply_markup: {

@@ -138,4 +138,12 @@ describe("env configs", (): void => {
   test("should handle TEST_TYPE_UNDEFINED", (): void => {
     expect(env.getter("TEST_TYPE_UNDEFINED", "")).toBe("");
   });
+
+  test("should handle TELEGRAM_CAPTION_LENGTH", (): void => {
+    expect(env.TELEGRAM_CAPTION_LENGTH).toBe(200);
+  });
+
+  test("should handle TELEGRAM_TEXT_LENGTH", (): void => {
+    expect(env.TELEGRAM_TEXT_LENGTH).toBe(2048);
+  });
 });

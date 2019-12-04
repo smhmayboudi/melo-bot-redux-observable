@@ -58,10 +58,8 @@ describe("shortenList epic", (): void => {
       message: {
         ...state$Value.message,
         query: {
-          ...state$Value.message.query,
-          message: undefined,
-          // TODO: check it
-          update_id: 0
+          ...(state$Value.message.query as IStateMessageQuery),
+          message: undefined
         }
       }
     };

@@ -1,9 +1,7 @@
 import { youtube_v3 } from "googleapis";
 
 import { IInlineQueryResultArticle } from "../../types/telegramBot/inlineMode/iInlineQueryResultArticle";
-import * as texts from "../configs/texts";
-
-import { encode } from "./string";
+import * as command from "../utils/command";
 
 const transformSearchResults: (
   items: youtube_v3.Schema$SearchResult[]
@@ -34,14 +32,14 @@ const transformSearchResults: (
       value.snippet.title !== null &&
       value.snippet.title !== undefined
     ) {
-      const videoId: string = encode(value.id.videoId);
+      const id: string = value.id.videoId;
       res.push({
         description: value.snippet.description,
         hide_url: false,
-        id: videoId,
+        id,
         input_message_content: {
           disable_web_page_preview: true,
-          message_text: `/${texts.commandDownload}${texts.commandSeparator}${videoId}`,
+          message_text: command.download({ id }),
           parse_mode: "HTML"
         },
         reply_markup: {
@@ -97,14 +95,14 @@ const transformVideos: (
       value.snippet.title !== null &&
       value.snippet.title !== undefined
     ) {
-      const videoId: string = encode(value.id);
+      const id: string = value.id;
       res.push({
         description: value.snippet.description,
         hide_url: false,
-        id: videoId,
+        id,
         input_message_content: {
           disable_web_page_preview: true,
-          message_text: `/${texts.commandDownload}${texts.commandSeparator}${videoId}`,
+          message_text: command.download({ id }),
           parse_mode: "HTML"
         },
         reply_markup: {

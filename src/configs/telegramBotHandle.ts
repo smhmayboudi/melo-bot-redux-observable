@@ -9,7 +9,7 @@ const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 const handle: (store: Store<IState, IAction>) => void = (
   store: Store<IState, IAction>
 ): void => {
-  appDebug("telegramBot:handle");
+  appDebug("TELEGRAM_BOT_HANDLE");
   store.dispatch({ type: "" });
 };
 

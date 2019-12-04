@@ -11,7 +11,7 @@ const handleEditedChannelPostCaption: (
   store: Store<IState, IAction>,
   message: IMessage
 ) => void = (store: Store<IState, IAction>, message: IMessage): void => {
-  appDebug("telegramBot:handleEditedChannelPostCaption");
+  appDebug("TELEGRAM_BOT_HANDLE_EDITED_CHANNEL_POST_CAPTION");
   store.dispatch({ type: "EDITED_CHANNEL_POST_CAPTION", query: message });
 };
 

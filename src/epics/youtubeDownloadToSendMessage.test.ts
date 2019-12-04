@@ -9,6 +9,7 @@ import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as texts from "../configs/texts";
 import { initialState } from "../utils/store";
 import { transformObservable } from "./youtubeDownloadToSendMessage";
@@ -150,7 +151,7 @@ describe("youtubeDownload epic", (): void => {
               parse_mode: "HTML",
               reply_to_message_id: ((state$Value.message
                 .query as IStateMessageQuery).message as IMessage).message_id,
-              text: texts.messageChannelJoin
+              text: env.CHANNEL_JOIN_LINK
             }
           })
         });

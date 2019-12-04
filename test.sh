@@ -27,14 +27,16 @@ export PORT=8081
 export SENTRY_DSN=https://a74e2edcd150475f82cef68e0b09c5cd@sentry.io/1784965
 export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
+export TELEGRAM_CAPTION_LENGTH=200
+export TELEGRAM_TEXT_LENGTH=4096
 
 rm -fr coverage
-# ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
+./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs
 #         http
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose enhancers
-#         monitorReducer
+#         monitor
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
 #         youtubeDownload
 #         youtubeSearchListResult

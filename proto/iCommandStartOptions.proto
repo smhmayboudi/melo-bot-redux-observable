@@ -1,0 +1,5 @@
+syntax = "proto3";
+ 
+message iCommandStartOptions {
+    string cmd = 1;
+}

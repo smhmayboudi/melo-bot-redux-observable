@@ -9,14 +9,16 @@ import * as texts from "../configs/texts";
 
 const appDebug: debug.IDebugger = debug("app:middleware:authorization");
 
-const authorization: Middleware<{}, IState, Dispatch<IAction>> = (
-  middlewareAPI: MiddlewareAPI<Dispatch<IAction>, IState>
-) => (next: Dispatch<IAction>) => async (action: IAction): Promise<IAction> => {
+const authorization: Middleware<{}, IState, Dispatch<IAction>> = ({
+  getState
+}: MiddlewareAPI<Dispatch<IAction>, IState>) => (
+  next: Dispatch<IAction>
+) => async (action: IAction): Promise<IAction> => {
   const enforcer: Enforcer = await newEnforcer(
     "./authorization.conf",
     "./authorization.csv"
   );
-  const state: IState = middlewareAPI.getState();
+  const state: IState = getState();
   if (
     state.message.query !== undefined &&
     state.message.query.message !== undefined &&

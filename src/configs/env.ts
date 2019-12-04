@@ -3,19 +3,17 @@ const getter: (key: string, type: string) => string = (
   type: string
 ): string => {
   const value: string | undefined = process.env[key];
+  const message = `{ [${key}: string]: ${type} }`;
   if (["number"].indexOf(type) > -1) {
-    if (value === undefined || isNaN(parseInt(value, 10))) {
-      throw new Error(`{ [${key}: string]: ${type} }`);
+    if (value !== undefined && !isNaN(parseInt(value, 10))) {
+      return value;
     }
-
-    return value;
-  }
-  if (["string"].indexOf(type) > -1) {
-    if (value === undefined) {
-      throw new Error(`{ [${key}: string]: ${type} }`);
+    throw new Error(message);
+  } else if (["string"].indexOf(type) > -1) {
+    if (value !== undefined) {
+      return value;
     }
-
-    return value;
+    throw new Error(message);
   }
 
   return "";
@@ -80,6 +78,14 @@ const PORT: number = parseInt(getter("PORT", "number"), 10);
 const SENTRY_DSN: string = getter("SENTRY_DSN", "string");
 const SENTRY_RELEASE: string = getter("SENTRY_RELEASE", "string");
 const SENTRY_SERVERNAME: string = getter("SENTRY_SERVERNAME", "string");
+const TELEGRAM_CAPTION_LENGTH: number = parseInt(
+  getter("TELEGRAM_CAPTION_LENGTH", "number"),
+  10
+);
+const TELEGRAM_TEXT_LENGTH: number = parseInt(
+  getter("TELEGRAM_TEXT_LENGTH", "number"),
+  10
+);
 
 export {
   getter,
@@ -110,5 +116,7 @@ export {
   PORT,
   SENTRY_DSN,
   SENTRY_RELEASE,
-  SENTRY_SERVERNAME
+  SENTRY_SERVERNAME,
+  TELEGRAM_CAPTION_LENGTH,
+  TELEGRAM_TEXT_LENGTH
 };

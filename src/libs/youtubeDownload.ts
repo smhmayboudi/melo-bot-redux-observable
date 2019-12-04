@@ -178,10 +178,10 @@ const youtubeDownload: (
                 thumbPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
                   if (err === null && stats.size > 0) {
-                    appDebug("thumbnail serve cache", thumbPath);
+                    appDebug("THUMBNAIL_SERVE_CACHE", thumbPath);
                     res();
                   } else {
-                    appDebug("thumbnail start download", thumbPath);
+                    appDebug("THUMBNAIL_START_DOWNLOAD", thumbPath);
                     // TODO: check it
                     if (vi.thumb === undefined) {
                       return;
@@ -191,7 +191,7 @@ const youtubeDownload: (
                         vi.thumb.file_id,
                         (response: http.IncomingMessage): void => {
                           appDebug(
-                            "thumbnail response.statusCode",
+                            "THUMBNAIL_RESPONSE_STATUS_CODE",
                             response.statusCode
                           );
                           const stream: fs.WriteStream = fs.createWriteStream(
@@ -199,18 +199,18 @@ const youtubeDownload: (
                           );
                           response
                             .on("end", (): void => {
-                              appDebug("thumbnail finish download", thumbPath);
+                              appDebug("THUMBNAIL_FINISH_DOWNLOAD", thumbPath);
                               res();
                             })
                             .pipe(stream);
                         }
                       )
                       .on("error", (error: Error): void => {
-                        appDebug("thumbnail error", error);
+                        appDebug("THUMBNAIL_ERROR", error);
                         rej(error);
                       })
                       .end((): void => {
-                        appDebug("thumbnail end");
+                        appDebug("THUMBNAIL_END");
                       });
                   }
                 }
@@ -233,16 +233,16 @@ const youtubeDownload: (
                 videoPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
                   if (err === null && stats.size > 0) {
-                    appDebug("video serve cache", videoPath);
+                    appDebug("VIDEO_SERVE_CACHE", videoPath);
                     res();
                   } else {
-                    appDebug("video start download", videoPath);
+                    appDebug("VIDEO_START_DOWNLOAD", videoPath);
                     https
                       .request(
                         vi.file_id,
                         (response: http.IncomingMessage): void => {
                           appDebug(
-                            "video response.statusCode",
+                            "VIDEO_RESPONSE_STATUS_CODE",
                             response.statusCode
                           );
                           const stream: fs.WriteStream = fs.createWriteStream(
@@ -250,18 +250,18 @@ const youtubeDownload: (
                           );
                           response
                             .on("end", (): void => {
-                              appDebug("video finish download", videoPath);
+                              appDebug("VIDEO_FINISH_DOWNLOAD", videoPath);
                               res();
                             })
                             .pipe(stream);
                         }
                       )
                       .on("error", (error: Error): void => {
-                        appDebug("video error", error);
+                        appDebug("VIDEO_ERROR", error);
                         rej(error);
                       })
                       .end((): void => {
-                        appDebug("video end");
+                        appDebug("VIDEO_END");
                       });
                   }
                 }
@@ -286,7 +286,7 @@ const youtubeDownload: (
         .request(
           `https://www.youtube.com/get_video_info?video_id=${videoId}`,
           (response: http.IncomingMessage): void => {
-            appDebug("response.statusCode", response.statusCode);
+            appDebug("RESPONSE_STATUS_CODE", response.statusCode);
             const chunks: Uint8Array[] = [];
             response
               .on("data", (chunk: Uint8Array): void => {

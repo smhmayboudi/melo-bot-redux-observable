@@ -14,7 +14,7 @@ const handleShippingQuery: (
   store: Store<IState, IAction>,
   shippingQuery: IShippingQuery
 ): void => {
-  appDebug("telegramBot:handleShippingQuery");
+  appDebug("TELEGRAM_BOT_HANDLE_SHIPPING_QUERY");
   store.dispatch({ type: "SHIPPING_QUERY", query: shippingQuery });
 };
 

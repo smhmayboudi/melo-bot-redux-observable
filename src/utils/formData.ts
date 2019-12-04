@@ -6,11 +6,11 @@ import { IStateSendAnimationQuery } from "../../types/iStateSendAnimationQuery";
 import { IStateSendAudioQuery } from "../../types/iStateSendAudioQuery";
 import { IStateSendDocumentQuery } from "../../types/iStateSendDocumentQuery";
 import { IStateSendMediaGroupQuery } from "../../types/iStateSendMediaGroupQuery";
+import { IStateSendPhotoQuery } from "../../types/iStateSendPhotoQuery";
 import { IStateSendStickerQuery } from "../../types/iStateSendStickerQuery";
+import { IStateSendVideoNoteQuery } from "../../types/iStateSendVideoNoteQuery";
 import { IStateSendVideoQuery } from "../../types/iStateSendVideoQuery";
 import { IStateSendVoiceQuery } from "../../types/iStateSendVoiceQuery";
-import { IStateSendVideoNoteQuery } from "../../types/iStateSendVideoNoteQuery";
-import { IStateSendPhotoQuery } from "../../types/iStateSendPhotoQuery";
 
 const transformAddStickerToSetQuery: (
   query: IStateAddStickerToSetQuery
