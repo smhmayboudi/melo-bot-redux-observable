@@ -1,5 +1,6 @@
 import { Enforcer, newEnforcer } from "casbin";
 import debug from "debug";
+import * as path from "path";
 import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 import { IAction } from "../../types/iAction";
@@ -15,8 +16,8 @@ const authorization: Middleware<{}, IState, Dispatch<IAction>> = ({
   next: Dispatch<IAction>
 ) => async (action: IAction): Promise<IAction> => {
   const enforcer: Enforcer = await newEnforcer(
-    "./authorization.conf",
-    "./authorization.csv"
+    path.resolve(__dirname, "../../authorization.conf"),
+    path.resolve(__dirname, "../../authorization.csv")
   );
   const state: IState = getState();
   if (

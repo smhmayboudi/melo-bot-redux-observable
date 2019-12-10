@@ -16,7 +16,9 @@ const caption: (text: string) => string = (text: string): string =>
   } <a href="${env.CHANNEL_JOIN_LINK}">@${env.CHANNEL}</a>`;
 
 const decode = (text: string, objType: string): any => {
-  const root = protobufjs.loadSync(`./proto/${objType}.proto`);
+  const root = protobufjs.loadSync(
+    path.resolve(__dirname, "../../proto", `${objType}.proto`)
+  );
   const type = root.lookupType(objType);
   const buffer = Buffer.from(text, "base64");
   const message = type.decode(buffer);
@@ -24,7 +26,9 @@ const decode = (text: string, objType: string): any => {
 };
 
 const encode = (obj: any, objType: string): string => {
-  const root = protobufjs.loadSync(`./proto/${objType}.proto`);
+  const root = protobufjs.loadSync(
+    path.resolve(__dirname, "../../proto", `${objType}.proto`)
+  );
   const type = root.lookupType(objType);
   const errMsg = type.verify(obj);
   if (errMsg) {
