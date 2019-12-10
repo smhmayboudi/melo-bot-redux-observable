@@ -1,4 +1,5 @@
 #export DEBUG=*,-not_this
+export BOT_NAME=melo_bit_bot
 export BOT_TOKEN=520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc
 export CHANNEL=melodio
 export CHANNEL_JOIN_LINK=https://t.me/joinchat/AAAAAEPogeZYp43PUvrfyA

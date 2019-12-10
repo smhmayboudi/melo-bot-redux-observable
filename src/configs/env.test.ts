@@ -1,6 +1,10 @@
 import * as env from "./env";
 
 describe("env configs", (): void => {
+  test("should handle BOT_NAME", (): void => {
+    expect(env.BOT_NAME).toBe("melo_bit_bot");
+  });
+
   test("should handle BOT_TOKEN", (): void => {
     expect(env.BOT_TOKEN).toBe("520526310:AAHBhSmt26hE71hP6ZKzrV7LFrQUtSOPYRc");
   });

@@ -1,6 +1,7 @@
 import { ICommand } from "../../types/iCommand";
 import { ICommandStartGroupOptions } from "../../types/iCommandStartGroupOptions";
 import { ICommandStartOptions } from "../../types/iCommandStartOptions";
+import * as env from "../configs/env";
 import { decode, encode } from "./string";
 
 const separator = " ";
@@ -14,8 +15,8 @@ const stringify: (
   optsType?: string
 ): string =>
   opts !== undefined && optsType !== undefined
-    ? `t.me/melo_bit_bot?${name}=${encode(opts, optsType)}`
-    : `t.me/melo_bit_bot?${name}=hi`;
+    ? `t.me/${env.BOT_NAME}?${name}=${encode(opts, optsType)}`
+    : `t.me/${env.BOT_NAME}?${name}=hi`;
 const parse: <TOpts>(cmd: string, optsType?: string) => ICommand<TOpts> = <
   TOpts
 >(

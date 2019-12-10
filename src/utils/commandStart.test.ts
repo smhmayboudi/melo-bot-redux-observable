@@ -1,3 +1,4 @@
+import * as env from "../configs/env";
 import * as commandStart from "./commandStart";
 
 describe("commandStart utils", (): void => {
@@ -11,12 +12,12 @@ describe("commandStart utils", (): void => {
   });
 
   test("should handle start", (): void => {
-    expect(commandStart.start()).toEqual("t.me/melo_bit_bot?start=hi");
+    expect(commandStart.start()).toEqual(`t.me/${env.BOT_NAME}?start=hi`);
   });
 
   test("should handle startGroup", (): void => {
     expect(commandStart.startGroup()).toEqual(
-      "t.me/melo_bit_bot?startgroup=hi"
+      `t.me/${env.BOT_NAME}?startgroup=hi`
     );
   });
 
@@ -27,6 +28,6 @@ describe("commandStart utils", (): void => {
         { cmd: "/rl CgtGa01QdHgyUmtCaw" },
         "iCommandStartOptions"
       )
-    ).toEqual("t.me/melo_bit_bot?start=ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3");
+    ).toEqual(`t.me/${env.BOT_NAME}?start=ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3`);
   });
 });

@@ -19,6 +19,7 @@ const getter: (key: string, type: string) => string = (
   return "";
 };
 
+const BOT_NAME: string = getter("BOT_NAME", "string");
 const BOT_TOKEN: string = getter("BOT_TOKEN", "string");
 const CHANNEL: string = getter("CHANNEL", "string");
 const CHANNEL_JOIN_LINK: string = getter("CHANNEL_JOIN_LINK", "string");
@@ -89,6 +90,7 @@ const TELEGRAM_TEXT_LENGTH: number = parseInt(
 
 export {
   getter,
+  BOT_NAME,
   BOT_TOKEN,
   CHANNEL,
   CHANNEL_JOIN_LINK,
