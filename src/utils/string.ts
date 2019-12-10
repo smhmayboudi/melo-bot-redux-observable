@@ -15,7 +15,10 @@ const caption: (text: string) => string = (text: string): string =>
     findByCode("1F194").char
   } <a href="${env.CHANNEL_JOIN_LINK}">@${env.CHANNEL}</a>`;
 
-const decode = (text: string, objType: string): any => {
+const decode: (text: string, objType: string) => any = (
+  text: string,
+  objType: string
+): any => {
   const root = protobufjs.loadSync(
     path.resolve(__dirname, "../../proto", `${objType}.proto`)
   );
@@ -25,7 +28,10 @@ const decode = (text: string, objType: string): any => {
   return message;
 };
 
-const encode = (obj: any, objType: string): string => {
+const encode: (obj: any, objType: string) => string = (
+  obj: any,
+  objType: string
+): string => {
   const root = protobufjs.loadSync(
     path.resolve(__dirname, "../../proto", `${objType}.proto`)
   );

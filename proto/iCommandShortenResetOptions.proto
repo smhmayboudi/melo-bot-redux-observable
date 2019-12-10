@@ -1,5 +1,5 @@
 syntax = "proto3";
  
 message iCommandShortenResetOptions {
-    number id = 1;
+    float id = 1;
 }
