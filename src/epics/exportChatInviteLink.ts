@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const exportChatInviteLink: (
   action$: Observable<IActionExportChatInviteLink>,
@@ -18,7 +17,7 @@ const exportChatInviteLink: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionExportChatInviteLink> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionExportChatInviteLink
@@ -28,7 +27,9 @@ const exportChatInviteLink: (
     if (action.exportChatInviteLink.query === undefined) {
       return of(
         actions.exportChatInviteLink.error({
-          error: new Error(texts.actionExportChatInviteLinkQueryUndefined)
+          error: new Error(
+            locales.find("actionExportChatInviteLinkQueryUndefined")
+          )
         })
       );
     }

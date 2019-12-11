@@ -1,6 +1,9 @@
+import { ILocale } from "../../types/iLocale";
+import { locale } from "../utils/string";
 import { handleWebhookError } from "./telegramBotHandleWebhookError";
 
 describe("telegramBotHandleWebhookError configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -10,7 +13,7 @@ describe("telegramBotHandleWebhookError configs", (): void => {
 
   test("should handle", (): void => {
     const error: Error = new Error("");
-    handleWebhookError(store, error);
+    handleWebhookError(locales, store, error);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

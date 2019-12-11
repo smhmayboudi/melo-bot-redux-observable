@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformSendVoiceQuery } from "../utils/formData";
 
 const sendVoice: (
@@ -20,7 +19,7 @@ const sendVoice: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendVoice> => {
-  const { botToken, requestsUploadObservable } = dependencies;
+  const { botToken, locales, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendVoice
@@ -30,7 +29,7 @@ const sendVoice: (
     if (action.sendVoice.query === undefined) {
       return of(
         actions.sendVoice.error({
-          error: new Error(texts.actionSendVoiceQueryUndefined)
+          error: new Error(locales.find("actionSendVoiceQueryUndefined"))
         })
       );
     }

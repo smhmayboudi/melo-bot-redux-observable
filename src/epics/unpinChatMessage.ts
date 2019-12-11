@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const unpinChatMessage: (
   action$: Observable<IActionUnpinChatMessage>,
@@ -18,7 +17,7 @@ const unpinChatMessage: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionUnpinChatMessage> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionUnpinChatMessage
@@ -28,7 +27,7 @@ const unpinChatMessage: (
     if (action.unpinChatMessage.query === undefined) {
       return of(
         actions.unpinChatMessage.error({
-          error: new Error(texts.actionUnpinChatMessageQueryUndefined)
+          error: new Error(locales.find("actionUnpinChatMessageQueryUndefined"))
         })
       );
     }

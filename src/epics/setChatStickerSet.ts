@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const setChatStickerSet: (
   action$: Observable<IActionSetChatStickerSet>,
@@ -18,7 +17,7 @@ const setChatStickerSet: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetChatStickerSet> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetChatStickerSet
@@ -28,7 +27,9 @@ const setChatStickerSet: (
     if (action.setChatStickerSet.query === undefined) {
       return of(
         actions.setChatStickerSet.error({
-          error: new Error(texts.actionSetChatStickerSetQueryUndefined)
+          error: new Error(
+            locales.find("actionSetChatStickerSetQueryUndefined")
+          )
         })
       );
     }

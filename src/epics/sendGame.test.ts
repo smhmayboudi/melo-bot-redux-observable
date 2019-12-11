@@ -6,16 +6,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSendGame } from "../../types/iActionSendGame";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSendGameQuery } from "../../types/iStateSendGameQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/sendGame";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("sendGame epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSendGameQuery = {
     chat_id: 0,
@@ -55,7 +57,7 @@ describe("sendGame epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -76,7 +78,7 @@ describe("sendGame epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -85,7 +87,7 @@ describe("sendGame epic", (): void => {
       > = epic.sendGame(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.sendGame.error({
-          error: new Error(texts.actionSendGameQueryUndefined)
+          error: new Error(locales.find("actionSendGameQueryUndefined"))
         })
       });
     });
@@ -99,7 +101,7 @@ describe("sendGame epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -123,7 +125,7 @@ describe("sendGame epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

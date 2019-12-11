@@ -6,16 +6,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSendSticker } from "../../types/iActionSendSticker";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSendStickerQuery } from "../../types/iStateSendStickerQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/sendSticker";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("sendSticker epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSendStickerQuery = {
     chat_id: 0,
@@ -55,7 +57,7 @@ describe("sendSticker epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -77,7 +79,7 @@ describe("sendSticker epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -86,7 +88,7 @@ describe("sendSticker epic", (): void => {
       > = epic.sendSticker(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.sendSticker.error({
-          error: new Error(texts.actionSendStickerQueryUndefined)
+          error: new Error(locales.find("actionSendStickerQueryUndefined"))
         })
       });
     });
@@ -100,7 +102,7 @@ describe("sendSticker epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -124,7 +126,7 @@ describe("sendSticker epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

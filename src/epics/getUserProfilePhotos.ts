@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getUserProfilePhotos: (
   action$: Observable<IActionGetUserProfilePhotos>,
@@ -19,7 +18,7 @@ const getUserProfilePhotos: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetUserProfilePhotos> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetUserProfilePhotos
@@ -29,7 +28,9 @@ const getUserProfilePhotos: (
     if (action.getUserProfilePhotos.query === undefined) {
       return of(
         actions.getUserProfilePhotos.error({
-          error: new Error(texts.actionGetUserProfilePhotosQueryUndefined)
+          error: new Error(
+            locales.find("actionGetUserProfilePhotosQueryUndefined")
+          )
         })
       );
     }

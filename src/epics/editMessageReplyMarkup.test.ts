@@ -6,16 +6,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionEditMessageReplyMarkup } from "../../types/iActionEditMessageReplyMarkup";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateEditMessageReplyMarkupQuery } from "../../types/iStateEditMessageReplyMarkupQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/editMessageReplyMarkup";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("editMessageReplyMarkup epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateEditMessageReplyMarkupQuery = {};
   const result: IMessage = {
@@ -55,7 +57,7 @@ describe("editMessageReplyMarkup epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -76,7 +78,7 @@ describe("editMessageReplyMarkup epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -85,7 +87,9 @@ describe("editMessageReplyMarkup epic", (): void => {
       > = epic.editMessageReplyMarkup(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.editMessageReplyMarkup.error({
-          error: new Error(texts.actionEditMessageReplyMarkupQueryUndefined)
+          error: new Error(
+            locales.find("actionEditMessageReplyMarkupQueryUndefined")
+          )
         })
       });
     });
@@ -102,7 +106,7 @@ describe("editMessageReplyMarkup epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -129,7 +133,7 @@ describe("editMessageReplyMarkup epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

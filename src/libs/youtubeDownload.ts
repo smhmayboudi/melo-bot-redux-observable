@@ -2,11 +2,17 @@ import debug from "debug";
 import * as fs from "fs";
 import * as http from "http";
 import * as https from "https";
+import * as path from "path";
 
-import { pathThumb, pathVideo } from "../utils/string";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 
 const appDebug: debug.IDebugger = debug("app:lib:youtubeDownload");
+
+const pathThumb: (id: string) => string = (id: string): string =>
+  path.resolve(__dirname, "../../asset", `${id}.jpg`);
+
+const pathVideo: (id: string) => string = (id: string): string =>
+  path.resolve(__dirname, "../../asset", `${id}.mp4`);
 
 const youtubeDownload: (
   videoId: string
@@ -313,4 +319,4 @@ const youtubeDownload: (
     }
   );
 
-export { youtubeDownload };
+export { pathThumb, pathVideo, youtubeDownload };

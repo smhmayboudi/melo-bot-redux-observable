@@ -1,17 +1,21 @@
 import { StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 
+import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
+import { locale } from "../utils/string";
 import { startAction } from "./youtubeDownloadToGetChatMember";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToGetChatMember", (): void => {
+    const locales: ILocale = locale("en");
     const state$Value: IState = {
       ...initialState,
       message: {
@@ -48,9 +52,12 @@ describe("youtubeDownload epic", (): void => {
 
     test("should handle error state$ undefined", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
-      expect(startAction(state$)).toEqual(
+      const dependencies: IDependencies = {
+        ...initDependencies(locales).initDependencies
+      };
+      expect(startAction(state$, dependencies)).toEqual(
         actions.youtubeDownload.error({
-          error: new Error(texts.state$Undefined)
+          error: new Error(locales.find("state$Undefined"))
         })
       );
     });
@@ -60,9 +67,12 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$ValueMessageQueryUndefined
       );
-      expect(startAction(state$)).toEqual(
+      const dependencies: IDependencies = {
+        ...initDependencies(locales).initDependencies
+      };
+      expect(startAction(state$, dependencies)).toEqual(
         actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
+          error: new Error(locales.find("state$ValueMessageQueryUndefined"))
         })
       );
     });
@@ -72,9 +82,14 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$ValueMessageQueryMessageUndefined
       );
-      expect(startAction(state$)).toEqual(
+      const dependencies: IDependencies = {
+        ...initDependencies(locales).initDependencies
+      };
+      expect(startAction(state$, dependencies)).toEqual(
         actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+          error: new Error(
+            locales.find("state$ValueMessageQueryMessageUndefined")
+          )
         })
       );
     });
@@ -84,7 +99,10 @@ describe("youtubeDownload epic", (): void => {
         new Subject(),
         state$Value
       );
-      expect(startAction(state$)).toEqual(
+      const dependencies: IDependencies = {
+        ...initDependencies(locales).initDependencies
+      };
+      expect(startAction(state$, dependencies)).toEqual(
         actions.getChatMember.query({
           query: {
             chat_id: `@${env.CHANNEL}`,

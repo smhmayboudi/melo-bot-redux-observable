@@ -1,49 +1,56 @@
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
+
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
+import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
-import { encode } from "../utils/string";
 import {
+  encode,
   transformVideoCaption,
   transformVideoThumbnailUrl
 } from "../utils/string";
 
 const transformObservable: (
-  state$: StateObservable<IState> | undefined
-) => (
-  action: IActionYoutubeVideoList
+  action: IActionYoutubeVideoList,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ) => (
   action2: IActionCallbackQueryDataInsert
 ) => Observable<IActionEditMessageMedia | IActionYoutubeVideoList> = (
-  state$: StateObservable<IState> | undefined
-) => (action: IActionYoutubeVideoList) => (
+  action: IActionYoutubeVideoList,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
+) => (
   action2: IActionCallbackQueryDataInsert
 ): Observable<IActionEditMessageMedia | IActionYoutubeVideoList> => {
+  const { locales } = dependencies;
+
   if (action.type === actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_ERROR) {
     return of(action);
   }
   if (state$ === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       })
     );
   }
   if (state$.value.message.query === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.state$ValueMessageQueryUndefined)
+        error: new Error(locales.find("state$ValueMessageQueryUndefined"))
       })
     );
   }
   if (state$.value.message.query.callback_query === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.state$ValueMessageQueryCallbackQueryUndefined)
+        error: new Error(
+          locales.find("state$ValueMessageQueryCallbackQueryUndefined")
+        )
       })
     );
   }
@@ -51,7 +58,7 @@ const transformObservable: (
     return of(
       actions.youtubeVideoList.error({
         error: new Error(
-          texts.state$ValueMessageQueryCallbackQueryMessageUndefined
+          locales.find("state$ValueMessageQueryCallbackQueryMessageUndefined")
         )
       })
     );
@@ -59,35 +66,43 @@ const transformObservable: (
   if (state$.value.youtubeVideoList.query === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
+        error: new Error(
+          locales.find("state$ValueYoutubeVideoListQueryUndefined")
+        )
       })
     );
   }
   if (state$.value.youtubeVideoList.query.chart === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.state$ValueYoutubeVideoListQueryChartUndefined)
+        error: new Error(
+          locales.find("state$ValueYoutubeVideoListQueryChartUndefined")
+        )
       })
     );
   }
   if (action.youtubeVideoList.result === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.actionYoutubeVideoListResultUndefined)
+        error: new Error(locales.find("actionYoutubeVideoListResultUndefined"))
       })
     );
   }
   if (action.youtubeVideoList.result.items === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
+        error: new Error(
+          locales.find("actionYoutubeVideoListResultItemsUndefined")
+        )
       })
     );
   }
   if (action2.callbackQueryDataInsert.result === undefined) {
     return of(
       actions.youtubeVideoList.error({
-        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
+        error: new Error(
+          locales.find("actionCallbackQueryDataInsertResultUndefined")
+        )
       })
     );
   }
@@ -105,7 +120,7 @@ const transformObservable: (
         },
         "iStateCallbackQueryDataFindQuery"
       ),
-      text: texts.messageWithPaginationPrev
+      text: locales.find("messageWithPaginationPrev")
     });
   }
   if (
@@ -120,7 +135,7 @@ const transformObservable: (
         },
         "iStateCallbackQueryDataFindQuery"
       ),
-      text: texts.messageWithPaginationNext
+      text: locales.find("messageWithPaginationNext")
     });
   }
 

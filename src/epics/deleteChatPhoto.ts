@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const deleteChatPhoto: (
   action$: Observable<IActionDeleteChatPhoto>,
@@ -18,7 +17,7 @@ const deleteChatPhoto: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteChatPhoto> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteChatPhoto
@@ -28,7 +27,7 @@ const deleteChatPhoto: (
     if (action.deleteChatPhoto.query === undefined) {
       return of(
         actions.deleteChatPhoto.error({
-          error: new Error(texts.actionDeleteChatPhotoQueryUndefined)
+          error: new Error(locales.find("actionDeleteChatPhotoQueryUndefined"))
         })
       );
     }

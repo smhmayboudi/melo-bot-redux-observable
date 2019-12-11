@@ -7,15 +7,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSetChatPhoto } from "../../types/iActionSetChatPhoto";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSetChatPhotoQuery } from "../../types/iStateSetChatPhotoQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/setChatPhoto";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("setChatPhoto epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSetChatPhotoQuery = {
     chat_id: "",
@@ -48,7 +50,7 @@ describe("setChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -69,7 +71,7 @@ describe("setChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -78,7 +80,7 @@ describe("setChatPhoto epic", (): void => {
       > = epic.setChatPhoto(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.setChatPhoto.error({
-          error: new Error(texts.actionSetChatPhotoQueryUndefined)
+          error: new Error(locales.find("actionSetChatPhotoQueryUndefined"))
         })
       });
     });
@@ -92,7 +94,7 @@ describe("setChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -116,7 +118,7 @@ describe("setChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

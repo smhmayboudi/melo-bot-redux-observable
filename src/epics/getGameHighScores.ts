@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IGameHighScore } from "../../types/telegramBot/games/iGameHighScore";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getGameHighScores: (
   action$: Observable<IActionGetGameHighScores>,
@@ -19,7 +18,7 @@ const getGameHighScores: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetGameHighScores> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetGameHighScores
@@ -29,7 +28,9 @@ const getGameHighScores: (
     if (action.getGameHighScores.query === undefined) {
       return of(
         actions.getGameHighScores.error({
-          error: new Error(texts.actionGetGameHighScoresQueryUndefined)
+          error: new Error(
+            locales.find("actionGetGameHighScoresQueryUndefined")
+          )
         })
       );
     }

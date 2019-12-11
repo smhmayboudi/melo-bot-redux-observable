@@ -11,7 +11,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const <%= h.changeCase.camel(name)%>: (
   action$: Observable<IAction<%= h.changeCase.pascal(name)%>>,
@@ -22,7 +21,7 @@ const <%= h.changeCase.camel(name)%>: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IAction<%= h.changeCase.pascal(name)%>> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IAction<%= h.changeCase.pascal(name)%>
@@ -32,7 +31,7 @@ const <%= h.changeCase.camel(name)%>: (
     if (action.<%= h.changeCase.camel(name)%>.query === undefined) {
       return of(
         actions.<%= h.changeCase.camel(name)%>.error({
-          error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined)
+          error: new Error(locales.find("action<%= h.changeCase.pascal(name)%>QueryUndefined"))
         })
       );
     }

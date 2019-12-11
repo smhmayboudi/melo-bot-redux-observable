@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionAddStickerToSet } from "../../types/iActionAddStickerToSet";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateAddStickerToSetQuery } from "../../types/iStateAddStickerToSetQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/addStickerToSet";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("addStickerToSet epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateAddStickerToSetQuery = {
     emojis: "",
@@ -49,7 +51,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -71,7 +73,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -80,7 +82,7 @@ describe("addStickerToSet epic", (): void => {
       > = epic.addStickerToSet(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.addStickerToSet.error({
-          error: new Error(texts.actionAddStickerToSetQueryUndefined)
+          error: new Error(locales.find("actionAddStickerToSetQueryUndefined"))
         })
       });
     });
@@ -94,7 +96,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -118,7 +120,7 @@ describe("addStickerToSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const stopPoll: (
   action$: Observable<IActionStopPoll>,
@@ -18,7 +17,7 @@ const stopPoll: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionStopPoll> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionStopPoll
@@ -28,7 +27,7 @@ const stopPoll: (
     if (action.stopPoll.query === undefined) {
       return of(
         actions.stopPoll.error({
-          error: new Error(texts.actionStopPollQueryUndefined)
+          error: new Error(locales.find("actionStopPollQueryUndefined"))
         })
       );
     }

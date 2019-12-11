@@ -3,41 +3,45 @@ import { Observable, of } from "rxjs";
 
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 
 const transformObservable: (
-  state$: StateObservable<IState> | undefined
-) => (
-  action: IActionYoutubeDownload
+  action: IActionYoutubeDownload,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ) => Observable<IActionSendMessage | IActionYoutubeDownload> = (
-  state$: StateObservable<IState> | undefined
-) => (
-  action: IActionYoutubeDownload
+  action: IActionYoutubeDownload,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ): Observable<IActionSendMessage | IActionYoutubeDownload> => {
+  const { locales } = dependencies;
+
   if (action.type === actions.youtubeDownload.YOUTUBE_DOWNLOAD_ERROR) {
     return of(action);
   }
   if (state$ === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       })
     );
   }
   if (state$.value.message.query === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.state$ValueMessageQueryUndefined)
+        error: new Error(locales.find("state$ValueMessageQueryUndefined"))
       })
     );
   }
   if (state$.value.message.query.message === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+        error: new Error(
+          locales.find("state$ValueMessageQueryMessageUndefined")
+        )
       })
     );
   }

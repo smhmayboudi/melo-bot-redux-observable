@@ -16,17 +16,19 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { collectionObservable } from "../libs/mongodbObservable";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
+import { locale } from "../utils/string";
 import * as epic from "./callbackQueryDataFind";
 
 describe("callbackQueryDataFind epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateCallbackQueryDataFindQuery = {
     id: "000000000000000000000000",
@@ -98,7 +100,7 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -125,7 +127,7 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -152,7 +154,7 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -179,7 +181,7 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -191,7 +193,9 @@ describe("callbackQueryDataFind epic", (): void => {
       );
       expectObservable(output$).toBe("-a", {
         a: actions.callbackQueryDataFind.error({
-          error: new Error(texts.actionCallbackQueryDataFindQueryUndefined)
+          error: new Error(
+            locales.find("actionCallbackQueryDataFindQueryUndefined")
+          )
         })
       });
     });
@@ -208,7 +212,7 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)

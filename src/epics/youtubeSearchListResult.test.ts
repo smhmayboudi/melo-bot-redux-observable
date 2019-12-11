@@ -1,30 +1,33 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Observable, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageText } from "../../types/iActionEditMessageText";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 // import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 // import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
-// import * as texts from "../configs/texts";
-// import { transformSearchResults as transformSearchListInlineQueryResultArticle } from "../utils/inlineQueryResultArticle";
-import { transformSearchResults as transformSearchListString } from "../utils/string";
+import { init as initDependencies } from "../utils/dependencies";
+import { initialState } from "../utils/store";
+// // import { transformSearchResults as transformSearchListInlineQueryResultArticle } from "../utils/inlineQueryResultArticle";
+import {
+  locale,
+  transformSearchResults as transformSearchListString
+} from "../utils/string";
 import * as epic from "./youtubeSearchListResult";
-import { initialDependencies } from "../utils/dependencies";
 
 describe("youtubeSearchListResult epic", (): void => {
+  const locales: ILocale = locale("en");
   const query: IStateYoutubeSearchListQuery = {
     key: "",
     q: "",
@@ -83,7 +86,8 @@ describe("youtubeSearchListResult epic", (): void => {
         from: {
           first_name: "",
           id: 0,
-          is_bot: false
+          is_bot: false,
+          language_code: "en"
         },
         id: "",
         offset: "",
@@ -97,7 +101,8 @@ describe("youtubeSearchListResult epic", (): void => {
           from: {
             first_name: "",
             id: 0,
-            is_bot: false
+            is_bot: false,
+            language_code: "en"
           },
           id: "",
           message: {
@@ -236,7 +241,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("-a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.actionYoutubeSearchListQueryUndefined)
+  //         error: new Error(locales.find("actionYoutubeSearchListQueryUndefined"))
   //       })
   //     });
   //   });
@@ -262,7 +267,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.actionYoutubeSearchListResultUndefined)
+  //         error: new Error(locales.find("actionYoutubeSearchListResultUndefined"))
   //       })
   //     });
   //   });
@@ -291,7 +296,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
+  //         error: new Error(locales.find("actionYoutubeSearchListResultItemsUndefined"))
   //       })
   //     });
   //   });
@@ -317,7 +322,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$Undefined)
+  //         error: new Error(locales.find("state$Undefined"))
   //       })
   //     });
   //   });
@@ -346,7 +351,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueInlineQueryQueryUndefined)
+  //         error: new Error(locales.find("state$ValueInlineQueryQueryUndefined"))
   //       })
   //     });
   //   });
@@ -375,7 +380,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
+  //         error: new Error(locales.find("state$ValueYoutubeSearchListQueryUndefined"))
   //       })
   //     });
   //   });
@@ -404,7 +409,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
+  //         error: new Error(locales.find("state$ValueYoutubeSearchListQueryQUndefined"))
   //       })
   //     });
   //   });
@@ -441,7 +446,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //             result.items as youtube_v3.Schema$SearchResult[]
   //           ),
   //           switch_pm_parameter: "string",
-  //           switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
+  //           switch_pm_text: locales.find("actionAnswerInlineQueryQuerySwitchPMText")
   //         }
   //       })
   //     });
@@ -471,7 +476,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueMessageQueryUndefined)
+  //         error: new Error(locales.find("state$ValueMessageQueryUndefined"))
   //       })
   //     });
   //   });
@@ -500,7 +505,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+  //         error: new Error(locales.find("state$ValueMessageQueryMessageUndefined"))
   //       })
   //     });
   //   });
@@ -529,7 +534,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
+  //         error: new Error(locales.find("state$ValueYoutubeSearchListQueryUndefined"))
   //       })
   //     });
   //   });
@@ -558,7 +563,7 @@ describe("youtubeSearchListResult epic", (): void => {
   //     > = epic.youtubeSearchListResult(action$, state$, dependencies);
   //     expectObservable(output$).toBe("---a", {
   //       a: actions.youtubeSearchList.error({
-  //         error: new Error(texts.state$ValueYoutubeSearchListQueryQUndefined)
+  //         error: new Error(locales.find("state$ValueYoutubeSearchListQueryQUndefined"))
   //       })
   //     });
   //   });
@@ -575,10 +580,12 @@ describe("youtubeSearchListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
+      const q = (state$Value.youtubeSearchList
+        .query as IStateYoutubeSearchListQuery).q;
       const output$: Observable<
         | IActionAnswerInlineQuery
         | IActionCallbackQueryDataInsert
@@ -605,8 +612,9 @@ describe("youtubeSearchListResult epic", (): void => {
                 reply_to_message_id: 0,
                 text: transformSearchListString(
                   result.items as youtube_v3.Schema$SearchResult[],
-                  (state$Value.youtubeSearchList
-                    .query as IStateYoutubeSearchListQuery).q
+                  locales.find("messageNoResult"),
+                  locales.find("messageSeparator"),
+                  locales.fill("messageResultQ", { q })
                 )
               }
             })

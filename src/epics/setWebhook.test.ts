@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSetWebhook } from "../../types/iActionSetWebhook";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSetWebhookQuery } from "../../types/iStateSetWebhookQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/setWebhook";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("setWebhook epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSetWebhookQuery = {
     url: ""
@@ -46,7 +48,7 @@ describe("setWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -67,7 +69,7 @@ describe("setWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -76,7 +78,7 @@ describe("setWebhook epic", (): void => {
       > = epic.setWebhook(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.setWebhook.error({
-          error: new Error(texts.actionSetWebhookQueryUndefined)
+          error: new Error(locales.find("actionSetWebhookQueryUndefined"))
         })
       });
     });
@@ -90,7 +92,7 @@ describe("setWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -114,7 +116,7 @@ describe("setWebhook epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const editMessageReplyMarkup: (
   action$: Observable<IActionEditMessageReplyMarkup>,
@@ -19,7 +18,7 @@ const editMessageReplyMarkup: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionEditMessageReplyMarkup> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionEditMessageReplyMarkup
@@ -29,7 +28,9 @@ const editMessageReplyMarkup: (
     if (action.editMessageReplyMarkup.query === undefined) {
       return of(
         actions.editMessageReplyMarkup.error({
-          error: new Error(texts.actionEditMessageReplyMarkupQueryUndefined)
+          error: new Error(
+            locales.find("actionEditMessageReplyMarkupQueryUndefined")
+          )
         })
       );
     }

@@ -6,16 +6,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionEditMessageCaption } from "../../types/iActionEditMessageCaption";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateEditMessageCaptionQuery } from "../../types/iStateEditMessageCaptionQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/editMessageCaption";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("editMessageCaption epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateEditMessageCaptionQuery = {};
   const result: IMessage = {
@@ -52,7 +54,7 @@ describe("editMessageCaption epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -73,7 +75,7 @@ describe("editMessageCaption epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -82,7 +84,9 @@ describe("editMessageCaption epic", (): void => {
       > = epic.editMessageCaption(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.editMessageCaption.error({
-          error: new Error(texts.actionEditMessageCaptionQueryUndefined)
+          error: new Error(
+            locales.find("actionEditMessageCaptionQueryUndefined")
+          )
         })
       });
     });
@@ -96,7 +100,7 @@ describe("editMessageCaption epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -120,7 +124,7 @@ describe("editMessageCaption epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

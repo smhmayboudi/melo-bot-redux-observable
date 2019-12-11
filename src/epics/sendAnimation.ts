@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformSendAnimationQuery } from "../utils/formData";
 
 const sendAnimation: (
@@ -20,7 +19,7 @@ const sendAnimation: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendAnimation> => {
-  const { botToken, requestsUploadObservable } = dependencies;
+  const { botToken, locales, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendAnimation
@@ -30,7 +29,7 @@ const sendAnimation: (
     if (action.sendAnimation.query === undefined) {
       return of(
         actions.sendAnimation.error({
-          error: new Error(texts.actionSendAnimationQueryUndefined)
+          error: new Error(locales.find("actionSendAnimationQueryUndefined"))
         })
       );
     }

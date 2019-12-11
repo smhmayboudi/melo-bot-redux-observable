@@ -1,17 +1,14 @@
 import { youtube_v3 } from "googleapis";
-import * as path from "path";
 
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import { findByCode } from "../configs/emojis";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 import * as command from "../utils/command";
 import {
   caption,
   decode,
   encode,
-  pathThumb,
-  pathVideo,
+  locale,
   text,
   transformSearchResultCaption,
   transformSearchResults,
@@ -103,7 +100,9 @@ describe("string utils", (): void => {
   });
 
   test("should handle decode", (): void => {
-    expect(decode("ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3", "Start")).toEqual({
+    expect(
+      decode("ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3", "iCommandStartOptions")
+    ).toEqual({
       cmd: "/rl CgtGa01QdHgyUmtCaw"
     });
   });
@@ -114,20 +113,18 @@ describe("string utils", (): void => {
         {
           cmd: "/rl CgtGa01QdHgyUmtCaw"
         },
-        "Start"
+        "iCommandStartOptions"
       )
     ).toEqual("ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3");
   });
 
-  test("should handle pathThumb", (): void => {
-    expect(pathThumb("E0yxlqfXfEY")).toEqual(
-      path.resolve(__dirname, "../../asset", `${"E0yxlqfXfEY"}.jpg`)
-    );
+  test("should handle locale find", (): void => {
+    expect(locale("fa").find("messageTestFind")).toEqual("TEST");
   });
 
-  test("should handle pathVideo", (): void => {
-    expect(pathVideo("E0yxlqfXfEY")).toEqual(
-      path.resolve(__dirname, "../../asset", `${"E0yxlqfXfEY"}.mp4`)
+  test("should handle locale fill", (): void => {
+    expect(locale("fa").fill("messageTestFill", { test: "TEST" })).toEqual(
+      "TEST TEST"
     );
   });
 
@@ -479,15 +476,11 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformSearchResults items length", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [];
-    expect(transformSearchResults(items, q, undefined)).toEqual(
-      texts.messageNoResult
-    );
+    expect(transformSearchResults(items, "", "", "")).toEqual("");
   });
 
   test("should handle transformSearchResults id undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -495,15 +488,14 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    expect(transformSearchResults(items, q, undefined)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
 
   test("should handle transformSearchResults id videoId undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -514,15 +506,14 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    expect(transformSearchResults(items, q, undefined)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
 
   test("should handle transformSearchResults id videoId null", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -533,15 +524,14 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    expect(transformSearchResults(items, q, undefined)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
 
   test("should handle transformSearchResults snippet undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -549,15 +539,14 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    expect(transformSearchResults(items, q, undefined)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
 
   test("should handle transformSearchResults snippet title undefined", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [
       {
         ...searchResultItem,
@@ -568,9 +557,9 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    expect(transformSearchResults(items, q, undefined)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
@@ -585,14 +574,13 @@ describe("string utils", (): void => {
         `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
-    res.push(texts.messageSeparator);
-    expect(transformSearchResults(items, undefined, undefined)).toEqual(
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
 
   test("should handle transformSearchResults q", (): void => {
-    const q = "";
     const items: youtube_v3.Schema$SearchResult[] = [searchResultItem];
     const res: string[] = [];
     res.push(
@@ -602,15 +590,14 @@ describe("string utils", (): void => {
         `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultQ(q));
-    expect(transformSearchResults(items, q, undefined)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
 
   test("should handle transformSearchResults relatedToVideoId", (): void => {
-    const relatedToVideoId = "";
     const items: youtube_v3.Schema$SearchResult[] = [searchResultItem];
     const res: string[] = [];
     res.push(
@@ -620,9 +607,9 @@ describe("string utils", (): void => {
         `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultRelatedToVideoId(relatedToVideoId));
-    expect(transformSearchResults(items, undefined, relatedToVideoId)).toEqual(
+    res.push("");
+    res.push("");
+    expect(transformSearchResults(items, "", "", "")).toEqual(
       text(res.join("\n"))
     );
   });
@@ -708,12 +695,12 @@ describe("string utils", (): void => {
   });
 
   test("should handle transformShortenList rows undefined", (): void => {
-    expect(transformShortenList(undefined)).toEqual(texts.messageNoResult);
+    expect(transformShortenList("", "", undefined)).toEqual("");
   });
 
   test("should handle transformShortenList rows length", (): void => {
     const rows: IStateShortenListResult[] = [];
-    expect(transformShortenList(rows)).toEqual(texts.messageNoResult);
+    expect(transformShortenList("", "", rows)).toEqual("");
   });
 
   test("should handle transformShortenList", (): void => {
@@ -738,8 +725,8 @@ describe("string utils", (): void => {
     res.push(`<b>count</b>: ${row.count}`);
     res.push(`<b>date</b>: ${row.date}`);
     res.push(command.shortenReset({ id: row.id }));
-    res.push(texts.messageSeparator);
-    expect(transformShortenList(rows)).toEqual(res.join("\n"));
+    res.push("");
+    expect(transformShortenList("", "", rows)).toEqual(res.join("\n"));
   });
 
   test("should handle transformVideoCaption id null", (): void => {
@@ -825,7 +812,7 @@ describe("string utils", (): void => {
 
   test("should handle transformVideos items length", (): void => {
     const items: youtube_v3.Schema$Video[] = [];
-    expect(transformVideos(items, "")).toEqual(texts.messageNoResult);
+    expect(transformVideos(items, "", "", "")).toEqual("");
   });
 
   test("should handle transformVideos id undefined", (): void => {
@@ -836,9 +823,9 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultChart(""));
-    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
+    res.push("");
+    res.push("");
+    expect(transformVideos(items, "", "", "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos id null", (): void => {
@@ -849,9 +836,9 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultChart(""));
-    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
+    res.push("");
+    res.push("");
+    expect(transformVideos(items, "", "", "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos snippet undefined", (): void => {
@@ -862,9 +849,9 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultChart(""));
-    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
+    res.push("");
+    res.push("");
+    expect(transformVideos(items, "", "", "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos snippet title undefined", (): void => {
@@ -878,9 +865,9 @@ describe("string utils", (): void => {
       }
     ];
     const res: string[] = [];
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultChart(""));
-    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
+    res.push("");
+    res.push("");
+    expect(transformVideos(items, "", "", "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideos", (): void => {
@@ -893,9 +880,9 @@ describe("string utils", (): void => {
         `${findByCode("1F517").char} ${command.relatedToVideoId({ id: "" })}`
       ].join("\n")
     );
-    res.push(texts.messageSeparator);
-    res.push(texts.messageResultChart(""));
-    expect(transformVideos(items, "")).toEqual(text(res.join("\n")));
+    res.push("");
+    res.push("");
+    expect(transformVideos(items, "", "", "")).toEqual(text(res.join("\n")));
   });
 
   test("should handle transformVideoThumbnailUrl snippet undefined", (): void => {

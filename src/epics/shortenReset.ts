@@ -7,7 +7,6 @@ import { IActionShortenReset } from "../../types/iActionShortenReset";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 
 const shortenReset: (
@@ -19,7 +18,7 @@ const shortenReset: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMessage | IActionShortenReset> => {
-  const { connectionObservable, queryObservable } = dependencies;
+  const { connectionObservable, locales, queryObservable } = dependencies;
 
   const actionObservable: (
     action: IActionShortenReset
@@ -32,7 +31,9 @@ const shortenReset: (
           if (action.shortenReset.query === undefined) {
             return of(
               actions.shortenReset.error({
-                error: new Error(texts.actionShortenResetQueryUndefined)
+                error: new Error(
+                  locales.find("actionShortenResetQueryUndefined")
+                )
               })
             );
           }

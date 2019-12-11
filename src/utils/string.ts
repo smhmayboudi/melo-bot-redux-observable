@@ -1,12 +1,13 @@
 import * as base64 from "@protobufjs/base64";
+import * as fs from "fs";
 import { youtube_v3 } from "googleapis";
 import * as path from "path";
 import * as protobufjs from "protobufjs";
 
+import { ILocale } from "../../types/iLocale";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import { findByCode } from "../configs/emojis";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 import * as command from "../utils/command";
 import * as commandStart from "../utils/commandStart";
 
@@ -46,11 +47,37 @@ const encode: (obj: any, objType: string) => string = (
   return text;
 };
 
-const pathThumb: (id: string) => string = (id: string): string =>
-  path.resolve(__dirname, "../../asset", `${id}.jpg`);
+const locale: (language: string) => ILocale = (language: string): ILocale => {
+  const textsString = fs.readFileSync(
+    path.resolve(__dirname, "../../locale", `${language}.json`),
+    "utf-8"
+  );
 
-const pathVideo: (id: string) => string = (id: string): string =>
-  path.resolve(__dirname, "../../asset", `${id}.mp4`);
+  const texts: any = JSON.parse(textsString);
+
+  const find: (key: string) => string = (key: string): string => {
+    return texts[key];
+  };
+
+  const fill: (key: string, values: { [key: string]: string }) => string = (
+    key: string,
+    values: { [key: string]: string }
+  ): string => {
+    let text = find(key);
+    for (const key in values) {
+      if (Object.prototype.hasOwnProperty.call(values, key)) {
+        text = text.replace(`$\{${key}}`, values[key]);
+      }
+    }
+
+    return text;
+  };
+
+  return {
+    find,
+    fill
+  };
+};
 
 const text: (text: string) => string = (text: string): string =>
   `${text.substring(0, env.TELEGRAM_TEXT_LENGTH)}\n\n${
@@ -89,16 +116,18 @@ const transformSearchResultCaption: (
 
 const transformSearchResults: (
   items: youtube_v3.Schema$SearchResult[],
-  q?: string,
-  relatedToVideoId?: string
+  messageNoResult: string,
+  messageSeparator: string,
+  messageResultRelatedToVideoId: string
 ) => string = (
   items: youtube_v3.Schema$SearchResult[],
-  q?: string,
-  relatedToVideoId?: string
+  messageNoResult: string,
+  messageSeparator: string,
+  messageResult: string
 ): string => {
   const res: string[] = [];
   if (items.length === 0) {
-    return texts.messageNoResult;
+    return messageNoResult;
   }
   for (let index: number = items.length; index > 0; index = index - 1) {
     const value: youtube_v3.Schema$SearchResult = items[index - 1];
@@ -128,14 +157,10 @@ const transformSearchResults: (
         })}`
       );
     }
-    msg.push(texts.messageSeparator);
+    msg.push(messageSeparator);
     res.push(msg.join("\n"));
   }
-  if (q !== undefined) {
-    res.push(texts.messageResultQ(q));
-  } else if (relatedToVideoId !== undefined) {
-    res.push(texts.messageResultRelatedToVideoId(relatedToVideoId));
-  }
+  res.push(messageResult);
 
   return text(res.join("\n"));
 };
@@ -179,11 +204,17 @@ const transformSearchResultUrl: (
   return "";
 };
 
-const transformShortenList: (rows?: IStateShortenListResult[]) => string = (
+const transformShortenList: (
+  messageNoResult: string,
+  messageSeparator: string,
+  rows?: IStateShortenListResult[]
+) => string = (
+  messageNoResult: string,
+  messageSeparator: string,
   rows?: IStateShortenListResult[]
 ): string => {
   if (rows === undefined || rows.length === 0) {
-    return texts.messageNoResult;
+    return messageNoResult;
   }
   const res: string[] = [];
   for (let index: number = rows.length; index > 0; index = index - 1) {
@@ -197,7 +228,7 @@ const transformShortenList: (rows?: IStateShortenListResult[]) => string = (
     msg.push(`<b>count</b>: ${row.count}`);
     msg.push(`<b>date</b>: ${row.date}`);
     msg.push(command.shortenReset({ id: row.id }));
-    msg.push(texts.messageSeparator);
+    msg.push(messageSeparator);
     res.push(msg.join("\n"));
   }
   return res.join("\n");
@@ -232,10 +263,17 @@ const transformVideoCaption: (item: youtube_v3.Schema$Video) => string = (
 
 const transformVideos: (
   items: youtube_v3.Schema$Video[],
-  chart: string
-) => string = (items: youtube_v3.Schema$Video[], chart: string): string => {
+  messageNoResult: string,
+  messageSeparator: string,
+  messageResult: string
+) => string = (
+  items: youtube_v3.Schema$Video[],
+  messageNoResult: string,
+  messageSeparator: string,
+  messageResult: string
+): string => {
   if (items.length === 0) {
-    return texts.messageNoResult;
+    return messageNoResult;
   }
   const res: string[] = [];
   for (let index: number = items.length; index > 0; index = index - 1) {
@@ -258,10 +296,10 @@ const transformVideos: (
         })}`
       );
     }
-    msg.push(texts.messageSeparator);
+    msg.push(messageSeparator);
     res.push(msg.join("\n"));
   }
-  res.push(texts.messageResultChart(chart));
+  res.push(messageResult);
 
   return text(res.join("\n"));
 };
@@ -309,8 +347,7 @@ export {
   caption,
   decode,
   encode,
-  pathThumb,
-  pathVideo,
+  locale,
   text,
   transformSearchResultCaption,
   transformSearchResults,

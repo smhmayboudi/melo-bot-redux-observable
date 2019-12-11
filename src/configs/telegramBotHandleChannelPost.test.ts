@@ -1,8 +1,10 @@
+import { ILocale } from "../../types/iLocale";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-
+import { locale } from "../utils/string";
 import { handleChannelPost } from "./telegramBotHandleChannelPost";
 
 describe("telegramBotHandleChannelPost configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -19,7 +21,7 @@ describe("telegramBotHandleChannelPost configs", (): void => {
       date: 0,
       message_id: 0
     };
-    handleChannelPost(store, message);
+    handleChannelPost(locales, store, message);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

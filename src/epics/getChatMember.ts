@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getChatMember: (
   action$: Observable<IActionGetChatMember>,
@@ -19,7 +18,7 @@ const getChatMember: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetChatMember> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetChatMember
@@ -29,7 +28,7 @@ const getChatMember: (
     if (action.getChatMember.query === undefined) {
       return of(
         actions.getChatMember.error({
-          error: new Error(texts.actionGetChatMemberQueryUndefined)
+          error: new Error(locales.find("actionGetChatMemberQueryUndefined"))
         })
       );
     }

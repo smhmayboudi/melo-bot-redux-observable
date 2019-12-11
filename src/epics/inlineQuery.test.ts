@@ -7,20 +7,23 @@ import { TestScheduler } from "rxjs/testing";
 import { IActionInlineQuery } from "../../types/iActionInlineQuery";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/inlineQuery";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("inlineQuery epic", (): void => {
+  const locales: ILocale = locale("en");
   const query: IStateInlineQueryQuery = {
     from: {
       first_name: "",
       id: 0,
-      is_bot: false
+      is_bot: false,
+      language_code: "en"
     },
     id: "",
     offset: "",
@@ -45,14 +48,14 @@ describe("inlineQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies
+        ...initDependencies(locales).initDependencies
       };
       const output$: Observable<
         IActionInlineQuery | IActionYoutubeSearchList
       > = epic.inlineQuery(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.inlineQuery.error({
-          error: new Error(texts.actionInlineQueryQueryUndefined)
+          error: new Error(locales.find("actionInlineQueryQueryUndefined"))
         })
       });
     });
@@ -66,7 +69,7 @@ describe("inlineQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies
+        ...initDependencies(locales).initDependencies
       };
       const output$: Observable<
         IActionInlineQuery | IActionYoutubeSearchList
@@ -76,6 +79,7 @@ describe("inlineQuery epic", (): void => {
           query: {
             key: env.GOOGLE_API_KEY,
             maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
+            pageToken: "",
             part: "id,snippet",
             q: query.query,
             regionCode: env.GOOGLE_API_REGION_CODE,

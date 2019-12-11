@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformCreateNewStickerSetQuery } from "../utils/formData";
 
 const createNewStickerSet: (
@@ -19,7 +18,7 @@ const createNewStickerSet: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionCreateNewStickerSet> => {
-  const { botToken, requestsUploadObservable } = dependencies;
+  const { botToken, locales, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionCreateNewStickerSet
@@ -29,7 +28,9 @@ const createNewStickerSet: (
     if (action.createNewStickerSet.query === undefined) {
       return of(
         actions.createNewStickerSet.error({
-          error: new Error(texts.actionCreateNewStickerSetQueryUndefined)
+          error: new Error(
+            locales.find("actionCreateNewStickerSetQueryUndefined")
+          )
         })
       );
     }

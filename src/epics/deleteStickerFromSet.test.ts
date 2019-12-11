@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionDeleteStickerFromSet } from "../../types/iActionDeleteStickerFromSet";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateDeleteStickerFromSetQuery } from "../../types/iStateDeleteStickerFromSetQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/deleteStickerFromSet";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("deleteStickerFromSet epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateDeleteStickerFromSetQuery = {
     sticker: ""
@@ -46,7 +48,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -67,7 +69,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -76,7 +78,9 @@ describe("deleteStickerFromSet epic", (): void => {
       > = epic.deleteStickerFromSet(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.deleteStickerFromSet.error({
-          error: new Error(texts.actionDeleteStickerFromSetQueryUndefined)
+          error: new Error(
+            locales.find("actionDeleteStickerFromSetQueryUndefined")
+          )
         })
       });
     });
@@ -90,7 +94,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -114,7 +118,7 @@ describe("deleteStickerFromSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

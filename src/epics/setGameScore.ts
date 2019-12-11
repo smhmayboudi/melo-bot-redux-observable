@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const setGameScore: (
   action$: Observable<IActionSetGameScore>,
@@ -19,7 +18,7 @@ const setGameScore: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetGameScore> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetGameScore
@@ -29,7 +28,7 @@ const setGameScore: (
     if (action.setGameScore.query === undefined) {
       return of(
         actions.setGameScore.error({
-          error: new Error(texts.actionSetGameScoreQueryUndefined)
+          error: new Error(locales.find("actionSetGameScoreQueryUndefined"))
         })
       );
     }

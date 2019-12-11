@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const answerShippingQuery: (
   action$: Observable<IActionAnswerShippingQuery>,
@@ -18,7 +17,7 @@ const answerShippingQuery: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionAnswerShippingQuery> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionAnswerShippingQuery
@@ -28,7 +27,9 @@ const answerShippingQuery: (
     if (action.answerShippingQuery.query === undefined) {
       return of(
         actions.answerShippingQuery.error({
-          error: new Error(texts.actionAnswerShippingQueryQueryUndefined)
+          error: new Error(
+            locales.find("actionAnswerShippingQueryQueryUndefined")
+          )
         })
       );
     }

@@ -1,8 +1,10 @@
+import { ILocale } from "../../types/iLocale";
 import { IInlineQuery } from "../../types/telegramBot/inlineMode/iInlineQuery";
-
+import { locale } from "../utils/string";
 import { handleInlineQuery } from "./telegramBotHandleInlineQuery";
 
 describe("telegramBotHandleInlineQuery configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -15,13 +17,14 @@ describe("telegramBotHandleInlineQuery configs", (): void => {
       from: {
         first_name: "",
         id: 0,
-        is_bot: false
+        is_bot: false,
+        language_code: "en"
       },
       id: "",
       offset: "",
       query: ""
     };
-    handleInlineQuery(store, inlineQuery);
+    handleInlineQuery(locales, store, inlineQuery);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const deleteChatStickerSet: (
   action$: Observable<IActionDeleteChatStickerSet>,
@@ -18,7 +17,7 @@ const deleteChatStickerSet: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteChatStickerSet> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteChatStickerSet
@@ -28,7 +27,9 @@ const deleteChatStickerSet: (
     if (action.deleteChatStickerSet.query === undefined) {
       return of(
         actions.deleteChatStickerSet.error({
-          error: new Error(texts.actionDeleteChatStickerSetQueryUndefined)
+          error: new Error(
+            locales.find("actionDeleteChatStickerSetQueryUndefined")
+          )
         })
       );
     }

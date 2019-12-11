@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStickerSet } from "../../types/telegramBot/stickers/iStickerSet";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getStickerSet: (
   action$: Observable<IActionGetStickerSet>,
@@ -19,7 +18,7 @@ const getStickerSet: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetStickerSet> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetStickerSet
@@ -29,7 +28,7 @@ const getStickerSet: (
     if (action.getStickerSet.query === undefined) {
       return of(
         actions.getStickerSet.error({
-          error: new Error(texts.actionGetStickerSetQueryUndefined)
+          error: new Error(locales.find("actionGetStickerSetQueryUndefined"))
         })
       );
     }

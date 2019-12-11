@@ -4,17 +4,20 @@ import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
+
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionShortenReset } from "../../types/iActionShortenReset";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateShortenResetQuery } from "../../types/iStateShortenResetQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/shortenReset";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("shortenReset epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateShortenResetQuery = {
     id: 0
@@ -43,7 +46,7 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: result })
       };
@@ -64,7 +67,7 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -85,7 +88,7 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: result })
       };
@@ -94,7 +97,7 @@ describe("shortenReset epic", (): void => {
       > = epic.shortenReset(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.shortenReset.error({
-          error: new Error(texts.actionShortenResetQueryUndefined)
+          error: new Error(locales.find("actionShortenResetQueryUndefined"))
         })
       });
     });
@@ -108,7 +111,7 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: result })
       };

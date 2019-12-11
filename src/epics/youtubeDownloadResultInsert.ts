@@ -14,7 +14,6 @@ import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 
 const youtubeDownloadResultInsert: (
   action$: Observable<IActionYoutubeDownloadResultInsert>,
@@ -28,6 +27,7 @@ const youtubeDownloadResultInsert: (
   const {
     collectionObservable,
     insertOneObservable,
+    locales,
     mongoClientObservable
   } = dependencies;
 
@@ -54,7 +54,9 @@ const youtubeDownloadResultInsert: (
                   return of(
                     actions.youtubeDownloadResultInsert.error({
                       error: new Error(
-                        texts.actionYoutubeDownloadResultInsertQueryUndefined
+                        locales.find(
+                          "actionYoutubeDownloadResultInsertQueryUndefined"
+                        )
                       )
                     })
                   );

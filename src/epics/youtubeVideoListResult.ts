@@ -10,7 +10,6 @@ import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeVideoListToAnswerInlineQuery";
 import { transformObservable as transformObservableToEditMessageMedia } from "./youtubeVideoListToEditMessageMedia";
 import { transformObservable as transformObservableToSendPhoto } from "./youtubeVideoListToSendPhoto";
@@ -36,7 +35,7 @@ const youtubeVideoListResult: (
   | IActionSendPhoto
   | IActionYoutubeVideoList
 > => {
-  const { testAction$ } = dependencies;
+  const { locales, testAction$ } = dependencies;
 
   const transformObservable: (
     action: IActionYoutubeVideoList
@@ -58,16 +57,28 @@ const youtubeVideoListResult: (
     | IActionYoutubeVideoList
   > => {
     if (state$ !== undefined && state$.value.inlineQuery.query !== undefined) {
-      return transformObservableToAnswerInlineQuery(state$)(action)(action2);
+      return transformObservableToAnswerInlineQuery(
+        action,
+        state$,
+        dependencies
+      )(action2);
     } else {
       if (
         state$ !== undefined &&
         state$.value.message.query !== undefined &&
         state$.value.message.query.message !== undefined
       ) {
-        return transformObservableToSendPhoto(state$)(action)(action2);
+        return transformObservableToSendPhoto(
+          action,
+          state$,
+          dependencies
+        )(action2);
       }
-      return transformObservableToEditMessageMedia(state$)(action)(action2);
+      return transformObservableToEditMessageMedia(
+        action,
+        state$,
+        dependencies
+      )(action2);
     }
   };
 
@@ -78,17 +89,19 @@ const youtubeVideoListResult: (
   ): IActionCallbackQueryDataInsert | IActionYoutubeVideoList => {
     if (state$ === undefined) {
       return actions.youtubeVideoList.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       });
     }
     if (action.youtubeVideoList.result === undefined) {
       return actions.youtubeVideoList.error({
-        error: new Error(texts.actionYoutubeVideoListResultUndefined)
+        error: new Error(locales.find("actionYoutubeVideoListResultUndefined"))
       });
     }
     if (action.youtubeVideoList.result.pageInfo === undefined) {
       return actions.youtubeVideoList.error({
-        error: new Error(texts.actionYoutubeVideoListResultPageInfoUndefined)
+        error: new Error(
+          locales.find("actionYoutubeVideoListResultPageInfoUndefined")
+        )
       });
     }
 
@@ -98,7 +111,9 @@ const youtubeVideoListResult: (
     ) {
       return actions.youtubeVideoList.error({
         error: new Error(
-          texts.actionYoutubeVideoListResultPageInfoResultsPerPageUndefined
+          locales.find(
+            "actionYoutubeVideoListResultPageInfoResultsPerPageUndefined"
+          )
         )
       });
     }
@@ -108,7 +123,9 @@ const youtubeVideoListResult: (
     ) {
       return actions.youtubeVideoList.error({
         error: new Error(
-          texts.actionYoutubeVideoListResultPageInfoTotalResultsUndefined
+          locales.find(
+            "actionYoutubeVideoListResultPageInfoTotalResultsUndefined"
+          )
         )
       });
     }

@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const promoteChatMember: (
   action$: Observable<IActionPromoteChatMember>,
@@ -18,7 +17,7 @@ const promoteChatMember: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionPromoteChatMember> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionPromoteChatMember
@@ -28,7 +27,9 @@ const promoteChatMember: (
     if (action.promoteChatMember.query === undefined) {
       return of(
         actions.promoteChatMember.error({
-          error: new Error(texts.actionPromoteChatMemberQueryUndefined)
+          error: new Error(
+            locales.find("actionPromoteChatMemberQueryUndefined")
+          )
         })
       );
     }

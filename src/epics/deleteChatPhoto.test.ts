@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionDeleteChatPhoto } from "../../types/iActionDeleteChatPhoto";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateDeleteChatPhotoQuery } from "../../types/iStateDeleteChatPhotoQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/deleteChatPhoto";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("deleteChatPhoto epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateDeleteChatPhotoQuery = {
     chat_id: 0
@@ -46,7 +48,7 @@ describe("deleteChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -67,7 +69,7 @@ describe("deleteChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -76,7 +78,7 @@ describe("deleteChatPhoto epic", (): void => {
       > = epic.deleteChatPhoto(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.deleteChatPhoto.error({
-          error: new Error(texts.actionDeleteChatPhotoQueryUndefined)
+          error: new Error(locales.find("actionDeleteChatPhotoQueryUndefined"))
         })
       });
     });
@@ -90,7 +92,7 @@ describe("deleteChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -114,7 +116,7 @@ describe("deleteChatPhoto epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

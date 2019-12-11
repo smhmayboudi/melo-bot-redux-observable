@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const kickChatMember: (
   action$: Observable<IActionKickChatMember>,
@@ -18,7 +17,7 @@ const kickChatMember: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionKickChatMember> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionKickChatMember
@@ -28,7 +27,7 @@ const kickChatMember: (
     if (action.kickChatMember.query === undefined) {
       return of(
         actions.kickChatMember.error({
-          error: new Error(texts.actionKickChatMemberQueryUndefined)
+          error: new Error(locales.find("actionKickChatMemberQueryUndefined"))
         })
       );
     }

@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IUser } from "../../types/telegramBot/types/iUser";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getMe: (
   action$: Observable<IActionGetMe>,
@@ -19,7 +18,7 @@ const getMe: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetMe> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (action: IActionGetMe) => Observable<IActionGetMe> = (
     action: IActionGetMe
@@ -27,7 +26,7 @@ const getMe: (
     if (action.getMe.query === undefined) {
       return of(
         actions.getMe.error({
-          error: new Error(texts.actionGetMeQueryUndefined)
+          error: new Error(locales.find("actionGetMeQueryUndefined"))
         })
       );
     }

@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IUpdate } from "../../types/telegramBot/updates/iUpdate";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getUpdates: (
   action$: Observable<IActionGetUpdates>,
@@ -19,7 +18,7 @@ const getUpdates: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetUpdates> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetUpdates
@@ -29,7 +28,7 @@ const getUpdates: (
     if (action.getUpdates.query === undefined) {
       return of(
         actions.getUpdates.error({
-          error: new Error(texts.actionGetUpdatesQueryUndefined)
+          error: new Error(locales.find("actionGetUpdatesQueryUndefined"))
         })
       );
     }

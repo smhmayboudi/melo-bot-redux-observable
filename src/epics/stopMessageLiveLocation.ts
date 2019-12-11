@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const stopMessageLiveLocation: (
   action$: Observable<IActionStopMessageLiveLocation>,
@@ -19,7 +18,7 @@ const stopMessageLiveLocation: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionStopMessageLiveLocation> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionStopMessageLiveLocation
@@ -29,7 +28,9 @@ const stopMessageLiveLocation: (
     if (action.stopMessageLiveLocation.query === undefined) {
       return of(
         actions.stopMessageLiveLocation.error({
-          error: new Error(texts.actionStopMessageLiveLocationQueryUndefined)
+          error: new Error(
+            locales.find("actionStopMessageLiveLocationQueryUndefined")
+          )
         })
       );
     }

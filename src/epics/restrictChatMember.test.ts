@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionRestrictChatMember } from "../../types/iActionRestrictChatMember";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateRestrictChatMemberQuery } from "../../types/iStateRestrictChatMemberQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/restrictChatMember";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("restrictChatMember epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateRestrictChatMemberQuery = {
     chat_id: 0,
@@ -48,7 +50,7 @@ describe("restrictChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -69,7 +71,7 @@ describe("restrictChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -78,7 +80,9 @@ describe("restrictChatMember epic", (): void => {
       > = epic.restrictChatMember(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.restrictChatMember.error({
-          error: new Error(texts.actionRestrictChatMemberQueryUndefined)
+          error: new Error(
+            locales.find("actionRestrictChatMemberQueryUndefined")
+          )
         })
       });
     });
@@ -92,7 +96,7 @@ describe("restrictChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -116,7 +120,7 @@ describe("restrictChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

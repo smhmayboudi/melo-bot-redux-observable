@@ -2,6 +2,7 @@ import debug from "debug";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
@@ -11,9 +12,11 @@ import { decode } from "../utils/string";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleCallbackQuery: (
+  locales: ILocale,
   store: Store<IState, IAction>,
   callbackQuery: ICallbackQuery
 ) => void = (
+  _locales: ILocale,
   store: Store<IState, IAction>,
   callbackQuery: ICallbackQuery
 ): void => {

@@ -7,7 +7,6 @@ import { IActionShortenList } from "../../types/iActionShortenList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 
@@ -20,7 +19,7 @@ const shortenList: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMessage | IActionShortenList> => {
-  const { connectionObservable, queryObservable } = dependencies;
+  const { connectionObservable, locales, queryObservable } = dependencies;
 
   const actionObservable: (
     action: IActionShortenList
@@ -33,7 +32,9 @@ const shortenList: (
           if (action.shortenList.query === undefined) {
             return of(
               actions.shortenList.error({
-                error: new Error(texts.actionShortenListQueryUndefined)
+                error: new Error(
+                  locales.find("actionShortenListQueryUndefined")
+                )
               })
             );
           }

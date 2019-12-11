@@ -2,15 +2,18 @@ import debug from "debug";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IPreCheckoutQuery } from "../../types/telegramBot/payments/iPreCheckoutQuery";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handlePreCheckoutQuery: (
+  locales: ILocale,
   store: Store<IState, IAction>,
   preCheckoutQuery: IPreCheckoutQuery
 ) => void = (
+  _locales: ILocale,
   store: Store<IState, IAction>,
   preCheckoutQuery: IPreCheckoutQuery
 ): void => {

@@ -1,8 +1,10 @@
+import { ILocale } from "../../types/iLocale";
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
-
+import { locale } from "../utils/string";
 import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
 
 describe("telegramBotHandleCallbackQuery configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -16,7 +18,8 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
     from: {
       first_name: "",
       id: 0,
-      is_bot: false
+      is_bot: false,
+      language_code: "en"
     },
     id: "",
     inline_message_id: "",
@@ -31,7 +34,7 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
   };
 
   test("should handle data, inline_message_id undefined", (): void => {
-    handleCallbackQuery(store, {
+    handleCallbackQuery(locales, store, {
       ...callbackQuery,
       data: undefined,
       inline_message_id: undefined
@@ -40,7 +43,7 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
   });
 
   test("should handle inline_message_id undefined", (): void => {
-    handleCallbackQuery(store, {
+    handleCallbackQuery(locales, store, {
       ...callbackQuery,
       inline_message_id: undefined
     });
@@ -48,7 +51,10 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
   });
 
   test("should handle message undefined", (): void => {
-    handleCallbackQuery(store, { ...callbackQuery, message: undefined });
+    handleCallbackQuery(locales, store, {
+      ...callbackQuery,
+      message: undefined
+    });
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

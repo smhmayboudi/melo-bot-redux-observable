@@ -22,6 +22,7 @@ import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
 import { IActionYoutubeDownloadResultInsert } from "../../types/iActionYoutubeDownloadResultInsert";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateGetChatMemberQuery } from "../../types/iStateGetChatMemberQuery";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
@@ -30,22 +31,22 @@ import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQue
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import {
   collectionObservable,
   findOneObservable
 } from "../libs/mongodbObservable";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
-import { caption, encode, pathThumb, pathVideo } from "../utils/string";
+import { caption, encode, locale, pathThumb, pathVideo } from "../utils/string";
 import * as epic from "./youtubeDownload";
 
 jest.mock("fs");
 
 describe("youtubeDownload epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadQuery = {
-    id: encode("small")
+    id: encode("small", "iCommandDownloadOptions")
   };
   const queryGetChatMember: IStateGetChatMemberQuery = {
     chat_id: "@melodio",
@@ -151,7 +152,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -192,7 +193,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -216,7 +217,7 @@ describe("youtubeDownload epic", (): void => {
       expectObservable(output$).toBe("-a-b", {
         a: actions.getChatMember.query({ query: queryGetChatMember }),
         b: actions.youtubeDownload.error({
-          error: new Error(texts.actionYoutubeDownloadQueryUndefined)
+          error: new Error(locales.find("actionYoutubeDownloadQueryUndefined"))
         })
       });
     });
@@ -233,7 +234,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -257,7 +258,7 @@ describe("youtubeDownload epic", (): void => {
       expectObservable(output$).toBe("-a---b", {
         a: actions.getChatMember.query({ query: queryGetChatMember }),
         b: actions.youtubeDownload.error({
-          error: new Error(texts.actionYoutubeDownloadResultUndefined)
+          error: new Error(locales.find("actionYoutubeDownloadResultUndefined"))
         })
       });
     });
@@ -271,7 +272,7 @@ describe("youtubeDownload epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -294,10 +295,10 @@ describe("youtubeDownload epic", (): void => {
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.youtubeDownload.error({
-          error: new Error(texts.state$Undefined)
+          error: new Error(locales.find("state$Undefined"))
         }),
         b: actions.youtubeDownload.error({
-          error: new Error(texts.state$Undefined)
+          error: new Error(locales.find("state$Undefined"))
         })
       });
     });
@@ -314,7 +315,7 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -337,10 +338,10 @@ describe("youtubeDownload epic", (): void => {
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
+          error: new Error(locales.find("state$ValueMessageQueryUndefined"))
         }),
         b: actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
+          error: new Error(locales.find("state$ValueMessageQueryUndefined"))
         })
       });
     });
@@ -357,7 +358,7 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -380,10 +381,14 @@ describe("youtubeDownload epic", (): void => {
       > = epic.youtubeDownload(action$, state$, dependencies);
       expectObservable(output$).toBe("-a---b", {
         a: actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+          error: new Error(
+            locales.find("state$ValueMessageQueryMessageUndefined")
+          )
         }),
         b: actions.youtubeDownload.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+          error: new Error(
+            locales.find("state$ValueMessageQueryMessageUndefined")
+          )
         })
       });
     });
@@ -400,7 +405,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
         mongoClientObservable: (): Observable<any> => cold("-"),
@@ -471,7 +476,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable,
           findOneObservable,
           mongoClientObservable: (): ColdObservable<any> =>
@@ -512,7 +517,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable: (): ColdObservable<any> =>
             cold("--#", {}, error),
           findOneObservable,
@@ -553,7 +558,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable,
           findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
@@ -593,7 +598,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable,
           findOneObservable: (): Observable<any> => cold("-a", { a: null }),
           mongoClientObservable: (): Observable<MongoClient> => of(connection),
@@ -647,7 +652,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable,
           findOneObservable: (): Observable<any> =>
             cold("-a", {
@@ -704,7 +709,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable,
           findOneObservable: (): Observable<any> =>
             cold("-a", {
@@ -761,7 +766,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies,
+          ...initDependencies(locales).initDependencies,
           collectionObservable,
           findOneObservable,
           mongoClientObservable: (): Observable<MongoClient> => of(connection),

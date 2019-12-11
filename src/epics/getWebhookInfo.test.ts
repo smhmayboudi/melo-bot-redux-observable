@@ -6,16 +6,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionGetWebhookInfo } from "../../types/iActionGetWebhookInfo";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetWebhookInfoQuery } from "../../types/iStateGetWebhookInfoQuery";
 import { IWebhookInfo } from "../../types/telegramBot/updates/iWebhookInfo";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/getWebhookInfo";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("getWebhookInfo epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateGetWebhookInfoQuery = {};
   const result: IWebhookInfo = {
@@ -49,7 +51,7 @@ describe("getWebhookInfo epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -70,7 +72,7 @@ describe("getWebhookInfo epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -79,7 +81,7 @@ describe("getWebhookInfo epic", (): void => {
       > = epic.getWebhookInfo(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.getWebhookInfo.error({
-          error: new Error(texts.actionGetWebhookInfoQueryUndefined)
+          error: new Error(locales.find("actionGetWebhookInfoQueryUndefined"))
         })
       });
     });
@@ -93,7 +95,7 @@ describe("getWebhookInfo epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -117,7 +119,7 @@ describe("getWebhookInfo epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const leaveChat: (
   action$: Observable<IActionLeaveChat>,
@@ -18,7 +17,7 @@ const leaveChat: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionLeaveChat> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionLeaveChat
@@ -28,7 +27,7 @@ const leaveChat: (
     if (action.leaveChat.query === undefined) {
       return of(
         actions.leaveChat.error({
-          error: new Error(texts.actionLeaveChatQueryUndefined)
+          error: new Error(locales.find("actionLeaveChatQueryUndefined"))
         })
       );
     }

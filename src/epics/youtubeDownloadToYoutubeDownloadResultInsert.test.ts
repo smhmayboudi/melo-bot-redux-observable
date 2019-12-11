@@ -6,6 +6,8 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
@@ -13,9 +15,9 @@ import { IMessage } from "../../types/telegramBot/types/iMessage";
 import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
-import { caption } from "../utils/string";
+import { caption, locale } from "../utils/string";
 import {
   startAction,
   transformObservable
@@ -23,6 +25,7 @@ import {
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToYoutubeDownloadResultInsert", (): void => {
+    const locales: ILocale = locale("en");
     const state$Value: IState = {
       ...initialState,
       message: {
@@ -118,12 +121,19 @@ describe("youtubeDownload epic", (): void => {
               result: undefined
             }
           );
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResult
           });
-          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
+          expectObservable(
+            transformObservable(action, dependencies)(action2)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.actionYoutubeDownloadResultUndefined)
+              error: new Error(
+                locales.find("actionYoutubeDownloadResultUndefined")
+              )
             })
           });
         });
@@ -137,12 +147,17 @@ describe("youtubeDownload epic", (): void => {
               result
             }
           );
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: undefined
           });
-          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
+          expectObservable(
+            transformObservable(action, dependencies)(action2)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.actionSendVideoResultUndefined)
+              error: new Error(locales.find("actionSendVideoResultUndefined"))
             })
           });
         });
@@ -156,12 +171,19 @@ describe("youtubeDownload epic", (): void => {
               result
             }
           );
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResultVideoUndefined
           });
-          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
+          expectObservable(
+            transformObservable(action, dependencies)(action2)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.actionYoutubeDownloadResultVideoUndefined)
+              error: new Error(
+                locales.find("actionYoutubeDownloadResultVideoUndefined")
+              )
             })
           });
         });
@@ -175,10 +197,15 @@ describe("youtubeDownload epic", (): void => {
               result
             }
           );
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResult
           });
-          expectObservable(transformObservable(action)(action2)).toBe("(a|)", {
+          expectObservable(
+            transformObservable(action, dependencies)(action2)
+          ).toBe("(a|)", {
             a: actions.youtubeDownloadResultInsert.query({
               query: {
                 duration: (actionYoutubeDownloadResult.video as IVideo)
@@ -208,9 +235,12 @@ describe("youtubeDownload epic", (): void => {
           result
         });
         const state$: StateObservable<IState> | undefined = undefined;
-        expect(startAction(state$)(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
-            error: new Error(texts.state$Undefined)
+            error: new Error(locales.find("state$Undefined"))
           })
         );
       });
@@ -223,9 +253,12 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryUndefined
         );
-        expect(startAction(state$)(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
-            error: new Error(texts.state$ValueMessageQueryUndefined)
+            error: new Error(locales.find("state$ValueMessageQueryUndefined"))
           })
         );
       });
@@ -238,9 +271,14 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryMessageUndefined
         );
-        expect(startAction(state$)(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
-            error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+            error: new Error(
+              locales.find("state$ValueMessageQueryMessageUndefined")
+            )
           })
         );
       });
@@ -253,9 +291,14 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(startAction(state$)(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
-            error: new Error(texts.actionYoutubeDownloadResultUndefined)
+            error: new Error(
+              locales.find("actionYoutubeDownloadResultUndefined")
+            )
           })
         );
       });
@@ -268,9 +311,14 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(startAction(state$)(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
-            error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
+            error: new Error(
+              locales.find("actionYoutubeDownloadResultThumbUndefined")
+            )
           })
         );
       });
@@ -283,7 +331,12 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expect(JSON.stringify(startAction(state$)(action))).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(
+          JSON.stringify(startAction(action, state$, dependencies))
+        ).toEqual(
           JSON.stringify(
             actions.sendVideo.query({
               query: {

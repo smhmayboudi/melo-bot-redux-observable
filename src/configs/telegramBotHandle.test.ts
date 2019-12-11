@@ -1,6 +1,9 @@
+import { ILocale } from "../../types/iLocale";
+import { locale } from "../utils/string";
 import { handle } from "./telegramBotHandle";
 
 describe("telegramBotHandle configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -9,7 +12,7 @@ describe("telegramBotHandle configs", (): void => {
   };
 
   test("should handle", (): void => {
-    handle(store);
+    handle(locales, store);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

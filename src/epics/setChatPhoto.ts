@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const setChatPhoto: (
   action$: Observable<IActionSetChatPhoto>,
@@ -18,7 +17,7 @@ const setChatPhoto: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetChatPhoto> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetChatPhoto
@@ -28,7 +27,7 @@ const setChatPhoto: (
     if (action.setChatPhoto.query === undefined) {
       return of(
         actions.setChatPhoto.error({
-          error: new Error(texts.actionSetChatPhotoQueryUndefined)
+          error: new Error(locales.find("actionSetChatPhotoQueryUndefined"))
         })
       );
     }

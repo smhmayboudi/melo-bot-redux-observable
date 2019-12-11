@@ -10,7 +10,6 @@ import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeSearchListToAnswerInlineQuery";
 import { transformObservable as transformObservableToEditMessageText } from "./youtubeSearchListToEditMessageText";
 import { transformObservable as transformObservableToSendMessage } from "./youtubeSearchListToSendMessage";
@@ -36,7 +35,7 @@ const youtubeSearchListResult: (
   | IActionSendMessage
   | IActionYoutubeSearchList
 > => {
-  const { testAction$ } = dependencies;
+  const { locales, testAction$ } = dependencies;
 
   const transformObservable: (
     action: IActionYoutubeSearchList
@@ -58,16 +57,28 @@ const youtubeSearchListResult: (
     | IActionYoutubeSearchList
   > => {
     if (state$ !== undefined && state$.value.inlineQuery.query !== undefined) {
-      return transformObservableToAnswerInlineQuery(state$)(action)(action2);
+      return transformObservableToAnswerInlineQuery(
+        action,
+        state$,
+        dependencies
+      )(action2);
     } else {
       if (
         state$ !== undefined &&
         state$.value.message.query !== undefined &&
         state$.value.message.query.message !== undefined
       ) {
-        return transformObservableToSendMessage(state$)(action)(action2);
+        return transformObservableToSendMessage(
+          action,
+          state$,
+          dependencies
+        )(action2);
       }
-      return transformObservableToEditMessageText(state$)(action)(action2);
+      return transformObservableToEditMessageText(
+        action,
+        state$,
+        dependencies
+      )(action2);
     }
   };
 
@@ -78,22 +89,24 @@ const youtubeSearchListResult: (
   ): IActionCallbackQueryDataInsert | IActionYoutubeSearchList => {
     if (state$ === undefined) {
       return actions.youtubeSearchList.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       });
     }
     if (state$.value.message.query === undefined) {
       return actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueMessageQueryUndefined)
+        error: new Error(locales.find("state$ValueMessageQueryUndefined"))
       });
     }
     if (action.youtubeSearchList.result === undefined) {
       return actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultUndefined)
+        error: new Error(locales.find("actionYoutubeSearchListResultUndefined"))
       });
     }
     if (action.youtubeSearchList.result.pageInfo === undefined) {
       return actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultPageInfoUndefined)
+        error: new Error(
+          locales.find("actionYoutubeSearchListResultPageInfoUndefined")
+        )
       });
     }
 
@@ -122,7 +135,9 @@ const youtubeSearchListResult: (
     ) {
       return actions.youtubeSearchList.error({
         error: new Error(
-          texts.actionYoutubeSearchListResultPageInfoResultsPerPageUndefined
+          locales.find(
+            "actionYoutubeSearchListResultPageInfoResultsPerPageUndefined"
+          )
         )
       });
     }
@@ -132,7 +147,9 @@ const youtubeSearchListResult: (
     ) {
       return actions.youtubeSearchList.error({
         error: new Error(
-          texts.actionYoutubeSearchListResultPageInfoTotalResultsUndefined
+          locales.find(
+            "actionYoutubeSearchListResultPageInfoTotalResultsUndefined"
+          )
         )
       });
     }

@@ -5,18 +5,21 @@ import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
+import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
+import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
+import { init as initDependencies } from "../utils/dependencies";
 import { transformVideos } from "../utils/inlineQueryResultArticle";
-import { encode } from "../utils/string";
 import { initialState } from "../utils/store";
+import { encode, locale } from "../utils/string";
 import { transformObservable } from "./youtubeVideoListToAnswerInlineQuery";
-import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 
 describe("youtubeVideoList epic", (): void => {
   describe("youtubeVideoListToAnswerInlineQuery", (): void => {
+    const locales: ILocale = locale("en");
     const error: Error = new Error("");
     const query: IStateYoutubeVideoListQuery = {
       chart: "",
@@ -29,7 +32,8 @@ describe("youtubeVideoList epic", (): void => {
           from: {
             first_name: "",
             id: 0,
-            is_bot: false
+            is_bot: false,
+            language_code: "en"
           },
           id: "",
           offset: "",
@@ -111,9 +115,12 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$Value
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
         expectObservable(
-          transformObservable(state$)(action)(action2)
+          transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", { a: action });
       });
     });
@@ -125,15 +132,17 @@ describe("youtubeVideoList epic", (): void => {
           query
         });
         const state$: StateObservable<IState> | undefined = undefined;
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(texts.state$Undefined)
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(locales.find("state$Undefined"))
+          })
+        });
       });
     });
 
@@ -147,15 +156,19 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$ValueInlineQueryQueryUndefined
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(texts.state$ValueInlineQueryQueryUndefined)
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(
+              locales.find("state$ValueInlineQueryQueryUndefined")
+            )
+          })
+        });
       });
     });
 
@@ -169,15 +182,19 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$ValueYoutubeVideoListQueryUndefined
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(texts.state$ValueYoutubeVideoListQueryUndefined)
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(
+              locales.find("state$ValueYoutubeVideoListQueryUndefined")
+            )
+          })
+        });
       });
     });
 
@@ -191,17 +208,19 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$ValueYoutubeVideoListQueryChartUndefined
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(
-                texts.state$ValueYoutubeVideoListQueryChartUndefined
-              )
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(
+              locales.find("state$ValueYoutubeVideoListQueryChartUndefined")
+            )
+          })
+        });
       });
     });
 
@@ -217,15 +236,19 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$Value
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(texts.actionYoutubeVideoListResultUndefined)
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(
+              locales.find("actionYoutubeVideoListResultUndefined")
+            )
+          })
+        });
       });
     });
 
@@ -241,15 +264,19 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$Value
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(
+              locales.find("actionYoutubeVideoListResultItemsUndefined")
+            )
+          })
+        });
       });
     });
 
@@ -265,19 +292,21 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$Value
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({
           result: undefined
         });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.youtubeVideoList.error({
-              error: new Error(
-                texts.actionCallbackQueryDataInsertResultUndefined
-              )
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.youtubeVideoList.error({
+            error: new Error(
+              locales.find("actionCallbackQueryDataInsertResultUndefined")
+            )
+          })
+        });
       });
     });
 
@@ -293,27 +322,31 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$Value
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.answerInlineQuery.query({
-              query: {
-                inline_query_id: (state$.value.inlineQuery
-                  .query as IStateInlineQueryQuery).id,
-                is_personal: true,
-                next_offset: "",
-                results: transformVideos(
-                  (action.youtubeVideoList
-                    .result as youtube_v3.Schema$VideoListResponse)
-                    .items as youtube_v3.Schema$Video[]
-                ),
-                switch_pm_parameter: "string",
-                switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
-              }
-            })
-          }
-        );
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.answerInlineQuery.query({
+            query: {
+              inline_query_id: (state$.value.inlineQuery
+                .query as IStateInlineQueryQuery).id,
+              is_personal: true,
+              next_offset: "",
+              results: transformVideos(
+                (action.youtubeVideoList
+                  .result as youtube_v3.Schema$VideoListResponse)
+                  .items as youtube_v3.Schema$Video[]
+              ),
+              switch_pm_parameter: "string",
+              switch_pm_text: locales.find(
+                "actionAnswerInlineQueryQuerySwitchPMText"
+              )
+            }
+          })
+        });
       });
     });
 
@@ -329,35 +362,39 @@ describe("youtubeVideoList epic", (): void => {
           new Subject(),
           state$Value
         );
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        expectObservable(transformObservable(state$)(action)(action2)).toBe(
-          "(a|)",
-          {
-            a: actions.answerInlineQuery.query({
-              query: {
-                inline_query_id: (state$.value.inlineQuery
-                  .query as IStateInlineQueryQuery).id,
-                is_personal: true,
-                next_offset: encode(
-                  {
-                    id: action2.callbackQueryDataInsert.result as string,
-                    pageToken: (action.youtubeVideoList
-                      .result as youtube_v3.Schema$VideoListResponse)
-                      .nextPageToken as string
-                  },
-                  "iStateCallbackQueryDataFindQuery"
-                ),
-                results: transformVideos(
-                  (action.youtubeVideoList
+        expectObservable(
+          transformObservable(action, state$, dependencies)(action2)
+        ).toBe("(a|)", {
+          a: actions.answerInlineQuery.query({
+            query: {
+              inline_query_id: (state$.value.inlineQuery
+                .query as IStateInlineQueryQuery).id,
+              is_personal: true,
+              next_offset: encode(
+                {
+                  id: action2.callbackQueryDataInsert.result as string,
+                  pageToken: (action.youtubeVideoList
                     .result as youtube_v3.Schema$VideoListResponse)
-                    .items as youtube_v3.Schema$Video[]
-                ),
-                switch_pm_parameter: "string",
-                switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
-              }
-            })
-          }
-        );
+                    .nextPageToken as string
+                },
+                "iStateCallbackQueryDataFindQuery"
+              ),
+              results: transformVideos(
+                (action.youtubeVideoList
+                  .result as youtube_v3.Schema$VideoListResponse)
+                  .items as youtube_v3.Schema$Video[]
+              ),
+              switch_pm_parameter: "string",
+              switch_pm_text: locales.find(
+                "actionAnswerInlineQueryQuerySwitchPMText"
+              )
+            }
+          })
+        });
       });
     });
   });

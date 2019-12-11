@@ -4,65 +4,75 @@ import { Observable, of } from "rxjs";
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
+import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformSearchResults } from "../utils/inlineQueryResultArticle";
 import { encode } from "../utils/string";
 
 const transformObservable: (
-  state$: StateObservable<IState> | undefined
-) => (
-  action: IActionYoutubeSearchList
+  action: IActionYoutubeSearchList,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ) => (
   action2: IActionCallbackQueryDataInsert
 ) => Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> = (
-  state$: StateObservable<IState> | undefined
-) => (action: IActionYoutubeSearchList) => (
+  action: IActionYoutubeSearchList,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
+) => (
   action2: IActionCallbackQueryDataInsert
 ): Observable<IActionAnswerInlineQuery | IActionYoutubeSearchList> => {
+  const { locales } = dependencies;
+
   if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
     return of(action);
   }
   if (state$ === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       })
     );
   }
   if (state$.value.inlineQuery.query === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueInlineQueryQueryUndefined)
+        error: new Error(locales.find("state$ValueInlineQueryQueryUndefined"))
       })
     );
   }
   if (state$.value.youtubeSearchList.query === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
+        error: new Error(
+          locales.find("state$ValueYoutubeSearchListQueryUndefined")
+        )
       })
     );
   }
   if (action.youtubeSearchList.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultUndefined)
+        error: new Error(locales.find("actionYoutubeSearchListResultUndefined"))
       })
     );
   }
   if (action.youtubeSearchList.result.items === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
+        error: new Error(
+          locales.find("actionYoutubeSearchListResultItemsUndefined")
+        )
       })
     );
   }
   if (action2.callbackQueryDataInsert.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
+        error: new Error(
+          locales.find("actionCallbackQueryDataInsertResultUndefined")
+        )
       })
     );
   }
@@ -77,7 +87,9 @@ const transformObservable: (
     return of(
       actions.youtubeSearchList.error({
         error: new Error(
-          texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
+          locales.find(
+            "state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined"
+          )
         )
       })
     );
@@ -105,7 +117,7 @@ const transformObservable: (
         next_offset: nextOffset,
         results: transformSearchResults(action.youtubeSearchList.result.items),
         switch_pm_parameter: "string",
-        switch_pm_text: texts.actionAnswerInlineQueryQuerySwitchPMText
+        switch_pm_text: locales.find("actionAnswerInlineQueryQuerySwitchPMText")
       }
     })
   );

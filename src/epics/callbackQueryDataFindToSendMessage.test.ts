@@ -7,18 +7,20 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionCallbackQueryDataFind } from "../../types/iActionCallbackQueryDataFind";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
+import { locale } from "../utils/string";
 import * as epic from "./callbackQueryDataFindToSendMessage";
 
 describe("callbackQueryDataFind epic", (): void => {
   describe("callbackQueryDataFindToSendMessage", (): void => {
+    const locales: ILocale = locale("en");
     const query: IStateCallbackQueryDataFindQuery = {
       id: "000000000000000000000000",
       pageToken: ""
@@ -98,7 +100,7 @@ describe("callbackQueryDataFind epic", (): void => {
         );
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -107,7 +109,7 @@ describe("callbackQueryDataFind epic", (): void => {
         );
         expectObservable(output$).toBe("-a", {
           a: actions.callbackQueryDataFind.error({
-            error: new Error(texts.state$Undefined)
+            error: new Error(locales.find("state$Undefined"))
           })
         });
       });
@@ -127,7 +129,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$ValueCallbackQueryDataFindQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -137,7 +139,7 @@ describe("callbackQueryDataFind epic", (): void => {
         expectObservable(output$).toBe("-a", {
           a: actions.callbackQueryDataFind.error({
             error: new Error(
-              texts.state$ValueCallbackQueryDataFindQueryUndefined
+              locales.find("state$ValueCallbackQueryDataFindQueryUndefined")
             )
           })
         });
@@ -158,7 +160,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -167,7 +169,9 @@ describe("callbackQueryDataFind epic", (): void => {
         );
         expectObservable(output$).toBe("-a", {
           a: actions.callbackQueryDataFind.error({
-            error: new Error(texts.actionCallbackQueryDataFindResultUndefined)
+            error: new Error(
+              locales.find("actionCallbackQueryDataFindResultUndefined")
+            )
           })
         });
       });
@@ -189,7 +193,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -199,7 +203,7 @@ describe("callbackQueryDataFind epic", (): void => {
         expectObservable(output$).toBe("-a", {
           a: actions.callbackQueryDataFind.error({
             error: new Error(
-              texts.actionCallbackQueryDataFindResultPageInfoUndefined
+              locales.find("actionCallbackQueryDataFindResultPageInfoUndefined")
             )
           })
         });
@@ -222,7 +226,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -232,7 +236,9 @@ describe("callbackQueryDataFind epic", (): void => {
         expectObservable(output$).toBe("-a", {
           a: actions.callbackQueryDataFind.error({
             error: new Error(
-              texts.actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined
+              locales.find(
+                "actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined"
+              )
             )
           })
         });
@@ -255,7 +261,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -295,7 +301,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -337,7 +343,7 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -347,7 +353,9 @@ describe("callbackQueryDataFind epic", (): void => {
         expectObservable(output$).toBe(
           "-#",
           {},
-          new Error(texts.actionCallbackQueryDataFindResultChartQUndefined)
+          new Error(
+            locales.find("actionCallbackQueryDataFindResultChartQUndefined")
+          )
         );
       });
     });

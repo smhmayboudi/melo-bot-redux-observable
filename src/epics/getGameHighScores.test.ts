@@ -11,11 +11,13 @@ import { IState } from "../../types/iState";
 import { IStateGetGameHighScoresQuery } from "../../types/iStateGetGameHighScoresQuery";
 import { IGameHighScore } from "../../types/telegramBot/games/iGameHighScore";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/getGameHighScores";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { ILocale } from "../../types/iLocale";
+import { locale } from "../utils/string";
 
 describe("getGameHighScores epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateGetGameHighScoresQuery = {
     user_id: 0
@@ -57,7 +59,7 @@ describe("getGameHighScores epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -78,7 +80,7 @@ describe("getGameHighScores epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -87,7 +89,9 @@ describe("getGameHighScores epic", (): void => {
       > = epic.getGameHighScores(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.getGameHighScores.error({
-          error: new Error(texts.actionGetGameHighScoresQueryUndefined)
+          error: new Error(
+            locales.find("actionGetGameHighScoresQueryUndefined")
+          )
         })
       });
     });
@@ -101,7 +105,7 @@ describe("getGameHighScores epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -125,7 +129,7 @@ describe("getGameHighScores epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

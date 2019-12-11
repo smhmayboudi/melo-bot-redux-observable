@@ -9,7 +9,8 @@ describe("chosenInlineResult reducer", (): void => {
     from: {
       first_name: "",
       id: 0,
-      is_bot: false
+      is_bot: false,
+      language_code: "en"
     },
     query: "",
     result_id: ""

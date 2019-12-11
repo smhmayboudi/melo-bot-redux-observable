@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IWebhookInfo } from "../../types/telegramBot/updates/iWebhookInfo";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getWebhookInfo: (
   action$: Observable<IActionGetWebhookInfo>,
@@ -19,7 +18,7 @@ const getWebhookInfo: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetWebhookInfo> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetWebhookInfo
@@ -29,7 +28,7 @@ const getWebhookInfo: (
     if (action.getWebhookInfo.query === undefined) {
       return of(
         actions.getWebhookInfo.error({
-          error: new Error(texts.actionGetWebhookInfoQueryUndefined)
+          error: new Error(locales.find("actionGetWebhookInfoQueryUndefined"))
         })
       );
     }

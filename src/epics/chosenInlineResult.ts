@@ -9,7 +9,6 @@ import { IState } from "../../types/iState";
 import { IStateChosenInlineResultQuery } from "../../types/iStateChosenInlineResultQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 
 const chosenInlineResult: (
   action$: Observable<IActionChosenInlineResult>,
@@ -23,6 +22,7 @@ const chosenInlineResult: (
   const {
     collectionObservable,
     insertOneObservable,
+    locales,
     mongoClientObservable
   } = dependencies;
 
@@ -47,7 +47,7 @@ const chosenInlineResult: (
                   return of(
                     actions.chosenInlineResult.error({
                       error: new Error(
-                        texts.actionChosenInlineResultQueryUndefined
+                        locales.find("actionChosenInlineResultQueryUndefined")
                       )
                     })
                   );

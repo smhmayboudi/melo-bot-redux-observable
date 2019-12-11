@@ -4,38 +4,44 @@ import { Observable, of } from "rxjs";
 import { IActionSendVideo } from "../../types/iActionSendVideo";
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
+import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { caption } from "../utils/string";
 
 const transformObservable: (
-  state$: StateObservable<IState> | undefined
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ) => (
   action: IActionYoutubeDownloadResultFind
 ) => Observable<IActionYoutubeDownload | IActionSendVideo> = (
-  state$: StateObservable<IState> | undefined
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ) => (
   action: IActionYoutubeDownloadResultFind
 ): Observable<IActionYoutubeDownload | IActionSendVideo> => {
+  const { locales } = dependencies;
+
   if (state$ === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       })
     );
   }
   if (state$.value.message.query === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.state$ValueMessageQueryUndefined)
+        error: new Error(locales.find("state$ValueMessageQueryUndefined"))
       })
     );
   }
   if (state$.value.message.query.message === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+        error: new Error(
+          locales.find("state$ValueMessageQueryMessageUndefined")
+        )
       })
     );
   }
@@ -45,14 +51,16 @@ const transformObservable: (
   ) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.actionYoutubeDownloadResultUndefined)
+        error: new Error(locales.find("actionYoutubeDownloadResultUndefined"))
       })
     );
   }
   if (action.youtubeDownloadResultFind.result.thumb === undefined) {
     return of(
       actions.youtubeDownload.error({
-        error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
+        error: new Error(
+          locales.find("actionYoutubeDownloadResultThumbUndefined")
+        )
       })
     );
   }
@@ -91,13 +99,17 @@ const transformObservable: (
 };
 
 const startAction: (
-  action: IActionYoutubeDownload
+  action: IActionYoutubeDownload,
+  dependencies: IDependencies
 ) => IActionYoutubeDownload | IActionYoutubeDownloadResultFind = (
-  action: IActionYoutubeDownload
+  action: IActionYoutubeDownload,
+  dependencies: IDependencies
 ): IActionYoutubeDownload | IActionYoutubeDownloadResultFind => {
+  const { locales } = dependencies;
+
   if (action.youtubeDownload.query === undefined) {
     return actions.youtubeDownload.error({
-      error: new Error(texts.actionYoutubeDownloadQueryUndefined)
+      error: new Error(locales.find("actionYoutubeDownloadQueryUndefined"))
     });
   }
 

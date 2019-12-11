@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionUnbanChatMember } from "../../types/iActionUnbanChatMember";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateUnbanChatMemberQuery } from "../../types/iStateUnbanChatMemberQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/unbanChatMember";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("unbanChatMember epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateUnbanChatMemberQuery = {
     chat_id: 0,
@@ -47,7 +49,7 @@ describe("unbanChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -68,7 +70,7 @@ describe("unbanChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -77,7 +79,7 @@ describe("unbanChatMember epic", (): void => {
       > = epic.unbanChatMember(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.unbanChatMember.error({
-          error: new Error(texts.actionUnbanChatMemberQueryUndefined)
+          error: new Error(locales.find("actionUnbanChatMemberQueryUndefined"))
         })
       });
     });
@@ -91,7 +93,7 @@ describe("unbanChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -115,7 +117,7 @@ describe("unbanChatMember epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

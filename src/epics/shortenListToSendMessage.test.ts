@@ -6,19 +6,20 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionShortenList } from "../../types/iActionShortenList";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
-import { transformShortenList } from "../utils/string";
+import { locale, transformShortenList } from "../utils/string";
 import * as epic from "./shortenListToSendMessage";
 
 describe("shortenList epic", (): void => {
   describe("shortenListToSendMessage", (): void => {
+    const locales: ILocale = locale("en");
     const result: IStateShortenListResult[] = [
       {
         alphabet: "",
@@ -82,7 +83,7 @@ describe("shortenList epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.shortenListToSendMessage(
           action$,
@@ -91,7 +92,7 @@ describe("shortenList epic", (): void => {
         );
         expectObservable(output$).toBe("-a", {
           a: actions.shortenList.error({
-            error: new Error(texts.state$Undefined)
+            error: new Error(locales.find("state$Undefined"))
           })
         });
       });
@@ -108,7 +109,7 @@ describe("shortenList epic", (): void => {
           state$ValueMessageQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.shortenListToSendMessage(
           action$,
@@ -117,7 +118,7 @@ describe("shortenList epic", (): void => {
         );
         expectObservable(output$).toBe("-a", {
           a: actions.shortenList.error({
-            error: new Error(texts.state$ValueMessageQueryUndefined)
+            error: new Error(locales.find("state$ValueMessageQueryUndefined"))
           })
         });
       });
@@ -134,7 +135,7 @@ describe("shortenList epic", (): void => {
           state$ValueMessageQueryMessageUndefined
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.shortenListToSendMessage(
           action$,
@@ -143,7 +144,9 @@ describe("shortenList epic", (): void => {
         );
         expectObservable(output$).toBe("-a", {
           a: actions.shortenList.error({
-            error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+            error: new Error(
+              locales.find("state$ValueMessageQueryMessageUndefined")
+            )
           })
         });
       });
@@ -160,7 +163,7 @@ describe("shortenList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initialDependencies
+          ...initDependencies(locales).initDependencies
         };
         const output$ = epic.shortenListToSendMessage(
           action$,
@@ -177,7 +180,11 @@ describe("shortenList epic", (): void => {
               parse_mode: "HTML",
               reply_to_message_id: ((state$.value.message
                 .query as IStateMessageQuery).message as IMessage).message_id,
-              text: transformShortenList(result)
+              text: transformShortenList(
+                locales.find("messageNoResult"),
+                locales.find("messageSeparator"),
+                result
+              )
             }
           })
         });

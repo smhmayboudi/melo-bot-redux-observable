@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const unbanChatMember: (
   action$: Observable<IActionUnbanChatMember>,
@@ -18,7 +17,7 @@ const unbanChatMember: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionUnbanChatMember> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionUnbanChatMember
@@ -28,7 +27,7 @@ const unbanChatMember: (
     if (action.unbanChatMember.query === undefined) {
       return of(
         actions.unbanChatMember.error({
-          error: new Error(texts.actionUnbanChatMemberQueryUndefined)
+          error: new Error(locales.find("actionUnbanChatMemberQueryUndefined"))
         })
       );
     }

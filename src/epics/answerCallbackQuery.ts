@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const answerCallbackQuery: (
   action$: Observable<IActionAnswerCallbackQuery>,
@@ -18,7 +17,7 @@ const answerCallbackQuery: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionAnswerCallbackQuery> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionAnswerCallbackQuery
@@ -28,7 +27,9 @@ const answerCallbackQuery: (
     if (action.answerCallbackQuery.query === undefined) {
       return of(
         actions.answerCallbackQuery.error({
-          error: new Error(texts.actionAnswerCallbackQueryQueryUndefined)
+          error: new Error(
+            locales.find("actionAnswerCallbackQueryQueryUndefined")
+          )
         })
       );
     }

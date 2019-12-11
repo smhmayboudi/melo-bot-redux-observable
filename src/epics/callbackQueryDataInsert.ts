@@ -14,7 +14,6 @@ import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 
 const callbackQueryDataInsert: (
   action$: Observable<IActionCallbackQueryDataInsert>,
@@ -28,6 +27,7 @@ const callbackQueryDataInsert: (
   const {
     collectionObservable,
     insertOneObservable,
+    locales,
     mongoClientObservable
   } = dependencies;
 
@@ -52,7 +52,9 @@ const callbackQueryDataInsert: (
                   return of(
                     actions.callbackQueryDataInsert.error({
                       error: new Error(
-                        texts.actionCallbackQueryDataInsertQueryUndefined
+                        locales.find(
+                          "actionCallbackQueryDataInsertQueryUndefined"
+                        )
                       )
                     })
                   );

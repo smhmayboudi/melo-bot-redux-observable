@@ -5,12 +5,15 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IAction } from "../../types/iAction";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as epic from "../epics/appError";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("appError epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
 
   let testScheduler: TestScheduler;
@@ -31,7 +34,7 @@ describe("appError epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies
+        ...initDependencies(locales).initDependencies
       };
       const output$: Observable<IAction> = epic.appError(
         action$,

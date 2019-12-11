@@ -6,16 +6,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionGetUserProfilePhotos } from "../../types/iActionGetUserProfilePhotos";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateGetUserProfilePhotosQuery } from "../../types/iStateGetUserProfilePhotosQuery";
 import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/getUserProfilePhotos";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("getUserProfilePhotos epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateGetUserProfilePhotosQuery = {
     user_id: 0
@@ -58,7 +60,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -79,7 +81,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -88,7 +90,9 @@ describe("getUserProfilePhotos epic", (): void => {
       > = epic.getUserProfilePhotos(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.getUserProfilePhotos.error({
-          error: new Error(texts.actionGetUserProfilePhotosQueryUndefined)
+          error: new Error(
+            locales.find("actionGetUserProfilePhotosQueryUndefined")
+          )
         })
       });
     });
@@ -102,7 +106,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -126,7 +130,7 @@ describe("getUserProfilePhotos epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

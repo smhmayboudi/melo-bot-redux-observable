@@ -26,7 +26,7 @@ describe("crashReporter middleware", (): void => {
         first_name: "Hossein",
         id: 52953379,
         is_bot: false,
-        language_code: "fa",
+        language_code: "en",
         last_name: "Mayboudi",
         username: "smhmayboudi"
       },

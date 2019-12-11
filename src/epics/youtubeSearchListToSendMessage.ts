@@ -4,72 +4,83 @@ import { Observable, of } from "rxjs";
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
+import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
-import { encode } from "../utils/string";
-import { transformSearchResults } from "../utils/string";
+import { encode, transformSearchResults } from "../utils/string";
 
 const transformObservable: (
-  state$: StateObservable<IState> | undefined
-) => (
-  action: IActionYoutubeSearchList
+  action: IActionYoutubeSearchList,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
 ) => (
   action2: IActionCallbackQueryDataInsert
 ) => Observable<IActionSendMessage | IActionYoutubeSearchList> = (
-  state$: StateObservable<IState> | undefined
-) => (action: IActionYoutubeSearchList) => (
+  action: IActionYoutubeSearchList,
+  state$: StateObservable<IState> | undefined,
+  dependencies: IDependencies
+) => (
   action2: IActionCallbackQueryDataInsert
 ): Observable<IActionSendMessage | IActionYoutubeSearchList> => {
+  const { locales } = dependencies;
+
   if (action.type === actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_ERROR) {
     return of(action);
   }
   if (state$ === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$Undefined)
+        error: new Error(locales.find("state$Undefined"))
       })
     );
   }
   if (state$.value.message.query === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueMessageQueryUndefined)
+        error: new Error(locales.find("state$ValueMessageQueryUndefined"))
       })
     );
   }
   if (state$.value.message.query.message === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+        error: new Error(
+          locales.find("state$ValueMessageQueryMessageUndefined")
+        )
       })
     );
   }
   if (state$.value.youtubeSearchList.query === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.state$ValueYoutubeSearchListQueryUndefined)
+        error: new Error(
+          locales.find("state$ValueYoutubeSearchListQueryUndefined")
+        )
       })
     );
   }
   if (action.youtubeSearchList.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultUndefined)
+        error: new Error(locales.find("actionYoutubeSearchListResultUndefined"))
       })
     );
   }
   if (action.youtubeSearchList.result.items === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionYoutubeSearchListResultItemsUndefined)
+        error: new Error(
+          locales.find("actionYoutubeSearchListResultItemsUndefined")
+        )
       })
     );
   }
   if (action2.callbackQueryDataInsert.result === undefined) {
     return of(
       actions.youtubeSearchList.error({
-        error: new Error(texts.actionCallbackQueryDataInsertResultUndefined)
+        error: new Error(
+          locales.find("actionCallbackQueryDataInsertResultUndefined")
+        )
       })
     );
   }
@@ -84,7 +95,9 @@ const transformObservable: (
     return of(
       actions.youtubeSearchList.error({
         error: new Error(
-          texts.state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
+          locales.find(
+            "state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined"
+          )
         )
       })
     );
@@ -103,7 +116,7 @@ const transformObservable: (
         },
         "iStateCallbackQueryDataFindQuery"
       ),
-      text: texts.messageWithPaginationPrev
+      text: locales.find("messageWithPaginationPrev")
     });
   }
   if (
@@ -118,10 +131,13 @@ const transformObservable: (
         },
         "iStateCallbackQueryDataFindQuery"
       ),
-      text: texts.messageWithPaginationNext
+      text: locales.find("messageWithPaginationNext")
     });
   }
 
+  const q = state$.value.youtubeSearchList.query.q;
+  const relatedToVideoId =
+    state$.value.youtubeSearchList.query.relatedToVideoId;
   return of(
     actions.sendMessage.query({
       query: {
@@ -135,8 +151,15 @@ const transformObservable: (
         reply_to_message_id: state$.value.message.query.message.message_id,
         text: transformSearchResults(
           action.youtubeSearchList.result.items,
-          state$.value.youtubeSearchList.query.q,
-          state$.value.youtubeSearchList.query.relatedToVideoId
+          locales.find("messageNoResult"),
+          locales.find("messageSeparator"),
+          q !== undefined
+            ? locales.fill("messageResultQ", { q })
+            : relatedToVideoId !== undefined
+            ? locales.fill("messageResultRelatedToVideoId", {
+                relatedToVideoId
+              })
+            : ""
         )
       }
     })

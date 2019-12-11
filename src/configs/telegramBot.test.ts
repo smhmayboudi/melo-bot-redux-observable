@@ -17,7 +17,8 @@ describe("telegramBot configs", (): void => {
         from: {
           first_name: "",
           id: 0,
-          is_bot: false
+          is_bot: false,
+          language_code: "en"
         },
         id: ""
       },
@@ -49,7 +50,8 @@ describe("telegramBot configs", (): void => {
         from: {
           first_name: "",
           id: 0,
-          is_bot: false
+          is_bot: false,
+          language_code: "en"
         },
         query: "",
         result_id: ""
@@ -171,7 +173,8 @@ describe("telegramBot configs", (): void => {
         from: {
           first_name: "",
           id: 0,
-          is_bot: false
+          is_bot: false,
+          language_code: "en"
         },
         id: "",
         offset: "",
@@ -215,7 +218,8 @@ describe("telegramBot configs", (): void => {
         from: {
           first_name: "",
           id: 0,
-          is_bot: false
+          is_bot: false,
+          language_code: "en"
         },
         id: "",
         invoice_payload: "",
@@ -233,7 +237,8 @@ describe("telegramBot configs", (): void => {
         from: {
           first_name: "",
           id: 0,
-          is_bot: false
+          is_bot: false,
+          language_code: "en"
         },
         id: "",
         invoice_payload: "",

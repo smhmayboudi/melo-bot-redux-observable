@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const editMessageText: (
   action$: Observable<IActionEditMessageText>,
@@ -19,7 +18,7 @@ const editMessageText: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionEditMessageText> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionEditMessageText
@@ -29,7 +28,7 @@ const editMessageText: (
     if (action.editMessageText.query === undefined) {
       return of(
         actions.editMessageText.error({
-          error: new Error(texts.actionEditMessageTextQueryUndefined)
+          error: new Error(locales.find("actionEditMessageTextQueryUndefined"))
         })
       );
     }

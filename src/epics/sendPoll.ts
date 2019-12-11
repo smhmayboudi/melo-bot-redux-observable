@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const sendPoll: (
   action$: Observable<IActionSendPoll>,
@@ -19,7 +18,7 @@ const sendPoll: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendPoll> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendPoll
@@ -29,7 +28,7 @@ const sendPoll: (
     if (action.sendPoll.query === undefined) {
       return of(
         actions.sendPoll.error({
-          error: new Error(texts.actionSendPollQueryUndefined)
+          error: new Error(locales.find("actionSendPollQueryUndefined"))
         })
       );
     }

@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionAnswerShippingQuery } from "../../types/iActionAnswerShippingQuery";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateAnswerShippingQueryQuery } from "../../types/iStateAnswerShippingQueryQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/answerShippingQuery";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("answerShippingQuery epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateAnswerShippingQueryQuery = {
     error_message: "",
@@ -60,7 +62,7 @@ describe("answerShippingQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -81,7 +83,7 @@ describe("answerShippingQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -90,7 +92,9 @@ describe("answerShippingQuery epic", (): void => {
       > = epic.answerShippingQuery(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.answerShippingQuery.error({
-          error: new Error(texts.actionAnswerShippingQueryQueryUndefined)
+          error: new Error(
+            locales.find("actionAnswerShippingQueryQueryUndefined")
+          )
         })
       });
     });
@@ -104,7 +108,7 @@ describe("answerShippingQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -128,7 +132,7 @@ describe("answerShippingQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

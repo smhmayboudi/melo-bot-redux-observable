@@ -1,9 +1,11 @@
+import { ILocale } from "../../types/iLocale";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-
 import * as command from "../utils/command";
+import { locale } from "../utils/string";
 import { handleMessage } from "./telegramBotHandleMessage";
 
 describe("telegramBotHandleMessage configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -21,7 +23,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   };
 
   test("should handle addStickerToSet", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.addStickerToSet()
     });
@@ -29,7 +31,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle createNewStickerSet", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.createNewStickerSet()
     });
@@ -37,7 +39,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle getChatMember", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.getChatMember()
     });
@@ -45,7 +47,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendAnimation", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendAnimation()
     });
@@ -53,7 +55,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendAudio", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendAudio()
     });
@@ -61,7 +63,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendDocument", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendDocument()
     });
@@ -69,7 +71,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendMediaGroup", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendMediaGroup()
     });
@@ -77,7 +79,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendMessage", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendMessage()
     });
@@ -85,7 +87,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendPhoto", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendPhoto()
     });
@@ -93,7 +95,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendSticker", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendSticker()
     });
@@ -101,7 +103,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendVideo", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendVideo()
     });
@@ -109,7 +111,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendVideoNote", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendVideoNote()
     });
@@ -117,7 +119,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle sendVoice", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.sendVoice()
     });
@@ -125,7 +127,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle youtubeDownload", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.youtubeDownload()
     });
@@ -133,7 +135,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle youtubeSearchList", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.youtubeSearchList()
     });
@@ -141,7 +143,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle youtubeVideoList", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.youtubeVideoList()
     });
@@ -149,7 +151,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText download", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.download()
     });
@@ -157,7 +159,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText help", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.help()
     });
@@ -165,7 +167,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText mp", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.mostPopular()
     });
@@ -173,7 +175,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText rl_", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.relatedToVideoId()
     });
@@ -181,7 +183,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText setInlineGeo", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.setInlineGeo()
     });
@@ -189,7 +191,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText settings", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.settings()
     });
@@ -197,7 +199,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText shortenList", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.shortenList()
     });
@@ -205,7 +207,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText shortenReset", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.shortenReset()
     });
@@ -213,7 +215,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText start", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: command.start()
     });
@@ -221,7 +223,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText not undefined", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: ""
     });
@@ -229,7 +231,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText undefined", (): void => {
-    handleMessage(store, {
+    handleMessage(locales, store, {
       ...message,
       text: undefined
     });

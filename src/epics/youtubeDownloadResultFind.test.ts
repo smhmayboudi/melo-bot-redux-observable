@@ -16,16 +16,18 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeDownloadResultFindQuery";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { collectionObservable } from "../libs/mongodbObservable";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 import * as epic from "./youtubeDownloadResultFind";
 
 describe("youtubeDownloadResultFind epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultFindQuery = {
     id: "000000000000000000000000"
@@ -85,7 +87,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -112,7 +114,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -139,7 +141,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -166,7 +168,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -178,7 +180,9 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       expectObservable(output$).toBe("-a", {
         a: actions.youtubeDownloadResultFind.error({
-          error: new Error(texts.actionYoutubeDownloadResultFindQueryUndefined)
+          error: new Error(
+            locales.find("actionYoutubeDownloadResultFindQueryUndefined")
+          )
         })
       });
     });
@@ -195,7 +199,7 @@ describe("youtubeDownloadResultFind epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)

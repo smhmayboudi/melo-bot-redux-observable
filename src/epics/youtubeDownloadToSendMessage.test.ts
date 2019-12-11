@@ -4,18 +4,22 @@ import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
+import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadQuery } from "../../types/iStateYoutubeDownloadQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
+import { locale } from "../utils/string";
 import { transformObservable } from "./youtubeDownloadToSendMessage";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToSendMessage", (): void => {
+    const locales: ILocale = locale("en");
     const error: Error = new Error("");
     const query: IStateYoutubeDownloadQuery = {
       id: ""
@@ -74,7 +78,12 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expectObservable(
+          transformObservable(action, state$, dependencies)
+        ).toBe("(a|)", {
           a: action
         });
       });
@@ -87,9 +96,14 @@ describe("youtubeDownload epic", (): void => {
           query
         });
         const state$: StateObservable<IState> | undefined = undefined;
-        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expectObservable(
+          transformObservable(action, state$, dependencies)
+        ).toBe("(a|)", {
           a: actions.youtubeDownload.error({
-            error: new Error(texts.state$Undefined)
+            error: new Error(locales.find("state$Undefined"))
           })
         });
       });
@@ -105,9 +119,14 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryUndefined
         );
-        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expectObservable(
+          transformObservable(action, state$, dependencies)
+        ).toBe("(a|)", {
           a: actions.youtubeDownload.error({
-            error: new Error(texts.state$ValueMessageQueryUndefined)
+            error: new Error(locales.find("state$ValueMessageQueryUndefined"))
           })
         });
       });
@@ -123,9 +142,16 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$ValueMessageQueryMessageUndefined
         );
-        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expectObservable(
+          transformObservable(action, state$, dependencies)
+        ).toBe("(a|)", {
           a: actions.youtubeDownload.error({
-            error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+            error: new Error(
+              locales.find("state$ValueMessageQueryMessageUndefined")
+            )
           })
         });
       });
@@ -141,7 +167,12 @@ describe("youtubeDownload epic", (): void => {
           new Subject(),
           state$Value
         );
-        expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expectObservable(
+          transformObservable(action, state$, dependencies)
+        ).toBe("(a|)", {
           a: actions.sendMessage.query({
             query: {
               chat_id: ((state$Value.message.query as IStateMessageQuery)

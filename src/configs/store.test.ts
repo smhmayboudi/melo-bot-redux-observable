@@ -1,14 +1,16 @@
 import { Store } from "redux";
 
-import { initialState } from "../utils/store";
 import { IAction } from "../../types/iAction";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
-
+import { initialState } from "../utils/store";
+import { locale } from "../utils/string";
 import { configureStore } from "./store";
 
 describe("store configs", (): void => {
+  const locales: ILocale = locale("en");
   let message: IStateMessage = {
     query: {
       message: {
@@ -31,7 +33,7 @@ describe("store configs", (): void => {
           first_name: "Hossein",
           id: 52953379,
           is_bot: false,
-          language_code: "fa",
+          language_code: "en",
           last_name: "Mayboudi",
           username: "smhmayboudi"
         },
@@ -51,7 +53,7 @@ describe("store configs", (): void => {
         }
       };
     }
-    const store: Store<IState, IAction> = configureStore();
+    const store: Store<IState, IAction> = configureStore(locales);
     store.dispatch(actions.message.query(message));
     expect(store.getState()).toEqual({
       ...initialState,

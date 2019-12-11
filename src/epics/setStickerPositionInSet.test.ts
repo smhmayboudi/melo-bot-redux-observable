@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSetStickerPositionInSet } from "../../types/iActionSetStickerPositionInSet";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSetStickerPositionInSetQuery } from "../../types/iStateSetStickerPositionInSetQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/setStickerPositionInSet";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("setStickerPositionInSet epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSetStickerPositionInSetQuery = {
     position: 0,
@@ -50,7 +52,7 @@ describe("setStickerPositionInSet epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -71,7 +73,7 @@ describe("setStickerPositionInSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -80,7 +82,9 @@ describe("setStickerPositionInSet epic", (): void => {
       > = epic.setStickerPositionInSet(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.setStickerPositionInSet.error({
-          error: new Error(texts.actionSetStickerPositionInSetQueryUndefined)
+          error: new Error(
+            locales.find("actionSetStickerPositionInSetQueryUndefined")
+          )
         })
       });
     });
@@ -97,7 +101,7 @@ describe("setStickerPositionInSet epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -124,7 +128,7 @@ describe("setStickerPositionInSet epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

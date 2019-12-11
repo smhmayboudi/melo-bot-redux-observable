@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const setStickerPositionInSet: (
   action$: Observable<IActionSetStickerPositionInSet>,
@@ -18,7 +17,7 @@ const setStickerPositionInSet: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetStickerPositionInSet> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetStickerPositionInSet
@@ -28,7 +27,9 @@ const setStickerPositionInSet: (
     if (action.setStickerPositionInSet.query === undefined) {
       return of(
         actions.setStickerPositionInSet.error({
-          error: new Error(texts.actionSetStickerPositionInSetQueryUndefined)
+          error: new Error(
+            locales.find("actionSetStickerPositionInSetQueryUndefined")
+          )
         })
       );
     }

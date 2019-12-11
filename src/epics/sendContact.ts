@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const sendContact: (
   action$: Observable<IActionSendContact>,
@@ -19,7 +18,7 @@ const sendContact: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendContact> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendContact
@@ -29,7 +28,7 @@ const sendContact: (
     if (action.sendContact.query === undefined) {
       return of(
         actions.sendContact.error({
-          error: new Error(texts.actionSendContactQueryUndefined)
+          error: new Error(locales.find("actionSendContactQueryUndefined"))
         })
       );
     }

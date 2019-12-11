@@ -8,7 +8,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 import { decode } from "../utils/string";
 
 const inlineQuery: (
@@ -18,8 +17,10 @@ const inlineQuery: (
 ) => Observable<IActionInlineQuery | IActionYoutubeSearchList> = (
   action$: Observable<IActionInlineQuery>,
   _state$: StateObservable<IState> | undefined,
-  _dependencies: IDependencies
+  dependencies: IDependencies
 ): Observable<IActionInlineQuery | IActionYoutubeSearchList> => {
+  const { locales } = dependencies;
+
   const actionObservable: (
     action: IActionInlineQuery
   ) => Observable<IActionInlineQuery | IActionYoutubeSearchList> = (
@@ -28,7 +29,7 @@ const inlineQuery: (
     if (action.inlineQuery.query === undefined) {
       return of(
         actions.inlineQuery.error({
-          error: new Error(texts.actionInlineQueryQueryUndefined)
+          error: new Error(locales.find("actionInlineQueryQueryUndefined"))
         })
       );
     }

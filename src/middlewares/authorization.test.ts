@@ -1,7 +1,10 @@
 import { IAction } from "../../types/iAction";
-import { authorization } from "./authorization";
+import { ILocale } from "../../types/iLocale";
+import { locale } from "../utils/string";
+import { init as authorization } from "./authorization";
 
 describe("authorization middleware", (): void => {
+  const locales: ILocale = locale("en");
   const create: () => {
     next: jest.Mock;
     store: {
@@ -29,7 +32,7 @@ describe("authorization middleware", (): void => {
       subscribe: jest.fn(() => jest.fn(() => ({})))
     };
     const invoke: (action: IAction) => IAction = (action: IAction): IAction =>
-      authorization(store)(next)(action);
+      authorization(locales).authorization(store)(next)(action);
 
     return { invoke, next, store };
   };

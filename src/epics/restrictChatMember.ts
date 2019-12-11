@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const restrictChatMember: (
   action$: Observable<IActionRestrictChatMember>,
@@ -18,7 +17,7 @@ const restrictChatMember: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionRestrictChatMember> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionRestrictChatMember
@@ -28,7 +27,9 @@ const restrictChatMember: (
     if (action.restrictChatMember.query === undefined) {
       return of(
         actions.restrictChatMember.error({
-          error: new Error(texts.actionRestrictChatMemberQueryUndefined)
+          error: new Error(
+            locales.find("actionRestrictChatMemberQueryUndefined")
+          )
         })
       );
     }

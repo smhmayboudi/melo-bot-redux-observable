@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const deleteWebhook: (
   action$: Observable<IActionDeleteWebhook>,
@@ -18,7 +17,7 @@ const deleteWebhook: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteWebhook> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteWebhook
@@ -28,7 +27,7 @@ const deleteWebhook: (
     if (action.deleteWebhook.query === undefined) {
       return of(
         actions.deleteWebhook.error({
-          error: new Error(texts.actionDeleteWebhookQueryUndefined)
+          error: new Error(locales.find("actionDeleteWebhookQueryUndefined"))
         })
       );
     }

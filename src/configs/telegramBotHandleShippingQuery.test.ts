@@ -1,8 +1,10 @@
+import { ILocale } from "../../types/iLocale";
 import { IShippingQuery } from "../../types/telegramBot/payments/iShippingQuery";
-
+import { locale } from "../utils/string";
 import { handleShippingQuery } from "./telegramBotHandleShippingQuery";
 
 describe("telegramBotHandleShippingQuery configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -15,7 +17,8 @@ describe("telegramBotHandleShippingQuery configs", (): void => {
       from: {
         first_name: "",
         id: 0,
-        is_bot: false
+        is_bot: false,
+        language_code: "en"
       },
       id: "",
       invoice_payload: "",
@@ -28,7 +31,7 @@ describe("telegramBotHandleShippingQuery configs", (): void => {
         street_line2: ""
       }
     };
-    handleShippingQuery(store, shippingQuery);
+    handleShippingQuery(locales, store, shippingQuery);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

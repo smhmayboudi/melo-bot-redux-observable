@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const pinChatMessage: (
   action$: Observable<IActionPinChatMessage>,
@@ -18,7 +17,7 @@ const pinChatMessage: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionPinChatMessage> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionPinChatMessage
@@ -28,7 +27,7 @@ const pinChatMessage: (
     if (action.pinChatMessage.query === undefined) {
       return of(
         actions.pinChatMessage.error({
-          error: new Error(texts.actionPinChatMessageQueryUndefined)
+          error: new Error(locales.find("actionPinChatMessageQueryUndefined"))
         })
       );
     }

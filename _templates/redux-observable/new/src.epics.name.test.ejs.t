@@ -10,15 +10,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IAction<%= h.changeCase.pascal(name)%> } from "../../types/iAction<%= h.changeCase.pascal(name)%>";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IState<%= h.changeCase.pascal(name)%>Query } from "../../types/iState<%= h.changeCase.pascal(name)%>Query";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/<%= h.changeCase.camel(name)%>";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("<%= h.changeCase.camel(name)%> epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IState<%= h.changeCase.pascal(name)%>Query = {
     // TODO: fill it
@@ -51,7 +53,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -70,13 +72,13 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<IAction<%= h.changeCase.pascal(name)%>> = epic.<%= h.changeCase.camel(name)%>(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
-        a: actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(texts.action<%= h.changeCase.pascal(name)%>QueryUndefined) })
+        a: actions.<%= h.changeCase.camel(name)%>.error({ error: new Error(locales.find("action<%= h.changeCase.pascal(name)%>QueryUndefined")) })
       });
     });
   });
@@ -89,7 +91,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a", { a: responseOKF })
       };
@@ -108,7 +110,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a", { a: responseOKT })
       };

@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IFile } from "../../types/telegramBot/types/iFile";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getFile: (
   action$: Observable<IActionGetFile>,
@@ -19,7 +18,7 @@ const getFile: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetFile> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetFile
@@ -29,7 +28,7 @@ const getFile: (
     if (action.getFile.query === undefined) {
       return of(
         actions.getFile.error({
-          error: new Error(texts.actionGetFileQueryUndefined)
+          error: new Error(locales.find("actionGetFileQueryUndefined"))
         })
       );
     }

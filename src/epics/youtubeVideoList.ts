@@ -9,7 +9,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IError } from "../../types/iError";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const youtubeVideoList: (
   action$: Observable<IActionYoutubeVideoList>,
@@ -20,7 +19,7 @@ const youtubeVideoList: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionYoutubeVideoList> => {
-  const { requestsObservable } = dependencies;
+  const { locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionYoutubeVideoList
@@ -30,7 +29,7 @@ const youtubeVideoList: (
     if (action.youtubeVideoList.query === undefined) {
       return of(
         actions.youtubeVideoList.error({
-          error: new Error(texts.actionYoutubeVideoListQueryUndefined)
+          error: new Error(locales.find("actionYoutubeVideoListQueryUndefined"))
         })
       );
     }

@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionUnpinChatMessage } from "../../types/iActionUnpinChatMessage";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateUnpinChatMessageQuery } from "../../types/iStateUnpinChatMessageQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/unpinChatMessage";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("unpinChatMessage epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateUnpinChatMessageQuery = {
     chat_id: 0
@@ -46,7 +48,7 @@ describe("unpinChatMessage epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -67,7 +69,7 @@ describe("unpinChatMessage epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -76,7 +78,7 @@ describe("unpinChatMessage epic", (): void => {
       > = epic.unpinChatMessage(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.unpinChatMessage.error({
-          error: new Error(texts.actionUnpinChatMessageQueryUndefined)
+          error: new Error(locales.find("actionUnpinChatMessageQueryUndefined"))
         })
       });
     });
@@ -90,7 +92,7 @@ describe("unpinChatMessage epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -114,7 +116,7 @@ describe("unpinChatMessage epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

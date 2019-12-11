@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionSetPassportDataErrors } from "../../types/iActionSetPassportDataErrors";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSetPassportDataErrorsQuery } from "../../types/iStateSetPassportDataErrorsQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/setPassportDataErrors";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("setPassportDataErrors epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSetPassportDataErrorsQuery = {
     errors: [
@@ -55,7 +57,7 @@ describe("setPassportDataErrors epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -76,7 +78,7 @@ describe("setPassportDataErrors epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -85,7 +87,9 @@ describe("setPassportDataErrors epic", (): void => {
       > = epic.setPassportDataErrors(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.setPassportDataErrors.error({
-          error: new Error(texts.actionSetPassportDataErrorsQueryUndefined)
+          error: new Error(
+            locales.find("actionSetPassportDataErrorsQueryUndefined")
+          )
         })
       });
     });
@@ -99,7 +103,7 @@ describe("setPassportDataErrors epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -123,7 +127,7 @@ describe("setPassportDataErrors epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

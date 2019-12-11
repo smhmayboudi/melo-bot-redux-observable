@@ -16,24 +16,27 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionChosenInlineResult } from "../../types/iActionChosenInlineResult";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateChosenInlineResultQuery } from "../../types/iStateChosenInlineResultQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import {
   collectionObservable,
   insertOneObservable
 } from "../libs/mongodbObservable";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 import * as epic from "./chosenInlineResult";
 
 describe("chosenInlineResult epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateChosenInlineResultQuery = {
     from: {
       first_name: "",
       id: 0,
-      is_bot: false
+      is_bot: false,
+      language_code: "en"
     },
     query: "",
     result_id: ""
@@ -75,7 +78,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -99,7 +102,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -123,7 +126,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -147,7 +150,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -159,7 +162,9 @@ describe("chosenInlineResult epic", (): void => {
       );
       expectObservable(output$).toBe("-a", {
         a: actions.chosenInlineResult.error({
-          error: new Error(texts.actionChosenInlineResultQueryUndefined)
+          error: new Error(
+            locales.find("actionChosenInlineResultQueryUndefined")
+          )
         })
       });
     });
@@ -173,7 +178,7 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)

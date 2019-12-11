@@ -12,6 +12,7 @@ import {
 } from "mongodb";
 import { Action } from "redux";
 import { Observable } from "rxjs";
+import { ILocale } from "./iLocale";
 import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadResultInsertQuery";
 
 export interface IDependencies {
@@ -31,6 +32,7 @@ export interface IDependencies {
     docs: TSchema,
     options: CollectionInsertOneOptions
   ): Observable<InsertOneWriteOpResult<TSchema>>;
+  locales: ILocale;
   mongoClientObservable(): Observable<MongoClient>;
   queryObservable(
     connection: Connection,

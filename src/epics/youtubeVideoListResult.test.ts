@@ -1,28 +1,28 @@
 import { youtube_v3 } from "googleapis";
-
 import { StateObservable } from "redux-observable";
 import { Observable, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
-import { initialState } from "../utils/store";
 import { IActionAnswerInlineQuery } from "../../types/iActionAnswerInlineQuery";
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
 import { IActionSendPhoto } from "../../types/iActionSendPhoto";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
-import { transformVideos } from "../utils/string";
+import { init as initDependencies } from "../utils/dependencies";
+import { initialState } from "../utils/store";
+import { locale, transformVideos } from "../utils/string";
 import * as epic from "./youtubeVideoListResult";
-import { initialDependencies } from "../utils/dependencies";
 
 describe("youtubeVideoListResult epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeVideoListQuery = {
     chart: "",
@@ -94,7 +94,7 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
@@ -121,7 +121,7 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -134,7 +134,7 @@ describe("youtubeVideoListResult epic", (): void => {
       > = epic.youtubeVideoListResult(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.youtubeVideoList.error({
-          error: new Error(texts.actionYoutubeVideoListQueryUndefined)
+          error: new Error(locales.find("actionYoutubeVideoListQueryUndefined"))
         })
       });
     });
@@ -151,7 +151,7 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: undefined })
       };
@@ -164,7 +164,9 @@ describe("youtubeVideoListResult epic", (): void => {
       > = epic.youtubeVideoListResult(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.youtubeVideoList.error({
-          error: new Error(texts.actionYoutubeVideoListResultUndefined)
+          error: new Error(
+            locales.find("actionYoutubeVideoListResultUndefined")
+          )
         })
       });
     });
@@ -181,7 +183,7 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: { items: undefined } })
       };
@@ -194,7 +196,9 @@ describe("youtubeVideoListResult epic", (): void => {
       > = epic.youtubeVideoListResult(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.youtubeVideoList.error({
-          error: new Error(texts.actionYoutubeVideoListResultItemsUndefined)
+          error: new Error(
+            locales.find("actionYoutubeVideoListResultItemsUndefined")
+          )
         })
       });
     });
@@ -208,7 +212,7 @@ describe("youtubeVideoListResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -221,7 +225,7 @@ describe("youtubeVideoListResult epic", (): void => {
       > = epic.youtubeVideoListResult(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.youtubeVideoList.error({
-          error: new Error(texts.state$Undefined)
+          error: new Error(locales.find("state$Undefined"))
         })
       });
     });
@@ -238,7 +242,7 @@ describe("youtubeVideoListResult epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -251,7 +255,7 @@ describe("youtubeVideoListResult epic", (): void => {
       > = epic.youtubeVideoListResult(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.youtubeVideoList.error({
-          error: new Error(texts.state$ValueMessageQueryUndefined)
+          error: new Error(locales.find("state$ValueMessageQueryUndefined"))
         })
       });
     });
@@ -268,7 +272,7 @@ describe("youtubeVideoListResult epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -281,7 +285,9 @@ describe("youtubeVideoListResult epic", (): void => {
       > = epic.youtubeVideoListResult(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.youtubeVideoList.error({
-          error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+          error: new Error(
+            locales.find("state$ValueMessageQueryMessageUndefined")
+          )
         })
       });
     });
@@ -298,10 +304,12 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
+      const chart = (state$Value.youtubeVideoList
+        .query as IStateYoutubeVideoListQuery).chart;
       const output$: Observable<
         | IActionAnswerInlineQuery
         | IActionCallbackQueryDataInsert
@@ -317,7 +325,12 @@ describe("youtubeVideoListResult epic", (): void => {
             disable_web_page_preview: true,
             parse_mode: "HTML",
             reply_to_message_id: 0,
-            text: transformVideos(result.items as youtube_v3.Schema$Video[], "")
+            text: transformVideos(
+              result.items as youtube_v3.Schema$Video[],
+              locales.find("messageNoResult"),
+              locales.find("messageSeparator"),
+              locales.fill("messageResultChart", { chart })
+            )
           }
         })
       });

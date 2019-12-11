@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const sendInvoice: (
   action$: Observable<IActionSendInvoice>,
@@ -19,7 +18,7 @@ const sendInvoice: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendInvoice> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendInvoice
@@ -29,7 +28,7 @@ const sendInvoice: (
     if (action.sendInvoice.query === undefined) {
       return of(
         actions.sendInvoice.error({
-          error: new Error(texts.actionSendInvoiceQueryUndefined)
+          error: new Error(locales.find("actionSendInvoiceQueryUndefined"))
         })
       );
     }

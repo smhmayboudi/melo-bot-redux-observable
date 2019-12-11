@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IFile } from "../../types/telegramBot/types/iFile";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const uploadStickerFile: (
   action$: Observable<IActionUploadStickerFile>,
@@ -19,7 +18,7 @@ const uploadStickerFile: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionUploadStickerFile> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionUploadStickerFile
@@ -29,7 +28,9 @@ const uploadStickerFile: (
     if (action.uploadStickerFile.query === undefined) {
       return of(
         actions.uploadStickerFile.error({
-          error: new Error(texts.actionUploadStickerFileQueryUndefined)
+          error: new Error(
+            locales.find("actionUploadStickerFileQueryUndefined")
+          )
         })
       );
     }

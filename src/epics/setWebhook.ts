@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const setWebhook: (
   action$: Observable<IActionSetWebhook>,
@@ -18,7 +17,7 @@ const setWebhook: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetWebhook> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetWebhook
@@ -28,7 +27,7 @@ const setWebhook: (
     if (action.setWebhook.query === undefined) {
       return of(
         actions.setWebhook.error({
-          error: new Error(texts.actionSetWebhookQueryUndefined)
+          error: new Error(locales.find("actionSetWebhookQueryUndefined"))
         })
       );
     }

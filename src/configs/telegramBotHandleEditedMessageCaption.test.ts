@@ -1,8 +1,10 @@
+import { ILocale } from "../../types/iLocale";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-
+import { locale } from "../utils/string";
 import { handleEditedMessageCaption } from "./telegramBotHandleEditedMessageCaption";
 
 describe("telegramBotHandleEditedMessageCaption configs", (): void => {
+  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -19,7 +21,7 @@ describe("telegramBotHandleEditedMessageCaption configs", (): void => {
       date: 0,
       message_id: 0
     };
-    handleEditedMessageCaption(store, message);
+    handleEditedMessageCaption(locales, store, message);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

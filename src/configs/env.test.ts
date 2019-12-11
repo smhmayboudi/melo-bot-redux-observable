@@ -148,6 +148,6 @@ describe("env configs", (): void => {
   });
 
   test("should handle TELEGRAM_TEXT_LENGTH", (): void => {
-    expect(env.TELEGRAM_TEXT_LENGTH).toBe(2048);
+    expect(env.TELEGRAM_TEXT_LENGTH).toBe(4096);
   });
 });

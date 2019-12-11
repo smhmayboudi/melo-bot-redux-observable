@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const deleteMessage: (
   action$: Observable<IActionDeleteMessage>,
@@ -18,7 +17,7 @@ const deleteMessage: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteMessage> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteMessage
@@ -28,7 +27,7 @@ const deleteMessage: (
     if (action.deleteMessage.query === undefined) {
       return of(
         actions.deleteMessage.error({
-          error: new Error(texts.actionDeleteMessageQueryUndefined)
+          error: new Error(locales.find("actionDeleteMessageQueryUndefined"))
         })
       );
     }

@@ -8,7 +8,8 @@ describe("inlineQuery actions", (): void => {
     from: {
       first_name: "",
       id: 0,
-      is_bot: false
+      is_bot: false,
+      language_code: "en"
     },
     id: "",
     offset: "",

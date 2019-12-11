@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformSendVideoQuery } from "../utils/formData";
 
 const sendVideo: (
@@ -20,7 +19,7 @@ const sendVideo: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendVideo> => {
-  const { botToken, requestsUploadObservable } = dependencies;
+  const { botToken, locales, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendVideo
@@ -30,7 +29,7 @@ const sendVideo: (
     if (action.sendVideo.query === undefined) {
       return of(
         actions.sendVideo.error({
-          error: new Error(texts.actionSendVideoQueryUndefined)
+          error: new Error(locales.find("actionSendVideoQueryUndefined"))
         })
       );
     }

@@ -6,15 +6,17 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionCreateNewStickerSet } from "../../types/iActionCreateNewStickerSet";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateCreateNewStickerSetQuery } from "../../types/iStateCreateNewStickerSetQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/createNewStickerSet";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("createNewStickerSet epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateCreateNewStickerSetQuery = {
     emojis: "",
@@ -50,7 +52,7 @@ describe("createNewStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -72,7 +74,7 @@ describe("createNewStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -81,7 +83,9 @@ describe("createNewStickerSet epic", (): void => {
       > = epic.createNewStickerSet(action$, state$, dependencies);
       expectObservable(output$).toBe("-a", {
         a: actions.createNewStickerSet.error({
-          error: new Error(texts.actionCreateNewStickerSetQueryUndefined)
+          error: new Error(
+            locales.find("actionCreateNewStickerSetQueryUndefined")
+          )
         })
       });
     });
@@ -95,7 +99,7 @@ describe("createNewStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -119,7 +123,7 @@ describe("createNewStickerSet epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

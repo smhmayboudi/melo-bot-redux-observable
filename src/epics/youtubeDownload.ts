@@ -11,7 +11,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
 import { startAction as startActionGetChatMember } from "./youtubeDownloadToGetChatMember";
 import { transformObservable as transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
@@ -47,7 +46,7 @@ const youtubeDownload: (
   | IActionYoutubeDownloadResultFind
   | IActionYoutubeDownloadResultInsert
 > => {
-  const { testAction$, youtubeDownloadObservable } = dependencies;
+  const { testAction$, locales, youtubeDownloadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionYoutubeDownload
@@ -57,7 +56,7 @@ const youtubeDownload: (
     if (action.youtubeDownload.query === undefined) {
       return of(
         actions.youtubeDownload.error({
-          error: new Error(texts.actionYoutubeDownloadQueryUndefined)
+          error: new Error(locales.find("actionYoutubeDownloadQueryUndefined"))
         })
       );
     }
@@ -97,8 +96,8 @@ const youtubeDownload: (
     (testAction$ !== undefined ? testAction$ : action$).pipe(
       ofType(actions.sendVideo.SEND_VIDEO_RESULT),
       take<IActionSendVideo & IActionYoutubeDownload>(1),
-      switchMap(transformObservableSendVideo(action)),
-      startWith(startActionSendVideo(state$)(action))
+      switchMap(transformObservableSendVideo(action, dependencies)),
+      startWith(startActionSendVideo(action, state$, dependencies))
     );
 
   const youtubeDownloadResultFind: (
@@ -126,11 +125,14 @@ const youtubeDownload: (
           action2.youtubeDownloadResultFind.result !== null ||
           action2.youtubeDownloadResultFind.result !== undefined
         ) {
-          return transformObservableYoutubeDownloadResultFind(state$)(action2);
+          return transformObservableYoutubeDownloadResultFind(
+            state$,
+            dependencies
+          )(action2);
         }
         return actionObservable(action).pipe(switchMap(sendVideo));
       }),
-      startWith(startActionYoutubeDownloadResultFind(action))
+      startWith(startActionYoutubeDownloadResultFind(action, dependencies))
     );
 
   const getChatMember: (
@@ -157,7 +159,7 @@ const youtubeDownload: (
     if (actionGetChatMemberResultStatus(action2)) {
       return youtubeDownloadResultFind(action);
     }
-    return transformObservableSendMessage(state$)(action);
+    return transformObservableSendMessage(action, state$, dependencies);
   };
 
   return action$.pipe(
@@ -177,7 +179,7 @@ const youtubeDownload: (
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take<IActionGetChatMember & IActionYoutubeDownload>(1),
           switchMap(getChatMember(action)),
-          startWith(startActionGetChatMember(state$))
+          startWith(startActionGetChatMember(state$, dependencies))
         )
     )
   );

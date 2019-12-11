@@ -1,7 +1,7 @@
 ---
 inject: true
 to: authorization.csv
-after: 52953379
+before: g,
 ---
 p, admin, <%= h.changeCase.snake(name).toUpperCase()%>_ERROR
 p, admin, <%= h.changeCase.snake(name).toUpperCase()%>_QUERY

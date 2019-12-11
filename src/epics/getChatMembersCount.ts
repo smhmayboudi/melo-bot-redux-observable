@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const getChatMembersCount: (
   action$: Observable<IActionGetChatMembersCount>,
@@ -18,7 +17,7 @@ const getChatMembersCount: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetChatMembersCount> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetChatMembersCount
@@ -28,7 +27,9 @@ const getChatMembersCount: (
     if (action.getChatMembersCount.query === undefined) {
       return of(
         actions.getChatMembersCount.error({
-          error: new Error(texts.actionGetChatMembersCountQueryUndefined)
+          error: new Error(
+            locales.find("actionGetChatMembersCountQueryUndefined")
+          )
         })
       );
     }

@@ -7,16 +7,18 @@ import { TestScheduler } from "rxjs/testing";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionShortenList } from "../../types/iActionShortenList";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateShortenListQuery } from "../../types/iStateShortenListQuery";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/shortenList";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
+import { locale } from "../utils/string";
 
 describe("shortenList epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateShortenListQuery = {};
   const result: IStateShortenListResult[] = [
@@ -79,7 +81,7 @@ describe("shortenList epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         queryObservable: (): ColdObservable<any> =>
           cold("--a", { a: resultQuery })
@@ -104,7 +106,7 @@ describe("shortenList epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -125,7 +127,7 @@ describe("shortenList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> =>
           cold("--a", { a: resultQuery })
@@ -135,7 +137,7 @@ describe("shortenList epic", (): void => {
       > = epic.shortenList(action$, state$, dependencies);
       expectObservable(output$).toBe("---a", {
         a: actions.shortenList.error({
-          error: new Error(texts.actionShortenListQueryUndefined)
+          error: new Error(locales.find("actionShortenListQueryUndefined"))
         })
       });
     });
@@ -152,7 +154,7 @@ describe("shortenList epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> =>
           cold("--a", { a: resultQuery })
@@ -177,7 +179,7 @@ describe("shortenList epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> =>
           cold("--a", { a: resultQuery })
@@ -202,7 +204,7 @@ describe("shortenList epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: null })
       };
@@ -226,7 +228,7 @@ describe("shortenList epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> =>
           cold("--a", { a: resultQuery })

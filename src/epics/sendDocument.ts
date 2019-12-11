@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformSendDocumentQuery } from "../utils/formData";
 
 const sendDocument: (
@@ -20,7 +19,7 @@ const sendDocument: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendDocument> => {
-  const { botToken, requestsUploadObservable } = dependencies;
+  const { botToken, locales, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendDocument
@@ -30,7 +29,7 @@ const sendDocument: (
     if (action.sendDocument.query === undefined) {
       return of(
         actions.sendDocument.error({
-          error: new Error(texts.actionSendDocumentQueryUndefined)
+          error: new Error(locales.find("actionSendDocumentQueryUndefined"))
         })
       );
     }

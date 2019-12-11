@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const sendVenue: (
   action$: Observable<IActionSendVenue>,
@@ -19,7 +18,7 @@ const sendVenue: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendVenue> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendVenue
@@ -29,7 +28,7 @@ const sendVenue: (
     if (action.sendVenue.query === undefined) {
       return of(
         actions.sendVenue.error({
-          error: new Error(texts.actionSendVenueQueryUndefined)
+          error: new Error(locales.find("actionSendVenueQueryUndefined"))
         })
       );
     }

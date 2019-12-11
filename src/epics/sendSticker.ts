@@ -8,7 +8,6 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import { transformSendStickerQuery } from "../utils/formData";
 
 const sendSticker: (
@@ -20,7 +19,7 @@ const sendSticker: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendSticker> => {
-  const { botToken, requestsUploadObservable } = dependencies;
+  const { botToken, locales, requestsUploadObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendSticker
@@ -30,7 +29,7 @@ const sendSticker: (
     if (action.sendSticker.query === undefined) {
       return of(
         actions.sendSticker.error({
-          error: new Error(texts.actionSendStickerQueryUndefined)
+          error: new Error(locales.find("actionSendStickerQueryUndefined"))
         })
       );
     }

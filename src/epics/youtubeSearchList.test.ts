@@ -7,14 +7,16 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/youtubeSearchList";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { locale } from "../utils/string";
 
 describe("youtubeSearchList epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeSearchListQuery = {
     key: ""
@@ -84,7 +86,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<IActionYoutubeSearchList> = epic.youtubeSearchList(
@@ -106,7 +108,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<IActionYoutubeSearchList> = epic.youtubeSearchList(
@@ -116,7 +118,9 @@ describe("youtubeSearchList epic", (): void => {
       );
       expectObservable(output$).toBe("-a", {
         a: actions.youtubeSearchList.error({
-          error: new Error(texts.actionYoutubeSearchListQueryUndefined)
+          error: new Error(
+            locales.find("actionYoutubeSearchListQueryUndefined")
+          )
         })
       });
     });
@@ -130,7 +134,7 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };

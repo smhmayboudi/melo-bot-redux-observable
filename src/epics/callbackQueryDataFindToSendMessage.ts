@@ -9,7 +9,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import * as env from "../configs/env";
-import * as texts from "../configs/texts";
 
 const callbackQueryDataFindToSendMessage: (
   action$: Observable<IActionCallbackQueryDataFind>,
@@ -22,12 +21,14 @@ const callbackQueryDataFindToSendMessage: (
 > = (
   action$: Observable<IActionCallbackQueryDataFind>,
   state$: StateObservable<IState> | undefined,
-  _dependencies: IDependencies
+  dependencies: IDependencies
 ): Observable<
   | IActionCallbackQueryDataFind
   | IActionYoutubeSearchList
   | IActionYoutubeVideoList
 > => {
+  const { locales } = dependencies;
+
   const actionObservable: (
     action: IActionCallbackQueryDataFind
   ) => Observable<
@@ -44,14 +45,16 @@ const callbackQueryDataFindToSendMessage: (
     if (state$ === undefined) {
       return of(
         actions.callbackQueryDataFind.error({
-          error: new Error(texts.state$Undefined)
+          error: new Error(locales.find("state$Undefined"))
         })
       );
     }
     if (state$.value.callbackQueryDataFind.query === undefined) {
       return of(
         actions.callbackQueryDataFind.error({
-          error: new Error(texts.state$ValueCallbackQueryDataFindQueryUndefined)
+          error: new Error(
+            locales.find("state$ValueCallbackQueryDataFindQueryUndefined")
+          )
         })
       );
     }
@@ -61,7 +64,9 @@ const callbackQueryDataFindToSendMessage: (
     ) {
       return of(
         actions.callbackQueryDataFind.error({
-          error: new Error(texts.actionCallbackQueryDataFindResultUndefined)
+          error: new Error(
+            locales.find("actionCallbackQueryDataFindResultUndefined")
+          )
         })
       );
     }
@@ -69,7 +74,7 @@ const callbackQueryDataFindToSendMessage: (
       return of(
         actions.callbackQueryDataFind.error({
           error: new Error(
-            texts.actionCallbackQueryDataFindResultPageInfoUndefined
+            locales.find("actionCallbackQueryDataFindResultPageInfoUndefined")
           )
         })
       );
@@ -81,7 +86,9 @@ const callbackQueryDataFindToSendMessage: (
       return of(
         actions.callbackQueryDataFind.error({
           error: new Error(
-            texts.actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined
+            locales.find(
+              "actionCallbackQueryDataFindResultPageInfoResultsPerPageUndefined"
+            )
           )
         })
       );
@@ -121,7 +128,9 @@ const callbackQueryDataFindToSendMessage: (
     }
 
     return throwError(
-      new Error(texts.actionCallbackQueryDataFindResultChartQUndefined)
+      new Error(
+        locales.find("actionCallbackQueryDataFindResultChartQUndefined")
+      )
     );
   };
 

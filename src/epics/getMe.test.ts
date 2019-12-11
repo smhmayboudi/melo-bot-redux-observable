@@ -11,11 +11,13 @@ import { IState } from "../../types/iState";
 import { IStateGetMeQuery } from "../../types/iStateGetMeQuery";
 import { IUser } from "../../types/telegramBot/types/iUser";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 import * as epic from "../epics/getMe";
-import { initialDependencies } from "../utils/dependencies";
+import { init as initDependencies } from "../utils/dependencies";
+import { ILocale } from "../../types/iLocale";
+import { locale } from "../utils/string";
 
 describe("getMe epic", (): void => {
+  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateGetMeQuery = {
     chat_id: 0,
@@ -52,7 +54,7 @@ describe("getMe epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -75,7 +77,7 @@ describe("getMe epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -86,7 +88,7 @@ describe("getMe epic", (): void => {
       );
       expectObservable(output$).toBe("-a", {
         a: actions.getMe.error({
-          error: new Error(texts.actionGetMeQueryUndefined)
+          error: new Error(locales.find("actionGetMeQueryUndefined"))
         })
       });
     });
@@ -100,7 +102,7 @@ describe("getMe epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -124,7 +126,7 @@ describe("getMe epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initialDependencies,
+        ...initDependencies(locales).initDependencies,
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

@@ -7,7 +7,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
 
 const setPassportDataErrors: (
   action$: Observable<IActionSetPassportDataErrors>,
@@ -18,7 +17,7 @@ const setPassportDataErrors: (
   _state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetPassportDataErrors> => {
-  const { botToken, requestsObservable } = dependencies;
+  const { botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetPassportDataErrors
@@ -28,7 +27,9 @@ const setPassportDataErrors: (
     if (action.setPassportDataErrors.query === undefined) {
       return of(
         actions.setPassportDataErrors.error({
-          error: new Error(texts.actionSetPassportDataErrorsQueryUndefined)
+          error: new Error(
+            locales.find("actionSetPassportDataErrorsQueryUndefined")
+          )
         })
       );
     }

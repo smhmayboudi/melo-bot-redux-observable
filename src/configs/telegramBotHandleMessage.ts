@@ -7,8 +7,9 @@ import { ICommandDownloadOptions } from "../../types/iCommandDownloadOptions";
 import { ICommandRelatedToVideoIdOptions } from "../../types/iCommandRelatedToVideoIdOptions";
 // import { ICommandShortenListOptions } from "../../types/iCommandShortenListOptions";
 import { ICommandShortenResetOptions } from "../../types/iCommandShortenResetOptions";
-import { ICommandStartOptions } from "../../types/iCommandStartOptions";
 import { ICommandStartGroupOptions } from "../../types/iCommandStartGroupOptions";
+import { ICommandStartOptions } from "../../types/iCommandStartOptions";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
@@ -16,14 +17,18 @@ import * as command from "../utils/command";
 import * as commandStart from "../utils/commandStart";
 import { caption } from "../utils/string";
 import * as env from "./env";
-import * as texts from "./texts";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleMessage: (
+  locales: ILocale,
   store: Store<IState, IAction>,
   message: IMessage
-) => void = (store: Store<IState, IAction>, message: IMessage): void => {
+) => void = (
+  locales: ILocale,
+  store: Store<IState, IAction>,
+  message: IMessage
+): void => {
   appDebug("TELEGRAM_BOT_HANDLE_MESSAGE");
   switch (message.text) {
     case "/addStickerToSet":
@@ -301,7 +306,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: texts.messageHelp
+                text: locales.find("messageHelp")
               }
             })
           );
@@ -351,7 +356,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: texts.messageSetInlineGeo
+                text: locales.find("messageSetInlineGeo")
               }
             })
           );
@@ -365,7 +370,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: texts.messageSettings
+                text: locales.find("messageSettings")
               }
             })
           );
@@ -426,7 +431,7 @@ const handleMessage: (
                 }
               })
             );
-            handleMessage(store, { ...message, text: options.cmd });
+            handleMessage(locales, store, { ...message, text: options.cmd });
           }
         } else if (message.text.includes(command.startGroup())) {
           const options:
@@ -444,7 +449,7 @@ const handleMessage: (
                 }
               })
             );
-            handleMessage(store, { ...message, text: options.cmd });
+            handleMessage(locales, store, { ...message, text: options.cmd });
           }
         } else {
           store.dispatch(

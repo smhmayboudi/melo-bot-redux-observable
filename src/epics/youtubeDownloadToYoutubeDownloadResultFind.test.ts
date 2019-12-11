@@ -5,6 +5,8 @@ import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeDownload } from "../../types/iActionYoutubeDownload";
 import { IActionYoutubeDownloadResultFind } from "../../types/iActionYoutubeDownloadResultFind";
+import { IDependencies } from "../../types/iDependencies";
+import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeDownloadResultFindQuery } from "../../types/iStateYoutubeDownloadResultFindQuery";
@@ -12,9 +14,9 @@ import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutub
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import * as actions from "../actions";
-import * as texts from "../configs/texts";
+import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
-import { caption } from "../utils/string";
+import { caption, locale } from "../utils/string";
 import {
   startAction,
   transformObservable
@@ -22,6 +24,7 @@ import {
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToYoutubeDownloadResultFind", (): void => {
+    const locales: ILocale = locale("en");
     const query: IStateYoutubeDownloadResultFindQuery = {
       id: ""
     };
@@ -97,9 +100,14 @@ describe("youtubeDownload epic", (): void => {
             { result }
           );
           const state$: StateObservable<IState> | undefined = undefined;
-          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
+          expectObservable(
+            transformObservable(state$, dependencies)(action)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.state$Undefined)
+              error: new Error(locales.find("state$Undefined"))
             })
           });
         });
@@ -117,9 +125,14 @@ describe("youtubeDownload epic", (): void => {
             new Subject(),
             state$ValueMessageQueryUndefined
           );
-          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
+          expectObservable(
+            transformObservable(state$, dependencies)(action)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.state$ValueMessageQueryUndefined)
+              error: new Error(locales.find("state$ValueMessageQueryUndefined"))
             })
           });
         });
@@ -137,9 +150,16 @@ describe("youtubeDownload epic", (): void => {
             new Subject(),
             state$ValueMessageQueryMessageUndefined
           );
-          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
+          expectObservable(
+            transformObservable(state$, dependencies)(action)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.state$ValueMessageQueryMessageUndefined)
+              error: new Error(
+                locales.find("state$ValueMessageQueryMessageUndefined")
+              )
             })
           });
         });
@@ -154,9 +174,16 @@ describe("youtubeDownload epic", (): void => {
           const state$:
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
-          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
+          expectObservable(
+            transformObservable(state$, dependencies)(action)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.actionYoutubeDownloadResultUndefined)
+              error: new Error(
+                locales.find("actionYoutubeDownloadResultUndefined")
+              )
             })
           });
         });
@@ -171,9 +198,16 @@ describe("youtubeDownload epic", (): void => {
           const state$:
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
-          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
+          expectObservable(
+            transformObservable(state$, dependencies)(action)
+          ).toBe("(a|)", {
             a: actions.youtubeDownload.error({
-              error: new Error(texts.actionYoutubeDownloadResultThumbUndefined)
+              error: new Error(
+                locales.find("actionYoutubeDownloadResultThumbUndefined")
+              )
             })
           });
         });
@@ -188,7 +222,12 @@ describe("youtubeDownload epic", (): void => {
           const state$:
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
-          expectObservable(transformObservable(state$)(action)).toBe("(a|)", {
+          const dependencies: IDependencies = {
+            ...initDependencies(locales).initDependencies
+          };
+          expectObservable(
+            transformObservable(state$, dependencies)(action)
+          ).toBe("(a|)", {
             a: actions.sendVideo.query({
               query: {
                 caption: caption(result.title),
@@ -230,9 +269,14 @@ describe("youtubeDownload epic", (): void => {
         const action: IActionYoutubeDownload = actions.youtubeDownload.query({
           query: undefined
         });
-        expect(startAction(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, dependencies)).toEqual(
           actions.youtubeDownload.error({
-            error: new Error(texts.actionYoutubeDownloadQueryUndefined)
+            error: new Error(
+              locales.find("actionYoutubeDownloadQueryUndefined")
+            )
           })
         );
       });
@@ -241,7 +285,10 @@ describe("youtubeDownload epic", (): void => {
         const action: IActionYoutubeDownload = actions.youtubeDownload.query({
           query: query
         });
-        expect(startAction(action)).toEqual(
+        const dependencies: IDependencies = {
+          ...initDependencies(locales).initDependencies
+        };
+        expect(startAction(action, dependencies)).toEqual(
           actions.youtubeDownloadResultFind.query({
             query: {
               id: query.id
