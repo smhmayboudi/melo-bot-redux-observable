@@ -109,6 +109,10 @@ describe("env configs", (): void => {
     expect(env.PORT).toBe(8081);
   });
 
+  test("should handle PORT_SECURE", (): void => {
+    expect(env.PORT_SECURE).toBe(8443);
+  });
+
   test("should handle SENTRY_DSN", (): void => {
     expect(env.SENTRY_DSN).toBe(
       "https://a74e2edcd150475f82cef68e0b09c5cd@sentry.io/1784965"

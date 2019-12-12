@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from "path";
 
 import { IStateSetChatPhotoQuery } from "../../types/iStateSetChatPhotoQuery";
 import * as action from "../actions/setChatPhoto";
@@ -9,7 +10,9 @@ describe("setChatPhoto reducer", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatPhotoQuery = {
     chat_id: "",
-    photo: fs.createReadStream("./asset/small.jpg")
+    photo: fs.createReadStream(
+      path.resolve(__dirname, "../../asset", "small.jpg")
+    )
   };
   const result = true;
 

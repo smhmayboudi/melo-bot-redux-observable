@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from "path";
 
 import { IStateUploadStickerFileQuery } from "../../types/iStateUploadStickerFileQuery";
 import { IFile } from "../../types/telegramBot/types/iFile";
@@ -8,7 +9,9 @@ import * as action from "./uploadStickerFile";
 describe("uploadStickerFile actions", (): void => {
   const error: Error = new Error("");
   const query: IStateUploadStickerFileQuery = {
-    png_sticker: fs.createReadStream("./asset/small.png"),
+    png_sticker: fs.createReadStream(
+      path.resolve(__dirname, "../../asset", "small.png")
+    ),
     user_id: 0
   };
   const result: IFile = {

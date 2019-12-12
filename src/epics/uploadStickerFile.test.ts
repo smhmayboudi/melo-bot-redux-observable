@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from "path";
 import { StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -21,7 +22,9 @@ describe("uploadStickerFile epic", (): void => {
   const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateUploadStickerFileQuery = {
-    png_sticker: fs.createReadStream("./asset/small.png"),
+    png_sticker: fs.createReadStream(
+      path.resolve(__dirname, "../../asset", "small.png")
+    ),
     user_id: 0
   };
   const result: IFile = {

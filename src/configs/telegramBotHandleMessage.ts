@@ -1,5 +1,6 @@
 import debug from "debug";
 import * as fs from "fs";
+import * as path from "path";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
@@ -39,7 +40,9 @@ const handleMessage: (
             emojis: "small",
             // mask_position?: IMaskPosition,
             name: "small",
-            png_sticker: fs.createReadStream("./asset/small.png"),
+            png_sticker: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.png")
+            ),
             user_id: message.chat.id
           }
         })
@@ -54,7 +57,9 @@ const handleMessage: (
             emojis: "SMALL",
             // mask_position?: IMaskPosition,.
             name: "small",
-            png_sticker: fs.createReadStream("./asset/small.png"),
+            png_sticker: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.png")
+            ),
             title: "small",
             user_id: message.chat.id
           }
@@ -75,7 +80,9 @@ const handleMessage: (
       store.dispatch(
         actions.sendAnimation.query({
           query: {
-            animation: fs.createReadStream("./asset/small.gif"),
+            animation: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.gif")
+            ),
             caption: caption(""),
             chat_id: message.chat.id,
             disable_notification: true,
@@ -83,7 +90,9 @@ const handleMessage: (
             height: 320,
             parse_mode: "HTML",
             reply_to_message_id: message.message_id,
-            thumb: fs.createReadStream("./asset/small.jpg"),
+            thumb: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.jpg")
+            ),
             width: 560
           }
         })
@@ -93,7 +102,9 @@ const handleMessage: (
       store.dispatch(
         actions.sendAudio.query({
           query: {
-            audio: fs.createReadStream("./asset/small.mp3"),
+            audio: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.mp3")
+            ),
             caption: caption(""),
             chat_id: message.chat.id,
             disable_notification: true,
@@ -101,7 +112,9 @@ const handleMessage: (
             parse_mode: "HTML",
             performer: "small",
             reply_to_message_id: message.message_id,
-            thumb: fs.createReadStream("./asset/small.jpg"),
+            thumb: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.jpg")
+            ),
             title: "small"
           }
         })
@@ -114,10 +127,14 @@ const handleMessage: (
             caption: caption("small"),
             chat_id: message.chat.id,
             disable_notification: true,
-            document: fs.createReadStream("./asset/small.pdf"),
+            document: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.pddf")
+            ),
             parse_mode: "HTML",
             reply_to_message_id: message.message_id,
-            thumb: fs.createReadStream("./asset/small.jpg")
+            thumb: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.jpg")
+            )
           }
         })
       );
@@ -132,7 +149,9 @@ const handleMessage: (
             media: [
               {
                 caption: caption(""),
-                media: fs.createReadStream("./asset/small.jpg"),
+                media: fs.createReadStream(
+                  path.resolve(__dirname, "../../asset", "small.jpg")
+                ),
                 parse_mode: "HTML",
                 type: "photo"
               },
@@ -140,10 +159,14 @@ const handleMessage: (
                 caption: caption(""),
                 duration: 6,
                 height: 320,
-                media: fs.createReadStream("./asset/small.mp4"),
+                media: fs.createReadStream(
+                  path.resolve(__dirname, "../../asset", "small.mp4")
+                ),
                 parse_mode: "HTML",
                 supports_streaming: true,
-                thumb: fs.createReadStream("./asset/small.jpg"),
+                thumb: fs.createReadStream(
+                  path.resolve(__dirname, "../../asset", "small.jpg")
+                ),
                 type: "video",
                 width: 560
               }
@@ -175,7 +198,9 @@ const handleMessage: (
             chat_id: message.chat.id,
             disable_notification: true,
             parse_mode: "HTML",
-            photo: fs.createReadStream("./asset/small.jpg"),
+            photo: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.jpg")
+            ),
             reply_to_message_id: message.message_id
           }
         })
@@ -189,7 +214,9 @@ const handleMessage: (
             chat_id: message.chat.id,
             disable_notification: true,
             reply_to_message_id: message.message_id,
-            sticker: fs.createReadStream("./asset/small.png")
+            sticker: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.png")
+            )
           }
         })
       );
@@ -206,8 +233,12 @@ const handleMessage: (
             parse_mode: "HTML",
             reply_to_message_id: message.message_id,
             supports_streaming: true,
-            thumb: fs.createReadStream("./asset/small.jpg"),
-            video: fs.createReadStream("./asset/small.mp4"),
+            thumb: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.jpg")
+            ),
+            video: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.mp4")
+            ),
             width: 560
           }
         })
@@ -221,8 +252,12 @@ const handleMessage: (
             disable_notification: true,
             duration: 61,
             reply_to_message_id: message.message_id,
-            thumb: fs.createReadStream("./asset/small2.jpg"),
-            video_note: fs.createReadStream("./asset/small2.mp4")
+            thumb: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small2.jpg")
+            ),
+            video_note: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small2.mp4")
+            )
           }
         })
       );
@@ -237,7 +272,9 @@ const handleMessage: (
             duration: 6,
             parse_mode: "HTML",
             reply_to_message_id: message.message_id,
-            voice: fs.createReadStream("./asset/small.ogg")
+            voice: fs.createReadStream(
+              path.resolve(__dirname, "../../asset", "small.ogg")
+            )
           }
         })
       );

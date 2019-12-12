@@ -76,6 +76,7 @@ const REMOTEDEV_REALTIME: boolean =
   getter("REMOTEDEV_REALTIME", "string") === "true";
 const REMOTEDEV_PORT: number = parseInt(getter("REMOTEDEV_PORT", "number"), 10);
 const PORT: number = parseInt(getter("PORT", "number"), 10);
+const PORT_SECURE: number = parseInt(getter("PORT_SECURE", "number"), 10);
 const SENTRY_DSN: string = getter("SENTRY_DSN", "string");
 const SENTRY_RELEASE: string = getter("SENTRY_RELEASE", "string");
 const SENTRY_SERVERNAME: string = getter("SENTRY_SERVERNAME", "string");
@@ -116,6 +117,7 @@ export {
   REMOTEDEV_PORT,
   REMOTEDEV_REALTIME,
   PORT,
+  PORT_SECURE,
   SENTRY_DSN,
   SENTRY_RELEASE,
   SENTRY_SERVERNAME,

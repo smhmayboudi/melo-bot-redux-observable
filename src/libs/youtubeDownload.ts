@@ -8,12 +8,6 @@ import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutub
 
 const appDebug: debug.IDebugger = debug("app:lib:youtubeDownload");
 
-const pathThumb: (id: string) => string = (id: string): string =>
-  path.resolve(__dirname, "../../asset", `${id}.jpg`);
-
-const pathVideo: (id: string) => string = (id: string): string =>
-  path.resolve(__dirname, "../../asset", `${id}.mp4`);
-
 const youtubeDownload: (
   videoId: string
 ) => Promise<IStateYoutubeDownloadResultInsertQuery> = (
@@ -179,7 +173,11 @@ const youtubeDownload: (
               res: (value?: null | PromiseLike<null>) => void,
               rej: (reason?: Error) => void
             ): void => {
-              const thumbPath: string = pathThumb(vi.id);
+              const thumbPath: string = path.resolve(
+                __dirname,
+                "../../asset",
+                `${vi.id}.jpg`
+              );
               fs.stat(
                 thumbPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
@@ -234,7 +232,11 @@ const youtubeDownload: (
               res: (value?: null | PromiseLike<null>) => void,
               rej: (reason?: Error) => void
             ): void => {
-              const videoPath: string = pathVideo(vi.id);
+              const videoPath: string = path.resolve(
+                __dirname,
+                "../../asset",
+                `${vi.id}.mp4`
+              );
               fs.stat(
                 videoPath,
                 (err: NodeJS.ErrnoException, stats: fs.Stats): void => {
@@ -277,9 +279,17 @@ const youtubeDownload: (
 
         Promise.all([thumbDownload(videoInfo), videoDownload(videoInfo)])
           .then(() => {
-            videoInfo.file_id = pathVideo(videoInfo.id);
+            videoInfo.file_id = path.resolve(
+              __dirname,
+              "../../asset",
+              `${videoInfo.id}.mp4`
+            );
             if (videoInfo.thumb !== undefined) {
-              videoInfo.thumb.file_id = pathThumb(videoInfo.id);
+              videoInfo.thumb.file_id = path.resolve(
+                __dirname,
+                "../../asset",
+                `${videoInfo.id}.jpg`
+              );
             }
             resolve(videoInfo);
           })
@@ -319,4 +329,4 @@ const youtubeDownload: (
     }
   );
 
-export { pathThumb, pathVideo, youtubeDownload };
+export { youtubeDownload };

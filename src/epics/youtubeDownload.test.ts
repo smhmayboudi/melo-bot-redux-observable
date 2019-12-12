@@ -8,6 +8,7 @@ declare global {
 }
 
 import * as fs from "fs";
+import * as path from "path";
 import { Db, MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
@@ -37,7 +38,7 @@ import {
 } from "../libs/mongodbObservable";
 import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
-import { caption, encode, locale, pathThumb, pathVideo } from "../utils/string";
+import { caption, encode, locale } from "../utils/string";
 import * as epic from "./youtubeDownload";
 
 jest.mock("fs");
@@ -61,8 +62,12 @@ describe("youtubeDownload epic", (): void => {
     parse_mode: "HTML",
     reply_to_message_id: 0,
     supports_streaming: true,
-    thumb: fs.createReadStream(pathThumb("small")),
-    video: fs.createReadStream(pathVideo("small")),
+    thumb: fs.createReadStream(
+      path.resolve(__dirname, "../../asset", "small.jpg")
+    ),
+    video: fs.createReadStream(
+      path.resolve(__dirname, "../../asset", "small.mp4")
+    ),
     width: 0
   };
   const result: IStateYoutubeDownloadResultInsertQuery | null = {

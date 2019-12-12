@@ -25,6 +25,7 @@ export REMOTEDEV_NAME=melo_bot_redux_observable
 export REMOTEDEV_PORT=8000
 export REMOTEDEV_REALTIME=false
 export PORT=8081
+export PORT_SECURE=8443
 export SENTRY_DSN=https://a74e2edcd150475f82cef68e0b09c5cd@sentry.io/1784965
 export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
@@ -36,6 +37,7 @@ rm -fr coverage
 # [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs/store.test.ts
 #         http
+#         https
 #         store
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose enhancers
 #         monitor

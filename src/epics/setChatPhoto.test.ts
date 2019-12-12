@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from "path";
 import { StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -21,7 +22,9 @@ describe("setChatPhoto epic", (): void => {
   const error: Error = new Error("");
   const query: IStateSetChatPhotoQuery = {
     chat_id: "",
-    photo: fs.createReadStream("./asset/small.jpg")
+    photo: fs.createReadStream(
+      path.resolve(__dirname, "../../asset", "small.jpg")
+    )
   };
   const result = true;
   const responseOKF: IResponse = {
