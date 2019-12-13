@@ -101,14 +101,36 @@ const answerMetrics: (
 https
   .createServer(
     {
-      key: fs.readFileSync(path.resolve(__dirname, "../../", "server-key.pem")),
-      cert: fs.readFileSync(
-        path.resolve(__dirname, "../../", "server-cert.pem")
-      ),
+      // ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+      // ca?: string | Buffer | Array<string | Buffer>;
       ca: [
         // This is necessary only if the client uses a self-signed certificate.
         fs.readFileSync(path.resolve(__dirname, "../../", "client-cert.pem"))
-      ]
+      ],
+      // cert?: string | Buffer | Array<string | Buffer>;
+      cert: fs.readFileSync(
+        path.resolve(__dirname, "../../", "server-cert.pem")
+      ),
+      // ciphers?: string;
+      // clientCertEngine?: string;
+      // crl?: string | Buffer | Array<string | Buffer>;
+      // dhparam?: string | Buffer;
+      // ecdhCurve?: string;
+      // handshakeTimeout?: number;
+      // honorCipherOrder?: boolean;
+      // key?: string | Buffer | Array<Buffer | Object>;
+      key: fs.readFileSync(path.resolve(__dirname, "../../", "server-key.pem"))
+      // NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
+      // passphrase?: string;
+      // pfx?: string | Buffer | Array<string | Buffer | Object>;
+      // rejectUnauthorized?: boolean;
+      // requestCert?: boolean;
+      // secureOptions?: number; // Value is a numeric bitmask of the `SSL_OP_*` options
+      // secureProtocol?: string; // SSL Method, e.g. SSLv23_method
+      // sessionIdContext?: string;
+      // sessionTimeout?: number;
+      // SNICallback?: (servername: string, cb: (err: Error | null, ctx: SecureContext) => void) => void;
+      // ticketKeys?: Buffer;
     },
     (request: http.IncomingMessage, response: http.ServerResponse): void => {
       if (request.url !== undefined) {
