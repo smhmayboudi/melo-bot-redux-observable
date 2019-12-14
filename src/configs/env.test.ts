@@ -154,4 +154,8 @@ describe("env configs", (): void => {
   test("should handle TELEGRAM_TEXT_LENGTH", (): void => {
     expect(env.TELEGRAM_TEXT_LENGTH).toBe(4096);
   });
+
+  test("should handle WEBHOOK_ENABLE", (): void => {
+    expect(env.WEBHOOK_ENABLE).toBe(false);
+  });
 });

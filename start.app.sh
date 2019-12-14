@@ -31,5 +31,6 @@ export SENTRY_RELEASE=development
 export SENTRY_SERVERNAME=OSX
 export TELEGRAM_CAPTION_LENGTH=200
 export TELEGRAM_TEXT_LENGTH=4096
+export WEBHOOK_ENABLE=false
 
 node --require source-map-support/register --inspect=0.0.0.0:9229 ./dist/app.js

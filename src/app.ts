@@ -1,3 +1,5 @@
+import * as env from "./configs/env";
+
 declare global {
   namespace NodeJS {
     interface Global {
@@ -10,4 +12,8 @@ declare global {
 global.__MONGO_DB_NAME__ = "";
 global.__MONGO_URI__ = "";
 
-import "./configs/http";
+if (env.WEBHOOK_ENABLE) {
+  require("./configs/https");
+} else {
+  require("./configs/http");
+}

@@ -1,12 +1,17 @@
-const getter: (key: string, type: string) => string = (
+const getter: (key: string, type: string) => any = (
   key: string,
   type: string
-): string => {
+): any => {
   const value: string | undefined = process.env[key];
   const message = `{ [${key}: string]: ${type} }`;
-  if (["number"].indexOf(type) > -1) {
+  if (["boolean"].indexOf(type) > -1) {
+    if (value !== undefined) {
+      return value === "true";
+    }
+    throw new Error(message);
+  } else if (["number"].indexOf(type) > -1) {
     if (value !== undefined && !isNaN(parseInt(value, 10))) {
-      return value;
+      return parseInt(value, 10);
     }
     throw new Error(message);
   } else if (["string"].indexOf(type) > -1) {
@@ -88,6 +93,7 @@ const TELEGRAM_TEXT_LENGTH: number = parseInt(
   getter("TELEGRAM_TEXT_LENGTH", "number"),
   10
 );
+const WEBHOOK_ENABLE: number = getter("WEBHOOK_ENABLE", "boolean");
 
 export {
   getter,
@@ -122,5 +128,6 @@ export {
   SENTRY_RELEASE,
   SENTRY_SERVERNAME,
   TELEGRAM_CAPTION_LENGTH,
-  TELEGRAM_TEXT_LENGTH
+  TELEGRAM_TEXT_LENGTH,
+  WEBHOOK_ENABLE
 };

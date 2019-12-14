@@ -103,13 +103,13 @@ https
     {
       // ALPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
       // ca?: string | Buffer | Array<string | Buffer>;
-      ca: [
-        // This is necessary only if the client uses a self-signed certificate.
-        fs.readFileSync(path.resolve(__dirname, "../../", "client-cert.pem"))
-      ],
+      // ca: [
+      //   // This is necessary only if the client uses a self-signed certificate.
+      //   fs.readFileSync(path.resolve(__dirname, "../../", "client-cert.pem"))
+      // ],
       // cert?: string | Buffer | Array<string | Buffer>;
       cert: fs.readFileSync(
-        path.resolve(__dirname, "../../", "server-cert.pem")
+        path.resolve(__dirname, "../../", "YOURPUBLIC.pem")
       ),
       // ciphers?: string;
       // clientCertEngine?: string;
@@ -119,7 +119,7 @@ https
       // handshakeTimeout?: number;
       // honorCipherOrder?: boolean;
       // key?: string | Buffer | Array<Buffer | Object>;
-      key: fs.readFileSync(path.resolve(__dirname, "../../", "server-key.pem"))
+      key: fs.readFileSync(path.resolve(__dirname, "../../", "YOURPRIVATE.key"))
       // NPNProtocols?: string[] | Buffer[] | Uint8Array[] | Buffer | Uint8Array;
       // passphrase?: string;
       // pfx?: string | Buffer | Array<string | Buffer | Object>;
@@ -165,5 +165,5 @@ https
     }
   )
   .listen(env.PORT_SECURE, env.HOSTNAME, (): void => {
-    appDebug("SERVER_RUNNING", env.HOSTNAME, env.PORT);
+    appDebug("SERVER_RUNNING", env.HOSTNAME, env.PORT_SECURE);
   });
