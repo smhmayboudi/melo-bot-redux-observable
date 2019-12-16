@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateGetWebhookInfo } from "./iStateGetWebhookInfo";
 
-export interface IActionGetWebhookInfo extends Action<string> {
+export interface IActionGetWebhookInfo extends IAction {
   getWebhookInfo: IStateGetWebhookInfo;
 }

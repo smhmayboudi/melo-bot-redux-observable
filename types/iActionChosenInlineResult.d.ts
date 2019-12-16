@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateChosenInlineResult } from "./iStateChosenInlineResult";
 
-export interface IActionChosenInlineResult extends Action<string> {
+export interface IActionChosenInlineResult extends IAction {
   chosenInlineResult: IStateChosenInlineResult;
 }

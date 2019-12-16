@@ -309,7 +309,7 @@ describe("youtubeVideoListResult epic", (): void => {
           cold("--a", { a: result })
       };
       const chart = (state$Value.youtubeVideoList
-        .query as IStateYoutubeVideoListQuery).chart;
+        .query as IStateYoutubeVideoListQuery).chart as string;
       const output$: Observable<
         | IActionAnswerInlineQuery
         | IActionCallbackQueryDataInsert

@@ -1,78 +1,17 @@
 import * as command from "./command";
 
 describe("command utils", (): void => {
-  test("should handle addStickerToSet", (): void => {
-    expect(command.addStickerToSet()).toEqual("/addStickerToSet");
-  });
-
-  test("should handle createNewStickerSet", (): void => {
-    expect(command.createNewStickerSet()).toEqual("/createNewStickerSet");
-  });
-
-  test("should handle download", (): void => {
-    expect(command.download()).toEqual("/dl");
-  });
-
-  test("should handle getChatMember", (): void => {
-    expect(command.getChatMember()).toEqual("/getChatMember");
-  });
-
   test("should handle help", (): void => {
     expect(command.help()).toEqual("/help");
   });
 
-  test("should handle mostPopular", (): void => {
-    expect(command.mostPopular()).toEqual("/mp");
-  });
-
   test("should handle parse", (): void => {
     expect(
-      command.parse("/rl CgtGa01QdHgyUmtCaw", "iCommandRelatedToVideoIdOptions")
+      command.parse(
+        "/rl CgtGa01QdHgyUmtCaw",
+        "iCommandYoutubeSearchListByRelatedToVideoIdOptions"
+      )
     ).toEqual({ name: "/rl", options: { id: "FkMPtx2RkBk" } });
-  });
-
-  test("should handle relatedToVideoId", (): void => {
-    expect(command.relatedToVideoId()).toEqual("/rl");
-  });
-
-  test("should handle sendAnimation", (): void => {
-    expect(command.sendAnimation()).toEqual("/sendAnimation");
-  });
-
-  test("should handle sendAudio", (): void => {
-    expect(command.sendAudio()).toEqual("/sendAudio");
-  });
-
-  test("should handle sendDocument", (): void => {
-    expect(command.sendDocument()).toEqual("/sendDocument");
-  });
-
-  test("should handle sendMediaGroup", (): void => {
-    expect(command.sendMediaGroup()).toEqual("/sendMediaGroup");
-  });
-
-  test("should handle sendMessage", (): void => {
-    expect(command.sendMessage()).toEqual("/sendMessage");
-  });
-
-  test("should handle sendPhoto", (): void => {
-    expect(command.sendPhoto()).toEqual("/sendPhoto");
-  });
-
-  test("should handle sendSticker", (): void => {
-    expect(command.sendSticker()).toEqual("/sendSticker");
-  });
-
-  test("should handle sendVideo", (): void => {
-    expect(command.sendVideo()).toEqual("/sendVideo");
-  });
-
-  test("should handle sendVideoNote", (): void => {
-    expect(command.sendVideoNote()).toEqual("/sendVideoNote");
-  });
-
-  test("should handle sendVoice", (): void => {
-    expect(command.sendVoice()).toEqual("/sendVoice");
   });
 
   test("should handle setInlineGeo", (): void => {
@@ -91,12 +30,16 @@ describe("command utils", (): void => {
     expect(command.shortenReset()).toEqual("/sr");
   });
 
+  test("should handle split", (): void => {
+    expect(command.split("a b")).toEqual(["a", "b"]);
+  });
+
   test("should handle start", (): void => {
     expect(command.start()).toEqual("/start");
   });
 
   test("should handle startGroup", (): void => {
-    expect(command.startGroup()).toEqual("/startGroup");
+    expect(command.startGroup()).toEqual("/startgroup");
   });
 
   test("should handle stringify", (): void => {
@@ -104,20 +47,24 @@ describe("command utils", (): void => {
       command.stringify(
         "rl",
         { id: "FkMPtx2RkBk" },
-        "iCommandRelatedToVideoIdOptions"
+        "iCommandYoutubeSearchListByRelatedToVideoIdOptions"
       )
     ).toEqual("/rl CgtGa01QdHgyUmtCaw");
   });
 
   test("should handle youtubeDownload", (): void => {
-    expect(command.youtubeDownload()).toEqual("/youtubeDownload");
+    expect(command.youtubeDownload()).toEqual("/dl");
   });
 
   test("should handle youtubeSearchList", (): void => {
-    expect(command.youtubeSearchList()).toEqual("/youtubeSearchList");
+    expect(command.youtubeSearchListByQ()).toEqual("/ysl");
+  });
+
+  test("should handle youtubeSearchListByRelatedToVideoId", (): void => {
+    expect(command.youtubeSearchListByRelatedToVideoId()).toEqual("/rl");
   });
 
   test("should handle youtubeVideoList", (): void => {
-    expect(command.youtubeVideoList()).toEqual("/youtubeVideoList");
+    expect(command.youtubeVideoList()).toEqual("/mp");
   });
 });

@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateAddStickerToSet } from "./iStateAddStickerToSet";
 
-export interface IActionAddStickerToSet extends Action<string> {
+export interface IActionAddStickerToSet extends IAction {
   addStickerToSet: IStateAddStickerToSet;
 }

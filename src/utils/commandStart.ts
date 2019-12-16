@@ -17,13 +17,15 @@ const stringify: (
   opts !== undefined && optsType !== undefined
     ? `t.me/${env.BOT_NAME}?${name}=${encode(opts, optsType)}`
     : `t.me/${env.BOT_NAME}?${name}=hi`;
+const split: (cmd: string) => string[] = (cmd: string): string[] =>
+  cmd.split(separator);
 const parse: <TOpts>(cmd: string, optsType?: string) => ICommand<TOpts> = <
   TOpts
 >(
   cmd: string,
   optsType?: string
 ): ICommand<TOpts> => {
-  const cmdParts: string[] = cmd.split(separator);
+  const cmdParts: string[] = split(cmd);
   return {
     name: cmdParts[0],
     options:
@@ -39,4 +41,4 @@ const startGroup: (opts?: ICommandStartGroupOptions) => string = (
   opts?: ICommandStartGroupOptions
 ): string => stringify("startgroup", opts, "iCommandStartGroupOptions");
 
-export { parse, start, startGroup, stringify };
+export { parse, split, start, startGroup, stringify };

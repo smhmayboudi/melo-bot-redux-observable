@@ -4,8 +4,8 @@ import * as path from "path";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
-import { ICommandDownloadOptions } from "../../types/iCommandDownloadOptions";
-import { ICommandRelatedToVideoIdOptions } from "../../types/iCommandRelatedToVideoIdOptions";
+import { ICommandYoutubeDownloadOptions } from "../../types/iCommandYoutubeDownloadOptions";
+import { ICommandYoutubeSearchListByRelatedToVideoIdOptions } from "../../types/iCommandYoutubeSearchListByRelatedToVideoIdOptions";
 // import { ICommandShortenListOptions } from "../../types/iCommandShortenListOptions";
 import { ICommandShortenResetOptions } from "../../types/iCommandShortenResetOptions";
 import { ICommandStartGroupOptions } from "../../types/iCommandStartGroupOptions";
@@ -18,6 +18,7 @@ import * as command from "../utils/command";
 import * as commandStart from "../utils/commandStart";
 import { caption } from "../utils/string";
 import * as env from "./env";
+import { ICommandYoutubeSearchListByQOptions } from "../../types/iCommandYoutubeSearchListByQOptions";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -320,20 +321,7 @@ const handleMessage: (
       break;
     default:
       if (message.text !== undefined) {
-        if (message.text.includes(command.download())) {
-          const options: ICommandDownloadOptions | undefined = command.parse<
-            ICommandDownloadOptions
-          >(message.text, "iCommandDownloadOptions").options;
-          if (options !== undefined) {
-            store.dispatch(
-              actions.youtubeDownload.query({
-                query: {
-                  id: options.id
-                }
-              })
-            );
-          }
-        } else if (message.text.includes(command.help())) {
+        if (message.text.includes(command.help())) {
           // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
@@ -347,42 +335,6 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(command.mostPopular())) {
-          store.dispatch(
-            actions.youtubeVideoList.query({
-              query: {
-                chart: "mostPopular",
-                hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-                key: env.GOOGLE_API_KEY,
-                maxResults: 1,
-                part: "id,snippet",
-                regionCode: env.GOOGLE_API_REGION_CODE
-              }
-            })
-          );
-        } else if (message.text.includes(command.relatedToVideoId())) {
-          const options:
-            | ICommandRelatedToVideoIdOptions
-            | undefined = command.parse<ICommandRelatedToVideoIdOptions>(
-            message.text,
-            "iCommandRelatedToVideoIdOptions"
-          ).options;
-          if (options !== undefined) {
-            store.dispatch(
-              actions.youtubeSearchList.query({
-                query: {
-                  key: env.GOOGLE_API_KEY,
-                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
-                  part: "id,snippet",
-                  regionCode: env.GOOGLE_API_REGION_CODE,
-                  relatedToVideoId: options.id,
-                  relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
-                  safeSearch: env.GOOGLE_API_SAFE_SEARCH,
-                  type: env.GOOGLE_API_SEARCH_LIST_TYPE
-                }
-              })
-            );
-          }
         } else if (message.text.includes(command.setInlineGeo())) {
           // TODO: check it
           store.dispatch(
@@ -412,12 +364,11 @@ const handleMessage: (
             })
           );
         } else if (message.text.includes(command.shortenList())) {
+          const cmdParts: string[] = command.split(message.text);
           store.dispatch(
             actions.shortenList.query({
               query: {
-                shortLink: message.text
-                  .replace(command.shortenList(), "")
-                  .trim()
+                shortLink: cmdParts[1]
               }
             })
           );
@@ -488,6 +439,83 @@ const handleMessage: (
             );
             handleMessage(locales, store, { ...message, text: options.cmd });
           }
+        } else if (message.text.includes(command.youtubeDownload())) {
+          const options:
+            | ICommandYoutubeDownloadOptions
+            | undefined = command.parse<ICommandYoutubeDownloadOptions>(
+            message.text,
+            "iCommandYoutubeDownloadOptions"
+          ).options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.youtubeDownload.query({
+                query: {
+                  id: options.id
+                }
+              })
+            );
+          }
+        } else if (message.text.includes(command.youtubeSearchListByQ())) {
+          const options:
+            | ICommandYoutubeSearchListByQOptions
+            | undefined = command.parse<ICommandYoutubeSearchListByQOptions>(
+            message.text,
+            "iCommandYoutubeSearchListByQOptions"
+          ).options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.youtubeSearchList.query({
+                query: {
+                  key: env.GOOGLE_API_KEY,
+                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
+                  part: "id,snippet",
+                  q: options.q,
+                  regionCode: env.GOOGLE_API_REGION_CODE,
+                  relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+                  safeSearch: env.GOOGLE_API_SAFE_SEARCH,
+                  type: env.GOOGLE_API_SEARCH_LIST_TYPE
+                }
+              })
+            );
+          }
+        } else if (
+          message.text.includes(command.youtubeSearchListByRelatedToVideoId())
+        ) {
+          const options:
+            | ICommandYoutubeSearchListByRelatedToVideoIdOptions
+            | undefined = command.parse<
+            ICommandYoutubeSearchListByRelatedToVideoIdOptions
+          >(message.text, "iCommandYoutubeSearchListByRelatedToVideoIdOptions")
+            .options;
+          if (options !== undefined) {
+            store.dispatch(
+              actions.youtubeSearchList.query({
+                query: {
+                  key: env.GOOGLE_API_KEY,
+                  maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
+                  part: "id,snippet",
+                  regionCode: env.GOOGLE_API_REGION_CODE,
+                  relatedToVideoId: options.id,
+                  relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+                  safeSearch: env.GOOGLE_API_SAFE_SEARCH,
+                  type: env.GOOGLE_API_SEARCH_LIST_TYPE
+                }
+              })
+            );
+          }
+        } else if (message.text.includes(command.youtubeVideoList())) {
+          store.dispatch(
+            actions.youtubeVideoList.query({
+              query: {
+                chart: "mostPopular",
+                hl: env.GOOGLE_API_RELEVANCE_LANGUAGE,
+                key: env.GOOGLE_API_KEY,
+                maxResults: 1,
+                part: "id,snippet",
+                regionCode: env.GOOGLE_API_REGION_CODE
+              }
+            })
+          );
         } else {
           store.dispatch(
             actions.youtubeSearchList.query({
@@ -495,7 +523,7 @@ const handleMessage: (
                 key: env.GOOGLE_API_KEY,
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
-                q: message.text.trim(),
+                q: message.text,
                 regionCode: env.GOOGLE_API_REGION_CODE,
                 relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
                 safeSearch: env.GOOGLE_API_SAFE_SEARCH,

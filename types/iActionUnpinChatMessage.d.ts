@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateUnpinChatMessage } from "./iStateUnpinChatMessage";
 
-export interface IActionUnpinChatMessage extends Action<string> {
+export interface IActionUnpinChatMessage extends IAction {
   unpinChatMessage: IStateUnpinChatMessage;
 }

@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateRestrictChatMember } from "./iStateRestrictChatMember";
 
-export interface IActionRestrictChatMember extends Action<string> {
+export interface IActionRestrictChatMember extends IAction {
   restrictChatMember: IStateRestrictChatMember;
 }

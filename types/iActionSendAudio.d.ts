@@ -1,6 +1,6 @@
-import { Action } from "redux";
+import { IAction } from "./iAction";
 import { IStateSendAudio } from "./iStateSendAudio";
 
-export interface IActionSendAudio extends Action<string> {
+export interface IActionSendAudio extends IAction {
   sendAudio: IStateSendAudio;
 }

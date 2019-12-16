@@ -176,7 +176,7 @@ const youtubeSearchListResult: (
         | IActionSendMessage
         | IActionYoutubeSearchList
       > =>
-        (testAction$ !== undefined ? testAction$ : action$).pipe(
+        (testAction$ || action$).pipe(
           ofType(
             actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_RESULT
           ),

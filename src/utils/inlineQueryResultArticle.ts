@@ -39,7 +39,7 @@ const transformSearchResults: (
         id,
         input_message_content: {
           disable_web_page_preview: true,
-          message_text: command.download({ id }),
+          message_text: command.youtubeDownload({ id }),
           parse_mode: "HTML"
         },
         reply_markup: {
@@ -102,7 +102,7 @@ const transformVideos: (
         id,
         input_message_content: {
           disable_web_page_preview: true,
-          message_text: command.download({ id }),
+          message_text: command.youtubeDownload({ id }),
           parse_mode: "HTML"
         },
         reply_markup: {

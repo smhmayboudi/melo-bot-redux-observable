@@ -2,8 +2,6 @@ import { IState } from "../../types/iState";
 import * as actions from "../actions";
 
 const initialState: IState = {
-  youtubeDownloadResultInsert: actions.youtubeDownloadResultInsert.initialState,
-  youtubeDownloadResultFind: actions.youtubeDownloadResultFind.initialState,
   addStickerToSet: actions.addStickerToSet.initialState,
   answerCallbackQuery: actions.answerCallbackQuery.initialState,
   answerInlineQuery: actions.answerInlineQuery.initialState,
@@ -76,6 +74,8 @@ const initialState: IState = {
   unpinChatMessage: actions.unpinChatMessage.initialState,
   uploadStickerFile: actions.uploadStickerFile.initialState,
   youtubeDownload: actions.youtubeDownload.initialState,
+  youtubeDownloadResultFind: actions.youtubeDownloadResultFind.initialState,
+  youtubeDownloadResultInsert: actions.youtubeDownloadResultInsert.initialState,
   youtubeSearchList: actions.youtubeSearchList.initialState,
   youtubeVideoList: actions.youtubeVideoList.initialState
 };

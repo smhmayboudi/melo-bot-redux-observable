@@ -152,7 +152,7 @@ const youtubeVideoListResult: (
         | IActionSendPhoto
         | IActionYoutubeVideoList
       > =>
-        (testAction$ !== undefined ? testAction$ : action$).pipe(
+        (testAction$ || action$).pipe(
           ofType(
             actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_RESULT
           ),

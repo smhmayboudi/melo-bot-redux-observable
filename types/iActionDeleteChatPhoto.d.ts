@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateDeleteChatPhoto } from "./iStateDeleteChatPhoto";
 
-export interface IActionDeleteChatPhoto extends Action<string> {
+export interface IActionDeleteChatPhoto extends IAction {
   deleteChatPhoto: IStateDeleteChatPhoto;
 }

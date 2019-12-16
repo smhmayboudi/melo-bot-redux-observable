@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateSendMediaGroup } from "./iStateSendMediaGroup";
 
-export interface IActionSendMediaGroup extends Action<string> {
+export interface IActionSendMediaGroup extends IAction {
   sendMediaGroup: IStateSendMediaGroup;
 }

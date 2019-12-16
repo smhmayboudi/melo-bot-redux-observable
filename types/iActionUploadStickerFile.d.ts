@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateUploadStickerFile } from "./iStateUploadStickerFile";
 
-export interface IActionUploadStickerFile extends Action<string> {
+export interface IActionUploadStickerFile extends IAction {
   uploadStickerFile: IStateUploadStickerFile;
 }

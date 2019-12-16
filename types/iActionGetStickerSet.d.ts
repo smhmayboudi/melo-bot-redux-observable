@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateGetStickerSet } from "./iStateGetStickerSet";
 
-export interface IActionGetStickerSet extends Action<string> {
+export interface IActionGetStickerSet extends IAction {
   getStickerSet: IStateGetStickerSet;
 }

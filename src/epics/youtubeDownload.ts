@@ -93,7 +93,7 @@ const youtubeDownload: (
     | IActionYoutubeDownload
     | IActionYoutubeDownloadResultInsert
   > =>
-    (testAction$ !== undefined ? testAction$ : action$).pipe(
+    (testAction$ || action$).pipe(
       ofType(actions.sendVideo.SEND_VIDEO_RESULT),
       take<IActionSendVideo & IActionYoutubeDownload>(1),
       switchMap(transformObservableSendVideo(action, dependencies)),
@@ -115,7 +115,7 @@ const youtubeDownload: (
     | IActionYoutubeDownloadResultFind
     | IActionYoutubeDownloadResultInsert
   > =>
-    (testAction$ !== undefined ? testAction$ : action$).pipe(
+    (testAction$ || action$).pipe(
       ofType(
         actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_RESULT
       ),
@@ -175,7 +175,7 @@ const youtubeDownload: (
         | IActionYoutubeDownloadResultFind
         | IActionYoutubeDownloadResultInsert
       > =>
-        (testAction$ !== undefined ? testAction$ : action$).pipe(
+        (testAction$ || action$).pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take<IActionGetChatMember & IActionYoutubeDownload>(1),
           switchMap(getChatMember(action)),

@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateSetGameScore } from "./iStateSetGameScore";
 
-export interface IActionSetGameScore extends Action<string> {
+export interface IActionSetGameScore extends IAction {
   setGameScore: IStateSetGameScore;
 }

@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateDeleteStickerFromSet } from "./iStateDeleteStickerFromSet";
 
-export interface IActionDeleteStickerFromSet extends Action<string> {
+export interface IActionDeleteStickerFromSet extends IAction {
   deleteStickerFromSet: IStateDeleteStickerFromSet;
 }

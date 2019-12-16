@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateCallbackQueryDataFind } from "./iStateCallbackQueryDataFind";
 
-export interface IActionCallbackQueryDataFind extends Action<string> {
+export interface IActionCallbackQueryDataFind extends IAction {
   callbackQueryDataFind: IStateCallbackQueryDataFind;
 }

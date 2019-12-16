@@ -1,4 +1,4 @@
-FROM node:8.16.2-jessie-slim AS build
+FROM node:8-slim AS build
 RUN npm install typescript -g
 COPY . /build
 ARG NODE_ENV

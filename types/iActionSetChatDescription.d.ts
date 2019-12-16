@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateSetChatDescription } from "./iStateSetChatDescription";
 
-export interface IActionSetChatDescription extends Action<string> {
+export interface IActionSetChatDescription extends IAction {
   setChatDescription: IStateSetChatDescription;
 }

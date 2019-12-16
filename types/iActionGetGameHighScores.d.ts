@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateGetGameHighScores } from "./iStateGetGameHighScores";
 
-export interface IActionGetGameHighScores extends Action<string> {
+export interface IActionGetGameHighScores extends IAction {
   getGameHighScores: IStateGetGameHighScores;
 }

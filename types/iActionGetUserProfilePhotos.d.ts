@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateGetUserProfilePhotos } from "./iStateGetUserProfilePhotos";
 
-export interface IActionGetUserProfilePhotos extends Action<string> {
+export interface IActionGetUserProfilePhotos extends IAction {
   getUserProfilePhotos: IStateGetUserProfilePhotos;
 }

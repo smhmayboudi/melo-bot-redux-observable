@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateEditMessageMedia } from "./iStateEditMessageMedia";
 
-export interface IActionEditMessageMedia extends Action<string> {
+export interface IActionEditMessageMedia extends IAction {
   editMessageMedia: IStateEditMessageMedia;
 }

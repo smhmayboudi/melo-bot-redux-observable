@@ -47,7 +47,7 @@ describe("youtubeDownload epic", (): void => {
   const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadQuery = {
-    id: encode("small", "iCommandDownloadOptions")
+    id: encode("small", "iCommandYoutubeDownloadOptions")
   };
   const queryGetChatMember: IStateGetChatMemberQuery = {
     chat_id: "@melodio",

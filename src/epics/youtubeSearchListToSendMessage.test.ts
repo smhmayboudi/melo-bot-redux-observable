@@ -367,9 +367,10 @@ describe("youtubeSearchList epic", (): void => {
           ...initDependencies(locales).initDependencies
         };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        const q = state$.value.youtubeSearchList.query.q;
-        const relatedToVideoId =
-          state$.value.youtubeSearchList.query.relatedToVideoId;
+        const q = (state$.value.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery).q;
+        const relatedToVideoId = (state$.value.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery).relatedToVideoId;
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -436,9 +437,10 @@ describe("youtubeSearchList epic", (): void => {
           ...initDependencies(locales).initDependencies
         };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        const q = state$.value.youtubeSearchList.query.q;
-        const relatedToVideoId =
-          state$.value.youtubeSearchList.query.relatedToVideoId;
+        const q = (state$.value.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery).q;
+        const relatedToVideoId = (state$.value.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery).relatedToVideoId;
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -505,9 +507,10 @@ describe("youtubeSearchList epic", (): void => {
           ...initDependencies(locales).initDependencies
         };
         const action2 = actions.callbackQueryDataInsert.result({ result: "" });
-        const q = state$.value.youtubeSearchList.query.q;
-        const relatedToVideoId =
-          state$.value.youtubeSearchList.query.relatedToVideoId;
+        const q = (state$.value.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery).q;
+        const relatedToVideoId = (state$.value.youtubeSearchList
+          .query as IStateYoutubeSearchListQuery).relatedToVideoId;
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {

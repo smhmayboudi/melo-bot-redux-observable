@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateAnswerPreCheckoutQuery } from "./iStateAnswerPreCheckoutQuery";
 
-export interface IActionAnswerPreCheckoutQuery extends Action<string> {
+export interface IActionAnswerPreCheckoutQuery extends IAction {
   answerPreCheckoutQuery: IStateAnswerPreCheckoutQuery;
 }

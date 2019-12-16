@@ -1,7 +1,6 @@
-import { Action } from "redux";
-
+import { IAction } from "./iAction";
 import { IStateSendSticker } from "./iStateSendSticker";
 
-export interface IActionSendSticker extends Action<string> {
+export interface IActionSendSticker extends IAction {
   sendSticker: IStateSendSticker;
 }

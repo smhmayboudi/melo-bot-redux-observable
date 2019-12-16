@@ -11,6 +11,10 @@ describe("commandStart utils", (): void => {
     ).toEqual({ name: "/start", options: { cmd: "/rl CgtGa01QdHgyUmtCaw" } });
   });
 
+  test("should handle split", (): void => {
+    expect(commandStart.split("a b")).toEqual(["a", "b"]);
+  });
+
   test("should handle start", (): void => {
     expect(commandStart.start()).toEqual(`t.me/${env.BOT_NAME}?start=hi`);
   });

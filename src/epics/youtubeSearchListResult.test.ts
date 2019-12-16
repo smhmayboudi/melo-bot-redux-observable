@@ -585,7 +585,7 @@ describe("youtubeSearchListResult epic", (): void => {
           cold("--a", { a: result })
       };
       const q = (state$Value.youtubeSearchList
-        .query as IStateYoutubeSearchListQuery).q;
+        .query as IStateYoutubeSearchListQuery).q as string;
       const output$: Observable<
         | IActionAnswerInlineQuery
         | IActionCallbackQueryDataInsert

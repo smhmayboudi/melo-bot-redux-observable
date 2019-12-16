@@ -3,6 +3,7 @@ import * as fs from "fs";
 import { youtube_v3 } from "googleapis";
 import * as path from "path";
 import * as protobufjs from "protobufjs";
+import util from "util";
 
 import { ILocale } from "../../types/iLocale";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
@@ -47,36 +48,40 @@ const encode: (obj: any, objType: string) => string = (
   return text;
 };
 
-const locale: (language: string) => ILocale = (language: string): ILocale => {
-  const textsString = fs.readFileSync(
-    path.resolve(__dirname, "../../locale", `${language}.json`),
-    "utf-8"
-  );
+const locale: (language: string) => Promise<ILocale> = (
+  language: string
+): Promise<ILocale> => {
+  return util
+    .promisify(fs.readFile)(
+      path.resolve(__dirname, "../../locale", `${language}.json`),
+      "utf-8"
+    )
+    .then((textsString: string) => {
+      const texts: any = JSON.parse(textsString);
 
-  const texts: any = JSON.parse(textsString);
+      const find: (key: string) => string = (key: string): string => {
+        return texts[key];
+      };
 
-  const find: (key: string) => string = (key: string): string => {
-    return texts[key];
-  };
+      const fill: (key: string, values: { [key: string]: string }) => string = (
+        key: string,
+        values: { [key: string]: string }
+      ): string => {
+        let text = find(key);
+        for (const key in values) {
+          if (Object.prototype.hasOwnProperty.call(values, key)) {
+            text = text.replace(`$\{${key}}`, values[key]);
+          }
+        }
 
-  const fill: (key: string, values: { [key: string]: string }) => string = (
-    key: string,
-    values: { [key: string]: string }
-  ): string => {
-    let text = find(key);
-    for (const key in values) {
-      if (Object.prototype.hasOwnProperty.call(values, key)) {
-        text = text.replace(`$\{${key}}`, values[key]);
-      }
-    }
+        return text;
+      };
 
-    return text;
-  };
-
-  return {
-    find,
-    fill
-  };
+      return {
+        find,
+        fill
+      };
+    });
 };
 
 const text: (text: string) => string = (text: string): string =>
@@ -102,10 +107,14 @@ const transformSearchResultCaption: (
     res.push(item.snippet.description);
     res.push("");
     res.push(
-      `${findByCode("1F4E5").char} ${command.download({ id: item.id.videoId })}`
+      `${findByCode("1F4E5").char} ${command.youtubeDownload({
+        id: item.id.videoId
+      })}`
     );
     res.push(
-      `${findByCode("1F517").char} ${command.relatedToVideoId({
+      `${
+        findByCode("1F517").char
+      } ${command.youtubeSearchListByRelatedToVideoId({
         id: item.id.videoId
       })}`
     );
@@ -142,18 +151,22 @@ const transformSearchResults: (
     ) {
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
-        `${findByCode("1F4E5").char} ${command.download({
+        `${findByCode("1F4E5").char} ${command.youtubeDownload({
           id: value.id.videoId
         })}`
       );
       msg.push(
-        `${findByCode("1F517").char} ${command.relatedToVideoId({
+        `${
+          findByCode("1F517").char
+        } ${command.youtubeSearchListByRelatedToVideoId({
           id: value.id.videoId
         })}`
       );
       msg.push(
         `${findByCode("1F517").char} ${commandStart.start({
-          cmd: command.relatedToVideoId({ id: value.id.videoId })
+          cmd: command.youtubeSearchListByRelatedToVideoId({
+            id: value.id.videoId
+          })
         })}`
       );
     }
@@ -251,10 +264,12 @@ const transformVideoCaption: (item: youtube_v3.Schema$Video) => string = (
     res.push(item.snippet.description);
     res.push("");
     res.push(
-      `${findByCode("1F4E5").char} ${command.download({ id: item.id })}`
+      `${findByCode("1F4E5").char} ${command.youtubeDownload({ id: item.id })}`
     );
     res.push(
-      `${findByCode("1F517").char} ${command.relatedToVideoId({ id: item.id })}`
+      `${
+        findByCode("1F517").char
+      } ${command.youtubeSearchListByRelatedToVideoId({ id: item.id })}`
     );
   }
 
@@ -288,10 +303,14 @@ const transformVideos: (
     ) {
       msg.push(`${index}. ${value.snippet.title}`);
       msg.push(
-        `${findByCode("1F4E5").char} ${command.download({ id: value.id })}`
+        `${findByCode("1F4E5").char} ${command.youtubeDownload({
+          id: value.id
+        })}`
       );
       msg.push(
-        `${findByCode("1F517").char} ${command.relatedToVideoId({
+        `${
+          findByCode("1F517").char
+        } ${command.youtubeSearchListByRelatedToVideoId({
           id: value.id
         })}`
       );
@@ -343,6 +362,10 @@ const transformVideoThumbnailUrl: (item: youtube_v3.Schema$Video) => string = (
   return "";
 };
 
+const validInput: (input?: string) => string | undefined = (
+  input?: string
+): string | undefined => input;
+
 export {
   caption,
   decode,
@@ -355,5 +378,6 @@ export {
   transformShortenList,
   transformVideoCaption,
   transformVideos,
-  transformVideoThumbnailUrl
+  transformVideoThumbnailUrl,
+  validInput
 };
