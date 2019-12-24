@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
@@ -19,7 +19,6 @@ import { transformObservable } from "./youtubeDownloadToSendMessage";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToSendMessage", (): void => {
-    const locales: ILocale = locale("en");
     const error: Error = new Error("");
     const query: IStateYoutubeDownloadQuery = {
       id: ""
@@ -58,6 +57,14 @@ describe("youtubeDownload epic", (): void => {
       }
     };
 
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
     let testScheduler: TestScheduler;
 
     beforeEach((): void => {
@@ -79,7 +86,8 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expectObservable(
           transformObservable(action, state$, dependencies)
@@ -97,7 +105,8 @@ describe("youtubeDownload epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expectObservable(
           transformObservable(action, state$, dependencies)
@@ -120,7 +129,8 @@ describe("youtubeDownload epic", (): void => {
           state$ValueMessageQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expectObservable(
           transformObservable(action, state$, dependencies)
@@ -143,7 +153,8 @@ describe("youtubeDownload epic", (): void => {
           state$ValueMessageQueryMessageUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expectObservable(
           transformObservable(action, state$, dependencies)
@@ -168,7 +179,8 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expectObservable(
           transformObservable(action, state$, dependencies)

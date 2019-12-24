@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getChatMember: (
   action$: Observable<IActionGetChatMember>,
@@ -15,10 +16,10 @@ const getChatMember: (
   dependencies: IDependencies
 ) => Observable<IActionGetChatMember> = (
   action$: Observable<IActionGetChatMember>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetChatMember> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetChatMember
@@ -66,6 +67,9 @@ const getChatMember: (
 
   return action$.pipe(
     ofType(actions.getChatMember.GET_CHAT_MEMBER_QUERY),
+    filterAsync((action: IActionGetChatMember, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

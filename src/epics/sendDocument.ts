@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendDocumentQuery } from "../utils/formData";
 
 const sendDocument: (
@@ -16,10 +17,15 @@ const sendDocument: (
   dependencies: IDependencies
 ) => Observable<IActionSendDocument> = (
   action$: Observable<IActionSendDocument>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendDocument> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendDocument
@@ -67,6 +73,9 @@ const sendDocument: (
 
   return action$.pipe(
     ofType(actions.sendDocument.SEND_DOCUMENT_QUERY),
+    filterAsync((action: IActionSendDocument, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

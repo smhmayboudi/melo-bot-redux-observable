@@ -4,7 +4,6 @@ import { locale } from "../utils/string";
 import { handleChosenInlineResult } from "./telegramBotHandleChosenInlineResult";
 
 describe("telegramBotHandleChosenInlineResult configs", (): void => {
-  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -12,17 +11,26 @@ describe("telegramBotHandleChosenInlineResult configs", (): void => {
     subscribe: jest.fn(() => jest.fn(() => ({})))
   };
 
+  const chosenInlineResult: IChosenInlineResult = {
+    from: {
+      first_name: "",
+      id: 0,
+      is_bot: false,
+      language_code: "en"
+    },
+    query: "",
+    result_id: ""
+  };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
+
   test("should handle", (): void => {
-    const chosenInlineResult: IChosenInlineResult = {
-      from: {
-        first_name: "",
-        id: 0,
-        is_bot: false,
-        language_code: "en"
-      },
-      query: "",
-      result_id: ""
-    };
     handleChosenInlineResult(locales, store, chosenInlineResult);
     expect(store.dispatch).toHaveBeenCalled();
   });

@@ -6,7 +6,6 @@ import { IDependencies } from "../../types/iDependencies";
 import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { init as initDependencies } from "../utils/dependencies";
-import { init as authorization } from "./authorization";
 import { crashReporter } from "./crashReporter";
 import { logger } from "./logger";
 
@@ -27,11 +26,10 @@ const index: (
     IState,
     IDependencies
   > = createEpicMiddleware({
-    dependencies: initDependencies(locales).initDependencies
+    dependencies: initDependencies(locales)
   });
 
   const index: StoreEnhancer<{}, {}> = applyMiddleware(
-    authorization(locales).authorization,
     crashReporter,
     epicMiddleware,
     logger

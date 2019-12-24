@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const pinChatMessage: (
   action$: Observable<IActionPinChatMessage>,
@@ -14,10 +15,10 @@ const pinChatMessage: (
   dependencies: IDependencies
 ) => Observable<IActionPinChatMessage> = (
   action$: Observable<IActionPinChatMessage>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionPinChatMessage> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionPinChatMessage
@@ -65,6 +66,9 @@ const pinChatMessage: (
 
   return action$.pipe(
     ofType(actions.pinChatMessage.PIN_CHAT_MESSAGE_QUERY),
+    filterAsync((action: IActionPinChatMessage, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

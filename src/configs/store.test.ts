@@ -10,7 +10,6 @@ import { locale } from "../utils/string";
 import { configureStore } from "./store";
 
 describe("store configs", (): void => {
-  const locales: ILocale = locale("en");
   let message: IStateMessage = {
     query: {
       message: {
@@ -43,6 +42,14 @@ describe("store configs", (): void => {
       update_id: 0
     }
   };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   test("should handle start message", (): void => {
     if (message.query !== undefined && message.query.message !== undefined) {

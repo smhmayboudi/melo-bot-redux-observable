@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const deleteMessage: (
   action$: Observable<IActionDeleteMessage>,
@@ -14,10 +15,10 @@ const deleteMessage: (
   dependencies: IDependencies
 ) => Observable<IActionDeleteMessage> = (
   action$: Observable<IActionDeleteMessage>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteMessage> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteMessage
@@ -65,6 +66,9 @@ const deleteMessage: (
 
   return action$.pipe(
     ofType(actions.deleteMessage.DELETE_MESSAGE_QUERY),
+    filterAsync((action: IActionDeleteMessage, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

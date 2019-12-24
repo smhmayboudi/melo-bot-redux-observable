@@ -4,7 +4,6 @@ import { locale } from "../utils/string";
 import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
 
 describe("telegramBotHandleCallbackQuery configs", (): void => {
-  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -32,6 +31,14 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
       message_id: 0
     }
   };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   test("should handle data, inline_message_id undefined", (): void => {
     handleCallbackQuery(locales, store, {

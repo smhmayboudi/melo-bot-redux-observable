@@ -10,6 +10,7 @@ const initialState: IState = {
   callbackQueryDataFind: actions.callbackQueryDataFind.initialState,
   callbackQueryDataInsert: actions.callbackQueryDataInsert.initialState,
   chosenInlineResult: actions.chosenInlineResult.initialState,
+  commandUI: actions.undo.initialState,
   createNewStickerSet: actions.createNewStickerSet.initialState,
   deleteChatPhoto: actions.deleteChatPhoto.initialState,
   deleteChatStickerSet: actions.deleteChatStickerSet.initialState,

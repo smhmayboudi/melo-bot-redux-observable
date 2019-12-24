@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
@@ -24,7 +24,6 @@ import {
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToYoutubeDownloadResultFind", (): void => {
-    const locales: ILocale = locale("en");
     const query: IStateYoutubeDownloadResultFindQuery = {
       id: ""
     };
@@ -82,6 +81,14 @@ describe("youtubeDownload epic", (): void => {
       thumb: undefined
     };
 
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
     describe("transformObservable", (): void => {
       let testScheduler: TestScheduler;
 
@@ -101,7 +108,8 @@ describe("youtubeDownload epic", (): void => {
           );
           const state$: StateObservable<IState> | undefined = undefined;
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
             transformObservable(state$, dependencies)(action)
@@ -126,7 +134,8 @@ describe("youtubeDownload epic", (): void => {
             state$ValueMessageQueryUndefined
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
             transformObservable(state$, dependencies)(action)
@@ -151,7 +160,8 @@ describe("youtubeDownload epic", (): void => {
             state$ValueMessageQueryMessageUndefined
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
             transformObservable(state$, dependencies)(action)
@@ -175,7 +185,8 @@ describe("youtubeDownload epic", (): void => {
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
             transformObservable(state$, dependencies)(action)
@@ -199,7 +210,8 @@ describe("youtubeDownload epic", (): void => {
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
             transformObservable(state$, dependencies)(action)
@@ -223,7 +235,8 @@ describe("youtubeDownload epic", (): void => {
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
             transformObservable(state$, dependencies)(action)
@@ -262,39 +275,41 @@ describe("youtubeDownload epic", (): void => {
           });
         });
       });
-    });
 
-    describe("startAction", (): void => {
-      test("should handle error actionYoutubeDownloadQuery undefined", (): void => {
-        const action: IActionYoutubeDownload = actions.youtubeDownload.query({
-          query: undefined
+      describe("startAction", (): void => {
+        test("should handle error actionYoutubeDownloadQuery undefined", (): void => {
+          const action: IActionYoutubeDownload = actions.youtubeDownload.query({
+            query: undefined
+          });
+          const dependencies: IDependencies = {
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
+          };
+          expect(startAction(action, dependencies)).toEqual(
+            actions.youtubeDownload.error({
+              error: new Error(
+                locales.find("actionYoutubeDownloadQueryUndefined")
+              )
+            })
+          );
         });
-        const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
-        };
-        expect(startAction(action, dependencies)).toEqual(
-          actions.youtubeDownload.error({
-            error: new Error(
-              locales.find("actionYoutubeDownloadQueryUndefined")
-            )
-          })
-        );
-      });
 
-      test("should handle result", (): void => {
-        const action: IActionYoutubeDownload = actions.youtubeDownload.query({
-          query: query
+        test("should handle result", (): void => {
+          const action: IActionYoutubeDownload = actions.youtubeDownload.query({
+            query: query
+          });
+          const dependencies: IDependencies = {
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
+          };
+          expect(startAction(action, dependencies)).toEqual(
+            actions.youtubeDownloadResultFind.query({
+              query: {
+                id: query.id
+              }
+            })
+          );
         });
-        const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
-        };
-        expect(startAction(action, dependencies)).toEqual(
-          actions.youtubeDownloadResultFind.query({
-            query: {
-              id: query.id
-            }
-          })
-        );
       });
     });
   });

@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const editMessageMedia: (
   action$: Observable<IActionEditMessageMedia>,
@@ -15,10 +16,10 @@ const editMessageMedia: (
   dependencies: IDependencies
 ) => Observable<IActionEditMessageMedia> = (
   action$: Observable<IActionEditMessageMedia>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionEditMessageMedia> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionEditMessageMedia
@@ -66,6 +67,9 @@ const editMessageMedia: (
 
   return action$.pipe(
     ofType(actions.editMessageMedia.EDIT_MESSAGE_MEDIA_QUERY),
+    filterAsync((action: IActionEditMessageMedia, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

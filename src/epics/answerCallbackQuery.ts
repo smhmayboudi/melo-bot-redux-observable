@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const answerCallbackQuery: (
   action$: Observable<IActionAnswerCallbackQuery>,
@@ -14,10 +15,10 @@ const answerCallbackQuery: (
   dependencies: IDependencies
 ) => Observable<IActionAnswerCallbackQuery> = (
   action$: Observable<IActionAnswerCallbackQuery>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionAnswerCallbackQuery> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionAnswerCallbackQuery
@@ -67,6 +68,9 @@ const answerCallbackQuery: (
 
   return action$.pipe(
     ofType(actions.answerCallbackQuery.ANSWER_CALLBACK_QUERY_QUERY),
+    filterAsync((action: IActionAnswerCallbackQuery, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -76,26 +76,26 @@ const findOneObservable: <TSchema, T = TSchema>(
 
 const insertOneObs: <TSchema>(
   collection: Collection<TSchema>,
-  docs: TSchema,
+  docs: TSchema & any,
   options: CollectionInsertOneOptions,
-  callback: MongoCallback<InsertOneWriteOpResult<any>>
+  callback: MongoCallback<InsertOneWriteOpResult<TSchema & any>>
 ) => void = <TSchema>(
   collection: Collection<TSchema>,
-  docs: TSchema,
+  docs: TSchema & any,
   options: CollectionInsertOneOptions,
-  callback: MongoCallback<InsertOneWriteOpResult<any>>
+  callback: MongoCallback<InsertOneWriteOpResult<TSchema & any>>
 ): void => {
   collection.insertOne(docs, options, callback);
 };
 const insertOneObservable: <TSchema>(
   collection: Collection<TSchema>,
-  docs: TSchema,
+  docs: TSchema & any,
   options: CollectionInsertOneOptions
-) => Observable<InsertOneWriteOpResult<TSchema>> = <TSchema>(
+) => Observable<InsertOneWriteOpResult<TSchema & any>> = <TSchema>(
   collection: Collection<TSchema>,
-  docs: TSchema,
+  docs: TSchema & any,
   options: CollectionInsertOneOptions
-): Observable<InsertOneWriteOpResult<TSchema>> =>
+): Observable<InsertOneWriteOpResult<TSchema & any>> =>
   bindNodeCallback(insertOneObs)<TSchema>(collection, docs, options);
 
 export {

@@ -7,6 +7,7 @@ import { IActionShortenReset } from "../../types/iActionShortenReset";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 
 const shortenReset: (
@@ -15,10 +16,15 @@ const shortenReset: (
   dependencies: IDependencies
 ) => Observable<IActionSendMessage | IActionShortenReset> = (
   action$: Observable<IActionShortenReset>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMessage | IActionShortenReset> => {
-  const { connectionObservable, locales, queryObservable } = dependencies;
+  const {
+    authorization,
+    connectionObservable,
+    locales,
+    queryObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionShortenReset
@@ -73,6 +79,9 @@ const shortenReset: (
 
   return action$.pipe(
     ofType(actions.shortenReset.SHORTEN_RESET_QUERY),
+    filterAsync((action: IActionShortenReset, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

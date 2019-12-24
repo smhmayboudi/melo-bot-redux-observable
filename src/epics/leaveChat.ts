@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const leaveChat: (
   action$: Observable<IActionLeaveChat>,
@@ -14,10 +15,10 @@ const leaveChat: (
   dependencies: IDependencies
 ) => Observable<IActionLeaveChat> = (
   action$: Observable<IActionLeaveChat>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionLeaveChat> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionLeaveChat
@@ -65,6 +66,9 @@ const leaveChat: (
 
   return action$.pipe(
     ofType(actions.leaveChat.LEAVE_CHAT_QUERY),
+    filterAsync((action: IActionLeaveChat, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

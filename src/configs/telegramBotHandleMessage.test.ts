@@ -5,7 +5,6 @@ import { locale } from "../utils/string";
 import { handleMessage } from "./telegramBotHandleMessage";
 
 describe("telegramBotHandleMessage configs", (): void => {
-  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -21,6 +20,14 @@ describe("telegramBotHandleMessage configs", (): void => {
     date: 0,
     message_id: 0
   };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   test("should handle messageText help", (): void => {
     handleMessage(locales, store, {

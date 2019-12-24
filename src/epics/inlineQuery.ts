@@ -7,6 +7,7 @@ import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 import { decode } from "../utils/string";
 
@@ -16,10 +17,10 @@ const inlineQuery: (
   dependencies: IDependencies
 ) => Observable<IActionInlineQuery | IActionYoutubeSearchList> = (
   action$: Observable<IActionInlineQuery>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionInlineQuery | IActionYoutubeSearchList> => {
-  const { locales } = dependencies;
+  const { authorization, locales } = dependencies;
 
   const actionObservable: (
     action: IActionInlineQuery
@@ -56,6 +57,9 @@ const inlineQuery: (
 
   return action$.pipe(
     ofType(actions.inlineQuery.INLINE_QUERY_QUERY),
+    filterAsync((action: IActionInlineQuery, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

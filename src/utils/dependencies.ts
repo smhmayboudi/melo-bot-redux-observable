@@ -20,16 +20,11 @@ import { requestsObservable } from "../libs/requestsObservable";
 import { requestsUploadObservable } from "../libs/requestsUploadObservable";
 import { requestUploadObservable } from "../libs/requestUploadObservable";
 import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
+import { authorization } from "./authorization";
 
-const init: (
+const init: (locales: ILocale) => IDependencies = (
   locales: ILocale
-) => {
-  initDependencies: IDependencies;
-} = (
-  locales: ILocale
-): {
-  initDependencies: IDependencies;
-} => {
+): IDependencies => {
   const appDebug: debug.IDebugger = debug("app:utils:dependencies");
 
   const connectionObservable: () => Observable<
@@ -48,7 +43,8 @@ const init: (
       useUnifiedTopology: true
     });
 
-  const initDependencies: IDependencies = {
+  return {
+    authorization,
     botToken: env.BOT_TOKEN,
     collectionObservable,
     connectionObservable,
@@ -64,8 +60,6 @@ const init: (
     testAction$: undefined,
     youtubeDownloadObservable
   };
-
-  return { initDependencies };
 };
 
 export { init };

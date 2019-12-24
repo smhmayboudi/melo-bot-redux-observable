@@ -29,7 +29,6 @@ import { locale } from "../utils/string";
 import * as epic from "./youtubeDownloadResultInsert";
 
 describe("youtubeDownloadResultInsert epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeDownloadResultInsertQuery | null = {
     duration: 0,
@@ -49,6 +48,25 @@ describe("youtubeDownloadResultInsert epic", (): void => {
   };
   const result = "";
 
+  let connection: MongoClient;
+  let locales: ILocale;
+
+  afterAll(
+    async (): Promise<void> => {
+      await connection.close();
+    }
+  );
+
+  beforeAll(
+    async (): Promise<void> => {
+      connection = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+      locales = await locale("en");
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -58,23 +76,6 @@ describe("youtubeDownloadResultInsert epic", (): void => {
       expect(actual).toEqual(expected);
     });
   });
-
-  let connection: MongoClient;
-
-  beforeAll(
-    async (): Promise<any> => {
-      connection = await MongoClient.connect(global.__MONGO_URI__, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-    }
-  );
-
-  afterAll(
-    async (): Promise<any> => {
-      await connection.close();
-    }
-  );
 
   test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
@@ -87,7 +88,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -114,7 +116,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -141,7 +144,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -168,7 +172,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -190,7 +195,7 @@ describe("youtubeDownloadResultInsert epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold } = runHelpers;
+      const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionYoutubeDownloadResultInsert> = cold(
         "-a",
         {
@@ -199,7 +204,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -209,14 +215,10 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         state$,
         dependencies
       );
-      output$.subscribe((actual: IActionYoutubeDownloadResultInsert) => {
-        cold("---a", {
-          a: actions.youtubeDownloadResultInsert.result({
-            result
-          })
-        }).subscribe((expected: IActionYoutubeDownloadResultInsert) => {
-          return actual === expected;
-        });
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeDownloadResultInsert.result({
+          result
+        })
       });
     });
   });

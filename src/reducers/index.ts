@@ -2,7 +2,6 @@ import { combineReducers, Reducer } from "redux";
 
 import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
-
 import { addStickerToSet } from "./addStickerToSet";
 import { answerCallbackQuery } from "./answerCallbackQuery";
 import { answerInlineQuery } from "./answerInlineQuery";
@@ -11,6 +10,7 @@ import { answerShippingQuery } from "./answerShippingQuery";
 import { callbackQueryDataFind } from "./callbackQueryDataFind";
 import { callbackQueryDataInsert } from "./callbackQueryDataInsert";
 import { chosenInlineResult } from "./chosenInlineResult";
+import { commandUI } from "./commandUI";
 import { createNewStickerSet } from "./createNewStickerSet";
 import { deleteChatPhoto } from "./deleteChatPhoto";
 import { deleteChatStickerSet } from "./deleteChatStickerSet";
@@ -72,6 +72,7 @@ import { shortenReset } from "./shortenReset";
 import { stopMessageLiveLocation } from "./stopMessageLiveLocation";
 import { stopPoll } from "./stopPoll";
 import { unbanChatMember } from "./unbanChatMember";
+import { undo } from "./undo";
 import { unpinChatMessage } from "./unpinChatMessage";
 import { uploadStickerFile } from "./uploadStickerFile";
 import { youtubeDownload } from "./youtubeDownload";
@@ -89,6 +90,7 @@ const index: Reducer<IState, IAction> = combineReducers<IState>({
   callbackQueryDataFind,
   callbackQueryDataInsert,
   chosenInlineResult,
+  commandUI: undo(commandUI),
   createNewStickerSet,
   deleteChatPhoto,
   deleteChatStickerSet,

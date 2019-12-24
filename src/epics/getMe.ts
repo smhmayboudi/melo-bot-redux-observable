@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IUser } from "../../types/telegramBot/types/iUser";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getMe: (
   action$: Observable<IActionGetMe>,
@@ -15,10 +16,10 @@ const getMe: (
   dependencies: IDependencies
 ) => Observable<IActionGetMe> = (
   action$: Observable<IActionGetMe>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetMe> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (action: IActionGetMe) => Observable<IActionGetMe> = (
     action: IActionGetMe
@@ -64,6 +65,9 @@ const getMe: (
 
   return action$.pipe(
     ofType(actions.getMe.GET_ME_QUERY),
+    filterAsync((action: IActionGetMe, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

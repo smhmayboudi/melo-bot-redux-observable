@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const setStickerPositionInSet: (
   action$: Observable<IActionSetStickerPositionInSet>,
@@ -14,10 +15,10 @@ const setStickerPositionInSet: (
   dependencies: IDependencies
 ) => Observable<IActionSetStickerPositionInSet> = (
   action$: Observable<IActionSetStickerPositionInSet>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetStickerPositionInSet> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetStickerPositionInSet
@@ -67,6 +68,9 @@ const setStickerPositionInSet: (
 
   return action$.pipe(
     ofType(actions.setStickerPositionInSet.SET_STICKER_POSITION_IN_SET_QUERY),
+    filterAsync((action: IActionSetStickerPositionInSet, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

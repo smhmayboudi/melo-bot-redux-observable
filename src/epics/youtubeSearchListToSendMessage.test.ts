@@ -1,6 +1,6 @@
 import { youtube_v3 } from "googleapis";
 import { StateObservable } from "redux-observable";
-import { Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
@@ -19,7 +19,6 @@ import { transformObservable } from "./youtubeSearchListToSendMessage";
 
 describe("youtubeSearchList epic", (): void => {
   describe("youtubeSearchListToSendMessage", (): void => {
-    const locales: ILocale = locale("en");
     const error: Error = new Error("");
     const query: IStateYoutubeSearchListQuery = {
       key: "",
@@ -98,6 +97,14 @@ describe("youtubeSearchList epic", (): void => {
       prevPageToken: undefined
     };
 
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
     let testScheduler: TestScheduler;
 
     beforeEach((): void => {
@@ -121,9 +128,12 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", { a: action });
@@ -140,9 +150,12 @@ describe("youtubeSearchList epic", (): void => {
         );
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -166,9 +179,12 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueMessageQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -192,9 +208,12 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueMessageQueryMessageUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -220,9 +239,12 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueYoutubeSearchListQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -248,9 +270,12 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -276,9 +301,12 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -304,7 +332,8 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
           result: undefined
@@ -334,9 +363,12 @@ describe("youtubeSearchList epic", (): void => {
           state$ValueYoutubeSearchListQueryQRelatedToVideoIdUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         expectObservable(
           transformObservable(action, state$, dependencies)(action2)
         ).toBe("(a|)", {
@@ -364,9 +396,12 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         const q = (state$.value.youtubeSearchList
           .query as IStateYoutubeSearchListQuery).q;
         const relatedToVideoId = (state$.value.youtubeSearchList
@@ -434,9 +469,12 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         const q = (state$.value.youtubeSearchList
           .query as IStateYoutubeSearchListQuery).q;
         const relatedToVideoId = (state$.value.youtubeSearchList
@@ -504,9 +542,12 @@ describe("youtubeSearchList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
-        const action2 = actions.callbackQueryDataInsert.result({ result: "" });
+        const action2 = actions.callbackQueryDataInsert.result({
+          result: ""
+        });
         const q = (state$.value.youtubeSearchList
           .query as IStateYoutubeSearchListQuery).q;
         const relatedToVideoId = (state$.value.youtubeSearchList

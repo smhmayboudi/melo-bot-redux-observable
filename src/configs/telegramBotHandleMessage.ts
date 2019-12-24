@@ -4,21 +4,22 @@ import * as path from "path";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
-import { ICommandYoutubeDownloadOptions } from "../../types/iCommandYoutubeDownloadOptions";
-import { ICommandYoutubeSearchListByRelatedToVideoIdOptions } from "../../types/iCommandYoutubeSearchListByRelatedToVideoIdOptions";
+import { ICommand } from "../../types/iCommand";
 // import { ICommandShortenListOptions } from "../../types/iCommandShortenListOptions";
 import { ICommandShortenResetOptions } from "../../types/iCommandShortenResetOptions";
 import { ICommandStartGroupOptions } from "../../types/iCommandStartGroupOptions";
 import { ICommandStartOptions } from "../../types/iCommandStartOptions";
+import { ICommandYoutubeDownloadOptions } from "../../types/iCommandYoutubeDownloadOptions";
+import { ICommandYoutubeSearchListByQOptions } from "../../types/iCommandYoutubeSearchListByQOptions";
+import { ICommandYoutubeSearchListByRelatedToVideoIdOptions } from "../../types/iCommandYoutubeSearchListByRelatedToVideoIdOptions";
 import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as command from "../utils/command";
 import * as commandStart from "../utils/commandStart";
-import { caption } from "../utils/string";
+import { caption, validInput } from "../utils/string";
 import * as env from "./env";
-import { ICommandYoutubeSearchListByQOptions } from "../../types/iCommandYoutubeSearchListByQOptions";
 
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
@@ -32,7 +33,8 @@ const handleMessage: (
   message: IMessage
 ): void => {
   appDebug("TELEGRAM_BOT_HANDLE_MESSAGE");
-  switch (message.text) {
+  const messageText = validInput(message.text);
+  switch (messageText) {
     case "/addStickerToSet":
       // TODO: check it
       store.dispatch(
@@ -320,8 +322,8 @@ const handleMessage: (
       );
       break;
     default:
-      if (message.text !== undefined) {
-        if (message.text.includes(command.help())) {
+      if (messageText !== undefined) {
+        if (messageText.includes(command.help())) {
           // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
@@ -335,7 +337,7 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(command.setInlineGeo())) {
+        } else if (messageText.includes(command.setInlineGeo())) {
           // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
@@ -349,7 +351,7 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(command.settings())) {
+        } else if (messageText.includes(command.settings())) {
           // TODO: check it
           store.dispatch(
             actions.sendMessage.query({
@@ -363,8 +365,8 @@ const handleMessage: (
               }
             })
           );
-        } else if (message.text.includes(command.shortenList())) {
-          const cmdParts: string[] = command.split(message.text);
+        } else if (messageText.includes(command.shortenList())) {
+          const cmdParts: string[] = command.split(messageText);
           store.dispatch(
             actions.shortenList.query({
               query: {
@@ -374,7 +376,7 @@ const handleMessage: (
           );
           // const options: ICommandShortenListOptions | undefined = command.parse<
           //   ICommandShortenListOptions
-          // >(message.text, "iCommandShortenListOptions").options;
+          // >(messageText, "iCommandShortenListOptions").options;
           // if (options !== undefined) {
           //   store.dispatch(
           //     actions.shortenList.query({
@@ -390,11 +392,11 @@ const handleMessage: (
           //     })
           //   );
           // }
-        } else if (message.text.includes(command.shortenReset())) {
+        } else if (messageText.includes(command.shortenReset())) {
           const options:
             | ICommandShortenResetOptions
             | undefined = command.parse<ICommandShortenResetOptions>(
-            message.text,
+            messageText,
             "iCommandShortenResetOptions"
           ).options;
           if (options !== undefined) {
@@ -406,10 +408,10 @@ const handleMessage: (
               })
             );
           }
-        } else if (message.text.includes(command.start())) {
+        } else if (messageText.includes(command.start())) {
           const options: ICommandStartOptions | undefined = commandStart.parse<
             ICommandStartOptions
-          >(message.text, "iCommandStartOptions").options;
+          >(messageText, "iCommandStartOptions").options;
           if (options !== undefined) {
             store.dispatch(
               actions.message.query({
@@ -421,11 +423,11 @@ const handleMessage: (
             );
             handleMessage(locales, store, { ...message, text: options.cmd });
           }
-        } else if (message.text.includes(command.startGroup())) {
+        } else if (messageText.includes(command.startGroup())) {
           const options:
             | ICommandStartGroupOptions
             | undefined = commandStart.parse<ICommandStartGroupOptions>(
-            message.text,
+            messageText,
             "iCommandStartGroupOptions"
           ).options;
           if (options !== undefined) {
@@ -439,11 +441,11 @@ const handleMessage: (
             );
             handleMessage(locales, store, { ...message, text: options.cmd });
           }
-        } else if (message.text.includes(command.youtubeDownload())) {
+        } else if (messageText.includes(command.youtubeDownload())) {
           const options:
             | ICommandYoutubeDownloadOptions
             | undefined = command.parse<ICommandYoutubeDownloadOptions>(
-            message.text,
+            messageText,
             "iCommandYoutubeDownloadOptions"
           ).options;
           if (options !== undefined) {
@@ -455,11 +457,11 @@ const handleMessage: (
               })
             );
           }
-        } else if (message.text.includes(command.youtubeSearchListByQ())) {
+        } else if (messageText.includes(command.youtubeSearchListByQ())) {
           const options:
             | ICommandYoutubeSearchListByQOptions
             | undefined = command.parse<ICommandYoutubeSearchListByQOptions>(
-            message.text,
+            messageText,
             "iCommandYoutubeSearchListByQOptions"
           ).options;
           if (options !== undefined) {
@@ -479,13 +481,13 @@ const handleMessage: (
             );
           }
         } else if (
-          message.text.includes(command.youtubeSearchListByRelatedToVideoId())
+          messageText.includes(command.youtubeSearchListByRelatedToVideoId())
         ) {
           const options:
             | ICommandYoutubeSearchListByRelatedToVideoIdOptions
             | undefined = command.parse<
             ICommandYoutubeSearchListByRelatedToVideoIdOptions
-          >(message.text, "iCommandYoutubeSearchListByRelatedToVideoIdOptions")
+          >(messageText, "iCommandYoutubeSearchListByRelatedToVideoIdOptions")
             .options;
           if (options !== undefined) {
             store.dispatch(
@@ -503,7 +505,7 @@ const handleMessage: (
               })
             );
           }
-        } else if (message.text.includes(command.youtubeVideoList())) {
+        } else if (messageText.includes(command.youtubeVideoList())) {
           store.dispatch(
             actions.youtubeVideoList.query({
               query: {
@@ -516,6 +518,62 @@ const handleMessage: (
               }
             })
           );
+        } else if (messageText.includes("/test1")) {
+          store.dispatch(actions.commandUI.help());
+          store.dispatch(
+            actions.message.query({
+              query: {
+                message: { ...message, text: command.help() },
+                update_id: 0
+              }
+            })
+          );
+          handleMessage(locales, store, { ...message, text: command.help() });
+        } else if (messageText.includes("/test2")) {
+          store.dispatch(actions.commandUI.setInlineGeo());
+          store.dispatch(
+            actions.message.query({
+              query: {
+                message: { ...message, text: command.setInlineGeo() },
+                update_id: 0
+              }
+            })
+          );
+          handleMessage(locales, store, {
+            ...message,
+            text: command.setInlineGeo()
+          });
+        } else if (messageText.includes("/test3")) {
+          store.dispatch(actions.commandUI.settings());
+          store.dispatch(
+            actions.message.query({
+              query: {
+                message: { ...message, text: command.settings() },
+                update_id: 0
+              }
+            })
+          );
+          handleMessage(locales, store, {
+            ...message,
+            text: command.settings()
+          });
+        } else if (messageText.includes("undo")) {
+          store.dispatch(actions.undo.undo());
+          const present = store.getState().commandUI.present;
+          const com = command.stringify((present.command as ICommand).name);
+          appDebug("command", com);
+          store.dispatch(
+            actions.message.query({
+              query: {
+                message: { ...message, text: com },
+                update_id: 0
+              }
+            })
+          );
+          handleMessage(locales, store, {
+            ...message,
+            text: com
+          });
         } else {
           store.dispatch(
             actions.youtubeSearchList.query({
@@ -523,7 +581,7 @@ const handleMessage: (
                 key: env.GOOGLE_API_KEY,
                 maxResults: env.GOOGLE_API_LIST_MAX_RESULTS,
                 part: "id,snippet",
-                q: message.text,
+                q: messageText,
                 regionCode: env.GOOGLE_API_REGION_CODE,
                 relevanceLanguage: env.GOOGLE_API_RELEVANCE_LANGUAGE,
                 safeSearch: env.GOOGLE_API_SAFE_SEARCH,

@@ -10,12 +10,20 @@ import {
   InsertOneWriteOpResult,
   MongoClient
 } from "mongodb";
-import { Action } from "redux";
+import { StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
+
+import { IAction } from "./iAction";
 import { ILocale } from "./iLocale";
+import { IState } from "./iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadResultInsertQuery";
 
 export interface IDependencies {
+  authorization(
+    value: IAction,
+    state$: StateObservable<IState> | undefined,
+    index: number
+  ): Observable<boolean>;
   botToken: string;
   collectionObservable<TSchema>(
     db: Db,
@@ -29,9 +37,9 @@ export interface IDependencies {
   ): Observable<T | null>;
   insertOneObservable<TSchema>(
     collection: Collection<TSchema>,
-    docs: TSchema,
+    docs: TSchema & any,
     options: CollectionInsertOneOptions
-  ): Observable<InsertOneWriteOpResult<TSchema>>;
+  ): Observable<InsertOneWriteOpResult<TSchema & any>>;
   locales: ILocale;
   mongoClientObservable(): Observable<MongoClient>;
   queryObservable(
@@ -52,7 +60,7 @@ export interface IDependencies {
     options: http.RequestOptions,
     formData: FormData
   ): Observable<T>;
-  testAction$?: Observable<Action<string>>;
+  testAction$?: Observable<IAction>;
   youtubeDownloadObservable(
     videoId: string
   ): Observable<IStateYoutubeDownloadResultInsertQuery>;

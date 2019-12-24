@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const setChatDescription: (
   action$: Observable<IActionSetChatDescription>,
@@ -14,10 +15,10 @@ const setChatDescription: (
   dependencies: IDependencies
 ) => Observable<IActionSetChatDescription> = (
   action$: Observable<IActionSetChatDescription>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetChatDescription> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetChatDescription
@@ -67,6 +68,9 @@ const setChatDescription: (
 
   return action$.pipe(
     ofType(actions.setChatDescription.SET_CHAT_DESCRIPTION_QUERY),
+    filterAsync((action: IActionSetChatDescription, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendPhotoQuery } from "../utils/formData";
 
 const sendPhoto: (
@@ -16,10 +17,15 @@ const sendPhoto: (
   dependencies: IDependencies
 ) => Observable<IActionSendPhoto> = (
   action$: Observable<IActionSendPhoto>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendPhoto> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendPhoto
@@ -67,6 +73,9 @@ const sendPhoto: (
 
   return action$.pipe(
     ofType(actions.sendPhoto.SEND_PHOTO_QUERY),
+    filterAsync((action: IActionSendPhoto, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

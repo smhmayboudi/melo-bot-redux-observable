@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const setChatPhoto: (
   action$: Observable<IActionSetChatPhoto>,
@@ -14,10 +15,10 @@ const setChatPhoto: (
   dependencies: IDependencies
 ) => Observable<IActionSetChatPhoto> = (
   action$: Observable<IActionSetChatPhoto>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetChatPhoto> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetChatPhoto
@@ -65,6 +66,9 @@ const setChatPhoto: (
 
   return action$.pipe(
     ofType(actions.setChatPhoto.SET_CHAT_PHOTO_QUERY),
+    filterAsync((action: IActionSetChatPhoto, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

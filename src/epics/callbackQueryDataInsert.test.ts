@@ -29,10 +29,28 @@ import { locale } from "../utils/string";
 import * as epic from "./callbackQueryDataInsert";
 
 describe("callbackQueryDataInsert epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateCallbackQueryDataInsertQuery = {};
   const result = "";
+
+  let connection: MongoClient;
+  let locales: ILocale;
+
+  afterAll(
+    async (): Promise<void> => {
+      await connection.close();
+    }
+  );
+
+  beforeAll(
+    async (): Promise<void> => {
+      connection = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -43,23 +61,6 @@ describe("callbackQueryDataInsert epic", (): void => {
       expect(actual).toEqual(expected);
     });
   });
-
-  let connection: MongoClient;
-
-  beforeAll(
-    async (): Promise<any> => {
-      connection = await MongoClient.connect(global.__MONGO_URI__, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-    }
-  );
-
-  afterAll(
-    async (): Promise<any> => {
-      await connection.close();
-    }
-  );
 
   test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
@@ -72,7 +73,8 @@ describe("callbackQueryDataInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -99,7 +101,8 @@ describe("callbackQueryDataInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -126,7 +129,8 @@ describe("callbackQueryDataInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -153,7 +157,8 @@ describe("callbackQueryDataInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -175,7 +180,7 @@ describe("callbackQueryDataInsert epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold } = runHelpers;
+      const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionCallbackQueryDataInsert> = cold(
         "-a",
         {
@@ -184,7 +189,8 @@ describe("callbackQueryDataInsert epic", (): void => {
       );
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -194,14 +200,10 @@ describe("callbackQueryDataInsert epic", (): void => {
         state$,
         dependencies
       );
-      output$.subscribe((actual: IActionCallbackQueryDataInsert) => {
-        cold("---a", {
-          a: actions.callbackQueryDataInsert.result({
-            result
-          })
-        }).subscribe((expected: IActionCallbackQueryDataInsert) => {
-          return actual === expected;
-        });
+      expectObservable(output$).toBe("---a", {
+        a: actions.callbackQueryDataInsert.result({
+          result
+        })
       });
     });
   });

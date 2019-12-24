@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const stopMessageLiveLocation: (
   action$: Observable<IActionStopMessageLiveLocation>,
@@ -15,10 +16,10 @@ const stopMessageLiveLocation: (
   dependencies: IDependencies
 ) => Observable<IActionStopMessageLiveLocation> = (
   action$: Observable<IActionStopMessageLiveLocation>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionStopMessageLiveLocation> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionStopMessageLiveLocation
@@ -68,6 +69,9 @@ const stopMessageLiveLocation: (
 
   return action$.pipe(
     ofType(actions.stopMessageLiveLocation.STOP_MESSAGE_LIVE_LOCATION_QUERY),
+    filterAsync((action: IActionStopMessageLiveLocation, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

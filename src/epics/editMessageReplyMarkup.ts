@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const editMessageReplyMarkup: (
   action$: Observable<IActionEditMessageReplyMarkup>,
@@ -15,10 +16,10 @@ const editMessageReplyMarkup: (
   dependencies: IDependencies
 ) => Observable<IActionEditMessageReplyMarkup> = (
   action$: Observable<IActionEditMessageReplyMarkup>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionEditMessageReplyMarkup> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionEditMessageReplyMarkup
@@ -68,6 +69,9 @@ const editMessageReplyMarkup: (
 
   return action$.pipe(
     ofType(actions.editMessageReplyMarkup.EDIT_MESSAGE_REPLY_MARKUP_QUERY),
+    filterAsync((action: IActionEditMessageReplyMarkup, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendAudioQuery } from "../utils/formData";
 
 const sendAudio: (
@@ -16,10 +17,15 @@ const sendAudio: (
   dependencies: IDependencies
 ) => Observable<IActionSendAudio> = (
   action$: Observable<IActionSendAudio>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendAudio> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendAudio
@@ -66,6 +72,9 @@ const sendAudio: (
 
   return action$.pipe(
     ofType(actions.sendAudio.SEND_AUDIO_QUERY),
+    filterAsync((action: IActionSendAudio, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

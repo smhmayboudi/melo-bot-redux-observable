@@ -11,6 +11,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const <%= h.changeCase.camel(name)%>: (
   action$: Observable<IAction<%= h.changeCase.pascal(name)%>>,
@@ -18,7 +19,7 @@ const <%= h.changeCase.camel(name)%>: (
   dependencies: IDependencies
 ) => Observable<IAction<%= h.changeCase.pascal(name)%>> = (
   action$: Observable<IAction<%= h.changeCase.pascal(name)%>>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IAction<%= h.changeCase.pascal(name)%>> => {
   const { botToken, locales, requestsObservable } = dependencies;
@@ -70,6 +71,9 @@ const <%= h.changeCase.camel(name)%>: (
 
   return action$.pipe(
     ofType(actions.<%= h.changeCase.camel(name)%>.<%= h.changeCase.snake(name).toUpperCase()%>_QUERY),
+    filterAsync((action: IAction<%= h.changeCase.pascal(name)%>, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

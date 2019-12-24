@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendStickerQuery } from "../utils/formData";
 
 const sendSticker: (
@@ -16,10 +17,15 @@ const sendSticker: (
   dependencies: IDependencies
 ) => Observable<IActionSendSticker> = (
   action$: Observable<IActionSendSticker>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendSticker> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendSticker
@@ -67,6 +73,9 @@ const sendSticker: (
 
   return action$.pipe(
     ofType(actions.sendSticker.SEND_STICKER_QUERY),
+    filterAsync((action: IActionSendSticker, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

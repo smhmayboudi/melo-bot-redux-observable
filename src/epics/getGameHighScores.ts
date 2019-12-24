@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IGameHighScore } from "../../types/telegramBot/games/iGameHighScore";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getGameHighScores: (
   action$: Observable<IActionGetGameHighScores>,
@@ -15,10 +16,10 @@ const getGameHighScores: (
   dependencies: IDependencies
 ) => Observable<IActionGetGameHighScores> = (
   action$: Observable<IActionGetGameHighScores>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetGameHighScores> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetGameHighScores
@@ -68,6 +69,9 @@ const getGameHighScores: (
 
   return action$.pipe(
     ofType(actions.getGameHighScores.GET_GAME_HIGH_SCORES_QUERY),
+    filterAsync((action: IActionGetGameHighScores, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

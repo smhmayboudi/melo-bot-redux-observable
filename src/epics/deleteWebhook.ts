@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const deleteWebhook: (
   action$: Observable<IActionDeleteWebhook>,
@@ -14,10 +15,10 @@ const deleteWebhook: (
   dependencies: IDependencies
 ) => Observable<IActionDeleteWebhook> = (
   action$: Observable<IActionDeleteWebhook>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteWebhook> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteWebhook
@@ -65,6 +66,9 @@ const deleteWebhook: (
 
   return action$.pipe(
     ofType(actions.deleteWebhook.DELETE_WEBHOOK_QUERY),
+    filterAsync((action: IActionDeleteWebhook, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

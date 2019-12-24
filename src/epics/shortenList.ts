@@ -7,6 +7,7 @@ import { IActionShortenList } from "../../types/iActionShortenList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 
@@ -16,10 +17,15 @@ const shortenList: (
   dependencies: IDependencies
 ) => Observable<IActionSendMessage | IActionShortenList> = (
   action$: Observable<IActionShortenList>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMessage | IActionShortenList> => {
-  const { connectionObservable, locales, queryObservable } = dependencies;
+  const {
+    authorization,
+    connectionObservable,
+    locales,
+    queryObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionShortenList
@@ -88,6 +94,9 @@ const shortenList: (
 
   return action$.pipe(
     ofType(actions.shortenList.SHORTEN_LIST_QUERY),
+    filterAsync((action: IActionShortenList, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

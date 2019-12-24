@@ -10,6 +10,7 @@ import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeVideoListToAnswerInlineQuery";
 import { transformObservable as transformObservableToEditMessageMedia } from "./youtubeVideoListToEditMessageMedia";
 import { transformObservable as transformObservableToSendPhoto } from "./youtubeVideoListToSendPhoto";
@@ -35,7 +36,7 @@ const youtubeVideoListResult: (
   | IActionSendPhoto
   | IActionYoutubeVideoList
 > => {
-  const { locales, testAction$ } = dependencies;
+  const { authorization, locales, testAction$ } = dependencies;
 
   const transformObservable: (
     action: IActionYoutubeVideoList
@@ -142,6 +143,9 @@ const youtubeVideoListResult: (
 
   return action$.pipe(
     ofType(actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_RESULT),
+    filterAsync((action: IActionYoutubeVideoList, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(
       (
         action: IActionYoutubeVideoList
@@ -157,6 +161,9 @@ const youtubeVideoListResult: (
             actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_RESULT
           ),
           take<IActionCallbackQueryDataInsert & IActionYoutubeVideoList>(1),
+          filterAsync((action: IActionCallbackQueryDataInsert, index: number) =>
+            authorization(action, state$, index)
+          ),
           switchMap(transformObservable(action)),
           startWith(startAction(action))
         )

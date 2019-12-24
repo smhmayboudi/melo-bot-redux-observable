@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 
 import { IDependencies } from "../../types/iDependencies";
 import { ILocale } from "../../types/iLocale";
@@ -15,7 +15,6 @@ import { startAction } from "./youtubeDownloadToGetChatMember";
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToGetChatMember", (): void => {
-    const locales: ILocale = locale("en");
     const state$Value: IState = {
       ...initialState,
       message: {
@@ -50,10 +49,19 @@ describe("youtubeDownload epic", (): void => {
       }
     };
 
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
     test("should handle error state$ undefined", (): void => {
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true)
       };
       expect(startAction(state$, dependencies)).toEqual(
         actions.youtubeDownload.error({
@@ -68,7 +76,8 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true)
       };
       expect(startAction(state$, dependencies)).toEqual(
         actions.youtubeDownload.error({
@@ -83,7 +92,8 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true)
       };
       expect(startAction(state$, dependencies)).toEqual(
         actions.youtubeDownload.error({
@@ -100,7 +110,8 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true)
       };
       expect(startAction(state$, dependencies)).toEqual(
         actions.getChatMember.query({

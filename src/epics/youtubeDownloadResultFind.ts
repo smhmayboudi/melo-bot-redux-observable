@@ -8,6 +8,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 
 const youtubeDownloadResultFind: (
@@ -16,10 +17,11 @@ const youtubeDownloadResultFind: (
   dependencies: IDependencies
 ) => Observable<IActionYoutubeDownloadResultFind> = (
   action$: Observable<IActionYoutubeDownloadResultFind>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionYoutubeDownloadResultFind> => {
   const {
+    authorization,
     collectionObservable,
     findOneObservable,
     locales,
@@ -99,6 +101,9 @@ const youtubeDownloadResultFind: (
   return action$.pipe(
     ofType(
       actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_QUERY
+    ),
+    filterAsync((action: IActionYoutubeDownloadResultFind, index: number) =>
+      authorization(action, state$, index)
     ),
     switchMap(actionObservable)
   );

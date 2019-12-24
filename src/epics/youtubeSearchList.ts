@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IError } from "../../types/iError";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const youtubeSearchList: (
   action$: Observable<IActionYoutubeSearchList>,
@@ -16,10 +17,10 @@ const youtubeSearchList: (
   dependencies: IDependencies
 ) => Observable<IActionYoutubeSearchList> = (
   action$: Observable<IActionYoutubeSearchList>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionYoutubeSearchList> => {
-  const { locales, requestsObservable } = dependencies;
+  const { authorization, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionYoutubeSearchList
@@ -53,7 +54,7 @@ const youtubeSearchList: (
           }
 
           return actions.youtubeSearchList.error({
-            error: result
+            error: (result as IError).error
           });
         }
       ),
@@ -69,6 +70,9 @@ const youtubeSearchList: (
 
   return action$.pipe(
     ofType(actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_QUERY),
+    filterAsync((action: IActionYoutubeSearchList, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

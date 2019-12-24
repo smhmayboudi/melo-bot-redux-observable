@@ -8,6 +8,7 @@ import { IStateAnswerShippingQuery } from "./iStateAnswerShippingQuery";
 import { IStateCallbackQueryDataFind } from "./iStateCallbackQueryDataFind";
 import { IStateCallbackQueryDataInsert } from "./iStateCallbackQueryDataInsert";
 import { IStateChosenInlineResult } from "./iStateChosenInlineResult";
+import { IStateCommandUI } from "./iStateCommandUI";
 import { IStateCreateNewStickerSet } from "./iStateCreateNewStickerSet";
 import { IStateDeleteChatPhoto } from "./iStateDeleteChatPhoto";
 import { IStateDeleteChatStickerSet } from "./iStateDeleteChatStickerSet";
@@ -69,6 +70,7 @@ import { IStateShortenReset } from "./iStateShortenReset";
 import { IStateStopMessageLiveLocation } from "./iStateStopMessageLiveLocation";
 import { IStateStopPoll } from "./iStateStopPoll";
 import { IStateUnbanChatMember } from "./iStateUnbanChatMember";
+// import { IStateUndo } from "./iStateUndo";
 import { IStateUnpinChatMessage } from "./iStateUnpinChatMessage";
 import { IStateUploadStickerFile } from "./iStateUploadStickerFile";
 import { IStateYoutubeDownload } from "./iStateYoutubeDownload";
@@ -86,6 +88,7 @@ export interface IAction extends Action<string> {
   callbackQueryDataFind?: IStateCallbackQueryDataFind;
   callbackQueryDataInsert?: IStateCallbackQueryDataInsert;
   chosenInlineResult?: IStateChosenInlineResult;
+  commandUI?: IStateCommandUI;
   createNewStickerSet?: IStateCreateNewStickerSet;
   deleteChatPhoto?: IStateDeleteChatPhoto;
   deleteChatStickerSet?: IStateDeleteChatStickerSet;
@@ -147,6 +150,10 @@ export interface IAction extends Action<string> {
   stopMessageLiveLocation?: IStateStopMessageLiveLocation;
   stopPoll?: IStateStopPoll;
   unbanChatMember?: IStateUnbanChatMember;
+  // undo?: IStateUndo;
+  undo?: {
+    index: number;
+  };
   unpinChatMessage?: IStateUnpinChatMessage;
   uploadStickerFile?: IStateUploadStickerFile;
   youtubeDownload?: IStateYoutubeDownload;

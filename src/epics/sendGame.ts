@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const sendGame: (
   action$: Observable<IActionSendGame>,
@@ -15,10 +16,10 @@ const sendGame: (
   dependencies: IDependencies
 ) => Observable<IActionSendGame> = (
   action$: Observable<IActionSendGame>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendGame> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSendGame
@@ -66,6 +67,9 @@ const sendGame: (
 
   return action$.pipe(
     ofType(actions.sendGame.SEND_GAME_QUERY),
+    filterAsync((action: IActionSendGame, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

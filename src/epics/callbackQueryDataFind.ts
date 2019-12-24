@@ -8,6 +8,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 
 const callbackQueryDataFind: (
@@ -16,10 +17,11 @@ const callbackQueryDataFind: (
   dependencies: IDependencies
 ) => Observable<IActionCallbackQueryDataFind> = (
   action$: Observable<IActionCallbackQueryDataFind>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionCallbackQueryDataFind> => {
   const {
+    authorization,
     collectionObservable,
     findOneObservable,
     locales,
@@ -98,6 +100,9 @@ const callbackQueryDataFind: (
 
   return action$.pipe(
     ofType(actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_QUERY),
+    filterAsync((action: IActionCallbackQueryDataFind, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const restrictChatMember: (
   action$: Observable<IActionRestrictChatMember>,
@@ -14,10 +15,10 @@ const restrictChatMember: (
   dependencies: IDependencies
 ) => Observable<IActionRestrictChatMember> = (
   action$: Observable<IActionRestrictChatMember>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionRestrictChatMember> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionRestrictChatMember
@@ -67,6 +68,9 @@ const restrictChatMember: (
 
   return action$.pipe(
     ofType(actions.restrictChatMember.RESTRICT_CHAT_MEMBER_QUERY),
+    filterAsync((action: IActionRestrictChatMember, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -13,9 +13,9 @@ import { Dispatch, Middleware, MiddlewareAPI } from "redux";
 
 import { IAction } from "../../types/iAction";
 import { IState } from "../../types/iState";
-import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as env from "../configs/env";
+import { id, username } from "../utils/user";
 
 const appDebug: debug.IDebugger = debug("app:middleware:crashReport");
 
@@ -45,42 +45,26 @@ const crashReporter: Middleware<{}, IState, Dispatch<IAction>> = ({
 }: MiddlewareAPI<Dispatch<IAction>, IState>) => (next: Dispatch<IAction>) => (
   action: IAction
 ): IAction => {
-  let message: IMessage = {
-    chat: {
-      id: 0,
-      type: ""
-    },
-    date: 0,
-    message_id: 0
-  };
+  const state: IState = getState();
+  let userId = 0;
+  let userName = "";
   if (
     action.type === actions.message.MESSAGE_QUERY &&
-    action.message !== undefined &&
-    action.message.query !== undefined &&
-    action.message.query.message !== undefined
+    action.message !== undefined
   ) {
-    message = action.message.query.message;
-  }
-  const state: IState = getState();
-  if (
-    state.message.query !== undefined &&
-    state.message.query.message !== undefined
-  ) {
-    message = state.message.query.message;
-  }
-  let id: number;
-  let userName: string | undefined;
-  if (message.from !== undefined) {
-    id = message.from.id;
-    userName = message.from.username;
+    userId = id(action.message.query);
+    userName = username(action.message.query);
+  } else {
+    userId = id(state.message.query);
+    userName = username(state.message.query);
   }
   configureScope((scope: Scope) => {
     scope.setExtras({
       state
     });
     scope.setUser({
-      email: `${id}@${userName}`,
-      id: `${id}`,
+      email: `${userId}@${userName}`,
+      id: `${userId}`,
       username: userName
     });
   });

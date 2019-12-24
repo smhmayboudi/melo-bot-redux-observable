@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -17,7 +17,6 @@ import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 
 describe("sendMediaGroup epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSendMediaGroupQuery = {
     chat_id: 0,
@@ -44,6 +43,14 @@ describe("sendMediaGroup epic", (): void => {
     result
   };
 
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -62,7 +69,8 @@ describe("sendMediaGroup epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -84,7 +92,8 @@ describe("sendMediaGroup epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> => cold("--a")
       };
@@ -107,7 +116,8 @@ describe("sendMediaGroup epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -131,7 +141,8 @@ describe("sendMediaGroup epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

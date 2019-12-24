@@ -10,6 +10,7 @@ import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeSearchListToAnswerInlineQuery";
 import { transformObservable as transformObservableToEditMessageText } from "./youtubeSearchListToEditMessageText";
 import { transformObservable as transformObservableToSendMessage } from "./youtubeSearchListToSendMessage";
@@ -35,7 +36,7 @@ const youtubeSearchListResult: (
   | IActionSendMessage
   | IActionYoutubeSearchList
 > => {
-  const { locales, testAction$ } = dependencies;
+  const { authorization, locales, testAction$ } = dependencies;
 
   const transformObservable: (
     action: IActionYoutubeSearchList
@@ -166,6 +167,9 @@ const youtubeSearchListResult: (
 
   return action$.pipe(
     ofType(actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_RESULT),
+    filterAsync((action: IActionYoutubeSearchList, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(
       (
         action: IActionYoutubeSearchList
@@ -181,6 +185,9 @@ const youtubeSearchListResult: (
             actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_RESULT
           ),
           take<IActionCallbackQueryDataInsert & IActionYoutubeSearchList>(1),
+          filterAsync((action: IActionCallbackQueryDataInsert, index: number) =>
+            authorization(action, state$, index)
+          ),
           switchMap(transformObservable(action)),
           startWith(startAction(action))
         )

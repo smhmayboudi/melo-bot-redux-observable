@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const setPassportDataErrors: (
   action$: Observable<IActionSetPassportDataErrors>,
@@ -14,10 +15,10 @@ const setPassportDataErrors: (
   dependencies: IDependencies
 ) => Observable<IActionSetPassportDataErrors> = (
   action$: Observable<IActionSetPassportDataErrors>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetPassportDataErrors> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetPassportDataErrors
@@ -67,6 +68,9 @@ const setPassportDataErrors: (
 
   return action$.pipe(
     ofType(actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_QUERY),
+    filterAsync((action: IActionSetPassportDataErrors, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

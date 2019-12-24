@@ -4,6 +4,7 @@ import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import { findByCode } from "../configs/emojis";
 import * as env from "../configs/env";
 import * as command from "../utils/command";
+import * as commandStart from "../utils/commandStart";
 import {
   caption,
   decode,
@@ -119,14 +120,18 @@ describe("string utils", (): void => {
     ).toEqual("ChYvcmwgQ2d0R2EwMVFkSGd5VW10Q2F3");
   });
 
-  test("should handle locale find", (): void => {
-    expect(locale("fa").find("messageTestFind")).toEqual("TEST");
-  });
+  describe("locale", (): void => {
+    test("should handle locale find", async () => {
+      const value = await locale("fa");
+      expect(value.find("messageTestFind")).toEqual("TEST");
+    });
 
-  test("should handle locale fill", (): void => {
-    expect(locale("fa").fill("messageTestFill", { test: "TEST" })).toEqual(
-      "TEST TEST"
-    );
+    test("should handle locale fill", async () => {
+      const value = await locale("fa");
+      expect(value.fill("messageTestFill", { test: "TEST" })).toEqual(
+        "TEST TEST"
+      );
+    });
   });
 
   test("should handle text", (): void => {
@@ -585,9 +590,15 @@ describe("string utils", (): void => {
           `${findByCode("1F4E5").char} ${command.youtubeDownload({ id: "" })}`,
           `${
             findByCode("1F517").char
-          } ${command.youtubeSearchListByRelatedToVideoId({ id: "" })}`
+          } ${command.youtubeSearchListByRelatedToVideoId({ id: "" })}`,
+          `${findByCode("1F517").char} ${commandStart.start({
+            cmd: command.youtubeSearchListByRelatedToVideoId({
+              id: ""
+            })
+          })}`
         ].join("\n")
       );
+      res.push("");
       res.push("");
       expect(transformSearchResults(items, "", "", "")).toEqual(
         text(res.join("\n"))
@@ -603,7 +614,12 @@ describe("string utils", (): void => {
           `${findByCode("1F4E5").char} ${command.youtubeDownload({ id: "" })}`,
           `${
             findByCode("1F517").char
-          } ${command.youtubeSearchListByRelatedToVideoId({ id: "" })}`
+          } ${command.youtubeSearchListByRelatedToVideoId({ id: "" })}`,
+          `${findByCode("1F517").char} ${commandStart.start({
+            cmd: command.youtubeSearchListByRelatedToVideoId({
+              id: ""
+            })
+          })}`
         ].join("\n")
       );
       res.push("");
@@ -622,7 +638,12 @@ describe("string utils", (): void => {
           `${findByCode("1F4E5").char} ${command.youtubeDownload({ id: "" })}`,
           `${
             findByCode("1F517").char
-          } ${command.youtubeSearchListByRelatedToVideoId({ id: "" })}`
+          } ${command.youtubeSearchListByRelatedToVideoId({ id: "" })}`,
+          `${findByCode("1F517").char} ${commandStart.start({
+            cmd: command.youtubeSearchListByRelatedToVideoId({
+              id: ""
+            })
+          })}`
         ].join("\n")
       );
       res.push("");

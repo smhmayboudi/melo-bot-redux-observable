@@ -5,7 +5,6 @@ import { ILocale } from "../../types/iLocale";
 import { locale } from "../utils/string";
 
 describe("telegramBotHandleEditedMessage configs", (): void => {
-  const locales: ILocale = locale("en");
   const store: any = {
     dispatch: jest.fn(() => ({})),
     getState: jest.fn(() => ({})),
@@ -13,15 +12,24 @@ describe("telegramBotHandleEditedMessage configs", (): void => {
     subscribe: jest.fn(() => jest.fn(() => ({})))
   };
 
+  const message: IMessage = {
+    chat: {
+      id: 0,
+      type: ""
+    },
+    date: 0,
+    message_id: 0
+  };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
+
   test("should handle", (): void => {
-    const message: IMessage = {
-      chat: {
-        id: 0,
-        type: ""
-      },
-      date: 0,
-      message_id: 0
-    };
     handleEditedMessage(locales, store, message);
     expect(store.dispatch).toHaveBeenCalled();
   });

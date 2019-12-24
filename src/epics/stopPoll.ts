@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const stopPoll: (
   action$: Observable<IActionStopPoll>,
@@ -14,10 +15,10 @@ const stopPoll: (
   dependencies: IDependencies
 ) => Observable<IActionStopPoll> = (
   action$: Observable<IActionStopPoll>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionStopPoll> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionStopPoll
@@ -65,6 +66,9 @@ const stopPoll: (
 
   return action$.pipe(
     ofType(actions.stopPoll.STOP_POLL_QUERY),
+    filterAsync((action: IActionStopPoll, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

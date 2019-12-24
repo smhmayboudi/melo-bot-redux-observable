@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { StateObservable } from "redux-observable";
-import { Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
@@ -25,7 +25,6 @@ import {
 
 describe("youtubeDownload epic", (): void => {
   describe("youtubeDownloadToYoutubeDownloadResultInsert", (): void => {
-    const locales: ILocale = locale("en");
     const state$Value: IState = {
       ...initialState,
       message: {
@@ -102,6 +101,14 @@ describe("youtubeDownload epic", (): void => {
       thumb: undefined
     };
 
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
     describe("transformObservable", (): void => {
       let testScheduler: TestScheduler;
 
@@ -122,7 +129,8 @@ describe("youtubeDownload epic", (): void => {
             }
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResult
@@ -148,7 +156,8 @@ describe("youtubeDownload epic", (): void => {
             }
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: undefined
@@ -172,7 +181,8 @@ describe("youtubeDownload epic", (): void => {
             }
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResultVideoUndefined
@@ -198,7 +208,8 @@ describe("youtubeDownload epic", (): void => {
             }
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales).initDependencies
+            ...initDependencies(locales),
+            authorization: (): Observable<boolean> => of(true)
           };
           const action2: IActionSendVideo = actions.sendVideo.result({
             result: actionYoutubeDownloadResult
@@ -236,7 +247,8 @@ describe("youtubeDownload epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
@@ -254,7 +266,8 @@ describe("youtubeDownload epic", (): void => {
           state$ValueMessageQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
@@ -272,7 +285,8 @@ describe("youtubeDownload epic", (): void => {
           state$ValueMessageQueryMessageUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
@@ -292,7 +306,8 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
@@ -312,7 +327,8 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expect(startAction(action, state$, dependencies)).toEqual(
           actions.youtubeDownload.error({
@@ -332,7 +348,8 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         expect(
           JSON.stringify(startAction(action, state$, dependencies))

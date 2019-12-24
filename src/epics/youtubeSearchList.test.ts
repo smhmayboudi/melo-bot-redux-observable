@@ -1,12 +1,13 @@
 import { youtube_v3 } from "googleapis";
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
+import { IError } from "../../types/iError";
 import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
@@ -16,7 +17,6 @@ import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 
 describe("youtubeSearchList epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeSearchListQuery = {
     key: ""
@@ -67,6 +67,29 @@ describe("youtubeSearchList epic", (): void => {
     },
     prevPageToken: ""
   };
+  const resultError: IError = {
+    error: {
+      errors: [
+        {
+          domain: "",
+          reason: "",
+          message: "",
+          locationType: "",
+          location: ""
+        }
+      ],
+      code: 0,
+      message: ""
+    }
+  };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -86,7 +109,8 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<IActionYoutubeSearchList> = epic.youtubeSearchList(
@@ -108,7 +132,8 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<IActionYoutubeSearchList> = epic.youtubeSearchList(
@@ -126,6 +151,30 @@ describe("youtubeSearchList epic", (): void => {
     });
   });
 
+  test("should handle result error", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeSearchList> = cold("-a", {
+        a: actions.youtubeSearchList.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", { a: resultError })
+      };
+      const output$: Observable<IActionYoutubeSearchList> = epic.youtubeSearchList(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeSearchList.error({ error: resultError.error })
+      });
+    });
+  });
+
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -134,7 +183,8 @@ describe("youtubeSearchList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };

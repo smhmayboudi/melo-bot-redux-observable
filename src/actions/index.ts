@@ -6,6 +6,7 @@ import * as answerShippingQuery from "./answerShippingQuery";
 import * as callbackQueryDataFind from "./callbackQueryDataFind";
 import * as callbackQueryDataInsert from "./callbackQueryDataInsert";
 import * as chosenInlineResult from "./chosenInlineResult";
+import * as commandUI from "./commandUI";
 import * as createNewStickerSet from "./createNewStickerSet";
 import * as deleteChatPhoto from "./deleteChatPhoto";
 import * as deleteChatStickerSet from "./deleteChatStickerSet";
@@ -67,6 +68,7 @@ import * as shortenReset from "./shortenReset";
 import * as stopMessageLiveLocation from "./stopMessageLiveLocation";
 import * as stopPoll from "./stopPoll";
 import * as unbanChatMember from "./unbanChatMember";
+import * as undo from "./undo";
 import * as unpinChatMessage from "./unpinChatMessage";
 import * as uploadStickerFile from "./uploadStickerFile";
 import * as youtubeDownload from "./youtubeDownload";
@@ -84,6 +86,7 @@ export {
   callbackQueryDataFind,
   callbackQueryDataInsert,
   chosenInlineResult,
+  commandUI,
   createNewStickerSet,
   deleteChatPhoto,
   deleteChatStickerSet,
@@ -145,6 +148,7 @@ export {
   stopMessageLiveLocation,
   stopPoll,
   unbanChatMember,
+  undo,
   unpinChatMessage,
   uploadStickerFile,
   youtubeDownload,

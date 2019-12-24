@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendMediaGroupQuery } from "../utils/formData";
 
 const sendMediaGroup: (
@@ -16,10 +17,15 @@ const sendMediaGroup: (
   dependencies: IDependencies
 ) => Observable<IActionSendMediaGroup> = (
   action$: Observable<IActionSendMediaGroup>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendMediaGroup> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendMediaGroup
@@ -67,6 +73,9 @@ const sendMediaGroup: (
 
   return action$.pipe(
     ofType(actions.sendMediaGroup.SEND_MEDIA_GROUP_QUERY),
+    filterAsync((action: IActionSendMediaGroup, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

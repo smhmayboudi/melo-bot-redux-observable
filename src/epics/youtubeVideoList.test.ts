@@ -1,12 +1,13 @@
 import { youtube_v3 } from "googleapis";
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
+import { IError } from "../../types/iError";
 import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
@@ -16,7 +17,6 @@ import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 
 describe("youtubeVideoList epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeVideoListQuery = {
     key: ""
@@ -65,6 +65,29 @@ describe("youtubeVideoList epic", (): void => {
     },
     prevPageToken: ""
   };
+  const resultError: IError = {
+    error: {
+      errors: [
+        {
+          domain: "",
+          reason: "",
+          message: "",
+          locationType: "",
+          location: ""
+        }
+      ],
+      code: 0,
+      message: ""
+    }
+  };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -84,7 +107,8 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<IActionYoutubeVideoList> = epic.youtubeVideoList(
@@ -106,7 +130,8 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> => cold("--a")
       };
       const output$: Observable<IActionYoutubeVideoList> = epic.youtubeVideoList(
@@ -122,6 +147,30 @@ describe("youtubeVideoList epic", (): void => {
     });
   });
 
+  test("should handle result error", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<IActionYoutubeVideoList> = cold("-a", {
+        a: actions.youtubeVideoList.query({ query })
+      });
+      const state$: StateObservable<IState> | undefined = undefined;
+      const dependencies: IDependencies = {
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
+        requestsObservable: (): ColdObservable<any> =>
+          cold("--a", { a: resultError })
+      };
+      const output$: Observable<IActionYoutubeVideoList> = epic.youtubeVideoList(
+        action$,
+        state$,
+        dependencies
+      );
+      expectObservable(output$).toBe("---a", {
+        a: actions.youtubeVideoList.error({ error: resultError.error })
+      });
+    });
+  });
+
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -130,7 +179,8 @@ describe("youtubeVideoList epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };

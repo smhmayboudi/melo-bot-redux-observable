@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const answerShippingQuery: (
   action$: Observable<IActionAnswerShippingQuery>,
@@ -14,10 +15,10 @@ const answerShippingQuery: (
   dependencies: IDependencies
 ) => Observable<IActionAnswerShippingQuery> = (
   action$: Observable<IActionAnswerShippingQuery>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionAnswerShippingQuery> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionAnswerShippingQuery
@@ -67,6 +68,9 @@ const answerShippingQuery: (
 
   return action$.pipe(
     ofType(actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_QUERY),
+    filterAsync((action: IActionAnswerShippingQuery, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

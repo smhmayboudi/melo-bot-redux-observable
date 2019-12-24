@@ -4,9 +4,17 @@ import { init } from "./dependencies";
 import { locale } from "./string";
 
 describe("dependencies utils", (): void => {
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
+
   test("should handle initDependencies", (): void => {
-    const locales: ILocale = locale("en");
-    const initDependencies = init(locales).initDependencies;
+    const initDependencies = init(locales);
+    expect("authorization" in initDependencies).toBeTruthy();
     expect("botToken" in initDependencies).toBeTruthy();
     expect("collectionObservable" in initDependencies).toBeTruthy();
     expect("connectionObservable" in initDependencies).toBeTruthy();
@@ -20,7 +28,7 @@ describe("dependencies utils", (): void => {
     expect("requestsUploadObservable" in initDependencies).toBeTruthy();
     expect("testAction$" in initDependencies).toBeTruthy();
     expect("youtubeDownloadObservable" in initDependencies).toBeTruthy();
-    expect(Object.keys(initDependencies).length).toEqual(14);
+    expect(Object.keys(initDependencies).length).toEqual(15);
     expect(initDependencies).toMatchObject({
       botToken: env.BOT_TOKEN,
       testAction$: undefined

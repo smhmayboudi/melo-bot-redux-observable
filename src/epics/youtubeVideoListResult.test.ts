@@ -1,6 +1,6 @@
 import { youtube_v3 } from "googleapis";
 import { StateObservable } from "redux-observable";
-import { Observable, Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -22,7 +22,6 @@ import { locale, transformVideos } from "../utils/string";
 import * as epic from "./youtubeVideoListResult";
 
 describe("youtubeVideoListResult epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateYoutubeVideoListQuery = {
     chart: "",
@@ -52,6 +51,9 @@ describe("youtubeVideoListResult epic", (): void => {
         },
         update_id: 0
       }
+    },
+    youtubeVideoList: {
+      query
     }
   };
   const state$ValueMessageQueryUndefined: IState = {
@@ -72,6 +74,14 @@ describe("youtubeVideoListResult epic", (): void => {
       }
     }
   };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -94,7 +104,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<
@@ -121,7 +132,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -151,7 +163,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: undefined })
       };
@@ -183,7 +196,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: { items: undefined } })
       };
@@ -212,7 +226,8 @@ describe("youtubeVideoListResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -242,7 +257,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -272,7 +288,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };
@@ -304,7 +321,8 @@ describe("youtubeVideoListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
       };

@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -17,7 +17,6 @@ import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 
 describe("inlineQuery epic", (): void => {
-  const locales: ILocale = locale("en");
   const query: IStateInlineQueryQuery = {
     from: {
       first_name: "",
@@ -29,6 +28,14 @@ describe("inlineQuery epic", (): void => {
     offset: "",
     query: ""
   };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -48,7 +55,8 @@ describe("inlineQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true)
       };
       const output$: Observable<
         IActionInlineQuery | IActionYoutubeSearchList
@@ -69,7 +77,8 @@ describe("inlineQuery epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true)
       };
       const output$: Observable<
         IActionInlineQuery | IActionYoutubeSearchList

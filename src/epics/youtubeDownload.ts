@@ -11,6 +11,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { actionGetChatMemberResultStatus } from "../utils/boolean";
 import { startAction as startActionGetChatMember } from "./youtubeDownloadToGetChatMember";
 import { transformObservable as transformObservableSendMessage } from "./youtubeDownloadToSendMessage";
@@ -46,7 +47,12 @@ const youtubeDownload: (
   | IActionYoutubeDownloadResultFind
   | IActionYoutubeDownloadResultInsert
 > => {
-  const { testAction$, locales, youtubeDownloadObservable } = dependencies;
+  const {
+    authorization,
+    testAction$,
+    locales,
+    youtubeDownloadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionYoutubeDownload
@@ -96,6 +102,9 @@ const youtubeDownload: (
     (testAction$ || action$).pipe(
       ofType(actions.sendVideo.SEND_VIDEO_RESULT),
       take<IActionSendVideo & IActionYoutubeDownload>(1),
+      filterAsync((action: IActionSendVideo, index: number) =>
+        authorization(action, state$, index)
+      ),
       switchMap(transformObservableSendVideo(action, dependencies)),
       startWith(startActionSendVideo(action, state$, dependencies))
     );
@@ -120,6 +129,9 @@ const youtubeDownload: (
         actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_RESULT
       ),
       take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
+      filterAsync((action: IActionYoutubeDownloadResultFind, index: number) =>
+        authorization(action, state$, index)
+      ),
       switchMap((action2: IActionYoutubeDownloadResultFind) => {
         if (
           action2.youtubeDownloadResultFind.result !== null ||
@@ -164,6 +176,9 @@ const youtubeDownload: (
 
   return action$.pipe(
     ofType(actions.youtubeDownload.YOUTUBE_DOWNLOAD_QUERY),
+    filterAsync((action: IActionYoutubeDownload, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(
       (
         action: IActionYoutubeDownload
@@ -178,6 +193,9 @@ const youtubeDownload: (
         (testAction$ || action$).pipe(
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take<IActionGetChatMember & IActionYoutubeDownload>(1),
+          filterAsync((action: IActionGetChatMember, index: number) =>
+            authorization(action, state$, index)
+          ),
           switchMap(getChatMember(action)),
           startWith(startActionGetChatMember(state$, dependencies))
         )

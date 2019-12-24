@@ -1,6 +1,6 @@
-import { Action } from "redux";
+import { IAction } from "./iAction";
 import { IStateYoutubeSearchList } from "./iStateYoutubeSearchList";
 
-export interface IActionYoutubeSearchList extends Action<string> {
+export interface IActionYoutubeSearchList extends IAction {
   youtubeSearchList: IStateYoutubeSearchList;
 }

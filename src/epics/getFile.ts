@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IFile } from "../../types/telegramBot/types/iFile";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getFile: (
   action$: Observable<IActionGetFile>,
@@ -15,10 +16,10 @@ const getFile: (
   dependencies: IDependencies
 ) => Observable<IActionGetFile> = (
   action$: Observable<IActionGetFile>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetFile> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetFile
@@ -66,6 +67,9 @@ const getFile: (
 
   return action$.pipe(
     ofType(actions.getFile.GET_FILE_QUERY),
+    filterAsync((action: IActionGetFile, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

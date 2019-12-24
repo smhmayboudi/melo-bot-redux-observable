@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const exportChatInviteLink: (
   action$: Observable<IActionExportChatInviteLink>,
@@ -14,10 +15,10 @@ const exportChatInviteLink: (
   dependencies: IDependencies
 ) => Observable<IActionExportChatInviteLink> = (
   action$: Observable<IActionExportChatInviteLink>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionExportChatInviteLink> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionExportChatInviteLink
@@ -67,6 +68,9 @@ const exportChatInviteLink: (
 
   return action$.pipe(
     ofType(actions.exportChatInviteLink.EXPORT_CHAT_INVITE_LINK_QUERY),
+    filterAsync((action: IActionExportChatInviteLink, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

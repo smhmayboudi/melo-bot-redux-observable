@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IUpdate } from "../../types/telegramBot/updates/iUpdate";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getUpdates: (
   action$: Observable<IActionGetUpdates>,
@@ -15,10 +16,10 @@ const getUpdates: (
   dependencies: IDependencies
 ) => Observable<IActionGetUpdates> = (
   action$: Observable<IActionGetUpdates>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetUpdates> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetUpdates
@@ -66,6 +67,9 @@ const getUpdates: (
 
   return action$.pipe(
     ofType(actions.getUpdates.GET_UPDATES_QUERY),
+    filterAsync((action: IActionGetUpdates, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

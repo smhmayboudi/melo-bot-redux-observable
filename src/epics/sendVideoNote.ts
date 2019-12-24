@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendVideoNoteQuery } from "../utils/formData";
 
 const sendVideoNote: (
@@ -16,10 +17,15 @@ const sendVideoNote: (
   dependencies: IDependencies
 ) => Observable<IActionSendVideoNote> = (
   action$: Observable<IActionSendVideoNote>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendVideoNote> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendVideoNote
@@ -67,6 +73,9 @@ const sendVideoNote: (
 
   return action$.pipe(
     ofType(actions.sendVideoNote.SEND_VIDEO_NOTE_QUERY),
+    filterAsync((action: IActionSendVideoNote, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

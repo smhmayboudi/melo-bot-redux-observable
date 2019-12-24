@@ -28,7 +28,6 @@ import { locale } from "../utils/string";
 import * as epic from "./callbackQueryDataFind";
 
 describe("callbackQueryDataFind epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateCallbackQueryDataFindQuery = {
     id: "000000000000000000000000",
@@ -62,6 +61,25 @@ describe("callbackQueryDataFind epic", (): void => {
     }
   };
 
+  let connection: MongoClient;
+  let locales: ILocale;
+
+  afterAll(
+    async (): Promise<void> => {
+      await connection.close();
+    }
+  );
+
+  beforeAll(
+    async (): Promise<void> => {
+      connection = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+      locales = await locale("en");
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -71,23 +89,6 @@ describe("callbackQueryDataFind epic", (): void => {
       expect(actual).toEqual(expected);
     });
   });
-
-  let connection: MongoClient;
-
-  beforeAll(
-    async (): Promise<any> => {
-      connection = await MongoClient.connect(global.__MONGO_URI__, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-    }
-  );
-
-  afterAll(
-    async (): Promise<any> => {
-      await connection.close();
-    }
-  );
 
   test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
@@ -100,7 +101,8 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -127,7 +129,8 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -154,7 +157,8 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -181,7 +185,8 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -212,7 +217,8 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)

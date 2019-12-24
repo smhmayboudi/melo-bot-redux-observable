@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const unbanChatMember: (
   action$: Observable<IActionUnbanChatMember>,
@@ -14,10 +15,10 @@ const unbanChatMember: (
   dependencies: IDependencies
 ) => Observable<IActionUnbanChatMember> = (
   action$: Observable<IActionUnbanChatMember>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionUnbanChatMember> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionUnbanChatMember
@@ -65,6 +66,9 @@ const unbanChatMember: (
 
   return action$.pipe(
     ofType(actions.unbanChatMember.UNBAN_CHAT_MEMBER_QUERY),
+    filterAsync((action: IActionUnbanChatMember, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

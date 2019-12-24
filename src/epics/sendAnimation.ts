@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformSendAnimationQuery } from "../utils/formData";
 
 const sendAnimation: (
@@ -16,10 +17,15 @@ const sendAnimation: (
   dependencies: IDependencies
 ) => Observable<IActionSendAnimation> = (
   action$: Observable<IActionSendAnimation>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSendAnimation> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionSendAnimation
@@ -67,6 +73,9 @@ const sendAnimation: (
 
   return action$.pipe(
     ofType(actions.sendAnimation.SEND_ANIMATION_QUERY),
+    filterAsync((action: IActionSendAnimation, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

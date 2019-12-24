@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IUserProfilePhotos } from "../../types/telegramBot/types/iUserProfilePhotos";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getUserProfilePhotos: (
   action$: Observable<IActionGetUserProfilePhotos>,
@@ -15,10 +16,10 @@ const getUserProfilePhotos: (
   dependencies: IDependencies
 ) => Observable<IActionGetUserProfilePhotos> = (
   action$: Observable<IActionGetUserProfilePhotos>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetUserProfilePhotos> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetUserProfilePhotos
@@ -68,6 +69,9 @@ const getUserProfilePhotos: (
 
   return action$.pipe(
     ofType(actions.getUserProfilePhotos.GET_USER_PROFILE_PHOTOS_QUERY),
+    filterAsync((action: IActionGetUserProfilePhotos, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

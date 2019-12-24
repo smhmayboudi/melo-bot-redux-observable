@@ -9,6 +9,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IError } from "../../types/iError";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const youtubeVideoList: (
   action$: Observable<IActionYoutubeVideoList>,
@@ -16,10 +17,10 @@ const youtubeVideoList: (
   dependencies: IDependencies
 ) => Observable<IActionYoutubeVideoList> = (
   action$: Observable<IActionYoutubeVideoList>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionYoutubeVideoList> => {
-  const { locales, requestsObservable } = dependencies;
+  const { authorization, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionYoutubeVideoList
@@ -51,7 +52,7 @@ const youtubeVideoList: (
           }
 
           return actions.youtubeVideoList.error({
-            error: result
+            error: (result as IError).error
           });
         }
       ),
@@ -67,6 +68,9 @@ const youtubeVideoList: (
 
   return action$.pipe(
     ofType(actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_QUERY),
+    filterAsync((action: IActionYoutubeVideoList, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

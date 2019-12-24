@@ -1,11 +1,11 @@
-// import * as env from "./env";
+import * as env from "./env";
 
-// describe("https configs", (): void => {
-//   test(`should handle /${env.BOT_TOKEN}`, (): void => {});
+describe("https configs", (): void => {
+  test.todo(`should handle /${env.BOT_TOKEN}`);
 
-//   test("should handle /liveness", (): void => {});
+  test.todo("should handle /liveness");
 
-//   test("should handle /metrics", (): void => {});
+  test.todo("should handle /metrics");
 
-//   test("should handle /readiness", (): void => {});
-// });
+  test.todo("should handle /readiness");
+});

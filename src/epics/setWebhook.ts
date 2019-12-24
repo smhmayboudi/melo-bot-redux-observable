@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const setWebhook: (
   action$: Observable<IActionSetWebhook>,
@@ -14,10 +15,10 @@ const setWebhook: (
   dependencies: IDependencies
 ) => Observable<IActionSetWebhook> = (
   action$: Observable<IActionSetWebhook>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionSetWebhook> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionSetWebhook
@@ -65,6 +66,9 @@ const setWebhook: (
 
   return action$.pipe(
     ofType(actions.setWebhook.SET_WEBHOOK_QUERY),
+    filterAsync((action: IActionSetWebhook, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -8,6 +8,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateChosenInlineResultQuery } from "../../types/iStateChosenInlineResultQuery";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 
 const chosenInlineResult: (
@@ -16,10 +17,11 @@ const chosenInlineResult: (
   dependencies: IDependencies
 ) => Observable<IActionChosenInlineResult> = (
   action$: Observable<IActionChosenInlineResult>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionChosenInlineResult> => {
   const {
+    authorization,
     collectionObservable,
     insertOneObservable,
     locales,
@@ -93,6 +95,9 @@ const chosenInlineResult: (
 
   return action$.pipe(
     ofType(actions.chosenInlineResult.CHOSEN_INLINE_RESULT_QUERY),
+    filterAsync((action: IActionChosenInlineResult, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

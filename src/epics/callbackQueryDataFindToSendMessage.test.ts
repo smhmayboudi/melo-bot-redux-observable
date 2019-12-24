@@ -1,6 +1,6 @@
 import { youtube_v3 } from "googleapis";
 import { StateObservable } from "redux-observable";
-import { Subject } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -20,7 +20,6 @@ import * as epic from "./callbackQueryDataFindToSendMessage";
 
 describe("callbackQueryDataFind epic", (): void => {
   describe("callbackQueryDataFindToSendMessage", (): void => {
-    const locales: ILocale = locale("en");
     const query: IStateCallbackQueryDataFindQuery = {
       id: "000000000000000000000000",
       pageToken: ""
@@ -79,6 +78,14 @@ describe("callbackQueryDataFind epic", (): void => {
       }
     };
 
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
     let testScheduler: TestScheduler;
 
     beforeEach((): void => {
@@ -100,7 +107,8 @@ describe("callbackQueryDataFind epic", (): void => {
         );
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -129,7 +137,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$ValueCallbackQueryDataFindQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -160,7 +169,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -193,7 +203,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -226,7 +237,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -261,7 +273,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -301,7 +314,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,
@@ -343,7 +357,8 @@ describe("callbackQueryDataFind epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales).initDependencies
+          ...initDependencies(locales),
+          authorization: (): Observable<boolean> => of(true)
         };
         const output$ = epic.callbackQueryDataFindToSendMessage(
           action$,

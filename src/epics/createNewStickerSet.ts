@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import { transformCreateNewStickerSetQuery } from "../utils/formData";
 
 const createNewStickerSet: (
@@ -15,10 +16,15 @@ const createNewStickerSet: (
   dependencies: IDependencies
 ) => Observable<IActionCreateNewStickerSet> = (
   action$: Observable<IActionCreateNewStickerSet>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionCreateNewStickerSet> => {
-  const { botToken, locales, requestsUploadObservable } = dependencies;
+  const {
+    authorization,
+    botToken,
+    locales,
+    requestsUploadObservable
+  } = dependencies;
 
   const actionObservable: (
     action: IActionCreateNewStickerSet
@@ -68,6 +74,9 @@ const createNewStickerSet: (
 
   return action$.pipe(
     ofType(actions.createNewStickerSet.CREATE_NEW_STICKER_SET_QUERY),
+    filterAsync((action: IActionCreateNewStickerSet, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

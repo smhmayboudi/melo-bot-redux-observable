@@ -13,6 +13,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 
 const callbackQueryDataInsert: (
@@ -21,10 +22,11 @@ const callbackQueryDataInsert: (
   dependencies: IDependencies
 ) => Observable<IActionCallbackQueryDataInsert> = (
   action$: Observable<IActionCallbackQueryDataInsert>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionCallbackQueryDataInsert> => {
   const {
+    authorization,
     collectionObservable,
     insertOneObservable,
     locales,
@@ -68,12 +70,12 @@ const callbackQueryDataInsert: (
                   switchMap(
                     (
                       value: InsertOneWriteOpResult<
-                        IStateCallbackQueryDataInsertQuery
+                        IStateCallbackQueryDataInsertQuery & { _id: ObjectId }
                       >
                     ) =>
                       of(
                         actions.callbackQueryDataInsert.result({
-                          result: (value.insertedId as ObjectId).toString()
+                          result: value.insertedId.toString()
                         })
                       )
                   ),
@@ -109,6 +111,9 @@ const callbackQueryDataInsert: (
 
   return action$.pipe(
     ofType(actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_QUERY),
+    filterAsync((action: IActionCallbackQueryDataInsert, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

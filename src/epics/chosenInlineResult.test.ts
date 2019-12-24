@@ -29,7 +29,6 @@ import { locale } from "../utils/string";
 import * as epic from "./chosenInlineResult";
 
 describe("chosenInlineResult epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateChosenInlineResultQuery = {
     from: {
@@ -43,6 +42,25 @@ describe("chosenInlineResult epic", (): void => {
   };
   const result = true;
 
+  let connection: MongoClient;
+  let locales: ILocale;
+
+  afterAll(
+    async (): Promise<void> => {
+      await connection.close();
+    }
+  );
+
+  beforeAll(
+    async (): Promise<void> => {
+      connection = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+      locales = await locale("en");
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -53,23 +71,6 @@ describe("chosenInlineResult epic", (): void => {
     });
   });
 
-  let connection: MongoClient;
-
-  beforeAll(
-    async (): Promise<any> => {
-      connection = await MongoClient.connect(global.__MONGO_URI__, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      });
-    }
-  );
-
-  afterAll(
-    async (): Promise<any> => {
-      await connection.close();
-    }
-  );
-
   test("should handle dependency mongoClientObservable error", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
@@ -78,7 +79,8 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -102,7 +104,8 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -126,7 +129,8 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -150,7 +154,8 @@ describe("chosenInlineResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -172,13 +177,14 @@ describe("chosenInlineResult epic", (): void => {
 
   test("should handle result", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
-      const { cold } = runHelpers;
+      const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<IActionChosenInlineResult> = cold("-a", {
         a: actions.chosenInlineResult.query({ query })
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         insertOneObservable,
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
@@ -188,14 +194,10 @@ describe("chosenInlineResult epic", (): void => {
         state$,
         dependencies
       );
-      output$.subscribe((actual: IActionChosenInlineResult) => {
-        cold("---a", {
-          a: actions.chosenInlineResult.result({
-            result
-          })
-        }).subscribe((expected: IActionChosenInlineResult) => {
-          return actual === expected;
-        });
+      expectObservable(output$).toBe("---a", {
+        a: actions.chosenInlineResult.result({
+          result
+        })
       });
     });
   });

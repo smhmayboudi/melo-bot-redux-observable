@@ -1,6 +1,6 @@
 import { UpsertResult } from "mariadb";
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -17,7 +17,6 @@ import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 
 describe("shortenReset epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateShortenResetQuery = {
     id: 0
@@ -27,6 +26,14 @@ describe("shortenReset epic", (): void => {
     insertId: 0,
     warningStatus: 0
   };
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -46,7 +53,8 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         connectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: result })
       };
@@ -67,7 +75,8 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -88,7 +97,8 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: result })
       };
@@ -111,7 +121,8 @@ describe("shortenReset epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         connectionObservable: (): ColdObservable<any> => cold("--a"),
         queryObservable: (): ColdObservable<any> => cold("--a", { a: result })
       };

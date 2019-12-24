@@ -35,14 +35,13 @@ export WEBHOOK_ENABLE=false
 
 rm -fr coverage
 ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
-#         commandUI
+# [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs
-#         kubernetesProbs
 #         http
 #         https
+#         prometheus
 #         store
-#         telegramBotHandleMessage
+#         telegramBot
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose enhancers
 #         monitor
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
@@ -50,6 +49,7 @@ rm -fr coverage
 #         youtubeSearchListResult
 #         youtubeVideoListResult
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose libs
+#         filterAsync
 #         mariadbObservable
 #         mongodbObservable
 #         request
@@ -58,10 +58,11 @@ rm -fr coverage
 #         requestUpload
 #         youtubeDownload
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose middlewares
-#         authorization
 #         crashReporter
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose reducers
 #         commandUI
+#         undo
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose utils
+#         authorization
 #         store
-#         string
+#         user

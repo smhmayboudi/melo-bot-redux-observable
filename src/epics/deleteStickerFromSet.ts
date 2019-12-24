@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const deleteStickerFromSet: (
   action$: Observable<IActionDeleteStickerFromSet>,
@@ -14,10 +15,10 @@ const deleteStickerFromSet: (
   dependencies: IDependencies
 ) => Observable<IActionDeleteStickerFromSet> = (
   action$: Observable<IActionDeleteStickerFromSet>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionDeleteStickerFromSet> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionDeleteStickerFromSet
@@ -67,6 +68,9 @@ const deleteStickerFromSet: (
 
   return action$.pipe(
     ofType(actions.deleteStickerFromSet.DELETE_STICKER_FROM_SET_QUERY),
+    filterAsync((action: IActionDeleteStickerFromSet, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

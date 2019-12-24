@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getChatMembersCount: (
   action$: Observable<IActionGetChatMembersCount>,
@@ -14,10 +15,10 @@ const getChatMembersCount: (
   dependencies: IDependencies
 ) => Observable<IActionGetChatMembersCount> = (
   action$: Observable<IActionGetChatMembersCount>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetChatMembersCount> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetChatMembersCount
@@ -67,6 +68,9 @@ const getChatMembersCount: (
 
   return action$.pipe(
     ofType(actions.getChatMembersCount.GET_CHAT_MEMBERS_COUNT_QUERY),
+    filterAsync((action: IActionGetChatMembersCount, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

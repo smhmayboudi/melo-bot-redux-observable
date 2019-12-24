@@ -8,6 +8,7 @@ import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 
 const callbackQueryDataFindToSendMessage: (
@@ -27,7 +28,7 @@ const callbackQueryDataFindToSendMessage: (
   | IActionYoutubeSearchList
   | IActionYoutubeVideoList
 > => {
-  const { locales } = dependencies;
+  const { authorization, locales } = dependencies;
 
   const actionObservable: (
     action: IActionCallbackQueryDataFind
@@ -136,6 +137,9 @@ const callbackQueryDataFindToSendMessage: (
 
   return action$.pipe(
     ofType(actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_RESULT),
+    filterAsync((action: IActionCallbackQueryDataFind, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

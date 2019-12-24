@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const editMessageText: (
   action$: Observable<IActionEditMessageText>,
@@ -15,10 +16,10 @@ const editMessageText: (
   dependencies: IDependencies
 ) => Observable<IActionEditMessageText> = (
   action$: Observable<IActionEditMessageText>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionEditMessageText> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionEditMessageText
@@ -66,6 +67,9 @@ const editMessageText: (
 
   return action$.pipe(
     ofType(actions.editMessageText.EDIT_MESSAGE_TEXT_QUERY),
+    filterAsync((action: IActionEditMessageText, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

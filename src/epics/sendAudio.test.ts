@@ -1,5 +1,5 @@
 import { StateObservable } from "redux-observable";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
@@ -17,7 +17,6 @@ import { locale } from "../utils/string";
 import * as epic from "./sendAudio";
 
 describe("sendAudio epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
   const query: IStateSendAudioQuery = {
     audio: "",
@@ -49,6 +48,14 @@ describe("sendAudio epic", (): void => {
     result
   };
 
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -67,7 +74,8 @@ describe("sendAudio epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--#", {}, error)
@@ -91,7 +99,8 @@ describe("sendAudio epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })
@@ -117,7 +126,8 @@ describe("sendAudio epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKF })
@@ -141,7 +151,8 @@ describe("sendAudio epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies,
+        ...initDependencies(locales),
+        authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsUploadObservable: (): ColdObservable<any> =>
           cold("--a", { a: responseOKT })

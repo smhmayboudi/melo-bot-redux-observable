@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IWebhookInfo } from "../../types/telegramBot/updates/iWebhookInfo";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getWebhookInfo: (
   action$: Observable<IActionGetWebhookInfo>,
@@ -15,10 +16,10 @@ const getWebhookInfo: (
   dependencies: IDependencies
 ) => Observable<IActionGetWebhookInfo> = (
   action$: Observable<IActionGetWebhookInfo>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetWebhookInfo> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetWebhookInfo
@@ -66,6 +67,9 @@ const getWebhookInfo: (
 
   return action$.pipe(
     ofType(actions.getWebhookInfo.GET_WEBHOOK_INFO_QUERY),
+    filterAsync((action: IActionGetWebhookInfo, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStickerSet } from "../../types/telegramBot/stickers/iStickerSet";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const getStickerSet: (
   action$: Observable<IActionGetStickerSet>,
@@ -15,10 +16,10 @@ const getStickerSet: (
   dependencies: IDependencies
 ) => Observable<IActionGetStickerSet> = (
   action$: Observable<IActionGetStickerSet>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionGetStickerSet> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionGetStickerSet
@@ -66,6 +67,9 @@ const getStickerSet: (
 
   return action$.pipe(
     ofType(actions.getStickerSet.GET_STICKER_SET_QUERY),
+    filterAsync((action: IActionGetStickerSet, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

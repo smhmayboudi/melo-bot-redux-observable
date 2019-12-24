@@ -13,8 +13,15 @@ import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 
 describe("appError epic", (): void => {
-  const locales: ILocale = locale("en");
   const error: Error = new Error("");
+
+  let locales: ILocale;
+
+  beforeAll(
+    async (): Promise<void> => {
+      locales = await locale("en");
+    }
+  );
 
   let testScheduler: TestScheduler;
 
@@ -34,7 +41,7 @@ describe("appError epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales).initDependencies
+        ...initDependencies(locales)
       };
       const output$: Observable<IAction> = epic.appError(
         action$,

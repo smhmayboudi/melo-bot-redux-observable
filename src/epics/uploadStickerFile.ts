@@ -8,6 +8,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IFile } from "../../types/telegramBot/types/iFile";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const uploadStickerFile: (
   action$: Observable<IActionUploadStickerFile>,
@@ -15,10 +16,10 @@ const uploadStickerFile: (
   dependencies: IDependencies
 ) => Observable<IActionUploadStickerFile> = (
   action$: Observable<IActionUploadStickerFile>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionUploadStickerFile> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionUploadStickerFile
@@ -68,6 +69,9 @@ const uploadStickerFile: (
 
   return action$.pipe(
     ofType(actions.uploadStickerFile.UPLOAD_STICKER_FILE_QUERY),
+    filterAsync((action: IActionUploadStickerFile, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };

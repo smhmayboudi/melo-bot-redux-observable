@@ -13,6 +13,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 import * as env from "../configs/env";
 
 const youtubeDownloadResultInsert: (
@@ -21,10 +22,11 @@ const youtubeDownloadResultInsert: (
   dependencies: IDependencies
 ) => Observable<IActionYoutubeDownloadResultInsert> = (
   action$: Observable<IActionYoutubeDownloadResultInsert>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionYoutubeDownloadResultInsert> => {
   const {
+    authorization,
     collectionObservable,
     insertOneObservable,
     locales,
@@ -70,12 +72,14 @@ const youtubeDownloadResultInsert: (
                   switchMap(
                     (
                       value: InsertOneWriteOpResult<
-                        IStateYoutubeDownloadResultInsertQuery
+                        IStateYoutubeDownloadResultInsertQuery & {
+                          _id: ObjectId;
+                        }
                       >
                     ) =>
                       of(
                         actions.youtubeDownloadResultInsert.result({
-                          result: (value.insertedId as ObjectId).toString()
+                          result: value.insertedId.toString()
                         })
                       )
                   ),
@@ -112,6 +116,9 @@ const youtubeDownloadResultInsert: (
   return action$.pipe(
     ofType(
       actions.youtubeDownloadResultInsert.YOUTUBE_DOWNLOAD_RESULT_INSERT_QUERY
+    ),
+    filterAsync((action: IActionYoutubeDownloadResultInsert, index: number) =>
+      authorization(action, state$, index)
     ),
     switchMap(actionObservable)
   );

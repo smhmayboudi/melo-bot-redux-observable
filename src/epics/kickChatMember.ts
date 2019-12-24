@@ -7,6 +7,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
+import { filterAsync } from "../libs/filterAsync";
 
 const kickChatMember: (
   action$: Observable<IActionKickChatMember>,
@@ -14,10 +15,10 @@ const kickChatMember: (
   dependencies: IDependencies
 ) => Observable<IActionKickChatMember> = (
   action$: Observable<IActionKickChatMember>,
-  _state$: StateObservable<IState> | undefined,
+  state$: StateObservable<IState> | undefined,
   dependencies: IDependencies
 ): Observable<IActionKickChatMember> => {
-  const { botToken, locales, requestsObservable } = dependencies;
+  const { authorization, botToken, locales, requestsObservable } = dependencies;
 
   const actionObservable: (
     action: IActionKickChatMember
@@ -65,6 +66,9 @@ const kickChatMember: (
 
   return action$.pipe(
     ofType(actions.kickChatMember.KICK_CHAT_MEMBER_QUERY),
+    filterAsync((action: IActionKickChatMember, index: number) =>
+      authorization(action, state$, index)
+    ),
     switchMap(actionObservable)
   );
 };
