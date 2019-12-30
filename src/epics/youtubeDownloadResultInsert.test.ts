@@ -20,10 +20,7 @@ import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateYoutubeDownloadResultInsertQuery } from "../../types/iStateYoutubeDownloadResultInsertQuery";
 import * as actions from "../actions";
-import {
-  collectionObservable,
-  insertOneObservable
-} from "../libs/mongodbObservable";
+import { collectionObservable } from "../libs/mongodbObservable";
 import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
 import * as epic from "./youtubeDownloadResultInsert";
@@ -91,7 +88,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         ...initDependencies(locales),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
-        insertOneObservable,
+        insertOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: { insertedId: "" } }),
         mongoClientObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
       const output$: Observable<IActionYoutubeDownloadResultInsert> = epic.youtubeDownloadResultInsert(
@@ -119,7 +117,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         ...initDependencies(locales),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
-        insertOneObservable,
+        insertOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: { insertedId: "" } }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultInsert> = epic.youtubeDownloadResultInsert(
@@ -175,7 +174,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         ...initDependencies(locales),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
-        insertOneObservable,
+        insertOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: { insertedId: "" } }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultInsert> = epic.youtubeDownloadResultInsert(
@@ -207,7 +207,8 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         ...initDependencies(locales),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
-        insertOneObservable,
+        insertOneObservable: (): ColdObservable<any> =>
+          cold("-a", { a: { insertedId: "" } }),
         mongoClientObservable: (): Observable<MongoClient> => of(connection)
       };
       const output$: Observable<IActionYoutubeDownloadResultInsert> = epic.youtubeDownloadResultInsert(
@@ -215,7 +216,7 @@ describe("youtubeDownloadResultInsert epic", (): void => {
         state$,
         dependencies
       );
-      expectObservable(output$).toBe("---a", {
+      expectObservable(output$).toBe("--a", {
         a: actions.youtubeDownloadResultInsert.result({
           result
         })
