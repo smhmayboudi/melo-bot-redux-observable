@@ -68,7 +68,7 @@ const sendContact: (
   return action$.pipe(
     ofType(actions.sendContact.SEND_CONTACT_QUERY),
     filterAsync((action: IActionSendContact, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

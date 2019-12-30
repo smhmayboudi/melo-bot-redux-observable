@@ -70,7 +70,7 @@ const getUserProfilePhotos: (
   return action$.pipe(
     ofType(actions.getUserProfilePhotos.GET_USER_PROFILE_PHOTOS_QUERY),
     filterAsync((action: IActionGetUserProfilePhotos, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

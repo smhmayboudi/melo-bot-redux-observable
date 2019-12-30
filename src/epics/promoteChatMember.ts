@@ -69,7 +69,7 @@ const promoteChatMember: (
   return action$.pipe(
     ofType(actions.promoteChatMember.PROMOTE_CHAT_MEMBER_QUERY),
     filterAsync((action: IActionPromoteChatMember, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

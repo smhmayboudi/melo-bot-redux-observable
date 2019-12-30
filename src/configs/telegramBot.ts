@@ -1,6 +1,8 @@
 import debug from "debug";
-import { InsertOneWriteOpResult, MongoClient } from "mongodb";
+import { Connection, createConnection } from "mariadb";
+import { MongoClient, UpdateWriteOpResult } from "mongodb";
 import { Store } from "redux";
+import { throttle } from "lodash";
 
 import { IAction } from "../../types/iAction";
 import { ILocale } from "../../types/iLocale";
@@ -42,113 +44,138 @@ const operate: (
 ): void => {
   const appDebug: debug.IDebugger = debug("app:configs:telegramBot");
 
-  const connect = MongoClient.connect(env.MONGO_CLIENT_URI, {
-    appname: env.MONGO_CLIENT_APPNAME,
-    logger: appDebug,
-    loggerLevel: env.MONGO_CLIENT_LOGGER_LEVEL,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+  const pMariaClient: Promise<Connection> = createConnection(
+    env.MARIA_CLIENT_URI
+  );
+
+  const pMngoClient: Promise<MongoClient> = MongoClient.connect(
+    env.MONGO_CLIENT_URI,
+    {
+      appname: env.MONGO_CLIENT_APPNAME,
+      logger: appDebug,
+      loggerLevel: env.MONGO_CLIENT_LOGGER_LEVEL,
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }
+  );
 
   const userId = id(message);
 
   const pCommandUI: Promise<IStateUndoInsert<
     IStateCommandUI
-  > | null> = connect.then((value: MongoClient) => {
-    return value
+  > | null> = pMngoClient.then((value: MongoClient) =>
+    value
       .db(env.DB_NAME)
       .collection<IStateUndoInsert<IStateCommandUI>>("commandUI", {})
-      .findOne({ userId }, { sort: { _id: -1 } });
-  });
+      .findOne({ userId }, { sort: { _id: -1 } })
+      .catch((error: Error) => {
+        appDebug("ERROR", error);
+        return {
+          future: [],
+          past: [],
+          present: {},
+          userId: 0
+        };
+      })
+  );
 
   const pLocales: Promise<ILocale> = locale(languageCode(message));
 
-  Promise.all([pCommandUI, pLocales])
+  Promise.all([pCommandUI, pLocales, pMariaClient, pMngoClient])
     .then(
-      (values: [IStateUndoInsert<IStateCommandUI> | null, ILocale | null]) => {
-        const commandUI: IStateUndoInsert<IStateCommandUI> | undefined =
-          values[0] || undefined;
+      (
+        values: [
+          IStateUndoInsert<IStateCommandUI> | null,
+          ILocale | null,
+          Connection | null,
+          MongoClient | null
+        ]
+      ) => {
+        const commandUI: IStateUndoInsert<IStateCommandUI> | null = values[0];
         const locales: ILocale = values[1] as ILocale;
-        const store: Store<IState, IAction> =
-          testStore || configureStore(locales, commandUI);
+        const mariaClient: Connection = values[2] as Connection;
+        const mongoClient: MongoClient = values[3] as MongoClient;
 
-        store.subscribe(() => {
-          const commandUI: IStateUndo<IStateCommandUI> = store.getState()
-            .commandUI;
-          connect.then((value: MongoClient) => {
-            return value
-              .db(env.DB_NAME)
-              .collection<IStateUndoInsert<IStateCommandUI>>("commandUI", {})
-              .insertOne({
-                future: commandUI.future,
-                past: commandUI.past,
-                present: commandUI.present,
-                userId
-              })
-              .then(
-                (
-                  value: InsertOneWriteOpResult<
-                    IStateUndoInsert<IStateCommandUI> & { _id: any }
-                  >
-                ) => {
-                  appDebug("value", value);
-                }
-              );
-          });
-        });
+        const store: Store<IState, IAction> =
+          testStore ||
+          configureStore(commandUI, locales, mariaClient, mongoClient);
+
+        store.subscribe(
+          throttle((): void => {
+            const commandUI: IStateUndo<IStateCommandUI> = store.getState()
+              .commandUI;
+            pMngoClient
+              .then((value: MongoClient) =>
+                value
+                  .db(env.DB_NAME)
+                  .collection<IStateUndoInsert<IStateCommandUI>>(
+                    "commandUI",
+                    {}
+                  )
+                  .replaceOne(
+                    { userId },
+                    {
+                      future: commandUI.future,
+                      past: commandUI.past,
+                      present: commandUI.present,
+                      userId
+                    },
+                    {
+                      upsert: true
+                    }
+                  )
+                  .then((valueUpdateOne: UpdateWriteOpResult) => {
+                    appDebug("value", valueUpdateOne);
+                  })
+                  .catch((error: Error) => {
+                    appDebug("ERROR", error);
+                  })
+              )
+              .catch((error: Error) => {
+                appDebug("ERROR", error);
+              });
+          }, 1000)
+        );
 
         store.dispatch(actions.message.query({ query: message }));
 
         if (message.callback_query !== undefined) {
-          handleCallbackQuery(locales, store, message.callback_query);
+          handleCallbackQuery(store, message.callback_query);
         } else if (message.channel_post !== undefined) {
-          handleChannelPost(locales, store, message.channel_post);
+          handleChannelPost(store, message.channel_post);
         } else if (message.chosen_inline_result !== undefined) {
-          handleChosenInlineResult(
-            locales,
-            store,
-            message.chosen_inline_result
-          );
+          handleChosenInlineResult(store, message.chosen_inline_result);
         } else if (message.edited_channel_post !== undefined) {
-          handleEditedChannelPost(locales, store, message.edited_channel_post);
+          handleEditedChannelPost(store, message.edited_channel_post);
         } else if (message.edited_channel_post_text !== undefined) {
-          handleEditedChannelPostText(
-            locales,
-            store,
-            message.edited_channel_post_text
-          );
+          handleEditedChannelPostText(store, message.edited_channel_post_text);
         } else if (message.edited_channel_post_caption !== undefined) {
           handleEditedChannelPostCaption(
-            locales,
             store,
             message.edited_channel_post_caption
           );
         } else if (message.edited_message !== undefined) {
-          handleEditedMessage(locales, store, message.edited_message);
+          handleEditedMessage(store, message.edited_message);
         } else if (message.edited_message_text !== undefined) {
-          handleEditedMessageText(locales, store, message.edited_message_text);
+          handleEditedMessageText(store, message.edited_message_text);
         } else if (message.edited_message_caption !== undefined) {
-          handleEditedMessageCaption(
-            locales,
-            store,
-            message.edited_message_caption
-          );
+          handleEditedMessageCaption(store, message.edited_message_caption);
         } else if (message.error !== undefined) {
-          handleError(locales, store, message.error);
+          handleError(store, message.error);
         } else if (message.inline_query !== undefined) {
-          handleInlineQuery(locales, store, message.inline_query);
+          handleInlineQuery(store, message.inline_query);
         } else if (message.message !== undefined) {
-          handleMessage(locales, store, message.message);
+          handleMessage(store, message.message);
         } else if (message.polling_error !== undefined) {
-          handlePollingError(locales, store, message.polling_error);
+          handlePollingError(store, message.polling_error);
         } else if (message.pre_checkout_query !== undefined) {
-          handlePreCheckoutQuery(locales, store, message.pre_checkout_query);
+          handlePreCheckoutQuery(store, message.pre_checkout_query);
         } else if (message.shipping_query !== undefined) {
-          handleShippingQuery(locales, store, message.shipping_query);
+          handleShippingQuery(store, message.shipping_query);
         } else if (message.webhook_error !== undefined) {
-          handleWebhookError(locales, store, message.webhook_error);
+          handleWebhookError(store, message.webhook_error);
         } else {
-          handle(locales, store);
+          handle(store);
         }
       }
     )

@@ -67,7 +67,7 @@ const leaveChat: (
   return action$.pipe(
     ofType(actions.leaveChat.LEAVE_CHAT_QUERY),
     filterAsync((action: IActionLeaveChat, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

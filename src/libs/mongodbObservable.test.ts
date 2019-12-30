@@ -16,7 +16,8 @@ import {
   collectionObservable,
   connectObservable,
   findOneObservable,
-  insertOneObservable
+  insertOneObservable,
+  replaceOneObservable
 } from "./mongodbObservable";
 
 describe("mongodbObservable lib", (): void => {
@@ -69,6 +70,21 @@ describe("mongodbObservable lib", (): void => {
       const action$: ColdObservable<any> = cold("-a", {
         a: insertOneObservable(
           new MongoClient("").db("").collection(""),
+          "",
+          {}
+        )
+      });
+      expectObservable(action$).toBe("-a", { a: [] });
+    });
+  });
+
+  test("should create an replaceOneObservable", (): void => {
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<any> = cold("-a", {
+        a: replaceOneObservable(
+          new MongoClient("").db("").collection(""),
+          {},
           "",
           {}
         )

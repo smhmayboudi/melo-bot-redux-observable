@@ -1,3 +1,14 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -50,10 +61,23 @@ describe("sendInvoice epic", (): void => {
   };
 
   let locales: ILocale;
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
 
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
     }
   );
 
@@ -75,7 +99,7 @@ describe("sendInvoice epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -97,7 +121,7 @@ describe("sendInvoice epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsObservable: (): ColdObservable<any> => cold("--a")
@@ -121,7 +145,7 @@ describe("sendInvoice epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>
@@ -146,7 +170,7 @@ describe("sendInvoice epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         botToken: "",
         requestsObservable: (): ColdObservable<any> =>

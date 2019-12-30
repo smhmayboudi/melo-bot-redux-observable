@@ -69,7 +69,7 @@ const deleteChatStickerSet: (
   return action$.pipe(
     ofType(actions.deleteChatStickerSet.DELETE_CHAT_STICKER_SET_QUERY),
     filterAsync((action: IActionDeleteChatStickerSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

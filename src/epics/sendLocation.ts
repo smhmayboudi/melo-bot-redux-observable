@@ -68,7 +68,7 @@ const sendLocation: (
   return action$.pipe(
     ofType(actions.sendLocation.SEND_LOCATION_QUERY),
     filterAsync((action: IActionSendLocation, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

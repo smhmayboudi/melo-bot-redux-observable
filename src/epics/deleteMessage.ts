@@ -67,7 +67,7 @@ const deleteMessage: (
   return action$.pipe(
     ofType(actions.deleteMessage.DELETE_MESSAGE_QUERY),
     filterAsync((action: IActionDeleteMessage, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

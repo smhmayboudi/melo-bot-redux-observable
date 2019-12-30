@@ -1,6 +1,36 @@
 import * as env from "./env";
 
 describe("env configs", (): void => {
+  test("should handle TEST_BOOLEAN_UNDEFINED", (): void => {
+    try {
+      expect(env.getter("TEST_BOOLEAN_UNDEFINED", "boolean")).toBe(true);
+    } catch (error) {
+      expect(error.message).toBe(
+        "{ [TEST_BOOLEAN_UNDEFINED: string]: boolean }"
+      );
+    }
+  });
+
+  test("should handle TEST_NUMBER_UNDEFINED", (): void => {
+    try {
+      expect(env.getter("TEST_NUMBER_UNDEFINED", "number")).toBe(0);
+    } catch (error) {
+      expect(error.message).toBe("{ [TEST_NUMBER_UNDEFINED: string]: number }");
+    }
+  });
+
+  test("should handle TEST_STRING_UNDEFINED", (): void => {
+    try {
+      expect(env.getter("TEST_STRING_UNDEFINED", "string")).toBe("");
+    } catch (error) {
+      expect(error.message).toBe("{ [TEST_STRING_UNDEFINED: string]: string }");
+    }
+  });
+
+  test("should handle TEST_TYPE_UNDEFINED", (): void => {
+    expect(env.getter("TEST_TYPE_UNDEFINED", "")).toBe("");
+  });
+
   test("should handle BOT_NAME", (): void => {
     expect(env.BOT_NAME).toBe("melo_bit_bot");
   });
@@ -125,26 +155,6 @@ describe("env configs", (): void => {
 
   test("should handle SENTRY_SERVERNAME", (): void => {
     expect(env.SENTRY_SERVERNAME).toBe("OSX");
-  });
-
-  test("should handle TEST_NUMBER_UNDEFINED", (): void => {
-    try {
-      expect(env.getter("TEST_NUMBER_UNDEFINED", "number")).toBe("");
-    } catch (error) {
-      expect(error.message).toBe("{ [TEST_NUMBER_UNDEFINED: string]: number }");
-    }
-  });
-
-  test("should handle TEST_STRING_UNDEFINED", (): void => {
-    try {
-      expect(env.getter("TEST_STRING_UNDEFINED", "string")).toBe("");
-    } catch (error) {
-      expect(error.message).toBe("{ [TEST_STRING_UNDEFINED: string]: string }");
-    }
-  });
-
-  test("should handle TEST_TYPE_UNDEFINED", (): void => {
-    expect(env.getter("TEST_TYPE_UNDEFINED", "")).toBe("");
   });
 
   test("should handle TELEGRAM_CAPTION_LENGTH", (): void => {

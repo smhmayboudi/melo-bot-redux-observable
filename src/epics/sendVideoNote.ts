@@ -74,7 +74,7 @@ const sendVideoNote: (
   return action$.pipe(
     ofType(actions.sendVideoNote.SEND_VIDEO_NOTE_QUERY),
     filterAsync((action: IActionSendVideoNote, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

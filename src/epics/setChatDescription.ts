@@ -69,7 +69,7 @@ const setChatDescription: (
   return action$.pipe(
     ofType(actions.setChatDescription.SET_CHAT_DESCRIPTION_QUERY),
     filterAsync((action: IActionSetChatDescription, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

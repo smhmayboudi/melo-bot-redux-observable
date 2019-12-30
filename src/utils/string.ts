@@ -1,16 +1,20 @@
 import * as base64 from "@protobufjs/base64";
+import debug from "debug";
 import * as fs from "fs";
 import { youtube_v3 } from "googleapis";
+import { template } from "lodash";
 import * as path from "path";
 import * as protobufjs from "protobufjs";
-import util from "util";
 
+import util from "util";
 import { ILocale } from "../../types/iLocale";
 import { IStateShortenListResult } from "../../types/iStateShortenListResult";
 import { findByCode } from "../configs/emojis";
 import * as env from "../configs/env";
 import * as command from "../utils/command";
 import * as commandStart from "../utils/commandStart";
+
+const appDebug: debug.IDebugger = debug("app:utils");
 
 const caption: (text: string) => string = (text: string): string =>
   `${text.substring(0, env.TELEGRAM_CAPTION_LENGTH)}\n\n${
@@ -21,12 +25,12 @@ const decode: (text: string, objType: string) => any = (
   text: string,
   objType: string
 ): any => {
-  const root = protobufjs.loadSync(
+  const root: protobufjs.Root = protobufjs.loadSync(
     path.resolve(__dirname, "../../proto", `${objType}.proto`)
   );
-  const type = root.lookupType(objType);
-  const buffer = Buffer.from(text, "base64");
-  const message = type.decode(buffer);
+  const type: protobufjs.Type = root.lookupType(objType);
+  const buffer: Buffer = Buffer.from(text, "base64");
+  const message: protobufjs.Message<{}> = type.decode(buffer);
   return message;
 };
 
@@ -34,24 +38,25 @@ const encode: (obj: any, objType: string) => string = (
   obj: any,
   objType: string
 ): string => {
-  const root = protobufjs.loadSync(
+  const root: protobufjs.Root = protobufjs.loadSync(
     path.resolve(__dirname, "../../proto", `${objType}.proto`)
   );
-  const type = root.lookupType(objType);
-  const errMsg = type.verify(obj);
-  if (errMsg) {
-    throw Error(errMsg);
+  const type: protobufjs.Type = root.lookupType(objType);
+  const error: string | null = type.verify(obj);
+  if (error) {
+    appDebug("ERROR", error);
+    throw Error(error);
   }
-  const message = type.create(obj);
-  const buffer = type.encode(message).finish();
+  const message: protobufjs.Message<{}> = type.create(obj);
+  const buffer: Uint8Array = type.encode(message).finish();
   const text = base64.encode(buffer, 0, buffer.length).replace(/=/g, "");
   return text;
 };
 
 const locale: (language: string) => Promise<ILocale> = (
   language: string
-): Promise<ILocale> => {
-  return util
+): Promise<ILocale> =>
+  util
     .promisify(fs.readFile)(
       path.resolve(__dirname, "../../locale", `${language}.json`),
       "utf-8"
@@ -59,30 +64,22 @@ const locale: (language: string) => Promise<ILocale> = (
     .then((textsString: string) => {
       const texts: any = JSON.parse(textsString);
 
-      const find: (key: string) => string = (key: string): string => {
-        return texts[key];
-      };
+      const find: (key: string) => string = (key: string): string => texts[key];
 
       const fill: (key: string, values: { [key: string]: string }) => string = (
         key: string,
         values: { [key: string]: string }
-      ): string => {
-        let text = find(key);
-        for (const key in values) {
-          if (Object.prototype.hasOwnProperty.call(values, key)) {
-            text = text.replace(`$\{${key}}`, values[key]);
-          }
-        }
-
-        return text;
-      };
+      ): string => template(find(key))(values);
 
       return {
         find,
         fill
       };
+    })
+    .catch((error: Error) => {
+      appDebug("ERROR", error);
+      throw error;
     });
-};
 
 const text: (text: string) => string = (text: string): string =>
   `${text.substring(0, env.TELEGRAM_TEXT_LENGTH)}\n\n${

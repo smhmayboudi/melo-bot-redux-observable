@@ -69,7 +69,7 @@ const answerPreCheckoutQuery: (
   return action$.pipe(
     ofType(actions.answerPreCheckoutQuery.ANSWER_PRE_CHECKOUT_QUERY_QUERY),
     filterAsync((action: IActionAnswerPreCheckoutQuery, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -69,7 +69,7 @@ const setPassportDataErrors: (
   return action$.pipe(
     ofType(actions.setPassportDataErrors.SET_PASSPORT_DATA_ERRORS_QUERY),
     filterAsync((action: IActionSetPassportDataErrors, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

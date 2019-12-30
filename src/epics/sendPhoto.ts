@@ -74,7 +74,7 @@ const sendPhoto: (
   return action$.pipe(
     ofType(actions.sendPhoto.SEND_PHOTO_QUERY),
     filterAsync((action: IActionSendPhoto, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

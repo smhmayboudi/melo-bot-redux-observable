@@ -69,7 +69,7 @@ const youtubeVideoList: (
   return action$.pipe(
     ofType(actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_QUERY),
     filterAsync((action: IActionYoutubeVideoList, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

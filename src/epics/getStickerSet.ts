@@ -68,7 +68,7 @@ const getStickerSet: (
   return action$.pipe(
     ofType(actions.getStickerSet.GET_STICKER_SET_QUERY),
     filterAsync((action: IActionGetStickerSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

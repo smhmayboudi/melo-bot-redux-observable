@@ -67,7 +67,7 @@ const setChatPhoto: (
   return action$.pipe(
     ofType(actions.setChatPhoto.SET_CHAT_PHOTO_QUERY),
     filterAsync((action: IActionSetChatPhoto, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

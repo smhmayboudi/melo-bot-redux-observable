@@ -1,6 +1,4 @@
-import { ILocale } from "../../types/iLocale";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
-import { locale } from "../utils/string";
 import { handleEditedChannelPostText } from "./telegramBotHandleEditedChannelPostText";
 
 describe("telegramBotHandleEditedChannelPostText configs", (): void => {
@@ -20,16 +18,8 @@ describe("telegramBotHandleEditedChannelPostText configs", (): void => {
     message_id: 0
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle", (): void => {
-    handleEditedChannelPostText(locales, store, message);
+    handleEditedChannelPostText(store, message);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

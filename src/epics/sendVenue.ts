@@ -68,7 +68,7 @@ const sendVenue: (
   return action$.pipe(
     ofType(actions.sendVenue.SEND_VENUE_QUERY),
     filterAsync((action: IActionSendVenue, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

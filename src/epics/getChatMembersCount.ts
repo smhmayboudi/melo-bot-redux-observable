@@ -69,7 +69,7 @@ const getChatMembersCount: (
   return action$.pipe(
     ofType(actions.getChatMembersCount.GET_CHAT_MEMBERS_COUNT_QUERY),
     filterAsync((action: IActionGetChatMembersCount, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

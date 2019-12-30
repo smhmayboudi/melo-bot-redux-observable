@@ -68,7 +68,7 @@ const forwardMessage: (
   return action$.pipe(
     ofType(actions.forwardMessage.FORWARD_MESSAGE_QUERY),
     filterAsync((action: IActionForwardMessage, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

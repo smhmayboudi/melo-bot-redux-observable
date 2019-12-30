@@ -69,7 +69,7 @@ const answerCallbackQuery: (
   return action$.pipe(
     ofType(actions.answerCallbackQuery.ANSWER_CALLBACK_QUERY_QUERY),
     filterAsync((action: IActionAnswerCallbackQuery, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

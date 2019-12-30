@@ -69,7 +69,7 @@ const exportChatInviteLink: (
   return action$.pipe(
     ofType(actions.exportChatInviteLink.EXPORT_CHAT_INVITE_LINK_QUERY),
     filterAsync((action: IActionExportChatInviteLink, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

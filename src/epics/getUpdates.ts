@@ -68,7 +68,7 @@ const getUpdates: (
   return action$.pipe(
     ofType(actions.getUpdates.GET_UPDATES_QUERY),
     filterAsync((action: IActionGetUpdates, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

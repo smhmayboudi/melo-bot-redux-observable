@@ -1,11 +1,11 @@
 import { StateObservable } from "redux-observable";
 import { Observable, of } from "rxjs";
-
 import { IActionCallbackQueryDataInsert } from "../../types/iActionCallbackQueryDataInsert";
 import { IActionEditMessageMedia } from "../../types/iActionEditMessageMedia";
 import { IActionYoutubeVideoList } from "../../types/iActionYoutubeVideoList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IInlineKeyboardButton } from "../../types/telegramBot/types/iInlineKeyboardButton";
 import * as actions from "../actions";
 import {
   encode,
@@ -107,7 +107,7 @@ const transformObservable: (
     );
   }
 
-  const inlineKeyboard = [];
+  const inlineKeyboard: IInlineKeyboardButton[] = [];
   if (
     action.youtubeVideoList.result.prevPageToken !== null &&
     action.youtubeVideoList.result.prevPageToken !== undefined

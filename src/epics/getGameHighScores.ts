@@ -70,7 +70,7 @@ const getGameHighScores: (
   return action$.pipe(
     ofType(actions.getGameHighScores.GET_GAME_HIGH_SCORES_QUERY),
     filterAsync((action: IActionGetGameHighScores, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

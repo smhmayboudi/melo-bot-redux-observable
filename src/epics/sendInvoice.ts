@@ -68,7 +68,7 @@ const sendInvoice: (
   return action$.pipe(
     ofType(actions.sendInvoice.SEND_INVOICE_QUERY),
     filterAsync((action: IActionSendInvoice, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

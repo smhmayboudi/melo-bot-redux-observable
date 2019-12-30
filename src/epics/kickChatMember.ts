@@ -67,7 +67,7 @@ const kickChatMember: (
   return action$.pipe(
     ofType(actions.kickChatMember.KICK_CHAT_MEMBER_QUERY),
     filterAsync((action: IActionKickChatMember, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -1,4 +1,15 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
 import { youtube_v3 } from "googleapis";
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
@@ -94,10 +105,23 @@ describe("youtubeVideoList epic", (): void => {
       nextPageToken: undefined
     };
 
+    let mariaClient: Connection;
+    let mongoClient: MongoClient;
     let locales: ILocale;
+
+    afterAll(
+      async (): Promise<void> => {
+        await mongoClient.close();
+      }
+    );
 
     beforeAll(
       async (): Promise<void> => {
+        mariaClient = await createConnection("");
+        mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        });
         locales = await locale("en");
       }
     );
@@ -123,7 +147,7 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -143,7 +167,7 @@ describe("youtubeVideoList epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -170,7 +194,7 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueInlineQueryQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -199,7 +223,7 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueYoutubeVideoListQueryUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -228,7 +252,7 @@ describe("youtubeVideoList epic", (): void => {
           state$ValueYoutubeVideoListQueryChartUndefined
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -259,7 +283,7 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -290,7 +314,7 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -321,7 +345,7 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -352,7 +376,7 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({
@@ -395,7 +419,7 @@ describe("youtubeVideoList epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true)
         };
         const action2 = actions.callbackQueryDataInsert.result({

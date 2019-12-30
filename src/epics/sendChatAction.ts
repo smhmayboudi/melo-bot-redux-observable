@@ -67,7 +67,7 @@ const sendChatAction: (
   return action$.pipe(
     ofType(actions.sendChatAction.SEND_CHAT_ACTION_QUERY),
     filterAsync((action: IActionSendChatAction, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

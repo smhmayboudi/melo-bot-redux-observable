@@ -1,6 +1,4 @@
-import { ILocale } from "../../types/iLocale";
 import { IPreCheckoutQuery } from "../../types/telegramBot/payments/iPreCheckoutQuery";
-import { locale } from "../utils/string";
 import { handlePreCheckoutQuery } from "./telegramBotHandlePreCheckoutQuery";
 
 describe("telegramBotHandlePreCheckoutQuery configs", (): void => {
@@ -24,16 +22,8 @@ describe("telegramBotHandlePreCheckoutQuery configs", (): void => {
     total_amount: 0
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle", (): void => {
-    handlePreCheckoutQuery(locales, store, shippingQuery);
+    handlePreCheckoutQuery(store, shippingQuery);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

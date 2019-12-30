@@ -1,5 +1,3 @@
-import { ILocale } from "../../types/iLocale";
-import { locale } from "../utils/string";
 import { handleError } from "./telegramBotHandleError";
 
 describe("telegramBotHandleError configs", (): void => {
@@ -12,15 +10,8 @@ describe("telegramBotHandleError configs", (): void => {
 
   const error: Error = new Error("");
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
   test("should handle", (): void => {
-    handleError(locales, store, error);
+    handleError(store, error);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

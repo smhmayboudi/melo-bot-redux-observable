@@ -68,7 +68,7 @@ const sendGame: (
   return action$.pipe(
     ofType(actions.sendGame.SEND_GAME_QUERY),
     filterAsync((action: IActionSendGame, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -74,7 +74,7 @@ const sendAnimation: (
   return action$.pipe(
     ofType(actions.sendAnimation.SEND_ANIMATION_QUERY),
     filterAsync((action: IActionSendAnimation, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

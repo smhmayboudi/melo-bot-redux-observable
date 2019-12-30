@@ -74,7 +74,7 @@ const sendMediaGroup: (
   return action$.pipe(
     ofType(actions.sendMediaGroup.SEND_MEDIA_GROUP_QUERY),
     filterAsync((action: IActionSendMediaGroup, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

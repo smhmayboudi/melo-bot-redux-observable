@@ -9,7 +9,8 @@ declare global {
 
 import * as fs from "fs";
 import * as path from "path";
-import { Db, MongoClient } from "mongodb";
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -136,10 +137,23 @@ describe("youtubeDownload epic", (): void => {
   };
 
   let locales: ILocale;
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
 
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
     }
   );
 
@@ -164,7 +178,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -206,7 +220,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -248,7 +262,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -287,7 +301,7 @@ describe("youtubeDownload epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -331,7 +345,7 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -375,7 +389,7 @@ describe("youtubeDownload epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -423,7 +437,7 @@ describe("youtubeDownload epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): Observable<any> => cold("-"),
         findOneObservable: (): Observable<any> => cold("-"),
@@ -495,7 +509,7 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable,
           findOneObservable,
           mongoClientObservable: (): ColdObservable<any> =>
@@ -536,11 +550,11 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable: (): ColdObservable<any> =>
             cold("--#", {}, error),
           findOneObservable,
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
+          mongoClientObservable: (): Observable<MongoClient> => of(mongoClient),
           testAction$: cold("--a", {
             a: {
               ...initialState,
@@ -577,10 +591,10 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable,
           findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
+          mongoClientObservable: (): Observable<MongoClient> => of(mongoClient),
           testAction$: cold("--a", {
             a: {
               ...initialState,
@@ -617,10 +631,10 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable,
           findOneObservable: (): Observable<any> => cold("-a", { a: null }),
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
+          mongoClientObservable: (): Observable<MongoClient> => of(mongoClient),
           testAction$: cold("--a", {
             a: {
               ...initialState,
@@ -655,13 +669,13 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable,
           findOneObservable: (): Observable<any> =>
             cold("-a", {
               a: resultMimeTypeUndefined
             }),
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
+          mongoClientObservable: (): Observable<MongoClient> => of(mongoClient),
           testAction$: cold("--a", {
             a: {
               ...initialState,
@@ -696,13 +710,13 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable,
           findOneObservable: (): Observable<any> =>
             cold("-a", {
               a: resultThumbUndefined
             }),
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
+          mongoClientObservable: (): Observable<MongoClient> => of(mongoClient),
           testAction$: cold("--a", {
             a: {
               ...initialState,
@@ -737,10 +751,10 @@ describe("youtubeDownload epic", (): void => {
           state$Value
         );
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           collectionObservable,
           findOneObservable,
-          mongoClientObservable: (): Observable<MongoClient> => of(connection),
+          mongoClientObservable: (): Observable<MongoClient> => of(mongoClient),
           testAction$: cold("--a", {
             a: {
               ...initialState,

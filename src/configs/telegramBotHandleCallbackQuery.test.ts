@@ -1,6 +1,4 @@
-import { ILocale } from "../../types/iLocale";
 import { ICallbackQuery } from "../../types/telegramBot/types/iCallbackQuery";
-import { locale } from "../utils/string";
 import { handleCallbackQuery } from "./telegramBotHandleCallbackQuery";
 
 describe("telegramBotHandleCallbackQuery configs", (): void => {
@@ -32,16 +30,8 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
     }
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle data, inline_message_id undefined", (): void => {
-    handleCallbackQuery(locales, store, {
+    handleCallbackQuery(store, {
       ...callbackQuery,
       data: undefined,
       inline_message_id: undefined
@@ -50,7 +40,7 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
   });
 
   test("should handle inline_message_id undefined", (): void => {
-    handleCallbackQuery(locales, store, {
+    handleCallbackQuery(store, {
       ...callbackQuery,
       inline_message_id: undefined
     });
@@ -58,7 +48,7 @@ describe("telegramBotHandleCallbackQuery configs", (): void => {
   });
 
   test("should handle message undefined", (): void => {
-    handleCallbackQuery(locales, store, {
+    handleCallbackQuery(store, {
       ...callbackQuery,
       message: undefined
     });

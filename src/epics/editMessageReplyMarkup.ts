@@ -70,7 +70,7 @@ const editMessageReplyMarkup: (
   return action$.pipe(
     ofType(actions.editMessageReplyMarkup.EDIT_MESSAGE_REPLY_MARKUP_QUERY),
     filterAsync((action: IActionEditMessageReplyMarkup, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

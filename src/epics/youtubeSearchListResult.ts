@@ -11,6 +11,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import { filterAsync } from "../libs/filterAsync";
+import { id } from "../utils/user";
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeSearchListToAnswerInlineQuery";
 import { transformObservable as transformObservableToEditMessageText } from "./youtubeSearchListToEditMessageText";
 import { transformObservable as transformObservableToSendMessage } from "./youtubeSearchListToSendMessage";
@@ -160,7 +161,8 @@ const youtubeSearchListResult: (
         nextPageToken: action.youtubeSearchList.result.nextPageToken,
         pageInfo: action.youtubeSearchList.result.pageInfo,
         prevPageToken: action.youtubeSearchList.result.prevPageToken,
-        q
+        q,
+        userId: id(state$.value.message.query)
       }
     });
   };
@@ -168,7 +170,7 @@ const youtubeSearchListResult: (
   return action$.pipe(
     ofType(actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_RESULT),
     filterAsync((action: IActionYoutubeSearchList, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(
       (
@@ -186,7 +188,7 @@ const youtubeSearchListResult: (
           ),
           take<IActionCallbackQueryDataInsert & IActionYoutubeSearchList>(1),
           filterAsync((action: IActionCallbackQueryDataInsert, index: number) =>
-            authorization(action, state$, index)
+            authorization(state$, dependencies, action, index)
           ),
           switchMap(transformObservable(action)),
           startWith(startAction(action))

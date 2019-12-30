@@ -11,6 +11,7 @@ import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
 import * as actions from "../actions";
 import { filterAsync } from "../libs/filterAsync";
+import { id } from "../utils/user";
 import { transformObservable as transformObservableToAnswerInlineQuery } from "./youtubeVideoListToAnswerInlineQuery";
 import { transformObservable as transformObservableToEditMessageMedia } from "./youtubeVideoListToEditMessageMedia";
 import { transformObservable as transformObservableToSendPhoto } from "./youtubeVideoListToSendPhoto";
@@ -136,7 +137,8 @@ const youtubeVideoListResult: (
         chart: "mostPopular",
         nextPageToken: action.youtubeVideoList.result.nextPageToken,
         pageInfo: action.youtubeVideoList.result.pageInfo,
-        prevPageToken: action.youtubeVideoList.result.prevPageToken
+        prevPageToken: action.youtubeVideoList.result.prevPageToken,
+        userId: id(state$.value.message.query)
       }
     });
   };
@@ -144,7 +146,7 @@ const youtubeVideoListResult: (
   return action$.pipe(
     ofType(actions.youtubeVideoList.YOUTUBE_VIDEO_LIST_RESULT),
     filterAsync((action: IActionYoutubeVideoList, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(
       (
@@ -162,7 +164,7 @@ const youtubeVideoListResult: (
           ),
           take<IActionCallbackQueryDataInsert & IActionYoutubeVideoList>(1),
           filterAsync((action: IActionCallbackQueryDataInsert, index: number) =>
-            authorization(action, state$, index)
+            authorization(state$, dependencies, action, index)
           ),
           switchMap(transformObservable(action)),
           startWith(startAction(action))

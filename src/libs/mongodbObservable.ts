@@ -7,7 +7,9 @@ import {
   InsertOneWriteOpResult,
   MongoCallback,
   MongoClient,
-  MongoClientOptions
+  MongoClientOptions,
+  ReplaceOneOptions,
+  ReplaceWriteOpResult
 } from "mongodb";
 import { bindNodeCallback, Observable } from "rxjs";
 
@@ -98,9 +100,38 @@ const insertOneObservable: <TSchema>(
 ): Observable<InsertOneWriteOpResult<TSchema & any>> =>
   bindNodeCallback(insertOneObs)<TSchema>(collection, docs, options);
 
+const replaceOneObs: <TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>,
+  docs: TSchema,
+  options: ReplaceOneOptions,
+  callback: MongoCallback<ReplaceWriteOpResult>
+) => void = <TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>,
+  docs: TSchema,
+  options: ReplaceOneOptions,
+  callback: MongoCallback<ReplaceWriteOpResult>
+): void => {
+  collection.replaceOne(filter, docs, options, callback);
+};
+const replaceOneObservable: <TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>,
+  docs: TSchema,
+  options: ReplaceOneOptions
+) => Observable<ReplaceWriteOpResult> = <TSchema>(
+  collection: Collection<TSchema>,
+  filter: FilterQuery<TSchema>,
+  docs: TSchema,
+  options: ReplaceOneOptions
+): Observable<ReplaceWriteOpResult> =>
+  bindNodeCallback(replaceOneObs)<TSchema>(collection, filter, docs, options);
+
 export {
   connectObservable,
   collectionObservable,
   findOneObservable,
-  insertOneObservable
+  insertOneObservable,
+  replaceOneObservable
 };

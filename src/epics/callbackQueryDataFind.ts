@@ -32,11 +32,11 @@ const callbackQueryDataFind: (
     action: IActionCallbackQueryDataFind
   ) => Observable<IActionCallbackQueryDataFind> = (
     action: IActionCallbackQueryDataFind
-  ): Observable<IActionCallbackQueryDataFind> => {
-    return mongoClientObservable().pipe(
+  ): Observable<IActionCallbackQueryDataFind> =>
+    mongoClientObservable().pipe(
       switchMap(
-        (client: MongoClient): Observable<IActionCallbackQueryDataFind> => {
-          return collectionObservable<IStateCallbackQueryDataInsertQuery>(
+        (client: MongoClient): Observable<IActionCallbackQueryDataFind> =>
+          collectionObservable<IStateCallbackQueryDataInsertQuery>(
             client.db(env.DB_NAME),
             "callbackQueryData",
             {}
@@ -85,8 +85,7 @@ const callbackQueryDataFind: (
                 })
               )
             )
-          );
-        }
+          )
       ),
       catchError((error: any) =>
         of(
@@ -96,12 +95,11 @@ const callbackQueryDataFind: (
         )
       )
     );
-  };
 
   return action$.pipe(
     ofType(actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_QUERY),
     filterAsync((action: IActionCallbackQueryDataFind, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

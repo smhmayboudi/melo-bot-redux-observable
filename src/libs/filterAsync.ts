@@ -7,12 +7,12 @@ const filterAsync: <T>(
   predicate: (data: T, index: number) => Observable<boolean>
 ): MonoTypeOperatorFunction<T> =>
   pipe(
-    concatMap((data: T, index: number) => {
-      return predicate(data, index).pipe(
+    concatMap((data: T, index: number) =>
+      predicate(data, index).pipe(
         filter((value: boolean) => value === true),
         mapTo(data)
-      );
-    })
+      )
+    )
   );
 
 export { filterAsync };

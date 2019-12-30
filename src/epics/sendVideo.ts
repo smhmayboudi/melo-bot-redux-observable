@@ -73,7 +73,7 @@ const sendVideo: (
   return action$.pipe(
     ofType(actions.sendVideo.SEND_VIDEO_QUERY),
     filterAsync((action: IActionSendVideo, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

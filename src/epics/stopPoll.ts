@@ -67,7 +67,7 @@ const stopPoll: (
   return action$.pipe(
     ofType(actions.stopPoll.STOP_POLL_QUERY),
     filterAsync((action: IActionStopPoll, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

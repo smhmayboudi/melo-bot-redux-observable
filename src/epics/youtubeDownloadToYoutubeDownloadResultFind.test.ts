@@ -1,3 +1,14 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
@@ -81,10 +92,23 @@ describe("youtubeDownload epic", (): void => {
       thumb: undefined
     };
 
+    let mariaClient: Connection;
+    let mongoClient: MongoClient;
     let locales: ILocale;
+
+    afterAll(
+      async (): Promise<void> => {
+        await mongoClient.close();
+      }
+    );
 
     beforeAll(
       async (): Promise<void> => {
+        mariaClient = await createConnection("");
+        mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true
+        });
         locales = await locale("en");
       }
     );
@@ -108,7 +132,7 @@ describe("youtubeDownload epic", (): void => {
           );
           const state$: StateObservable<IState> | undefined = undefined;
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
@@ -134,7 +158,7 @@ describe("youtubeDownload epic", (): void => {
             state$ValueMessageQueryUndefined
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
@@ -160,7 +184,7 @@ describe("youtubeDownload epic", (): void => {
             state$ValueMessageQueryMessageUndefined
           );
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
@@ -185,7 +209,7 @@ describe("youtubeDownload epic", (): void => {
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
@@ -210,7 +234,7 @@ describe("youtubeDownload epic", (): void => {
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
@@ -235,7 +259,7 @@ describe("youtubeDownload epic", (): void => {
             | StateObservable<IState>
             | undefined = new StateObservable(new Subject(), state$Value);
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expectObservable(
@@ -282,7 +306,7 @@ describe("youtubeDownload epic", (): void => {
             query: undefined
           });
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expect(startAction(action, dependencies)).toEqual(
@@ -299,7 +323,7 @@ describe("youtubeDownload epic", (): void => {
             query: query
           });
           const dependencies: IDependencies = {
-            ...initDependencies(locales),
+            ...initDependencies(locales, mariaClient, mongoClient),
             authorization: (): Observable<boolean> => of(true)
           };
           expect(startAction(action, dependencies)).toEqual(

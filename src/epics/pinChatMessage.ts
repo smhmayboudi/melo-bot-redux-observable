@@ -67,7 +67,7 @@ const pinChatMessage: (
   return action$.pipe(
     ofType(actions.pinChatMessage.PIN_CHAT_MESSAGE_QUERY),
     filterAsync((action: IActionPinChatMessage, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

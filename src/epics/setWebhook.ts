@@ -67,7 +67,7 @@ const setWebhook: (
   return action$.pipe(
     ofType(actions.setWebhook.SET_WEBHOOK_QUERY),
     filterAsync((action: IActionSetWebhook, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -67,7 +67,7 @@ const setChatTitle: (
   return action$.pipe(
     ofType(actions.setChatTitle.SET_CHAT_TITLE_QUERY),
     filterAsync((action: IActionSetChatTitle, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

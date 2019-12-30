@@ -9,6 +9,14 @@ import {
 } from "./mariadbObservable";
 
 describe("mariadbObservable lib", (): void => {
+  let connection: Connection;
+
+  beforeAll(
+    async (): Promise<void> => {
+      connection = await createConnection("");
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -30,14 +38,12 @@ describe("mariadbObservable lib", (): void => {
   });
 
   test("should create an queryObservable", (): void => {
-    createConnection("").then((conection: Connection) => {
-      testScheduler.run((runHelpers: RunHelpers): void => {
-        const { cold, expectObservable } = runHelpers;
-        const action$: ColdObservable<any> = cold("-a", {
-          a: queryObservable(conection, "")
-        });
-        expectObservable(action$).toBe("-a", { a: [] });
+    testScheduler.run((runHelpers: RunHelpers): void => {
+      const { cold, expectObservable } = runHelpers;
+      const action$: ColdObservable<any> = cold("-a", {
+        a: queryObservable(connection, "")
       });
+      expectObservable(action$).toBe("-a", { a: [] });
     });
   });
 });

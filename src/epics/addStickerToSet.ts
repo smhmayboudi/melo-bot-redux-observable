@@ -73,7 +73,7 @@ const addStickerToSet: (
   return action$.pipe(
     ofType(actions.addStickerToSet.ADD_STICKER_TO_SET_QUERY),
     filterAsync((action: IActionAddStickerToSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

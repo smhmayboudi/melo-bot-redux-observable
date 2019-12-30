@@ -75,7 +75,7 @@ const createNewStickerSet: (
   return action$.pipe(
     ofType(actions.createNewStickerSet.CREATE_NEW_STICKER_SET_QUERY),
     filterAsync((action: IActionCreateNewStickerSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

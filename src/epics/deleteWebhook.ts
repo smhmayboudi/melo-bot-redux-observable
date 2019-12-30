@@ -67,7 +67,7 @@ const deleteWebhook: (
   return action$.pipe(
     ofType(actions.deleteWebhook.DELETE_WEBHOOK_QUERY),
     filterAsync((action: IActionDeleteWebhook, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

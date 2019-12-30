@@ -1,5 +1,3 @@
-import { ILocale } from "../../types/iLocale";
-import { locale } from "../utils/string";
 import { handle } from "./telegramBotHandle";
 
 describe("telegramBotHandle configs", (): void => {
@@ -10,16 +8,8 @@ describe("telegramBotHandle configs", (): void => {
     subscribe: jest.fn(() => jest.fn(() => ({})))
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle", (): void => {
-    handle(locales, store);
+    handle(store);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

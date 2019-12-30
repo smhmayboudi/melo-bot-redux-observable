@@ -30,8 +30,8 @@ const shortenReset: (
     action: IActionShortenReset
   ) => Observable<IActionShortenReset> = (
     action: IActionShortenReset
-  ): Observable<IActionShortenReset> => {
-    return connectionObservable().pipe(
+  ): Observable<IActionShortenReset> =>
+    connectionObservable().pipe(
       switchMap(
         (connection: Connection): Observable<IActionShortenReset> => {
           if (action.shortenReset.query === undefined) {
@@ -75,12 +75,11 @@ const shortenReset: (
         )
       )
     );
-  };
 
   return action$.pipe(
     ofType(actions.shortenReset.SHORTEN_RESET_QUERY),
     filterAsync((action: IActionShortenReset, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

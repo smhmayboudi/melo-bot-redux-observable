@@ -12,8 +12,8 @@ import { ICommandStartOptions } from "../../types/iCommandStartOptions";
 import { ICommandYoutubeDownloadOptions } from "../../types/iCommandYoutubeDownloadOptions";
 import { ICommandYoutubeSearchListByQOptions } from "../../types/iCommandYoutubeSearchListByQOptions";
 import { ICommandYoutubeSearchListByRelatedToVideoIdOptions } from "../../types/iCommandYoutubeSearchListByRelatedToVideoIdOptions";
-import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
+import { IStateCommandUI } from "../../types/iStateCommandUI";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
 import * as command from "../utils/command";
@@ -24,14 +24,9 @@ import * as env from "./env";
 const appDebug: debug.IDebugger = debug("app:config:telegramBot:handleMessage");
 
 const handleMessage: (
-  locales: ILocale,
   store: Store<IState, IAction>,
   message: IMessage
-) => void = (
-  locales: ILocale,
-  store: Store<IState, IAction>,
-  message: IMessage
-): void => {
+) => void = (store: Store<IState, IAction>, message: IMessage): void => {
   appDebug("TELEGRAM_BOT_HANDLE_MESSAGE");
   const messageText = validInput(message.text);
   switch (messageText) {
@@ -333,7 +328,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: locales.find("messageHelp")
+                text: "messageHelp"
               }
             })
           );
@@ -347,7 +342,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: locales.find("messageSetInlineGeo")
+                text: "messageSetInlineGeo"
               }
             })
           );
@@ -361,7 +356,7 @@ const handleMessage: (
                 disable_web_page_preview: true,
                 parse_mode: "HTML",
                 reply_to_message_id: message.message_id,
-                text: locales.find("messageSettings")
+                text: "messageSettings"
               }
             })
           );
@@ -421,7 +416,7 @@ const handleMessage: (
                 }
               })
             );
-            handleMessage(locales, store, { ...message, text: options.cmd });
+            handleMessage(store, { ...message, text: options.cmd });
           }
         } else if (messageText.includes(command.startGroup())) {
           const options:
@@ -439,7 +434,7 @@ const handleMessage: (
                 }
               })
             );
-            handleMessage(locales, store, { ...message, text: options.cmd });
+            handleMessage(store, { ...message, text: options.cmd });
           }
         } else if (messageText.includes(command.youtubeDownload())) {
           const options:
@@ -528,7 +523,7 @@ const handleMessage: (
               }
             })
           );
-          handleMessage(locales, store, { ...message, text: command.help() });
+          handleMessage(store, { ...message, text: command.help() });
         } else if (messageText.includes("/test2")) {
           store.dispatch(actions.commandUI.setInlineGeo());
           store.dispatch(
@@ -539,7 +534,7 @@ const handleMessage: (
               }
             })
           );
-          handleMessage(locales, store, {
+          handleMessage(store, {
             ...message,
             text: command.setInlineGeo()
           });
@@ -553,13 +548,13 @@ const handleMessage: (
               }
             })
           );
-          handleMessage(locales, store, {
+          handleMessage(store, {
             ...message,
             text: command.settings()
           });
         } else if (messageText.includes("undo")) {
           store.dispatch(actions.undo.undo());
-          const present = store.getState().commandUI.present;
+          const present: IStateCommandUI = store.getState().commandUI.present;
           const com = command.stringify((present.command as ICommand).name);
           appDebug("command", com);
           store.dispatch(
@@ -570,7 +565,7 @@ const handleMessage: (
               }
             })
           );
-          handleMessage(locales, store, {
+          handleMessage(store, {
             ...message,
             text: com
           });

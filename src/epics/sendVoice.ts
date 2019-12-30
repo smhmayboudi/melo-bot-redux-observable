@@ -74,7 +74,7 @@ const sendVoice: (
   return action$.pipe(
     ofType(actions.sendVoice.SEND_VOICE_QUERY),
     filterAsync((action: IActionSendVoice, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

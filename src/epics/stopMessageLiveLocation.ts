@@ -70,7 +70,7 @@ const stopMessageLiveLocation: (
   return action$.pipe(
     ofType(actions.stopMessageLiveLocation.STOP_MESSAGE_LIVE_LOCATION_QUERY),
     filterAsync((action: IActionStopMessageLiveLocation, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

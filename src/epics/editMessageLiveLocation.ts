@@ -70,7 +70,7 @@ const editMessageLiveLocation: (
   return action$.pipe(
     ofType(actions.editMessageLiveLocation.EDIT_MESSAGE_LIVE_LOCATION_QUERY),
     filterAsync((action: IActionEditMessageLiveLocation, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

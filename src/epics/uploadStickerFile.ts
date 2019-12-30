@@ -70,7 +70,7 @@ const uploadStickerFile: (
   return action$.pipe(
     ofType(actions.uploadStickerFile.UPLOAD_STICKER_FILE_QUERY),
     filterAsync((action: IActionUploadStickerFile, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

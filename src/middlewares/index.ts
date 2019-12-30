@@ -1,3 +1,5 @@
+import { Connection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { applyMiddleware, StoreEnhancer } from "redux";
 import { createEpicMiddleware, EpicMiddleware } from "redux-observable";
 
@@ -10,12 +12,16 @@ import { crashReporter } from "./crashReporter";
 import { logger } from "./logger";
 
 const index: (
-  locales: ILocale
+  locales: ILocale,
+  mariaClient: Connection,
+  mongoClient: MongoClient
 ) => {
   epicMiddleware: EpicMiddleware<IAction, IAction, IState, IDependencies>;
   index: StoreEnhancer<{}, {}>;
 } = (
-  locales: ILocale
+  locales: ILocale,
+  mariaClient: Connection,
+  mongoClient: MongoClient
 ): {
   epicMiddleware: EpicMiddleware<IAction, IAction, IState, IDependencies>;
   index: StoreEnhancer<{}, {}>;
@@ -26,7 +32,7 @@ const index: (
     IState,
     IDependencies
   > = createEpicMiddleware({
-    dependencies: initDependencies(locales)
+    dependencies: initDependencies(locales, mariaClient, mongoClient)
   });
 
   const index: StoreEnhancer<{}, {}> = applyMiddleware(

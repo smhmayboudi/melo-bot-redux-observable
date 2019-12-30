@@ -1,7 +1,7 @@
 import debug from "debug";
 import { performance } from "perf_hooks";
 import {
-  DeepPartial,
+  PreloadedState,
   Reducer,
   Store,
   StoreEnhancer,
@@ -31,7 +31,7 @@ const monitor: StoreEnhancer<{}, {}> = (
   next: StoreEnhancerStoreCreator<{}, {}>
 ) => (
   reducer: Reducer<any, any>,
-  preloadedState?: DeepPartial<IState>
+  preloadedState?: PreloadedState<IState>
 ): Store<any, any> => {
   const monitored: (state: IState | undefined, action: IAction) => IState = (
     state: IState | undefined,

@@ -69,7 +69,7 @@ const answerShippingQuery: (
   return action$.pipe(
     ofType(actions.answerShippingQuery.ANSWER_SHIPPING_QUERY_QUERY),
     filterAsync((action: IActionAnswerShippingQuery, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

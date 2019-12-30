@@ -1,4 +1,15 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
 import { youtube_v3 } from "googleapis";
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
 import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
@@ -183,10 +194,23 @@ describe("youtubeSearchListResult epic", (): void => {
   };
 
   let locales: ILocale;
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
 
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
     }
   );
 
@@ -211,7 +235,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
       };
@@ -239,7 +263,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: { items: undefined } })
@@ -269,7 +293,7 @@ describe("youtubeSearchListResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: undefined })
@@ -302,7 +326,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: { items: undefined } })
@@ -332,7 +356,7 @@ describe("youtubeSearchListResult epic", (): void => {
       });
       const state$: StateObservable<IState> | undefined = undefined;
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -363,7 +387,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueInlineQueryQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -394,7 +418,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueYoutubeSearchListQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -427,7 +451,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueYoutubeSearchListQueryQUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -460,7 +484,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -502,7 +526,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueMessageQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -533,7 +557,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueMessageQueryMessageUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -566,7 +590,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueYoutubeSearchListQueryUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -599,7 +623,7 @@ describe("youtubeSearchListResult epic", (): void => {
         state$ValueYoutubeSearchListQueryQUndefined
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })
@@ -632,8 +656,8 @@ describe("youtubeSearchListResult epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         requestsObservable: (): ColdObservable<any> =>
           cold("--a", { a: result })

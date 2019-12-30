@@ -69,7 +69,7 @@ const setChatStickerSet: (
   return action$.pipe(
     ofType(actions.setChatStickerSet.SET_CHAT_STICKER_SET_QUERY),
     filterAsync((action: IActionSetChatStickerSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

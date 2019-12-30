@@ -67,7 +67,7 @@ const unbanChatMember: (
   return action$.pipe(
     ofType(actions.unbanChatMember.UNBAN_CHAT_MEMBER_QUERY),
     filterAsync((action: IActionUnbanChatMember, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

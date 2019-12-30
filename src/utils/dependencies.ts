@@ -1,19 +1,15 @@
-import debug from "debug";
 import { Connection } from "mariadb";
 import { MongoClient } from "mongodb";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { IDependencies } from "../../types/iDependencies";
 import { ILocale } from "../../types/iLocale";
 import * as env from "../configs/env";
-import {
-  createConnectionObservable,
-  queryObservable
-} from "../libs/mariadbObservable";
+import { queryObservable } from "../libs/mariadbObservable";
 import {
   collectionObservable,
-  connectObservable,
   findOneObservable,
-  insertOneObservable
+  insertOneObservable,
+  replaceOneObservable
 } from "../libs/mongodbObservable";
 import { requestObservable } from "../libs/requestObservable";
 import { requestsObservable } from "../libs/requestsObservable";
@@ -22,26 +18,22 @@ import { requestUploadObservable } from "../libs/requestUploadObservable";
 import { youtubeDownloadObservable } from "../libs/youtubeDownloadObservable";
 import { authorization } from "./authorization";
 
-const init: (locales: ILocale) => IDependencies = (
-  locales: ILocale
+const init: (
+  locales: ILocale,
+  mariaClient: Connection,
+  mongoClient: MongoClient
+) => IDependencies = (
+  locales: ILocale,
+  mariaClient: Connection,
+  mongoClient: MongoClient
 ): IDependencies => {
-  const appDebug: debug.IDebugger = debug("app:utils:dependencies");
-
   const connectionObservable: () => Observable<
     Connection
-  > = (): Observable<Connection> =>
-    createConnectionObservable(env.MARIA_CLIENT_URI);
+  > = (): Observable<Connection> => of(mariaClient);
 
   const mongoClientObservable: () => Observable<
     MongoClient
-  > = (): Observable<MongoClient> =>
-    connectObservable(env.MONGO_CLIENT_URI, {
-      appname: env.MONGO_CLIENT_APPNAME,
-      logger: appDebug,
-      loggerLevel: env.MONGO_CLIENT_LOGGER_LEVEL,
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+  > = (): Observable<MongoClient> => of(mongoClient);
 
   return {
     authorization,
@@ -53,6 +45,7 @@ const init: (locales: ILocale) => IDependencies = (
     locales,
     mongoClientObservable,
     queryObservable,
+    replaceOneObservable,
     requestObservable,
     requestUploadObservable,
     requestsObservable,

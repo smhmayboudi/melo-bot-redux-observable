@@ -71,7 +71,7 @@ const youtubeSearchList: (
   return action$.pipe(
     ofType(actions.youtubeSearchList.YOUTUBE_SEARCH_LIST_QUERY),
     filterAsync((action: IActionYoutubeSearchList, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

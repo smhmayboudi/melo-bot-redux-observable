@@ -138,7 +138,7 @@ const callbackQueryDataFindToSendMessage: (
   return action$.pipe(
     ofType(actions.callbackQueryDataFind.CALLBACK_QUERY_DATA_FIND_RESULT),
     filterAsync((action: IActionCallbackQueryDataFind, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

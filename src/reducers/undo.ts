@@ -122,10 +122,11 @@ const jump: <T>(stateUndo: IStateUndo<T>, index: number) => IStateUndo<T> = <T>(
   return stateUndo;
 };
 
-const actionTypeAmongClearTypes = (
+const actionTypeAmongClearTypes: (
   actionType: string,
   clearTypes: string[]
-): string => (clearTypes.indexOf(actionType) > -1 ? actionType : "");
+) => string = (actionType: string, clearTypes: string[]): string =>
+  clearTypes.indexOf(actionType) > -1 ? actionType : "";
 
 const undo: <T>(
   reducer: Reducer<T, any>,

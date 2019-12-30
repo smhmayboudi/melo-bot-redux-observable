@@ -32,11 +32,11 @@ const youtubeDownloadResultFind: (
     action: IActionYoutubeDownloadResultFind
   ) => Observable<IActionYoutubeDownloadResultFind> = (
     action: IActionYoutubeDownloadResultFind
-  ): Observable<IActionYoutubeDownloadResultFind> => {
-    return mongoClientObservable().pipe(
+  ): Observable<IActionYoutubeDownloadResultFind> =>
+    mongoClientObservable().pipe(
       switchMap(
-        (client: MongoClient): Observable<IActionYoutubeDownloadResultFind> => {
-          return collectionObservable<IStateYoutubeDownloadResultInsertQuery>(
+        (client: MongoClient): Observable<IActionYoutubeDownloadResultFind> =>
+          collectionObservable<IStateYoutubeDownloadResultInsertQuery>(
             client.db(env.DB_NAME),
             "youtubeDownloadResult",
             {}
@@ -85,8 +85,7 @@ const youtubeDownloadResultFind: (
                 })
               )
             )
-          );
-        }
+          )
       ),
       catchError((error: any) =>
         of(
@@ -96,14 +95,13 @@ const youtubeDownloadResultFind: (
         )
       )
     );
-  };
 
   return action$.pipe(
     ofType(
       actions.youtubeDownloadResultFind.YOUTUBE_DOWNLOAD_RESULT_FIND_QUERY
     ),
     filterAsync((action: IActionYoutubeDownloadResultFind, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

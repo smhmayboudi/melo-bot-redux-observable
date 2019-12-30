@@ -69,7 +69,7 @@ const setStickerPositionInSet: (
   return action$.pipe(
     ofType(actions.setStickerPositionInSet.SET_STICKER_POSITION_IN_SET_QUERY),
     filterAsync((action: IActionSetStickerPositionInSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -1,6 +1,4 @@
-import { ILocale } from "../../types/iLocale";
 import { IChosenInlineResult } from "../../types/telegramBot/inlineMode/iChosenInlineResult";
-import { locale } from "../utils/string";
 import { handleChosenInlineResult } from "./telegramBotHandleChosenInlineResult";
 
 describe("telegramBotHandleChosenInlineResult configs", (): void => {
@@ -22,16 +20,8 @@ describe("telegramBotHandleChosenInlineResult configs", (): void => {
     result_id: ""
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle", (): void => {
-    handleChosenInlineResult(locales, store, chosenInlineResult);
+    handleChosenInlineResult(store, chosenInlineResult);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

@@ -13,6 +13,11 @@ describe("store utils", (): void => {
       callbackQueryDataFind: {},
       callbackQueryDataInsert: {},
       chosenInlineResult: {},
+      commandUI: {
+        future: [],
+        past: [],
+        present: {}
+      },
       createNewStickerSet: {},
       deleteChatPhoto: {},
       deleteChatStickerSet: {},

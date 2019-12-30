@@ -68,7 +68,7 @@ const editMessageText: (
   return action$.pipe(
     ofType(actions.editMessageText.EDIT_MESSAGE_TEXT_QUERY),
     filterAsync((action: IActionEditMessageText, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

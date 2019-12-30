@@ -31,8 +31,8 @@ const shortenList: (
     action: IActionShortenList
   ) => Observable<IActionShortenList> = (
     action: IActionShortenList
-  ): Observable<IActionShortenList> => {
-    return connectionObservable().pipe(
+  ): Observable<IActionShortenList> =>
+    connectionObservable().pipe(
       switchMap(
         (connection: Connection): Observable<IActionShortenList> => {
           if (action.shortenList.query === undefined) {
@@ -58,9 +58,8 @@ const shortenList: (
                 of(
                   actions.shortenList.result({
                     result:
-                      rows === null
-                        ? undefined
-                        : (rows.map((row: any) => ({
+                      rows !== null
+                        ? rows.map<IStateShortenListResult>((row: any) => ({
                             alphabet: row.alphabet,
                             count: row.count,
                             date: row.date,
@@ -68,7 +67,8 @@ const shortenList: (
                             longLink: row.long_link,
                             longBase64: row.long_base64,
                             shortLink: row.short_link
-                          })) as IStateShortenListResult[])
+                          }))
+                        : undefined
                   })
                 )
             ),
@@ -90,12 +90,11 @@ const shortenList: (
         )
       )
     );
-  };
 
   return action$.pipe(
     ofType(actions.shortenList.SHORTEN_LIST_QUERY),
     filterAsync((action: IActionShortenList, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

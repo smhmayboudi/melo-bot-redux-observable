@@ -74,7 +74,7 @@ const sendSticker: (
   return action$.pipe(
     ofType(actions.sendSticker.SEND_STICKER_QUERY),
     filterAsync((action: IActionSendSticker, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

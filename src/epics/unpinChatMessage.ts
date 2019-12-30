@@ -67,7 +67,7 @@ const unpinChatMessage: (
   return action$.pipe(
     ofType(actions.unpinChatMessage.UNPIN_CHAT_MESSAGE_QUERY),
     filterAsync((action: IActionUnpinChatMessage, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

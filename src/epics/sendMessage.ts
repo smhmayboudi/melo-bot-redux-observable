@@ -68,7 +68,7 @@ const sendMessage: (
   return action$.pipe(
     ofType(actions.sendMessage.SEND_MESSAGE_QUERY),
     filterAsync((action: IActionSendMessage, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

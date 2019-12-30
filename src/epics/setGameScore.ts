@@ -68,7 +68,7 @@ const setGameScore: (
   return action$.pipe(
     ofType(actions.setGameScore.SET_GAME_SCORE_QUERY),
     filterAsync((action: IActionSetGameScore, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

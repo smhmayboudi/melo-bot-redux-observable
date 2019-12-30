@@ -69,7 +69,7 @@ const deleteStickerFromSet: (
   return action$.pipe(
     ofType(actions.deleteStickerFromSet.DELETE_STICKER_FROM_SET_QUERY),
     filterAsync((action: IActionDeleteStickerFromSet, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

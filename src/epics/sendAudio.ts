@@ -73,7 +73,7 @@ const sendAudio: (
   return action$.pipe(
     ofType(actions.sendAudio.SEND_AUDIO_QUERY),
     filterAsync((action: IActionSendAudio, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

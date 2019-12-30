@@ -68,7 +68,7 @@ const sendPoll: (
   return action$.pipe(
     ofType(actions.sendPoll.SEND_POLL_QUERY),
     filterAsync((action: IActionSendPoll, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -32,11 +32,11 @@ const chosenInlineResult: (
     action: IActionChosenInlineResult
   ) => Observable<IActionChosenInlineResult> = (
     action: IActionChosenInlineResult
-  ): Observable<IActionChosenInlineResult> => {
-    return mongoClientObservable().pipe(
+  ): Observable<IActionChosenInlineResult> =>
+    mongoClientObservable().pipe(
       switchMap(
-        (client: MongoClient): Observable<IActionChosenInlineResult> => {
-          return collectionObservable<IStateChosenInlineResultQuery>(
+        (client: MongoClient): Observable<IActionChosenInlineResult> =>
+          collectionObservable<IStateChosenInlineResultQuery>(
             client.db(env.DB_NAME),
             "chosenInlineResult",
             {}
@@ -80,8 +80,7 @@ const chosenInlineResult: (
                 })
               )
             )
-          );
-        }
+          )
       ),
       catchError((error: any) =>
         of(
@@ -91,12 +90,11 @@ const chosenInlineResult: (
         )
       )
     );
-  };
 
   return action$.pipe(
     ofType(actions.chosenInlineResult.CHOSEN_INLINE_RESULT_QUERY),
     filterAsync((action: IActionChosenInlineResult, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

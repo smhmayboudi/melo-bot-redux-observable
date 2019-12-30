@@ -1,19 +1,49 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
+
+import { IDependencies } from "../../types/iDependencies";
 import { ILocale } from "../../types/iLocale";
 import * as env from "../configs/env";
 import { init } from "./dependencies";
 import { locale } from "./string";
 
 describe("dependencies utils", (): void => {
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
   let locales: ILocale;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
 
   beforeAll(
     async (): Promise<void> => {
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
       locales = await locale("en");
     }
   );
 
   test("should handle initDependencies", (): void => {
-    const initDependencies = init(locales);
+    const initDependencies: IDependencies = init(
+      locales,
+      mariaClient,
+      mongoClient
+    );
     expect("authorization" in initDependencies).toBeTruthy();
     expect("botToken" in initDependencies).toBeTruthy();
     expect("collectionObservable" in initDependencies).toBeTruthy();

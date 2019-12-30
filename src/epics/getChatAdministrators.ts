@@ -70,7 +70,7 @@ const getChatAdministrators: (
   return action$.pipe(
     ofType(actions.getChatAdministrators.GET_CHAT_ADMINISTRATORS_QUERY),
     filterAsync((action: IActionGetChatAdministrators, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

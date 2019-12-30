@@ -69,7 +69,7 @@ const answerInlineQuery: (
   return action$.pipe(
     ofType(actions.answerInlineQuery.ANSWER_INLINE_QUERY_QUERY),
     filterAsync((action: IActionAnswerInlineQuery, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

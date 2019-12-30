@@ -1,7 +1,5 @@
-import { ILocale } from "../../types/iLocale";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as command from "../utils/command";
-import { locale } from "../utils/string";
 import { handleMessage } from "./telegramBotHandleMessage";
 
 describe("telegramBotHandleMessage configs", (): void => {
@@ -21,16 +19,8 @@ describe("telegramBotHandleMessage configs", (): void => {
     message_id: 0
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle messageText help", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.help()
     });
@@ -38,7 +28,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText setInlineGeo", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.setInlineGeo()
     });
@@ -46,7 +36,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText settings", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.settings()
     });
@@ -54,7 +44,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText shortenList", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.shortenList()
     });
@@ -62,7 +52,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText shortenReset", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.shortenReset()
     });
@@ -70,7 +60,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText start", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.start()
     });
@@ -78,7 +68,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText startGroup", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.startGroup()
     });
@@ -86,7 +76,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle youtubeDownload", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.youtubeDownload()
     });
@@ -94,7 +84,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle youtubeSearchListByQ", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.youtubeSearchListByQ()
     });
@@ -102,7 +92,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText youtubeSearchListByRelatedToVideoId", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.youtubeSearchListByRelatedToVideoId()
     });
@@ -110,7 +100,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle youtubeVideoList", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: command.youtubeVideoList()
     });
@@ -118,7 +108,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText not undefined", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: ""
     });
@@ -126,7 +116,7 @@ describe("telegramBotHandleMessage configs", (): void => {
   });
 
   test("should handle messageText undefined", (): void => {
-    handleMessage(locales, store, {
+    handleMessage(store, {
       ...message,
       text: undefined
     });

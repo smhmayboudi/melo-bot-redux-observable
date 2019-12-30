@@ -70,7 +70,7 @@ const editMessageCaption: (
   return action$.pipe(
     ofType(actions.editMessageCaption.EDIT_MESSAGE_CAPTION_QUERY),
     filterAsync((action: IActionEditMessageCaption, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

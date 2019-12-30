@@ -72,7 +72,7 @@ const <%= h.changeCase.camel(name)%>: (
   return action$.pipe(
     ofType(actions.<%= h.changeCase.camel(name)%>.<%= h.changeCase.snake(name).toUpperCase()%>_QUERY),
     filterAsync((action: IAction<%= h.changeCase.pascal(name)%>, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

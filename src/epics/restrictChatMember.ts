@@ -69,7 +69,7 @@ const restrictChatMember: (
   return action$.pipe(
     ofType(actions.restrictChatMember.RESTRICT_CHAT_MEMBER_QUERY),
     filterAsync((action: IActionRestrictChatMember, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

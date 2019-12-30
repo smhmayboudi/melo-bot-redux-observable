@@ -68,7 +68,7 @@ const getChatMember: (
   return action$.pipe(
     ofType(actions.getChatMember.GET_CHAT_MEMBER_QUERY),
     filterAsync((action: IActionGetChatMember, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

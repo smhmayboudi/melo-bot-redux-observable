@@ -66,7 +66,7 @@ const getMe: (
   return action$.pipe(
     ofType(actions.getMe.GET_ME_QUERY),
     filterAsync((action: IActionGetMe, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -1,6 +1,4 @@
-import { ILocale } from "../../types/iLocale";
 import { IInlineQuery } from "../../types/telegramBot/inlineMode/iInlineQuery";
-import { locale } from "../utils/string";
 import { handleInlineQuery } from "./telegramBotHandleInlineQuery";
 
 describe("telegramBotHandleInlineQuery configs", (): void => {
@@ -23,15 +21,8 @@ describe("telegramBotHandleInlineQuery configs", (): void => {
     query: ""
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
   test("should handle", (): void => {
-    handleInlineQuery(locales, store, inlineQuery);
+    handleInlineQuery(store, inlineQuery);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

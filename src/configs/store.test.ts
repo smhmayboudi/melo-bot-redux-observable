@@ -1,3 +1,14 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      __MONGO_DB_NAME__: string;
+      __MONGO_URI__: string;
+    }
+  }
+}
+
+import { Connection, createConnection } from "mariadb";
+import { MongoClient } from "mongodb";
 import { Store } from "redux";
 
 import { IAction } from "../../types/iAction";
@@ -44,10 +55,23 @@ describe("store configs", (): void => {
   };
 
   let locales: ILocale;
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
 
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
     }
   );
 
@@ -60,7 +84,17 @@ describe("store configs", (): void => {
         }
       };
     }
-    const store: Store<IState, IAction> = configureStore(locales);
+    const store: Store<IState, IAction> = configureStore(
+      locales,
+      {
+        future: [],
+        past: [],
+        present: {},
+        userId: 0
+      },
+      mariaClient,
+      mongoClient
+    );
     store.dispatch(actions.message.query(message));
     expect(store.getState()).toEqual({
       ...initialState,

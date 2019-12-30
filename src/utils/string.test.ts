@@ -20,6 +20,7 @@ import {
   transformVideoThumbnailUrl,
   validInput
 } from "./string";
+import { ILocale } from "../../types/iLocale";
 
 describe("string utils", (): void => {
   const searchResultItem: youtube_v3.Schema$SearchResult = {
@@ -109,6 +110,17 @@ describe("string utils", (): void => {
     });
   });
 
+  test("should handle encode error", (): void => {
+    expect(() =>
+      encode(
+        {
+          cmd: "/rl CgtGa01QdHgyUmtCaw"
+        },
+        "test"
+      )
+    ).toThrowError();
+  });
+
   test("should handle encode", (): void => {
     expect(
       encode(
@@ -121,14 +133,24 @@ describe("string utils", (): void => {
   });
 
   describe("locale", (): void => {
-    test("should handle locale find", async () => {
-      const value = await locale("fa");
-      expect(value.find("messageTestFind")).toEqual("TEST");
+    let locales: ILocale;
+
+    beforeAll(
+      async (): Promise<void> => {
+        locales = await locale("en");
+      }
+    );
+
+    test("should handle locale error", async () => {
+      await expect(locale("jp")).rejects.toThrow();
     });
 
-    test("should handle locale fill", async () => {
-      const value = await locale("fa");
-      expect(value.fill("messageTestFill", { test: "TEST" })).toEqual(
+    test("should handle locale find", () => {
+      expect(locales.find("messageTestFind")).toEqual("TEST");
+    });
+
+    test("should handle locale fill", () => {
+      expect(locales.fill("messageTestFill", { test: "TEST" })).toEqual(
         "TEST TEST"
       );
     });

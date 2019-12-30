@@ -6,6 +6,7 @@ import { IActionSendMessage } from "../../types/iActionSendMessage";
 import { IActionYoutubeSearchList } from "../../types/iActionYoutubeSearchList";
 import { IDependencies } from "../../types/iDependencies";
 import { IState } from "../../types/iState";
+import { IInlineKeyboardButton } from "../../types/telegramBot/types/iInlineKeyboardButton";
 import * as actions from "../actions";
 import { encode, transformSearchResults } from "../utils/string";
 
@@ -103,7 +104,7 @@ const transformObservable: (
     );
   }
 
-  const inlineKeyboard = [];
+  const inlineKeyboard: IInlineKeyboardButton[] = [];
   if (
     action.youtubeSearchList.result.prevPageToken !== null &&
     action.youtubeSearchList.result.prevPageToken !== undefined

@@ -67,7 +67,7 @@ const deleteChatPhoto: (
   return action$.pipe(
     ofType(actions.deleteChatPhoto.DELETE_CHAT_PHOTO_QUERY),
     filterAsync((action: IActionDeleteChatPhoto, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

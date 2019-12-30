@@ -37,11 +37,11 @@ const callbackQueryDataInsert: (
     action: IActionCallbackQueryDataInsert
   ) => Observable<IActionCallbackQueryDataInsert> = (
     action: IActionCallbackQueryDataInsert
-  ): Observable<IActionCallbackQueryDataInsert> => {
-    return mongoClientObservable().pipe(
+  ): Observable<IActionCallbackQueryDataInsert> =>
+    mongoClientObservable().pipe(
       switchMap(
-        (client: MongoClient): Observable<IActionCallbackQueryDataInsert> => {
-          return collectionObservable<IStateCallbackQueryDataInsertQuery>(
+        (client: MongoClient): Observable<IActionCallbackQueryDataInsert> =>
+          collectionObservable<IStateCallbackQueryDataInsertQuery>(
             client.db(env.DB_NAME),
             "callbackQueryData",
             {}
@@ -96,8 +96,7 @@ const callbackQueryDataInsert: (
                 })
               )
             )
-          );
-        }
+          )
       ),
       catchError((error: any) =>
         of(
@@ -107,12 +106,11 @@ const callbackQueryDataInsert: (
         )
       )
     );
-  };
 
   return action$.pipe(
     ofType(actions.callbackQueryDataInsert.CALLBACK_QUERY_DATA_INSERT_QUERY),
     filterAsync((action: IActionCallbackQueryDataInsert, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

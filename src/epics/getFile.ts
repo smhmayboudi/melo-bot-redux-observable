@@ -68,7 +68,7 @@ const getFile: (
   return action$.pipe(
     ofType(actions.getFile.GET_FILE_QUERY),
     filterAsync((action: IActionGetFile, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

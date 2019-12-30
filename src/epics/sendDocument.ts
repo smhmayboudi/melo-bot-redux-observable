@@ -74,7 +74,7 @@ const sendDocument: (
   return action$.pipe(
     ofType(actions.sendDocument.SEND_DOCUMENT_QUERY),
     filterAsync((action: IActionSendDocument, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -58,7 +58,7 @@ const inlineQuery: (
   return action$.pipe(
     ofType(actions.inlineQuery.INLINE_QUERY_QUERY),
     filterAsync((action: IActionInlineQuery, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

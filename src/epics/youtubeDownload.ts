@@ -103,7 +103,7 @@ const youtubeDownload: (
       ofType(actions.sendVideo.SEND_VIDEO_RESULT),
       take<IActionSendVideo & IActionYoutubeDownload>(1),
       filterAsync((action: IActionSendVideo, index: number) =>
-        authorization(action, state$, index)
+        authorization(state$, dependencies, action, index)
       ),
       switchMap(transformObservableSendVideo(action, dependencies)),
       startWith(startActionSendVideo(action, state$, dependencies))
@@ -130,7 +130,7 @@ const youtubeDownload: (
       ),
       take<IActionYoutubeDownload & IActionYoutubeDownloadResultFind>(1),
       filterAsync((action: IActionYoutubeDownloadResultFind, index: number) =>
-        authorization(action, state$, index)
+        authorization(state$, dependencies, action, index)
       ),
       switchMap((action2: IActionYoutubeDownloadResultFind) => {
         if (
@@ -177,7 +177,7 @@ const youtubeDownload: (
   return action$.pipe(
     ofType(actions.youtubeDownload.YOUTUBE_DOWNLOAD_QUERY),
     filterAsync((action: IActionYoutubeDownload, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(
       (
@@ -194,7 +194,7 @@ const youtubeDownload: (
           ofType(actions.getChatMember.GET_CHAT_MEMBER_RESULT),
           take<IActionGetChatMember & IActionYoutubeDownload>(1),
           filterAsync((action: IActionGetChatMember, index: number) =>
-            authorization(action, state$, index)
+            authorization(state$, dependencies, action, index)
           ),
           switchMap(getChatMember(action)),
           startWith(startActionGetChatMember(state$, dependencies))

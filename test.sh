@@ -39,9 +39,11 @@ rm -fr coverage
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs
 #         http
 #         https
+#         kubernetesProbs
 #         prometheus
 #         store
 #         telegramBot
+#         telegramBotHandleMessage
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose enhancers
 #         monitor
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
@@ -50,7 +52,6 @@ rm -fr coverage
 #         youtubeVideoListResult
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose libs
 #         filterAsync
-#         mariadbObservable
 #         mongodbObservable
 #         request
 #         requests
@@ -60,9 +61,8 @@ rm -fr coverage
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose middlewares
 #         crashReporter
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose reducers
-#         commandUI
 #         undo
 # [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose utils
 #         authorization
-#         store
+#         dependencies
 #         user

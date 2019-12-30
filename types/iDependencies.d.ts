@@ -8,7 +8,9 @@ import {
   DbCollectionOptions,
   FilterQuery,
   InsertOneWriteOpResult,
-  MongoClient
+  MongoClient,
+  ReplaceOneOptions,
+  ReplaceWriteOpResult
 } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
@@ -20,8 +22,9 @@ import { IStateYoutubeDownloadResultInsertQuery } from "./iStateYoutubeDownloadR
 
 export interface IDependencies {
   authorization(
-    value: IAction,
     state$: StateObservable<IState> | undefined,
+    dependencies: IDependencies,
+    value: IAction,
     index: number
   ): Observable<boolean>;
   botToken: string;
@@ -47,6 +50,12 @@ export interface IDependencies {
     sql: string | QueryOptions,
     values?: any
   ): Observable<any>;
+  replaceOneObservable<TSchema>(
+    collection: Collection<TSchema>,
+    filter: FilterQuery<TSchema>,
+    docs: TSchema,
+    options: ReplaceOneOptions
+  ): Observable<ReplaceWriteOpResult>;
   requestObservable<T>(options: http.RequestOptions, data?: any): Observable<T>;
   requestUploadObservable<T>(
     options: http.RequestOptions,

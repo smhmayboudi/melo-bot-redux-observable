@@ -34,10 +34,23 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
     result
   };
 
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
   let locales: ILocale;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
 
   beforeAll(
     async (): Promise<void> => {
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
       locales = await locale("en");
     }
   );
@@ -60,7 +73,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true),
           botToken: "",
           requestsObservable: (): ColdObservable<any> => cold("--#", {}, error)
@@ -81,7 +94,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true),
           botToken: "",
           requestsObservable: (): ColdObservable<any> => cold("--a")
@@ -102,7 +115,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true),
           botToken: "",
           requestsObservable: (): ColdObservable<any> => cold("--a", { a: responseOKF })
@@ -123,7 +136,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
         });
         const state$: StateObservable<IState> | undefined = undefined;
         const dependencies: IDependencies = {
-          ...initDependencies(locales),
+          ...initDependencies(locales, mariaClient, mongoClient),
           authorization: (): Observable<boolean> => of(true),
           botToken: "",
           requestsObservable: (): ColdObservable<any> => cold("--a", { a: responseOKT })

@@ -1,6 +1,4 @@
-import { ILocale } from "../../types/iLocale";
 import { IShippingQuery } from "../../types/telegramBot/payments/iShippingQuery";
-import { locale } from "../utils/string";
 import { handleShippingQuery } from "./telegramBotHandleShippingQuery";
 
 describe("telegramBotHandleShippingQuery configs", (): void => {
@@ -30,16 +28,8 @@ describe("telegramBotHandleShippingQuery configs", (): void => {
     }
   };
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle", (): void => {
-    handleShippingQuery(locales, store, shippingQuery);
+    handleShippingQuery(store, shippingQuery);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

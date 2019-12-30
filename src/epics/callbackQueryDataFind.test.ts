@@ -7,6 +7,7 @@ declare global {
   }
 }
 
+import { Connection, createConnection } from "mariadb";
 import { MongoClient } from "mongodb";
 import { StateObservable } from "redux-observable";
 import { Observable, of, Subject } from "rxjs";
@@ -61,22 +62,24 @@ describe("callbackQueryDataFind epic", (): void => {
     }
   };
 
-  let connection: MongoClient;
   let locales: ILocale;
+  let mariaClient: Connection;
+  let mongoClient: MongoClient;
 
   afterAll(
     async (): Promise<void> => {
-      await connection.close();
+      await mongoClient.close();
     }
   );
 
   beforeAll(
     async (): Promise<void> => {
-      connection = await MongoClient.connect(global.__MONGO_URI__, {
+      locales = await locale("en");
+      mariaClient = await createConnection("");
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       });
-      locales = await locale("en");
     }
   );
 
@@ -101,7 +104,7 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
@@ -129,11 +132,11 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable: (): ColdObservable<any> => cold("--#", {}, error),
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+        mongoClientObservable: (): Observable<MongoClient> => of(mongoClient)
       };
       const output$: Observable<IActionCallbackQueryDataFind> = epic.callbackQueryDataFind(
         action$,
@@ -157,11 +160,11 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("--#", {}, error),
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+        mongoClientObservable: (): Observable<MongoClient> => of(mongoClient)
       };
       const output$: Observable<IActionCallbackQueryDataFind> = epic.callbackQueryDataFind(
         action$,
@@ -185,11 +188,11 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+        mongoClientObservable: (): Observable<MongoClient> => of(mongoClient)
       };
       const output$: Observable<IActionCallbackQueryDataFind> = epic.callbackQueryDataFind(
         action$,
@@ -217,11 +220,11 @@ describe("callbackQueryDataFind epic", (): void => {
         state$Value
       );
       const dependencies: IDependencies = {
-        ...initDependencies(locales),
+        ...initDependencies(locales, mariaClient, mongoClient),
         authorization: (): Observable<boolean> => of(true),
         collectionObservable,
         findOneObservable: (): ColdObservable<any> => cold("-a", { a: result }),
-        mongoClientObservable: (): Observable<MongoClient> => of(connection)
+        mongoClientObservable: (): Observable<MongoClient> => of(mongoClient)
       };
       const output$: Observable<IActionCallbackQueryDataFind> = epic.callbackQueryDataFind(
         action$,

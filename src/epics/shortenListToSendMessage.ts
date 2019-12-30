@@ -71,7 +71,7 @@ const shortenListToSendMessage: (
   return action$.pipe(
     ofType(actions.shortenList.SHORTEN_LIST_RESULT),
     filterAsync((action: IActionShortenList, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

@@ -68,7 +68,7 @@ const editMessageMedia: (
   return action$.pipe(
     ofType(actions.editMessageMedia.EDIT_MESSAGE_MEDIA_QUERY),
     filterAsync((action: IActionEditMessageMedia, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );

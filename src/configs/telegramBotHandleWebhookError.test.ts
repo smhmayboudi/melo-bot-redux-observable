@@ -1,5 +1,3 @@
-import { ILocale } from "../../types/iLocale";
-import { locale } from "../utils/string";
 import { handleWebhookError } from "./telegramBotHandleWebhookError";
 
 describe("telegramBotHandleWebhookError configs", (): void => {
@@ -12,16 +10,8 @@ describe("telegramBotHandleWebhookError configs", (): void => {
 
   const error: Error = new Error("");
 
-  let locales: ILocale;
-
-  beforeAll(
-    async (): Promise<void> => {
-      locales = await locale("en");
-    }
-  );
-
   test("should handle", (): void => {
-    handleWebhookError(locales, store, error);
+    handleWebhookError(store, error);
     expect(store.dispatch).toHaveBeenCalled();
   });
 });

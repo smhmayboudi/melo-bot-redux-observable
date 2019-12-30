@@ -68,7 +68,7 @@ const getChat: (
   return action$.pipe(
     ofType(actions.getChat.GET_CHAT_QUERY),
     filterAsync((action: IActionGetChat, index: number) =>
-      authorization(action, state$, index)
+      authorization(state$, dependencies, action, index)
     ),
     switchMap(actionObservable)
   );
