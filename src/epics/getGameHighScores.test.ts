@@ -22,6 +22,7 @@ import { IState } from "../../types/iState";
 import { IStateGetGameHighScoresQuery } from "../../types/iStateGetGameHighScoresQuery";
 import { IGameHighScore } from "../../types/telegramBot/games/iGameHighScore";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as epic from "../epics/getGameHighScores";
 import { init as initDependencies } from "../utils/dependencies";
 import { ILocale } from "../../types/iLocale";
@@ -64,7 +65,7 @@ describe("getGameHighScores epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

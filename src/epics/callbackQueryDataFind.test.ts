@@ -22,6 +22,7 @@ import { IState } from "../../types/iState";
 import { IStateCallbackQueryDataFindQuery } from "../../types/iStateCallbackQueryDataFindQuery";
 import { IStateCallbackQueryDataInsertQuery } from "../../types/iStateCallbackQueryDataInsertQuery";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import { collectionObservable } from "../libs/mongodbObservable";
 import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
@@ -75,7 +76,7 @@ describe("callbackQueryDataFind epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

@@ -23,6 +23,7 @@ import { IState } from "../../types/iState";
 import { IStateGetChatAdministratorsQuery } from "../../types/iStateGetChatAdministratorsQuery";
 import { IChatMember } from "../../types/telegramBot/types/iChatMember";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as epic from "../epics/getChatAdministrators";
 import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
@@ -63,7 +64,7 @@ describe("getChatAdministrators epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

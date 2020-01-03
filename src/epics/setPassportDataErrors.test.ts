@@ -22,6 +22,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateSetPassportDataErrorsQuery } from "../../types/iStateSetPassportDataErrorsQuery";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as epic from "../epics/setPassportDataErrors";
 import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
@@ -62,7 +63,7 @@ describe("setPassportDataErrors epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

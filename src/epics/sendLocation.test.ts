@@ -23,6 +23,7 @@ import { IState } from "../../types/iState";
 import { IStateSendLocationQuery } from "../../types/iStateSendLocationQuery";
 import { IMessage } from "../../types/telegramBot/types/iMessage";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as epic from "../epics/sendLocation";
 import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
@@ -63,7 +64,7 @@ describe("sendLocation epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

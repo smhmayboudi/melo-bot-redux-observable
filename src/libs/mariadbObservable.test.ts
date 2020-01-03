@@ -3,6 +3,8 @@ import { ColdObservable } from "rxjs/internal/testing/ColdObservable";
 import { RunHelpers } from "rxjs/internal/testing/TestScheduler";
 import { TestScheduler } from "rxjs/testing";
 
+import * as env from "../configs/env";
+
 import {
   createConnectionObservable,
   queryObservable
@@ -13,7 +15,7 @@ describe("mariadbObservable lib", (): void => {
 
   beforeAll(
     async (): Promise<void> => {
-      connection = await createConnection("");
+      connection = await createConnection(env.MARIA_CLIENT_URI);
     }
   );
 

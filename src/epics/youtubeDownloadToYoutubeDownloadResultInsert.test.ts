@@ -26,6 +26,7 @@ import { IMessage } from "../../types/telegramBot/types/iMessage";
 import { IPhotoSize } from "../../types/telegramBot/types/iPhotoSize";
 import { IVideo } from "../../types/telegramBot/types/iVideo";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import { init as initDependencies } from "../utils/dependencies";
 import { initialState } from "../utils/store";
 import { caption, locale } from "../utils/string";
@@ -124,7 +125,7 @@ describe("youtubeDownload epic", (): void => {
 
     beforeAll(
       async (): Promise<void> => {
-        mariaClient = await createConnection("");
+        mariaClient = await createConnection(env.MARIA_CLIENT_URI);
         mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
           useNewUrlParser: true,
           useUnifiedTopology: true

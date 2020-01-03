@@ -22,6 +22,7 @@ import { IState } from "../../types/iState";
 import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import { init as initDependencies } from "../utils/dependencies";
 import { transformSearchResults } from "../utils/inlineQueryResultArticle";
 import { initialState } from "../utils/store";
@@ -119,7 +120,7 @@ describe("youtubeSearchList epic", (): void => {
 
     beforeAll(
       async (): Promise<void> => {
-        mariaClient = await createConnection("");
+        mariaClient = await createConnection(env.MARIA_CLIENT_URI);
         mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
           useNewUrlParser: true,
           useUnifiedTopology: true

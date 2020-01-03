@@ -6,5 +6,5 @@ export interface IStateCallbackQueryDataInsertQuery {
   pageInfo?: youtube_v3.Schema$PageInfo;
   prevPageToken?: string | null;
   q?: string;
-  userId: number;
+  userId?: number;
 }

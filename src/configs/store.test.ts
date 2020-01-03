@@ -16,6 +16,7 @@ import { ILocale } from "../../types/iLocale";
 import { IState } from "../../types/iState";
 import { IStateMessage } from "../../types/iStateMessage";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import { initialState } from "../utils/store";
 import { locale } from "../utils/string";
 import { configureStore } from "./store";
@@ -67,7 +68,7 @@ describe("store configs", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true
@@ -85,13 +86,13 @@ describe("store configs", (): void => {
       };
     }
     const store: Store<IState, IAction> = configureStore(
-      locales,
       {
         future: [],
         past: [],
         present: {},
         userId: 0
       },
+      locales,
       mariaClient,
       mongoClient
     );

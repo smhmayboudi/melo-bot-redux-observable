@@ -29,7 +29,7 @@ describe("dependencies utils", (): void => {
 
   beforeAll(
     async (): Promise<void> => {
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

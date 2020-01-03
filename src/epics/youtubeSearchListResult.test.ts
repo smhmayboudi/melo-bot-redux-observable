@@ -28,6 +28,7 @@ import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 import { IStateMessageQuery } from "../../types/iStateMessageQuery";
 import { IStateYoutubeSearchListQuery } from "../../types/iStateYoutubeSearchListQuery";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import { init as initDependencies } from "../utils/dependencies";
 import { transformSearchResults as transformSearchListInlineQueryResultArticle } from "../utils/inlineQueryResultArticle";
 import { initialState } from "../utils/store";
@@ -206,7 +207,7 @@ describe("youtubeSearchListResult epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

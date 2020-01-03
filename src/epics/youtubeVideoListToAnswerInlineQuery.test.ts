@@ -22,6 +22,7 @@ import { IState } from "../../types/iState";
 import { IStateInlineQueryQuery } from "../../types/iStateInlineQueryQuery";
 import { IStateYoutubeVideoListQuery } from "../../types/iStateYoutubeVideoListQuery";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import { init as initDependencies } from "../utils/dependencies";
 import { transformVideos } from "../utils/inlineQueryResultArticle";
 import { initialState } from "../utils/store";
@@ -117,7 +118,7 @@ describe("youtubeVideoList epic", (): void => {
 
     beforeAll(
       async (): Promise<void> => {
-        mariaClient = await createConnection("");
+        mariaClient = await createConnection(env.MARIA_CLIENT_URI);
         mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
           useNewUrlParser: true,
           useUnifiedTopology: true

@@ -22,6 +22,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IStateStopMessageLiveLocationQuery } from "../../types/iStateStopMessageLiveLocationQuery";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as epic from "../epics/stopMessageLiveLocation";
 import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
@@ -51,7 +52,7 @@ describe("stopMessageLiveLocation epic", (): void => {
   beforeAll(
     async (): Promise<void> => {
       locales = await locale("en");
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true

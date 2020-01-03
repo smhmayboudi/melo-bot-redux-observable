@@ -15,6 +15,7 @@ import { IResponse } from "../../types/iResponse";
 import { IState } from "../../types/iState";
 import { IState<%= h.changeCase.pascal(name)%>Query } from "../../types/iState<%= h.changeCase.pascal(name)%>Query";
 import * as actions from "../actions";
+import * as env from "../configs/env";
 import * as epic from "../epics/<%= h.changeCase.camel(name)%>";
 import { init as initDependencies } from "../utils/dependencies";
 import { locale } from "../utils/string";
@@ -46,7 +47,7 @@ describe("<%= h.changeCase.camel(name)%> epic", (): void => {
 
   beforeAll(
     async (): Promise<void> => {
-      mariaClient = await createConnection("");
+      mariaClient = await createConnection(env.MARIA_CLIENT_URI);
       mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
         useNewUrlParser: true,
         useUnifiedTopology: true
