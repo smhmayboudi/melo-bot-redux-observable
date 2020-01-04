@@ -34,9 +34,9 @@ export TELEGRAM_TEXT_LENGTH=4096
 export WEBHOOK_ENABLE=false
 
 rm -fr coverage
-./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests
-# [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose actions
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose configs
+./node_modules/.bin/jest --config ./jest.config.json --verbose
+# [ OK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose actions
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose configs
 #         http
 #         https
 #         kubernetesProbs
@@ -44,13 +44,13 @@ rm -fr coverage
 #         store
 #         telegramBot
 #         telegramBotHandleMessage
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose enhancers
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose enhancers
 #         monitor
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose epics
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose epics
 #         youtubeDownload
 #         youtubeSearchListResult
 #         youtubeVideoListResult
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose libs
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose libs
 #         filterAsync
 #         mongodbObservable
 #         request
@@ -58,11 +58,11 @@ rm -fr coverage
 #         requestsUpload
 #         requestUpload
 #         youtubeDownload
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose middlewares
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose middlewares
 #         crashReporter
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose reducers
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose reducers
 #         undo
-# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --detectOpenHandles --forceExit --passWithNoTests --verbose utils
+# [ NOK ] ./node_modules/.bin/jest --config ./jest.config.json --verbose utils
 #         authorization
 #         dependencies
 #         user

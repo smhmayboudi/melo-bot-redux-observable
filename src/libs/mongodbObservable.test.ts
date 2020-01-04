@@ -21,6 +21,23 @@ import {
 } from "./mongodbObservable";
 
 describe("mongodbObservable lib", (): void => {
+  let mongoClient: MongoClient;
+
+  afterAll(
+    async (): Promise<void> => {
+      await mongoClient.close();
+    }
+  );
+
+  beforeAll(
+    async (): Promise<void> => {
+      mongoClient = await MongoClient.connect(global.__MONGO_URI__, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      });
+    }
+  );
+
   let testScheduler: TestScheduler;
 
   beforeEach((): void => {
@@ -48,7 +65,7 @@ describe("mongodbObservable lib", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
-        a: collectionObservable(new MongoClient("").db(""), "", {})
+        a: collectionObservable(mongoClient.db("test"), "", {})
       });
       expectObservable(action$).toBe("-a", { a: [] });
     });
@@ -58,7 +75,7 @@ describe("mongodbObservable lib", (): void => {
     testScheduler.run((runHelpers: RunHelpers): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
-        a: findOneObservable(new MongoClient("").db("").collection(""), {})
+        a: findOneObservable(mongoClient.db("test").collection("test"), {})
       });
       expectObservable(action$).toBe("-a", { a: [] });
     });
@@ -69,7 +86,7 @@ describe("mongodbObservable lib", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
         a: insertOneObservable(
-          new MongoClient("").db("").collection(""),
+          mongoClient.db("test").collection("test"),
           "",
           {}
         )
@@ -83,7 +100,7 @@ describe("mongodbObservable lib", (): void => {
       const { cold, expectObservable } = runHelpers;
       const action$: ColdObservable<any> = cold("-a", {
         a: replaceOneObservable(
-          new MongoClient("").db("").collection(""),
+          mongoClient.db("test").collection("test"),
           {},
           "",
           {}

@@ -50,6 +50,7 @@ describe("dependencies utils", (): void => {
     expect("connectionObservable" in initDependencies).toBeTruthy();
     expect("findOneObservable" in initDependencies).toBeTruthy();
     expect("insertOneObservable" in initDependencies).toBeTruthy();
+    expect("locales" in initDependencies).toBeTruthy();
     expect("mongoClientObservable" in initDependencies).toBeTruthy();
     expect("queryObservable" in initDependencies).toBeTruthy();
     expect("requestObservable" in initDependencies).toBeTruthy();
@@ -58,7 +59,7 @@ describe("dependencies utils", (): void => {
     expect("requestsUploadObservable" in initDependencies).toBeTruthy();
     expect("testAction$" in initDependencies).toBeTruthy();
     expect("youtubeDownloadObservable" in initDependencies).toBeTruthy();
-    expect(Object.keys(initDependencies).length).toEqual(15);
+    expect(Object.keys(initDependencies).length).toEqual(16);
     expect(initDependencies).toMatchObject({
       botToken: env.BOT_TOKEN,
       testAction$: undefined

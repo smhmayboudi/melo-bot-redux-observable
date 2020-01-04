@@ -1,27 +1,3 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "./dist",
-    "plugins": [{ "name": "typescript-tslint-plugin" }],
-    "preserveConstEnums": true,
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "target": "es6",
-    "strict": true
-  },
-  "include": [
-    "./src/**/*.ts",
-    "./types/**/*.ts"
-  ]
+  "extends": "./tsconfig.json"
 }
