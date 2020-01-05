@@ -3,10 +3,10 @@
   "globalSetup": "./db/setup.js",
   "globalTeardown": "./db/teardown.js",
   "moduleFileExtensions": ["js", "ts"],
-  "rootDir": "src",
+  "roots": [ "<rootDir>/src" ],
   "testEnvironment": "./db/environment.js",
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(t|j)s$",
   "transform": {
-    "^.+\\.(t|j)s$": "ts-jest"
+    "^.+\\.ts$": "ts-jest"
   }
 }

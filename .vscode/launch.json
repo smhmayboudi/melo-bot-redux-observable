@@ -29,6 +29,8 @@
 			"args": [
 				"--config",
 				"${workspaceRoot}/jest.config.json",
+				"--detectOpenHandles",
+				"--forceExit",
 				"--runInBand",
 				"${fileBasenameNoExtension}"
 			],
