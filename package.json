@@ -26,14 +26,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^5.10.2",
+    "@sentry/node": "^5.11.0",
     "casbin": "^3.0.8",
     "debug": "^4.1.1",
     "form-data": "^3.0.0",
     "gc-stats": "^1.4.0",
     "googleapis": "^46.0.0",
     "lodash": "^4.17.15",
-    "mariadb": "^2.1.4",
+    "mariadb": "^2.1.5",
     "mongodb": "^3.4.1",
     "node-telegram-bot-api": "^0.40.0",
     "prom-client": "^11.5.3",
@@ -45,7 +45,7 @@
     "source-map-support": "^0.5.16"
   },
   "devDependencies": {
-    "@sentry/types": "^5.10.0",
+    "@sentry/types": "^5.11.0",
     "@types/debug": "^4.1.5",
     "@types/form-data": "^2.5.0",
     "@types/jest": "^24.0.25",
@@ -57,27 +57,22 @@
     "@types/redux": "^3.6.0",
     "@types/remote-redux-devtools": "^0.5.3",
     "@types/source-map-support": "^0.5.0",
-    "@typescript-eslint/eslint-plugin": "^2.14.0",
-    "@typescript-eslint/parser": "^2.14.0",
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^3.1.0",
+    "husky": "^4.0.6",
     "hygen": "^5.0.3",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "mongodb-memory-server": "^6.2.1",
-    "nock": "^11.7.1",
+    "nock": "^11.7.2",
     "prettier": "^1.19.1",
     "remote-redux-devtools": "^0.5.16",
     "remotedev-server": "^0.3.1",
     "sqlite3": "^4.1.1",
-    "ts-jest": "^24.2.0",
+    "ts-jest": "^24.3.0",
     "typescript": "^3.7.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
