@@ -32,7 +32,7 @@
     "form-data": "^3.0.0",
     "gc-stats": "^1.4.0",
     "googleapis": "^46.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "mariadb": "^2.1.5",
     "mongodb": "^3.4.1",
     "node-telegram-bot-api": "^0.40.0",
