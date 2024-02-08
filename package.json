@@ -28,7 +28,7 @@
   "dependencies": {
     "@sentry/node": "^5.11.0",
     "casbin": "^3.0.8",
-    "debug": "^4.1.1",
+    "debug": "^4.3.1",
     "form-data": "^3.0.0",
     "gc-stats": "^1.4.0",
     "googleapis": "^46.0.0",
